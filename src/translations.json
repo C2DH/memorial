@@ -1,0 +1,29 @@
+{
+  "en-GB": {
+    "translation": {
+      "asNumber": "{{ n,2 }}",
+      "navigationAbout": "About",
+      "navigationHome": "/",
+      "navigationTermsOfUse": "Terms of use",
+      "pagesHomeTitle": "Memorial (en)",
+      "pagesHomeSubheading": "",
+      "pagesNotFoundTitle": "Not Found"
+    }
+  },
+  "fr-FR": {
+    "translation": {
+      "asNumber": "{{ n,2 }}",
+      "navigationAbout": "About",
+      "navigationHome": "/",
+      "navigationTermsOfUse": "Terms of use",
+      "pagesHomeTitle": "Memorial (fr)",
+      "pagesHomeSubheading": "",
+      "pagesNotFoundTitle": "Not Found",
+      "pagesSearchTitle": "Search",
+      "pagesSearchPlaceholder": "Search ...",
+      "pagesSearchWithCount": "<b>{{ count }}</b> document found",
+      "pagesSearchWithCount_0": "sorry, I can't find any documents for your request ...",
+      "pagesSearchWithCount_plural": "<b>{{count}}</b> documents found"
+    }
+  }
+}
