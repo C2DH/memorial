@@ -12,7 +12,7 @@ const TermsOfUse = lazy(() => import('./pages/TermsOfUse'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 const Story = lazy(() => import('./pages/Story'))
 const Person = lazy(() => import('./pages/Person'))
-const Search = lazy(() => import('./pages/Search'))
+const People = lazy(() => import('./pages/People'))
 
 /* Pages routing by language */
 const LangRoutes = () => {
@@ -34,8 +34,8 @@ const LangRoutes = () => {
       <Route exact path={`${path}/person/:slug`}>
         <Person />
       </Route>
-      <Route exact path={`${path}/search`}>
-        <Search />
+      <Route exact path={`${path}/people`}>
+        <People />
       </Route>
       <Route path={`${path}*`}>
         <NotFound />

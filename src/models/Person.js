@@ -6,7 +6,8 @@ export default class Person {
     birthDate = '',
     birthPlace = '',
     birthYear = 0,
-    notes = ''
+    notes = '',
+    convoy=''
   }) {
     this.firstName = firstName
     this.lastName = lastName
@@ -14,6 +15,7 @@ export default class Person {
     this.birthDate = birthDate
     this.birthPlace = birthPlace
     this.birthYear = birthYear
+    this.convoy = convoy
     this.notes = notes
   }
 }

@@ -7,7 +7,14 @@ fs.appendFile('./setupProxy.log', `${(new Date()).toISOString()} target:${target
 
 module.exports = function(app) {
   app.use(
-    '/api',
+    apiPath,
+    createProxyMiddleware({
+      target,
+      changeOrigin: true,
+    })
+  );
+  app.use(
+    '/media',
     createProxyMiddleware({
       target,
       changeOrigin: true,

@@ -7,14 +7,15 @@
     left: 0;
     right: 0;
     z-index: 0;
-    background: var(--white);
-    transform: translate3d(0, -100%, 0);
+    background: var(--accent);
+    // transform: translate3d(0, -100%, 0);
+    border-bottom: 1px solid var(--dark);
     will-change: transform, background-color;
-    transition: transform  0.6s cubic-bezier(0.83, 0, 0.17, 1), background-color .5s ease-in-out;
+    // transition: transform  0.6s cubic-bezier(0.83, 0, 0.17, 1), background-color .5s ease-in-out;
   }
-  &:hover::before{
-    transform: translate3d(0, 0%, 0);
-  }
+  // &:hover::before{
+  //   transform: translate3d(0, 0%, 0);
+  // }
   position: fixed;
   top: 0px;
   width: 100%;
@@ -32,6 +33,5 @@
 }
 
 .Header .Header_HeaderLink.active{
-  background: var(--dark);
-  color: var(--primary);
+  font-weight: bold;
 }

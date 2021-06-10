@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import {
   HomeRoute,
+  PeopleRoute,
   SearchRoute,
   AboutRoute,
   Languages,
@@ -54,6 +55,9 @@ const Header = () => {
               <HeaderLink to={SearchRoute.to}
                 active={activeRoute === SearchRoute.to || activeRoute.indexOf('/doc/') !== -1 }
               >{t(SearchRoute.label)}</HeaderLink>
+              <HeaderLink to={PeopleRoute.to}
+                active={activeRoute === PeopleRoute.to || activeRoute.indexOf('/person/') !== -1 }
+              >{t(PeopleRoute.label)}</HeaderLink>
             </div>
           </Col>
           <Col>

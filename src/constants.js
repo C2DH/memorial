@@ -1,10 +1,13 @@
 export const HomeRoute = { to:'/', label: 'navigationHome'}
 export const SearchRoute = { to: '/search', label: 'navigationSearch' }
+export const PeopleRoute = { to: '/people', label: 'navigationPeople' }
+
 export const StoriesRoute = { to: '/stories', label: 'navigationStories' }
 export const AboutRoute = { to: '/about', label: 'navigationAbout' }
 export const TermsOfUseRoute = { to:'/terms', label: 'navigationTermsOfUse'}
 export const PrimaryRoutes = [
   HomeRoute,
+  PeopleRoute,
   SearchRoute,
   AboutRoute
 ]

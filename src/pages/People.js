@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useDocuments } from '@c2dh/react-miller'
 import { useCurrentWindowDimensions } from '../hooks'
 import { useStore } from '../store'
+import DocumentsGrid from '../components/DocumentsGrid'
 import DocumentViewerPerson from '../components/DocumentViewer/DocumentViewerPerson'
 import {
   useQueryParams,
@@ -27,7 +28,7 @@ const DocumentsPager = ({ loading, pagination }) => {
   return t('pagesSearchError')
 }
 
-const Search = () => {
+const People = ({ debug = false}) => {
   const { height } = useCurrentWindowDimensions()
   const { t, i18n } = useTranslation()
   const {changeTheme} = useStore(state => state)
@@ -39,7 +40,7 @@ const Search = () => {
   }, [changeTheme])
   const [query, setQuery] = useQueryParams({
     q: withDefault(StringParam, ''),
-    g: withDefault(StringParam, 'data.type'),
+    g: withDefault(StringParam, 'data.birth_year'),
     sort: withDefault(StringParam , 'asc'),
     filters: withDefault(ArrayParam, []),
   });
@@ -49,9 +50,9 @@ const Search = () => {
     limit: 1000,
     offset: 0,
     q: query.q,
-    // filters: {
-    //   data__type: queryString.type || undefined,
-    // },
+    filters: {
+      data__type: 'person',
+    },
     exclude: { type: 'entity' },
     crossFacets: {
       allFacets: {
@@ -88,63 +89,61 @@ const Search = () => {
           </Col>
         </Row>
       </Container>
-      <Container>
-        <Row className=" border-bottom border-white">
+      <Container className="bg-accent" style={{position: 'sticky', top: 65, zIndex: 1}}>
+        <Row className=" border-bottom border-dark py-2" >
           <Col>
-            <form className="form-inline mb-2">
-            <FormControl className="mr-2 bg-transparent border border-white" type="input"
+            <form className="form-inline">
+            <FormControl className="mr-2 bg-transparent border border-dark" type="input"
               defaultValue={query.q}
               placeholder={t('pagesSearchPlaceholder')}
               onChange={handleChangeSearchQuery}>
             </FormControl>
             <DocumentsPager loading={loading} pagination={pagination} />
-
+            <div class="form-group" className="mx-2"> Group by</div>
+            <Dropdown className="my-2" as={ButtonGroup}>
+              <Dropdown.Toggle variant="transparent" id="dropdown-basic-button" className="border-bottom border-dark">
+                <b>{t(query.g.replace('.',''))}</b>
+              </Dropdown.Toggle>
+              <Dropdown.Menu className="bg-accent border border-dark">
+                {['data.convoy', 'data.last_name', 'data.birth_year', 'data.birth_place', 'data.death_place', 'data.sex', 'all'].filter(g => g !== query.g).map((g,i) => (
+                  <Dropdown.Item key={i} active={query.g === g} onClick={() => setQuery({ g })}>
+                    {t(g.replace('.',''))}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+            <Dropdown className="my-2 ml-1" as={ButtonGroup}>
+              <Dropdown.Toggle variant="transparent" id="dropdown-basic-button" className="border-bottom border-dark">
+                {t(query.sort)}
+              </Dropdown.Toggle>
+              <Dropdown.Menu className="bg-accent border border-dark">
+                {['asc', 'desc'].filter(sort => sort !== query.sort).map((sort, i) => (
+                  <Dropdown.Item key={i} active={query.sort === sort} onClick={() => setQuery({ sort })}>
+                    {t(sort)}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
             </form>
           </Col>
         </Row>
-        <Row className="border-bottom border-white">
-          <Col>
-            <Dropdown className="my-2" as={ButtonGroup}>
-              <Dropdown.Toggle variant="link" id="dropdown-basic-button" className="p-0 pb-1">
-                {t(`pagesCollectionSortingGroup-${query.g.replace('.','')}`)}
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="bg-white">
-                {['data.year', 'data.type', 'type', 'data.creator', 'all'].filter(g => g !== query.g).map((g,i) => (
-                  <Dropdown.Item key={i} active={query.g === g} onClick={() => setQuery({ g })}>
-                    {t(`pagesCollectionSortingGroup-${g.replace('.','')}`)}
-                  </Dropdown.Item>
-                ))}
-              </Dropdown.Menu>
-            </Dropdown>
-          </Col>
-          <Col>
-            <Dropdown className="my-2" as={ButtonGroup}>
-              <Dropdown.Toggle variant="link" id="dropdown-basic-button" className="p-0 pb-1">
-                {t(`pagesCollectionSortingOrder-${query.sort}`)}
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="bg-white">
-                {['asc', 'desc'].filter(sort => sort !== query.sort).map((sort, i) => (
-                  <Dropdown.Item key={i} active={query.sort === sort} onClick={() => setQuery({ sort })}>
-                    {t(`pagesCollectionSortingOrder-${sort}`)}
-                  </Dropdown.Item>
-                ))}
-              </Dropdown.Menu>
-            </Dropdown>
-          </Col>
-        </Row>
+
       </Container>
-      <Container>
+      <DocumentsGrid documents={documents || []} groupKey={query.g} ascending={query.sort==='asc'}
+        As={DocumentViewerPerson}
+      />
+      <Container className="mt-4">
         <Row>
         {documents ? documents.map((person, i) => (
-          <Col key={i}>
+          <Col key={i} md={{span:3}}>
             <DocumentViewerPerson person={person}/>
           </Col>
         )): null}
         </Row>
       </Container>
-      {documents ? <pre>{JSON.stringify(documents, null, 2)}</pre>: null}
+      {debug && documents ? <pre>{JSON.stringify(documents, null, 2)}</pre>: null}
     </div>
   )
 }
 
-export default Search
+export default People
