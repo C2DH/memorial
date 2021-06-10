@@ -1,7 +1,9 @@
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware')
+const fs = require('fs')
 const target = process.env.REACT_APP_PROXY || 'http://localhost'
+const apiPath = process.env.REACT_APP_API_ROOT || '/api'
 
-console.info('using setupProxy, target:', target)
+fs.appendFile('./setupProxy.log', `${(new Date()).toISOString()} target:${target} apiPath:${apiPath}\n`, (err) => console.error(err));
 
 module.exports = function(app) {
   app.use(

@@ -1,11 +1,11 @@
 export const HomeRoute = { to:'/', label: 'navigationHome'}
-export const CollectionRoute = { to: '/references', label: 'navigationCollection' }
+export const SearchRoute = { to: '/search', label: 'navigationSearch' }
 export const StoriesRoute = { to: '/stories', label: 'navigationStories' }
 export const AboutRoute = { to: '/about', label: 'navigationAbout' }
 export const TermsOfUseRoute = { to:'/terms', label: 'navigationTermsOfUse'}
 export const PrimaryRoutes = [
   HomeRoute,
-  CollectionRoute,
+  SearchRoute,
   AboutRoute
 ]
 

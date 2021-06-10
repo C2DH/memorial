@@ -7,10 +7,10 @@ import { useCurrentWindowDimensions } from '../hooks'
 const Home = () => {
   const { t } = useTranslation()
   const { height } = useCurrentWindowDimensions()
-
+  // load people
   return (
-    <div className="Home">
-    <Container fluid style={{height}}>
+    <div className="Home mt-5">
+    <Container style={{height}}>
       <Row>
         <Col>
           <h1 className="my-5">{t('pagesHomeTitle')}</h1>
