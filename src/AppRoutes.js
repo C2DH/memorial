@@ -13,6 +13,7 @@ const NotFound = lazy(() => import('./pages/NotFound'))
 const Story = lazy(() => import('./pages/Story'))
 const Person = lazy(() => import('./pages/Person'))
 const People = lazy(() => import('./pages/People'))
+const Search = lazy(() => import('./pages/Search'))
 
 /* Pages routing by language */
 const LangRoutes = () => {
@@ -36,6 +37,9 @@ const LangRoutes = () => {
       </Route>
       <Route exact path={`${path}/people`}>
         <People />
+      </Route>
+      <Route exact path={`${path}/search`}>
+        <Search />
       </Route>
       <Route path={`${path}*`}>
         <NotFound />
