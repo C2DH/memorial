@@ -17,3 +17,12 @@ export const LanguageCodes = Languages.map((l) => l.split('-')[0])
 export const LanguageRoutePattern = `/:lang(${LanguageCodes.join('|')})`
 export const DefaultLanguage = process.env.REACT_APP_DEFAULT_LANGUAGE ?? 'en-GB'
 export const DefaultLanguageCode = DefaultLanguage.split('-')[0]
+
+export const BootstrapColumLayout = Object.freeze({
+  md: { span:8, offset:2 },
+  lg: { span:8, offset:2 }
+})
+
+export const BootstrapMultiColumnLayout = {
+  md: {span: 6},
+}
