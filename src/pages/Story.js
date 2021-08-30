@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useCurrentWindowDimensions } from '../hooks'
 import { useStory } from '@c2dh/react-miller'
 import Person from '../models/Person'
+import { render } from '../logic/markdown'
 
 const BootstrapColumLayout = Object.freeze({
   md: { span:8, offset:2 },
@@ -33,8 +34,11 @@ const Story = ({ match: { params: { slug }}}) => {
       {modules.map((m, i) => (
         <Container className="mt-5" key={i}>
           <Row>
-            <Col {...BootstrapColumLayout}>{m.text.content}
-              {JSON.stringify(m, null, 2)}
+            <Col {...BootstrapColumLayout}>
+              <section dangerouslySetInnerHTML={{
+                __html: render(m.text.content)
+              }}/>
+              {/* JSON.stringify(m, null, 2) */}
             </Col>
           </Row>
         </Container>
