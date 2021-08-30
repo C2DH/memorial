@@ -10,8 +10,8 @@ const Home = lazy(() => import('./pages/Home'))
 const About = lazy(() => import('./pages/About'))
 const TermsOfUse = lazy(() => import('./pages/TermsOfUse'))
 const NotFound = lazy(() => import('./pages/NotFound'))
-const Story = lazy(() => import('./pages/Story'))
-const Person = lazy(() => import('./pages/Person'))
+const StoryPage = lazy(() => import('./pages/Story'))
+const PersonPage = lazy(() => import('./pages/Person'))
 const People = lazy(() => import('./pages/People'))
 const Search = lazy(() => import('./pages/Search'))
 
@@ -29,12 +29,8 @@ const LangRoutes = () => {
       <Route exact path={`${path}/terms-of-use`}>
         <TermsOfUse />
       </Route>
-      <Route exact path={`${path}/story/:slug`}>
-        <Story />
-      </Route>
-      <Route exact path={`${path}/person/:slug`}>
-        <Person />
-      </Route>
+      <Route exact path={`${path}/story/:slug`} component={StoryPage} />
+      <Route exact path={`${path}/person/:slug`} component={PersonPage} />
       <Route exact path={`${path}/people`}>
         <People />
       </Route>

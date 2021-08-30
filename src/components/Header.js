@@ -69,11 +69,13 @@ const Header = () => {
               >{t(d.label)}</HeaderLink>
             ))}
             {Languages.map((lang, i) => (
-              <HeaderLink key={i} forceLanguage={lang.split('-')[0]} to={activeRoute}
+              <HeaderLink key={i}
+                forceLanguage={lang.split('-')[0]} to={activeRoute}
                 active={lang === i18n.language}
                 onClick={(e) => {
                   i18n.changeLanguage(lang)
-                }}>{lang.split('-')[0]}</HeaderLink>
+                }}
+                >{lang.split('-')[0]}</HeaderLink>
             ))}
             </div>
           </Col>
