@@ -78,11 +78,9 @@ const PersonRelatedPeople = ({ person, household }) => {
   )
 }
 
-const PersonPage = () => {
+const PersonPage = ({ match: { params: { slug }}}) => {
   const { i18n } = useTranslation()
   const { height } = useCurrentWindowDimensions()
-
-  const { slug } = useParams()
 
   const [doc, { error, pending }] = useDocument(slug, {
     language: i18n.language,
