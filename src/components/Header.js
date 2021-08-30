@@ -11,6 +11,7 @@ import {
   AboutRoute,
   Languages,
 } from '../constants'
+import Logo from './Logo'
 
 const HeaderLink = ({ to, children, active, onClick, forceLanguage=null, }) => {
   return (
@@ -45,7 +46,7 @@ const Header = () => {
       <Container>
         <Row>
           <Col>
-            <div className="Header_menuGroup">MemorialShoah</div>
+            <Logo width={184} height={136}/>
           </Col>
           <Col md={{span:4}}>
             <div className="Header_menuGroup d-flex justify-content-center">
