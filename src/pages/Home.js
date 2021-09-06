@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useCurrentWindowDimensions } from '../hooks'
 import StoriesReel from '../components/StoriesReel'
 import Landscape from '../components/Landscape'
-
+import { ArrowDown} from 'react-feather'
 const Home = () => {
   const { t } = useTranslation()
   const { width, height } = useCurrentWindowDimensions()
@@ -19,6 +19,7 @@ const Home = () => {
         <Col>
           <h2 className="mb-5">{t('pagesHomeSubheading')}</h2>
           <section dangerouslySetInnerHTML={{__html: t('pagesHomeIntroduction')}} />
+          <a href="#intro"><ArrowDown /></a>
         </Col>
       </Row>
     </Container>
@@ -28,7 +29,7 @@ const Home = () => {
     />
     <StoriesReel height={height}/>
     <Container>
-      <h3>Lorem ipsum dolor sit amet</h3>
+      <h3 id="intro">Lorem ipsum dolor sit amet</h3>
 
       <Row>
         <Col>
