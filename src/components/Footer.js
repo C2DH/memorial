@@ -13,7 +13,8 @@ const Footer = ()=> {
   const { t } = useTranslation()
 
   return (
-    <Container>
+    <footer className="Footer mt-5 pt-5 bg-dark">
+    <Container >
       <Row>
         <Col>Copyright © <a href="https://www.uni.lu/">University of Luxembourg</a> {now.getFullYear()}</Col>
         <Col>
@@ -30,6 +31,7 @@ const Footer = ()=> {
         </Col>
       </Row>
     </Container>
+    </footer>
   )
 }
 

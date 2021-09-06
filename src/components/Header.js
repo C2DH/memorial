@@ -11,7 +11,6 @@ import {
   AboutRoute,
   Languages,
 } from '../constants'
-import Logo from './Logo'
 
 const HeaderLink = ({ to, children, active, onClick, forceLanguage=null, }) => {
   return (
@@ -46,28 +45,23 @@ const Header = () => {
       <Container>
         <Row>
           <Col>
-            <Logo width={184} height={136}/>
-          </Col>
-          <Col md={{span:4}}>
-            <div className="Header_menuGroup d-flex justify-content-center">
-              <HeaderLink to={HomeRoute.to}
+          <div className="Header_menuGroup d-flex justify-content-end">
+          <HeaderLink to={HomeRoute.to}
                 active={activeRoute === HomeRoute.to}
               >{t(HomeRoute.label)}</HeaderLink>
-              <HeaderLink to={SearchRoute.to}
-                active={activeRoute === SearchRoute.to || activeRoute.indexOf('/doc/') !== -1 }
-              >{t(SearchRoute.label)}</HeaderLink>
-              <HeaderLink to={PeopleRoute.to}
-                active={activeRoute === PeopleRoute.to || activeRoute.indexOf('/person/') !== -1 }
-              >{t(PeopleRoute.label)}</HeaderLink>
-            </div>
-          </Col>
-          <Col>
-            <div className="Header_menuGroup d-flex justify-content-end">
+          <HeaderLink to={SearchRoute.to}
+            active={activeRoute === SearchRoute.to || activeRoute.indexOf('/doc/') !== -1 }
+          >{t(SearchRoute.label)}</HeaderLink>
+          <HeaderLink to={PeopleRoute.to}
+            active={activeRoute === PeopleRoute.to || activeRoute.indexOf('/person/') !== -1 }
+          >{t(PeopleRoute.label)}</HeaderLink>
+
             {[AboutRoute].map((d,i) => (
               <HeaderLink to={d.to} key={i}
                 active={activeRoute === d.to}
               >{t(d.label)}</HeaderLink>
             ))}
+            <div className="mx-4"/>
             {Languages.map((lang, i) => (
               <HeaderLink key={i}
                 forceLanguage={lang.split('-')[0]} to={activeRoute}

@@ -32,6 +32,10 @@
   }
 }
 
-.Header .Header_HeaderLink.active{
-  font-weight: bold;
+.Header .Header_HeaderLink{
+
+ &.active{
+   font-weight: bold;
+   border-color: black;
+ }
 }
