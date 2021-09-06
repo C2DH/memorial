@@ -14,19 +14,19 @@ const Home = () => {
     <Container style={{minHeight: height - 10}}>
       <Row className="my-5">
         <Col>
-          <h1>{t('pagesHomeTitle')}</h1>
+          <h1 style={{ position: 'relative', zIndex: 2}}>{t('pagesHomeTitle')}</h1>
         </Col>
         <Col>
-          <h2 className="mb-5">{t('pagesHomeSubheading')}</h2>
-          <section dangerouslySetInnerHTML={{__html: t('pagesHomeIntroduction')}} />
-          <a href="#intro"><ArrowDown /></a>
+          <h2 className="mb-5" style={{ position: 'relative', zIndex: 2}}>
+            <span className="bg-white"> {t('pagesHomeSubheading')}
+            </span>
+          </h2>
+          <section style={{ position: 'relative', zIndex: 2}} className="bg-white" dangerouslySetInnerHTML={{__html: t('pagesHomeIntroduction')}} />
+          <a href="#intro" style={{ position: 'relative', zIndex: 2}}><ArrowDown /></a>
         </Col>
       </Row>
     </Container>
-    <Landscape height={height - 10} width={width}
-      className="position-absolute top-0"
-      style={{ zIndex: -1 }}
-    />
+    <Landscape height={height - 10} width={width}/>
     <StoriesReel height={height}/>
     <Container>
       <h3 id="intro">Lorem ipsum dolor sit amet</h3>

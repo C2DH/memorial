@@ -1,12 +1,12 @@
-import React, {useRef, useState} from 'react'
-import ResizeableCanvas from './ResizeableCanvas'
-import { generateTexture } from '../logic/noise'
+import React from 'react'
+import ResizeableCanvas from '../ResizeableCanvas'
+import { OrbitControls, Stage } from '@react-three/drei'
 // import { Scene, Color, FogExp2, PlaneGeometry } from 'three'
 import { TextureLoader } from 'three'
-import { Canvas, useLoader, meshStandardMaterial, useFrame, mesh, boxGeometry, ambientLight, pointLight
+import {
+  Canvas, useLoader, fog
 } from '@react-three/fiber'
-import { Plane } from '@react-three/drei'
-
+import Terrain from './Terrain'
 
 //
 // function Box(props) {
@@ -32,34 +32,43 @@ import { Plane } from '@react-three/drei'
 //   )
 // }
 
-
+/**
+  https://github.com/Mozzius/terrain-fiber/tree/master/src
+*/
 const LandscapeGenerator = ({ ctx, width, height, textureWidth=100, textureHeight=100 }) => {
-  const displacementMap = useLoader(TextureLoader, "/elevation.png")
-  const normalMap = useLoader(TextureLoader, "/normals.png");
   if(!ctx) {
     return null
   }
+  const onCreatedHandler = ({ camera }) => {
+    camera.zoom=10
+    camera.position.set(0,0,0)
+    camera.lookAt(10, 0, 0)
+  }
 
   return (
-    <div className="LandscapeGenerator position-absolute top-0" style={{ height, width, zIndex: -1 }}>
-    <Canvas height={height}>
-      <ambientLight />
-      <pointLight position={[10, 10, 10]} />
-      {/* <Box position={[-1.2, 0, 0]} />
-      <Box position={[1.2, 0, 0]} />*/}
-      <Plane
-        rotation={[-Math.PI / 2, 0, 0]}
-        position={[0, -3, 0]}
-        args={[64, 64, 64, 64]}
-      >
-        <meshStandardMaterial
-        attach="material"
-        color="#61bfad"
-        metalness={0.2}
-        displacementMap={displacementMap}
+    <div className="LandscapeGenerator position-absolute" style={{ top: 100, height: height, width, zIndex:0 }}>
+    <React.Suspense fallback={<div>Loading...</div>}>
+    <Canvas
+      dpr={window.devicePixelRatio}
+      shadows
+      onCreated={onCreatedHandler}
+      camera={{ position: [0.75, 5.75, 0.75]}}
+    >
+      <fog args={['black', 100, 700]} />
+
+      <OrbitControls autoRotate autoRotateSpeed={.12} enableZoom={false}/>
+      <Stage shadows intensity={1} environment="city" preset="rembrandt">
+      <Terrain
+          seed={4}
+          size={200}
+          height={0.2}
+          levels={8}
+          scale={12}
+          offset={{x: 0, z: -400}}
         />
-      </Plane>
+      </Stage>
     </Canvas>
+    </React.Suspense>
     </div>
   )
   // const canvas = document.getElementById('debug-canvas')
