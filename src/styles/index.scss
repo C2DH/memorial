@@ -5,6 +5,16 @@
 // Boostrap scss
 @import '~bootstrap/scss/bootstrap';
 
+:root {
+  --font-family-headings: 'Inter';
+  --font-family-titles: 'Inter';
+  --white: #ffefe5;
+  --accent: #61bfad;
+  @each $bp, $value in $spacers {
+    --spacer-#{$bp}: #{$value};
+  }
+}
+
 body, html {
   height: 100%;
 }
@@ -16,7 +26,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--accent);
+  background-color: var(--white);
   color: var(--dark);
   will-change: background-color;
   transition: background-color .5s ease-in-out;
@@ -27,16 +37,11 @@ code {
     monospace;
 }
 
-:root {
-  --font-family-headings: 'Inter';
-  --font-family-titles: 'Inter';
-  @each $bp, $value in $spacers {
-    --spacer-#{$bp}: #{$value};
-  }
-}
 
 h1{
-  font-family: var(--font-family-titles)
+  font-family: var(--font-family-titles);
+  font-weight: bold;
+  color: var(--accent);
 }
 
 a{
