@@ -61,7 +61,7 @@ const Header = () => {
                 active={activeRoute === d.to}
               >{t(d.label)}</HeaderLink>
             ))}
-            <div className="mx-4"/>
+            <div className="mx-5"/>
             {Languages.map((lang, i) => (
               <HeaderLink key={i}
                 forceLanguage={lang.split('-')[0]} to={activeRoute}
