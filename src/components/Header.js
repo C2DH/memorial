@@ -1,85 +1,60 @@
-import React, { useState, useEffect } from 'react'
-import {Container, Col, Row} from 'react-bootstrap'
-import LangLink from './LangLink'
-import '../styles/components/Header.scss'
-import { useLocation } from 'react-router-dom'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { Container, Row, Col } from 'react-bootstrap'
 import {
-  HomeRoute,
-  PeopleRoute,
-  SearchRoute,
-  AboutRoute,
+  BootstrapStartColumnLayoutNoOffset,
+  BootstrapEndColumnLayout,
+  DefaultLanguageCode,
   Languages,
+  LanguageCodes
 } from '../constants'
-import Logo from './Logo'
+const LanguagePathRegExp = new RegExp(`\/(${LanguageCodes.join('|')})\/`)
 
-const HeaderLink = ({ to, children, active, onClick, forceLanguage=null, }) => {
-  return (
-    <LangLink className={`Header_HeaderLink ${active ? 'active' : ''}`}
-      forceLanguage={forceLanguage}
-      onClick={onClick}
-      to={to} style={{
-        borderRadius: '1rem',
-      }}
-    >{children}</LangLink>
-  )
-}
 
 const Header = () => {
-  const location = useLocation()
-  const { pathname } = location
-  const { t, i18n } = useTranslation()
-  const [activeRoute, setActiveRoute] = useState('')
+  const { t } = useTranslation()
 
-  useEffect(() => {
-    // get rid of language prefix
-    const route = `/${pathname.split('/').slice(2).join('/')}`
-    if (route.indexOf('/story/') !== -1) {
-      // substory
-      console.info('location has story prefix:', route)
-    }
-    setActiveRoute(route)
-  }, [pathname]);
+  const activeLanguage = location.pathname.match(LanguagePathRegExp)
+  const activeLanguageCode = activeLanguage
+    ? activeLanguage[1]
+    : DefaultLanguageCode
 
   return (
-    <header className="Header w-100">
+    <header className="Header">
       <Container>
         <Row>
-          <Col>
-            <Logo width={184} height={136}/>
+          <Col md={{span:1}}>
+            Logo
           </Col>
-          <Col md={{span:4}}>
-            <div className="Header_menuGroup d-flex justify-content-center">
-              <HeaderLink to={HomeRoute.to}
-                active={activeRoute === HomeRoute.to}
-              >{t(HomeRoute.label)}</HeaderLink>
-              <HeaderLink to={SearchRoute.to}
-                active={activeRoute === SearchRoute.to || activeRoute.indexOf('/doc/') !== -1 }
-              >{t(SearchRoute.label)}</HeaderLink>
-              <HeaderLink to={PeopleRoute.to}
-                active={activeRoute === PeopleRoute.to || activeRoute.indexOf('/person/') !== -1 }
-              >{t(PeopleRoute.label)}</HeaderLink>
+          <Col {...BootstrapStartColumnLayoutNoOffset}>
+            <div className="d-flex mt-3 justify-content-between">
+              <div >
+                Breadcrumb ...
+              </div>
+              <div>
+              Search
+              </div>
             </div>
           </Col>
-          <Col>
-            <div className="Header_menuGroup d-flex justify-content-end">
-            {[AboutRoute].map((d,i) => (
-              <HeaderLink to={d.to} key={i}
-                active={activeRoute === d.to}
-              >{t(d.label)}</HeaderLink>
-            ))}
-            {Languages.map((lang, i) => (
-              <HeaderLink key={i}
-                forceLanguage={lang.split('-')[0]} to={activeRoute}
-                active={lang === i18n.language}
-                onClick={(e) => {
-                  i18n.changeLanguage(lang)
-                }}
-                >{lang.split('-')[0]}</HeaderLink>
-            ))}
+          <Col {...BootstrapEndColumnLayout}>
+            <div className="d-flex mt-3 justify-content-between">
+              <div>
+                About
+              </div>
+              <div>
+                {LanguageCodes.map((d, i) => {
+                  const href = location.pathname.replace(LanguagePathRegExp, '/' + d + '/')
+                  const isActive = d === activeLanguageCode
+                  if(isActive) {
+                    return <b className="ms-3 active" key={d}>{t('language' + d.toUpperCase())}</b>
+                  }
+                  return (<a className="ms-3" key={d} href={href}>{t('language' + d.toUpperCase())}</a>)
+                })}
+              </div>
             </div>
           </Col>
         </Row>
+
       </Container>
     </header>
   )

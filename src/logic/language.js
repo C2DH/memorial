@@ -1,35 +1,39 @@
 import i18n from 'i18next'
-import moment from 'moment'
-import intersection from 'lodash/intersection'
+// import luxon from 'luxon'
 import { initReactI18next, useTranslation } from 'react-i18next'
-import { matchPath } from 'react-router'
+// import { matchPath } from 'react-router'
 import { useParams } from 'react-router-dom'
 import translations from '../translations'
 import {
-  Languages, LanguageCodes, LanguageRoutePattern,
-  DefaultLanguageCode
+  Languages, LanguageCodes,
+  DefaultLanguage, DefaultLanguageCode
 } from '../constants'
 
 
 const getLanguage = () => {
-  const langMatch = matchPath(window.location.pathname, {
-    path: LanguageRoutePattern,
-    exact: false,
-    strict: false,
-  })
-  let startLangShort = langMatch?.params?.lang
-  if (!startLangShort || !LanguageCodes.includes(startLangShort)) {
+  // Match against language code. LanguageCodes = ['en', 'fr', 'de']
+  const reLanguage = new RegExp(`^\/(${LanguageCodes.join('|')})\/?`)
+  const pathLanguage = window.location.pathname.match(reLanguage)
+
+  let languageCode = ''
+  if (pathLanguage) {
+    languageCode = pathLanguage[1]
+  } else {
     // get default short language from browser
     const browserLangsShort = window.navigator?.languages ?? []
     console.info('browser languages detected:', browserLangsShort)
-    const availablesLangsShort = intersection(browserLangsShort, LanguageCodes)
-    startLangShort = availablesLangsShort.length > 0
-      ? availablesLangsShort[0]
-      : DefaultLanguageCode
+    const availablesLangsShort = browserLangsShort
+      .map(d => d.split('-').shift().toLowerCase())
+      .filter(d => LanguageCodes.includes(d))
+    languageCode = availablesLangsShort.length > 0
+        ? availablesLangsShort[0]
+        : DefaultLanguageCode
   }
+
+  console.debug('[getLanguage] languageCode:', languageCode)
   return {
-    languageCode: startLangShort,
-    language: Languages.find(l => l.indexOf(startLangShort) === 0)
+    languageCode,
+    language: Languages.find(l => l.indexOf(languageCode) === 0)
   }
 }
 
@@ -42,18 +46,19 @@ const initializeI18next = () => {
     .init({
       resources: translations,
       lng: language,
+      fallbackLng: DefaultLanguage,
       interpolation: {
         escapeValue: false, // react already safes from xss
         format: function(value, format, lng) {
-            if(value instanceof Date) {
-              if (format === 'fromNow') {
-                return moment(value).fromNow()
-              }
-              return moment(value).format(format)
-            } else if (typeof value === 'number') {
-              // adapt number
-              return new Intl.NumberFormat(lng, { maximumFractionDigits: format }).format(value)
-            }
+            // if(value instanceof Date) {
+            //   if (format === 'fromNow') {
+            //     return moment(value).fromNow()
+            //   }
+            //   return moment(value).format(format)
+            // } else if (typeof value === 'number') {
+            //   // adapt number
+            //   return new Intl.NumberFormat(lng, { maximumFractionDigits: format }).format(value)
+            // }
             return value;
         }
       }

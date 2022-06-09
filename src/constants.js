@@ -17,12 +17,17 @@ export const LanguageCodes = Languages.map((l) => l.split('-')[0])
 export const LanguageRoutePattern = `/:lang(${LanguageCodes.join('|')})`
 export const DefaultLanguage = process.env.REACT_APP_DEFAULT_LANGUAGE ?? 'en-GB'
 export const DefaultLanguageCode = DefaultLanguage.split('-')[0]
+export const MillerAPI = process.env.REACT_APP_MILLER_API ?? '/api';
 
-export const BootstrapColumLayout = Object.freeze({
-  md: { span:8, offset:2 },
-  lg: { span:8, offset:2 }
+export const BootstrapColumnLayout = Object.freeze({
+  md: {span: 6, offset:3},
 })
-
-export const BootstrapMultiColumnLayout = {
-  md: {span: 6},
-}
+export const BootstrapStartColumnLayoutNoOffset = Object.freeze({
+  md: {span: 7},
+})
+export const BootstrapStartColumnLayout = Object.freeze({
+  md: {span: 7, offset:1},
+})
+export const BootstrapEndColumnLayout = Object.freeze({
+  md: {span: 4},
+})
