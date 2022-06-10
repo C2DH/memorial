@@ -46,7 +46,7 @@ const initializeI18next = () => {
     .init({
       resources: translations,
       lng: language,
-      fallbackLng: DefaultLanguage,
+      fallbackLng: [DefaultLanguageCode],
       interpolation: {
         escapeValue: false, // react already safes from xss
         format: function(value, format, lng) {

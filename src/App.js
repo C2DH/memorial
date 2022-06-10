@@ -8,9 +8,9 @@ import {
 import Header from './components/Header'
 import Footer from './components/Footer'
 import LanguageRouter from './components/LanguageRouter'
+import { WithMiller } from './logic/miller';
 import { initializeI18next } from './logic/language'
 const { languageCode } = initializeI18next()
-import { WithMiller } from './logic/miller';
 console.info('initial languageCode', languageCode)
 
 const Home = lazy(() => import('./pages/Home'))
@@ -20,6 +20,7 @@ const Story = lazy(() => import('./pages/Story'))
 
 
 const App = () => {
+  console.debug('[App] rendered')
   return (
     <BrowserRouter>
       <Header />
