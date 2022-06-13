@@ -122,3 +122,19 @@ a{
 .text-secondary{
   color: var(--bs-secondary) !important;
 }
+
+nav li.active a{
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--bs-dark);
+}
+
+.breadcrumb-item.active{
+  font-weight: normal;
+  font-style: italic;
+  color: #d7cbc3;
+}
+
+a:hover{
+  color: var(--bs-dark);
+}

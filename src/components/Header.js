@@ -13,12 +13,15 @@ import {
   LanguagePathRegExp,
   LanguageRootPathRegExp,
   AboutRoute,
+  SearchRoute
 } from '../constants'
+import { useStore } from '../store'
 import '../styles/components/Header.css'
 
 
 const Header = () => {
   const { t } = useTranslation()
+  const routeLabel= useStore(state => state.routeLabel)
 
   const activeLanguage = window.location.pathname.match(LanguagePathRegExp)
   const activeLanguageCode = activeLanguage
@@ -41,7 +44,9 @@ const Header = () => {
                   <Breadcrumb />
                 </li>
                 <li>
-                Search
+                  <LangLink to={SearchRoute.to}>
+                    {t(SearchRoute.label)}
+                  </LangLink>
                 </li>
               </ul>
             </nav>
@@ -49,8 +54,8 @@ const Header = () => {
           <Col {...BootstrapEndColumnLayout}>
             <nav className="Header_ariaLanguageAbout" role="navigation" aria-label={t('ariaLabelLanguageAbout')} >
               <ul className="d-flex justify-content-between">
-                <li>
-                  <LangLink to={AboutRoute.to}>
+                <li className={routeLabel === AboutRoute.label ? 'active' : null}>
+                  <LangLink to={AboutRoute.to} className="">
                     {t(AboutRoute.label)}
                   </LangLink>
                 </li>

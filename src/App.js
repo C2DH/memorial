@@ -1,4 +1,4 @@
-import React, { useEffect, lazy } from 'react'
+import React, { lazy } from 'react'
 import {
   BrowserRouter,
   Routes,
@@ -57,7 +57,14 @@ const App = () => {
                 </React.Suspense>
               }
             />
-            <Route path="*" element={<NotFound/>} />
+            <Route
+              path="*"
+              element={
+                <React.Suspense fallback={<>...</>}>
+                  <NotFound/>
+                </React.Suspense>
+              }
+            />
           </Route>
         </Routes>
       </WithMiller>

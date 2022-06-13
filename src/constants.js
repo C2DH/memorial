@@ -1,11 +1,11 @@
 export const HomeRoute = { to:'/', label: 'navigationHome'}
 export const SearchRoute = { to: '/search', label: 'navigationSearch' }
 export const PeopleRoute = { to: '/people', label: 'navigationPeople' }
-
+export const NotFoundRoute = { to: '/404', label: 'navigationNotFound'}
 export const StoriesRoute = { to: '/stories', label: 'navigationStories' }
 export const StoryRoute = { to: '/story/:storyId', label: 'navigationStory', parentRoute: StoriesRoute }
 export const AboutRoute = { to: '/pages/about', label: 'navigationAbout' }
-export const TermsOfUseRoute = { to:'/terms', label: 'navigationTermsOfUse'}
+export const TermsOfUseRoute = { to:'/pages/terms-of-use', label: 'navigationTermsOfUse'}
 export const PrimaryRoutes = [
   HomeRoute,
   PeopleRoute,
@@ -19,7 +19,8 @@ export const AllRoutes = [
   SearchRoute,
   AboutRoute,
   StoriesRoute,
-  StoryRoute
+  StoryRoute,
+  TermsOfUseRoute,
 ]
 
 export const Languages = (process.env.REACT_APP_LANGUAGES ?? 'en-GB,fr-FR,de-DE').split(',')

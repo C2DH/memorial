@@ -38,6 +38,8 @@ const Breadcrumb = () => {
       } else {
         console.debug(' - NO MATCHING ROUTE!')
       }
+    } else {
+      set([ HomeRoute ])
     }
   }, [ pathname ])
   return (
