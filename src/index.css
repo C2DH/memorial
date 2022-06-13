@@ -124,7 +124,7 @@ a{
 }
 
 nav li.active a{
-  text-decoration: none;
+  text-decoration: underline;
   font-weight: bold;
   color: var(--bs-dark);
 }

@@ -19,7 +19,7 @@ const Story = () => {
   const safeStoryId = storyId.replace(/[^\dA-Za-z-_]/g, '')
 
   const [ story ] = useStory(safeStoryId);
-
+  const isValidStory = Array.isArray(story?.contents?.modules)
   // const { data:story, status, error } = useGetJSON({
   //   url:`/api/story/${safeStoryId}`,
   //   params: { parser: 'yaml' },
@@ -29,7 +29,7 @@ const Story = () => {
       <Container>
         <Row>
           <Col {...BootstrapStartColumnLayout}>
-            {story?.contents.modules.map((module, i) => (
+            {isValidStory && story.contents.modules.map((module, i) => (
               <StoryModule key={i} {...module}/>
             ))}
           </Col>

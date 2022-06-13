@@ -2,7 +2,8 @@ import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import {
   BootstrapStartColumnLayout,
-  BootstrapEndColumnLayout
+  BootstrapEndColumnLayout,
+  BootstrapColumnLayout
 } from '../constants'
 
 const Home = () => {
@@ -26,8 +27,19 @@ const Home = () => {
           </Col>
         </Row>
       </Container>
-      <Container className="h-75 border-top border-dark">
-        blabla
+      <Container>
+        <Row>
+          <Col {...BootstrapColumnLayout}>
+            Biographies
+          </Col>
+        </Row>
+      </Container>
+      <Container>
+        <Row>
+          <Col {...BootstrapColumnLayout}>
+            Biographies
+          </Col>
+        </Row>
       </Container>
     </>
   )

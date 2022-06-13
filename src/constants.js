@@ -1,9 +1,10 @@
 export const HomeRoute = { to:'/', label: 'navigationHome'}
-export const SearchRoute = { to: '/search', label: 'navigationSearch' }
+export const SearchRoute = { to: '/search/all', label: 'navigationSearch' }
+export const SearchStoryRoute = { to: '/search/stories', label: 'navigationStorySearch', parentRoute: SearchRoute }
 export const PeopleRoute = { to: '/people', label: 'navigationPeople' }
 export const NotFoundRoute = { to: '/404', label: 'navigationNotFound'}
-export const StoriesRoute = { to: '/stories', label: 'navigationStories' }
-export const StoryRoute = { to: '/story/:storyId', label: 'navigationStory', parentRoute: StoriesRoute }
+
+export const StoryRoute = { to: '/story/:storyId', label: 'navigationStory', parentRoute: SearchStoryRoute }
 export const AboutRoute = { to: '/pages/about', label: 'navigationAbout' }
 export const TermsOfUseRoute = { to:'/pages/terms-of-use', label: 'navigationTermsOfUse'}
 export const PrimaryRoutes = [
@@ -18,8 +19,8 @@ export const AllRoutes = [
   PeopleRoute,
   SearchRoute,
   AboutRoute,
-  StoriesRoute,
   StoryRoute,
+  SearchStoryRoute,
   TermsOfUseRoute,
 ]
 
@@ -34,7 +35,7 @@ export const DefaultLanguageCode = DefaultLanguage.split('-')[0]
 export const MillerAPI = process.env.REACT_APP_MILLER_API ?? '/api';
 
 export const BootstrapColumnLayout = Object.freeze({
-  md: {span: 6, offset:3},
+  md: {span: 11, offset:1},
 })
 export const BootstrapStartColumnLayoutNoOffset = Object.freeze({
   md: {span: 7},

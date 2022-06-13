@@ -13,7 +13,8 @@ import {
   LanguagePathRegExp,
   LanguageRootPathRegExp,
   AboutRoute,
-  SearchRoute
+  SearchRoute,
+  SearchStoryRoute
 } from '../constants'
 import { useStore } from '../store'
 import '../styles/components/Header.css'
@@ -43,8 +44,16 @@ const Header = () => {
                 <li>
                   <Breadcrumb />
                 </li>
-                <li>
-                  <LangLink to={SearchRoute.to}>
+                <li
+                  className={[
+                    SearchRoute.label,
+                    SearchStoryRoute.label
+                  ].includes(routeLabel)
+                    ? 'active'
+                    : null
+                  }
+                >
+                  <LangLink to={SearchRoute.to} >
                     {t(SearchRoute.label)}
                   </LangLink>
                 </li>
@@ -67,17 +76,8 @@ const Header = () => {
                       : window.location.pathname.replace(LanguagePathRegExp, '/' + d + '/')
 
                     const isActive = d === activeLanguageCode
-                    if(isActive) {
-                      return (
-                        <li key={d}>
-                          <b className="ms-3 active" key={d}>
-                            {t('language' + d.toUpperCase())}
-                          </b>
-                        </li>
-                      )
-                    }
                     return (
-                      <li key={d}>
+                      <li key={d} className={isActive ? 'active' : null}>
                         <a className="ms-3" key={d} href={href}>
                           {t('language' + d.toUpperCase())}
                         </a>

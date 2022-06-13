@@ -6,5 +6,7 @@ import { useTranslation } from 'react-i18next'
  */
 export default function LangLink({ to, ...props }) {
   const { i18n } = useTranslation()
-  return <Link {...props} to={`${i18n.language.split('-').shift().toLowerCase()}${to}`} />
+  const url = `/${i18n.language.split('-').shift().toLowerCase()}${to}`
+  // console.debug('[LangLink] to:', to, 'url:', url)
+  return <Link {...props} to={url} />
 }
