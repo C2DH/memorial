@@ -1,0 +1,10 @@
+.Logo{
+  cursor: pointer;
+}
+.Logo svg rect{
+  fill: var(--bs-dark);
+  transition: fill .26s ease-in-out;
+}
+.Logo:hover svg rect{
+  fill: var(--bs-primary);
+}

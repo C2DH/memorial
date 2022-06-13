@@ -16,6 +16,7 @@ console.info('initial languageCode', languageCode)
 const Home = lazy(() => import('./pages/Home'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 const Story = lazy(() => import('./pages/Story'))
+const Page = lazy(() => import('./pages/Page'))
 
 
 
@@ -32,8 +33,30 @@ const App = () => {
             element={<Navigate to={languageCode} replace />}
           />
           <Route path={languageCode}>
-            <Route path="" element={<Home />} />
-            <Route path="story/:storyId" element={<Story />} />
+            <Route
+              path=""
+              element={
+                <React.Suspense fallback={<>...</>}>
+                  <Home />
+                </React.Suspense>
+              }
+            />
+            <Route
+              path="story/:storyId"
+              element={
+                <React.Suspense fallback={<>...</>}>
+                  <Story />
+                </React.Suspense>
+              }
+            />
+            <Route
+              path="pages/:pageId"
+              element={
+                <React.Suspense fallback={<>...</>}>
+                  <Page />
+                </React.Suspense>
+              }
+            />
             <Route path="*" element={<NotFound/>} />
           </Route>
         </Routes>

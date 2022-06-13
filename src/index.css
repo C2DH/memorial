@@ -57,14 +57,14 @@ code {
 a{
   color: var(--bs-primary);
 }
-.Story h1{
+.Page h1{
   color: var(--bs-primary);
   font-weight: normal;
   font-size: 6rem;
   line-height: 1.2em;
   margin-bottom: var(--size-5);
 }
-.Story h2{
+.Page h2{
   font-weight: normal;
 }
 
@@ -110,4 +110,15 @@ a{
 
 .btn-check:active+.btn-primary:focus, .btn-check:checked+.btn-primary:focus, .btn-primary.active:focus, .btn-primary:active:focus, .show>.btn-primary.dropdown-toggle:focus{
       box-shadow: 0 0 0 0.2rem rgb(97 191 173 / 50%);
+}
+
+.h-75{
+  height: 75vh !important;
+}
+
+.bg-primary{
+  background-color: var(--bs-primary) !important;
+}
+.text-secondary{
+  color: var(--bs-secondary) !important;
 }

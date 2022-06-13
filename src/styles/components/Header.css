@@ -7,7 +7,7 @@
 
 .Header_ariaSearch > ul,
 .Header_ariaLanguageAbout > ul{
-  border-bottom: 1px solid var(--bs-primary);
+  /* border-bottom: 1px solid var(--bs-primary); */
   padding: 1.5rem 0;
 }
 .Header_ariaSearch ul li,

@@ -2,6 +2,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Container, Row, Col } from 'react-bootstrap'
 import Breadcrumb from './Breadcrumb'
+import LangLink from './LangLink'
+import Logo from './Logo'
 import {
   BootstrapStartColumnLayoutNoOffset,
   BootstrapEndColumnLayout,
@@ -9,7 +11,8 @@ import {
   Languages,
   LanguageCodes,
   LanguagePathRegExp,
-  LanguageRootPathRegExp
+  LanguageRootPathRegExp,
+  AboutRoute,
 } from '../constants'
 import '../styles/components/Header.css'
 
@@ -28,8 +31,8 @@ const Header = () => {
     <header className="Header">
       <Container>
         <Row>
-          <Col md={{span:1}}>
-            Logo
+          <Col md={{span:1}} className="position-relative">
+            <Logo width={50} height={50}/>
           </Col>
           <Col {...BootstrapStartColumnLayoutNoOffset}>
             <nav className="Header_ariaSearch" role="navigation" aria-label={t('ariaLabelSearch')} >
@@ -47,7 +50,9 @@ const Header = () => {
             <nav className="Header_ariaLanguageAbout" role="navigation" aria-label={t('ariaLabelLanguageAbout')} >
               <ul className="d-flex justify-content-between">
                 <li>
-                  About
+                  <LangLink to={AboutRoute.to}>
+                    {t(AboutRoute.label)}
+                  </LangLink>
                 </li>
                 <li>
                   <ul className="d-flex">
