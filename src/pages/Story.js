@@ -8,6 +8,7 @@ import { useParams } from 'react-router'
 // } from '../hooks/data'
 import { useStory } from '@c2dh/react-miller'
 import StoryModule from '../components/StoryModule'
+import PreciseScrolling from '../components/PreciseScrolling'
 import {
   BootstrapStartColumnLayout,
   BootstrapEndColumnLayout
@@ -29,9 +30,13 @@ const Story = () => {
       <Container>
         <Row>
           <Col {...BootstrapStartColumnLayout}>
-            {isValidStory && story.contents.modules.map((module, i) => (
-              <StoryModule key={i} {...module}/>
-            ))}
+            {isValidStory && (
+              <PreciseScrolling memoid={safeStoryId}>
+                {story.contents.modules.map((module, i) => (
+                  <StoryModule key={i} {...module}/>
+                ))}
+              </PreciseScrolling>
+            )}
           </Col>
           <Col {...BootstrapEndColumnLayout}>
             <div  className="position-sticky top-page">
