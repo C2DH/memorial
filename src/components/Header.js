@@ -18,7 +18,6 @@ import {
 import { useStore } from '../store'
 import '../styles/components/Header.css'
 
-
 const Header = () => {
   const { t } = useTranslation()
   const routeLabel= useStore(state => state.routeLabel)
@@ -36,7 +35,14 @@ const Header = () => {
       <Container>
         <Row>
           <Col md={{span:1}} className="position-relative">
-            <Logo width={50} height={50}/>
+            <Logo
+              width={50} height={50}
+              style={{
+                top: '50%',
+                marginTop: -25
+              }}
+              className="position-absolute"
+            />
           </Col>
           <Col {...BootstrapStartColumnLayoutNoOffset}>
             <nav className="Header_ariaSearch" role="navigation" aria-label={t('ariaLabelSearch')} >

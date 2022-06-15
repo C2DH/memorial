@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSprings, a } from 'react-spring'
 import { Container, Row, Col } from 'react-bootstrap'
 import {
   BootstrapStartColumnLayout,
@@ -9,8 +10,35 @@ import {
 import '../styles/pages/Home.css'
 
 
+const to = (i) => ({
+  opacity: 1,
+
+  delay: (i * 500) + Math.random() * 4500,
+})
+const from = () => ({ opacity: 0.12 })
+
+
 const Home = () => {
   const { t } = useTranslation()
+  const words = String(t('pagesHomeSubheading')).split(' ')
+  const [animatedWords, ] = useSprings(words.length, (i) => ({
+    config: {
+      duration: 2000,
+    },
+    loop: { reverse: true },
+    ...to(i),
+    from: from(),
+  }))
+  //
+  // React.useLayoutEffect(() => {
+  //   const t = setTimeout(() => {
+  //     api.start(i => to(i))
+  //   }, 10000)
+  //   return function cleanup() {
+  //     clearTimeout(t)
+  //   }
+  // }, [])
+
   return (
     <>
     <div className="position-fixed top-0 left-0 w-100 h-100" style={{
@@ -21,7 +49,17 @@ const Home = () => {
     <Container className="Home page">
         <Row>
           <Col {...BootstrapStartColumnLayout}>
-            <h2 className="display-2">{t('pagesHomeSubheading')}</h2>
+            <div className="w-100">
+              {animatedWords.map((w, i) => (
+                <a.h2
+                  className={`display-2 d-inline-block m-0 ${i === 0 ? 'first' : ''} `}
+                  style={w}
+                  key={i}
+                >
+                  {words[i]}&nbsp;
+                </a.h2>
+              ))}
+            </div>
           </Col>
           <Col {...BootstrapEndColumnLayout}>
 

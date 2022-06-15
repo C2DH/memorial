@@ -1,3 +1,14 @@
 .Footer_ariaLanguageAbout ul{
   list-style: none;
+  padding: 0;
+}
+
+.Footer_LanguageSwitch {
+  padding: 0;
+}
+.Footer_LanguageSwitch li{
+  margin-left: 1.5rem;
+}
+.Footer_LanguageSwitch li.first{
+  margin-left: 0 !important;
 }

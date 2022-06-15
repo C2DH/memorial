@@ -1,12 +1,12 @@
 import React, { lazy } from 'react'
 import { QueryParamProvider } from 'use-query-params'
+import { isMobile } from 'react-device-detect'
 import {
   BrowserRouter,
   Routes,
   Route,
   Navigate
 } from 'react-router-dom'
-import Header from './components/Header'
 import Footer from './components/Footer'
 import LanguageRouter from './components/LanguageRouter'
 import RouteAdapter from './components/RouteAdapter'
@@ -21,13 +21,17 @@ const Story = lazy(() => import('./pages/Story'))
 const Search = lazy(() => import('./pages/Search'))
 const Page = lazy(() => import('./pages/Page'))
 
-
+const Header = lazy(() => import('./components/Header'))
+const MobileHeader = lazy(() => import('./components/MobileHeader'))
 
 const App = () => {
   console.debug('[App] rendered')
   return (
     <BrowserRouter>
-      <Header />
+      {isMobile
+        ? <React.Suspense fallback={null}><MobileHeader /> </React.Suspense>
+        : <React.Suspense fallback={null}><Header /></React.Suspense>
+      }
       <LanguageRouter />
       <WithMiller>
         <QueryParamProvider ReactRouterRoute={RouteAdapter}>
@@ -40,7 +44,7 @@ const App = () => {
             <Route
               path=""
               element={
-                <React.Suspense fallback={<>...</>}>
+                <React.Suspense fallback={<div className="h-75" />}>
                   <Home />
                 </React.Suspense>
               }

@@ -1,24 +1,23 @@
 .Home.page{
   min-height: 65vh;
+  margin-top: 80px;
 }
 
 .Home h2{
   font-weight: bold;
+  font-size: 48px;
   background-image: url("https://i.imgur.com/2TdOqp8.gif");
   /* background-image: url("https://i.imgur.com/U7SCkat.gif"); */
   background-size: 160px 160px;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
 }
+.Home h2.first{
+  /* margin-left: 68px !important; */
+}
 
-
-     @-webkit-keyframes stripes {
-       100% {
-         background-position: 0 -50px;
-       }
-     }
-     @keyframes stripes {
-       100% {
-         background-position: 0 -50px;
-       }
-     }
+@media (min-width:576px) {
+  .Home{
+    margin-top: 2rem;
+  }
+}
