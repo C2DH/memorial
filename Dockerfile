@@ -7,7 +7,7 @@ ARG GIT_REVISION
 WORKDIR /app
 
 COPY package.json .
-COPY yarn.lock .
+COPY package-lock.json .
 
 RUN yarn install
 
@@ -22,7 +22,7 @@ ENV REACT_APP_GIT_TAG=${GIT_TAG}
 ENV REACT_APP_GIT_BRANCH=${GIT_BRANCH}
 ENV REACT_APP_GIT_REVISION=${GIT_REVISION}
 
-RUN yarn build
+RUN npm run build
 
 FROM busybox
 WORKDIR /app
