@@ -42,6 +42,15 @@ const Breadcrumb = () => {
       set([ HomeRoute ])
     }
   }, [ pathname ])
+  if (routes.length === 1 && routes[0].label === HomeRoute.label) {
+    return (
+      <ol className="Breadcrumb breadcrumb m-0">
+        <li className="active">
+          <LangLink to={HomeRoute.to}>{t(HomeRoute.label)}</LangLink>
+        </li>
+      </ol>
+    )
+  }
   return (
     <ol className="Breadcrumb breadcrumb m-0">
       {routes.map((route, i) => {

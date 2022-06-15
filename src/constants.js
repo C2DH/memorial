@@ -27,8 +27,8 @@ export const AllRoutes = [
 export const Languages = (process.env.REACT_APP_LANGUAGES ?? 'en-GB,fr-FR,de-DE').split(',')
 export const LanguageCodes = Languages.map((l) => l.split('-')[0])
 export const LanguageRoutePattern = `/:lang(${LanguageCodes.join('|')})`
-export const LanguagePathRegExp = new RegExp(`\/(${LanguageCodes.join('|')})\/`)
-export const LanguageRootPathRegExp = new RegExp(`^\/(${LanguageCodes.join('|')})/?$`)
+export const LanguagePathRegExp = new RegExp(`/(${LanguageCodes.join('|')})/`)
+export const LanguageRootPathRegExp = new RegExp(`^/(${LanguageCodes.join('|')})/?$`)
 export const DefaultLanguage = process.env.REACT_APP_DEFAULT_LANGUAGE ?? 'en-GB'
 export const DefaultLanguageCode = DefaultLanguage.split('-')[0]
 

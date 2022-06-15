@@ -3,7 +3,7 @@ import ModuleText from './ModuleText'
 
 const StoryModuleText = ({
   text,
-  footnotes
+  // footnotes
 }) => {
   return (
     <section className="StoryModuleText mb-5">

@@ -1,21 +1,24 @@
 import i18n from 'i18next'
-// import luxon from 'luxon'
+import {DateTime} from 'luxon'
 import { initReactI18next, useTranslation } from 'react-i18next'
 // import { matchPath } from 'react-router'
 import { useParams } from 'react-router-dom'
 import translations from '../translations'
 import {
   Languages, LanguageCodes,
-  DefaultLanguage, DefaultLanguageCode
+  DefaultLanguageCode,
+  LanguagePathRegExp,
+  LanguageRootPathRegExp
 } from '../constants'
 
 
 const getLanguage = () => {
-  // Match against language code. LanguageCodes = ['en', 'fr', 'de']
-  const reLanguage = new RegExp(`^\/(${LanguageCodes.join('|')})\/?`)
-  const pathLanguage = window.location.pathname.match(reLanguage)
-
   let languageCode = ''
+  // Match against language code. LanguageCodes = ['en', 'fr', 'de']
+  let pathLanguage = window.location.pathname.match(LanguagePathRegExp)
+  if (!pathLanguage) {
+    pathLanguage = window.location.pathname.match(LanguageRootPathRegExp)
+  }
   if (pathLanguage) {
     languageCode = pathLanguage[1]
   } else {
@@ -50,16 +53,13 @@ const initializeI18next = () => {
       interpolation: {
         escapeValue: false, // react already safes from xss
         format: function(value, format, lng) {
-            // if(value instanceof Date) {
-            //   if (format === 'fromNow') {
-            //     return moment(value).fromNow()
-            //   }
-            //   return moment(value).format(format)
-            // } else if (typeof value === 'number') {
-            //   // adapt number
-            //   return new Intl.NumberFormat(lng, { maximumFractionDigits: format }).format(value)
-            // }
-            return value;
+          if (value instanceof Date) {
+            return DateTime.fromJSDate(value).toFormat(format)
+          } else if (typeof value === 'number') {
+            // adapt number
+            return new Intl.NumberFormat(lng, { maximumFractionDigits: format }).format(value)
+          }
+          return value;
         }
       }
     })

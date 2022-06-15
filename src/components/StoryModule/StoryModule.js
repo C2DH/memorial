@@ -1,3 +1,4 @@
+import React from 'react'
 import StoryModuleText from './StoryModuleText'
 import StoryModuleNotFound from './StoryModuleNotFound'
 

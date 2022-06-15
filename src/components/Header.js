@@ -8,7 +8,6 @@ import {
   BootstrapStartColumnLayoutNoOffset,
   BootstrapEndColumnLayout,
   DefaultLanguageCode,
-  Languages,
   LanguageCodes,
   LanguagePathRegExp,
   LanguageRootPathRegExp,
@@ -25,11 +24,12 @@ const Header = () => {
   const routeLabel= useStore(state => state.routeLabel)
 
   const activeLanguage = window.location.pathname.match(LanguagePathRegExp)
+  const isRootPath = window.location.pathname.match(LanguageRootPathRegExp)
   const activeLanguageCode = activeLanguage
     ? activeLanguage[1]
-    : DefaultLanguageCode
-
-  const isRootPath = window.location.pathname.match(LanguageRootPathRegExp)
+    : isRootPath
+      ? isRootPath[1]
+      : DefaultLanguageCode
 
   return (
     <header className="Header">
@@ -70,7 +70,7 @@ const Header = () => {
                 </li>
                 <li>
                   <ul className="d-flex">
-                  {LanguageCodes.map((d, i) => {
+                  {LanguageCodes.map((d) => {
                     const href = isRootPath
                       ? window.location.pathname.replace(LanguageRootPathRegExp, '/' + d + '/')
                       : window.location.pathname.replace(LanguagePathRegExp, '/' + d + '/')

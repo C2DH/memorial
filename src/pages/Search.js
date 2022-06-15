@@ -1,8 +1,8 @@
 import React from 'react'
 import { useParams } from 'react-router'
 import { useStories } from '@c2dh/react-miller'
-import { Container, Row, Col, Button } from 'react-bootstrap'
-import { useQueryParam, NumberParam, StringParam } from 'use-query-params';
+import { Container, Row, Col } from 'react-bootstrap'
+// import { useQueryParam, NumberParam, StringParam } from 'use-query-params';
 import LangLink from '../components/LangLink'
 import {
   BootstrapColumnLayout,
@@ -11,7 +11,7 @@ import {
 
 
 const SearchStories = () => {
-  const [data, meta] = useStories({
+  const [data,] = useStories({
     params: {
       exclude: {
         tags__slug: 'static'
@@ -19,10 +19,7 @@ const SearchStories = () => {
     },
     suspense: false
   })
-  const {
-    count,
-    results:stories
-  } = data ? data : {}
+  const { count, results:stories } = data ? data : {}
   return (
     <Container>
       <Row>
@@ -30,7 +27,7 @@ const SearchStories = () => {
           <ol>
             {Array.isArray(stories) && stories.map((s, i) => (
               <li key={s.slug}>
-                <h2>
+                <h2>{i + 1} / {count}
                   <LangLink to={`/story/${s.slug}`}>
                     {s.data.title}
                   </LangLink></h2>

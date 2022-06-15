@@ -1,6 +1,5 @@
 import React, { useRef, useLayoutEffect } from 'react'
 import { useScrollPosition } from '@n8tb1t/use-scroll-position'
-import { bisectLeft, bisectRight } from 'd3-array'
 
 export const DirectionDown = 'DOWN'
 export const DirectionUp = 'UP'

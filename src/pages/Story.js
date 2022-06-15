@@ -15,7 +15,7 @@ import {
 } from '../constants'
 
 const Story = () => {
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
   const { storyId } = useParams()
   const safeStoryId = storyId.replace(/[^\dA-Za-z-_]/g, '')
 
