@@ -1,0 +1,28 @@
+.Page h1 {
+  color: transparent; /* var(--bs-primary); */
+  font-weight: normal;
+  font-size: 3.4rem;
+  line-height: 1.2em;
+  margin-top: var(--size-5);
+  margin-bottom: var(--size-3);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--bs-primary);
+}
+.Page h2 {
+  font-weight: normal;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.Page h4 {
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 576px) {
+  .Page {
+    margin-top: 0;
+  }
+  .Page h1 {
+    font-size: 6rem;
+  }
+}

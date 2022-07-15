@@ -44,5 +44,28 @@
       "pagesNotFoundSubheading": "...",
       "pagesStoryAdditionalInfo": "Have additional information or documents to contribute?"
     }
+  },
+  "de-DE": {
+    "translation": {
+      "actionAddAPebble": "Add a pebble to the Memorial",
+      "actionSendUsPageOfTestimony": "Send us pages of Testimony",
+      "ariaLabelSearch": "search & find",
+      "asNumber": "{{ n,2 }}",
+      "languageEN": "En",
+      "languageFR": "Fr",
+      "languageDE": "De",
+      "navigationAbout": "About",
+      "navigationHome": "Index",
+      "navigationSearch": "Search",
+      "navigationStories": "all biographies",
+      "navigationStorySearch": "all stories",
+      "navigationStory": "biography",
+      "navigationTermsOfUse": "Terms of use",
+      "pagesHomeTitle": "Memorial (en)",
+      "pagesHomeSubheading": "This memorial is bridging stories and memories of victims and survivors of the Shoah.",
+      "pagesNotFoundTitle": "Not Found",
+      "pagesNotFoundSubheading": "...",
+      "pagesStoryAdditionalInfo": "Have additional information or documents to contribute?"
+    }
   }
 }

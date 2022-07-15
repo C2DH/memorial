@@ -29,7 +29,7 @@ const SearchStories = () => {
               <li key={s.slug}>
                 <h2>{i + 1} / {count}
                   <LangLink to={`/story/${s.slug}`}>
-                    {s.data.title}
+                    {s.data.title || s.title} h
                   </LangLink></h2>
                 <p>{s.data.abstract}</p>
               </li>
@@ -55,7 +55,7 @@ const Search = () => {
           </Col>
         </Row>
       </Container>
-      {what === 'stories' && <SearchStories />}
+      <SearchStories />
     </div>
   )
 }

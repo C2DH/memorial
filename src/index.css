@@ -1,40 +1,40 @@
 @font-face {
   font-family: 'Inter';
-  font-style:  normal;
+  font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local("Inter-Regular"), url("./fonts/Inter-Regular.woff2?v=3.19") format("woff2"),
-       url("./fonts/Inter-Regular.woff?v=3.19") format("woff");
+  src: local('Inter-Regular'), url('./fonts/Inter-Regular.woff2?v=3.19') format('woff2'),
+    url('./fonts/Inter-Regular.woff?v=3.19') format('woff');
 }
 @font-face {
   font-family: 'Inter';
-  font-style:  italic;
+  font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: local("Inter-Italic"), url("./fonts/Inter-Italic.woff2?v=3.19") format("woff2"),
-       url("./fonts/Inter-Italic.woff?v=3.19") format("woff");
+  src: local('Inter-Italic'), url('./fonts/Inter-Italic.woff2?v=3.19') format('woff2'),
+    url('./fonts/Inter-Italic.woff?v=3.19') format('woff');
 }
 
 @font-face {
   font-family: 'Inter';
-  font-style:  normal;
+  font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: local("Inter-Bold"), url("./fonts/Inter-Bold.woff2?v=3.19") format("woff2"),
-       url("./fonts/Inter-Bold.woff?v=3.19") format("woff");
+  src: local('Inter-Bold'), url('./fonts/Inter-Bold.woff2?v=3.19') format('woff2'),
+    url('./fonts/Inter-Bold.woff?v=3.19') format('woff');
 }
 
-:root{
-  --bs-primary: #61BFAD;
+:root {
+  --bs-primary: #61bfad;
   --bs-primary-text: #3d776c;
-  --bs-secondary: #FFEFE5;
+  --bs-secondary: #ffefe5;
   --small-font-size: 0.8rem;
   --size-1: 0.25rem;
   --size-2: 0.5rem;
+  --size-3: 1rem;
   --size-5: 3rem;
   --bs-font-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 body {
   margin: 0;
@@ -44,98 +44,96 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-  monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-.page{
+.page {
   margin-top: 2rem;
 }
-.top-page{
+.top-page {
   top: 2rem;
 }
 
-a{
+a {
   color: var(--bs-primary-text);
 }
-.Page h1{
-  color: var(--bs-primary);
-  font-weight: normal;
-  font-size: 6rem;
-  line-height: 1.2em;
-  margin-bottom: var(--size-5);
-}
-.Page h2{
-  font-weight: normal;
-}
 
-.btn-primary{
+.btn-primary {
   position: relative;
   color: var(--bs-dark);
   border: 2px solid;
   background: var(--bs-secondary);
-
 }
-.btn-primary:hover{
+.btn-primary:hover {
   background-color: var(--bs-primary);
   border-color: var(--bs-primary);
 }
-.btn-primary:hover::after{
+.btn-primary:hover::after {
   transform: translate(-10px, -10px);
 }
-.btn-primary::after{
+.btn-primary::after {
   position: absolute;
   content: '';
   bottom: -8px;
   left: 5px;
   top: 5px;
   right: -8px;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   border: 2px solid var(--bs-primary);
-  transition: all .25s ease-in-out;
+  transition: all 0.25s ease-in-out;
 
   z-index: -1;
 }
 
-.btn-check:active+.btn-primary, .btn-check:checked+.btn-primary, .btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle{
+.btn-check:active + .btn-primary,
+.btn-check:checked + .btn-primary,
+.btn-primary.active,
+.btn-primary:active,
+.show > .btn-primary.dropdown-toggle {
   background-color: var(--bs-primary);
   border-color: var(--bs-primary);
 }
-.btn-check:focus+.btn-primary, .btn-primary:focus{
+.btn-check:focus + .btn-primary,
+.btn-primary:focus {
   background-color: var(--bs-primary);
   border-color: var(--bs-primary);
 }
-.btn-check:focus+.btn-primary, .btn-primary:focus{
+.btn-check:focus + .btn-primary,
+.btn-primary:focus {
   box-shadow: none;
 }
 
-.btn-check:active+.btn-primary:focus, .btn-check:checked+.btn-primary:focus, .btn-primary.active:focus, .btn-primary:active:focus, .show>.btn-primary.dropdown-toggle:focus{
-      box-shadow: 0 0 0 0.2rem rgb(97 191 173 / 50%);
+.btn-check:active + .btn-primary:focus,
+.btn-check:checked + .btn-primary:focus,
+.btn-primary.active:focus,
+.btn-primary:active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgb(97 191 173 / 50%);
 }
 
-.h-75{
+.h-75 {
   height: 75vh !important;
 }
 
-.bg-primary{
+.bg-primary {
   background-color: var(--bs-primary) !important;
 }
-.text-secondary{
+.text-secondary {
   color: var(--bs-secondary) !important;
 }
 
-nav li.active a{
+nav li.active a {
   text-decoration: underline;
   font-weight: bold;
   color: var(--bs-dark);
 }
 
-.breadcrumb-item.active{
+.breadcrumb-item.active {
   font-weight: normal;
   font-style: italic;
   color: #d7cbc3;
 }
 
-a:hover{
+a:hover {
   color: var(--bs-dark);
 }
