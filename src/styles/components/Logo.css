@@ -1,10 +1,16 @@
-.Logo{
+.Logo {
   cursor: pointer;
 }
-.Logo svg rect{
+.Logo svg rect {
   fill: var(--bs-dark);
-  transition: fill .26s ease-in-out;
+  transition: fill 0.26s ease-in-out;
 }
-.Logo:hover svg rect{
+.Logo:hover svg rect {
   fill: var(--bs-primary);
+}
+.Logo svg text {
+  /* font-weight: bold; */
+  line-height: 20px;
+  font-size: 16px;
+  font-family: var(--bs-font-sans-serif);
 }

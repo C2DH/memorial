@@ -5,8 +5,9 @@
   line-height: 1.2em;
   margin-top: var(--size-5);
   margin-bottom: var(--size-3);
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: var(--bs-primary);
+  /* -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--bs-primary); */
+  color: var(--bs-primary-text);
 }
 .Page h2 {
   font-weight: normal;
