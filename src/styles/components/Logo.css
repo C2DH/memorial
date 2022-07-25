@@ -2,7 +2,7 @@
   cursor: pointer;
 }
 .Logo svg rect {
-  fill: var(--bs-dark);
+  /* fill: var(--bs-dark); */
   transition: fill 0.26s ease-in-out;
 }
 .Logo:hover svg rect {

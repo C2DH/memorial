@@ -7,13 +7,13 @@ import {
   LanguagePathRegExp,
   HomeRoute,
   NotFoundRoute,
-  AllRoutes
+  AllRoutes,
 } from '../constants'
 
 const LanguageRouter = () => {
-  const {pathname} = useLocation()
+  const { pathname } = useLocation()
   const { i18n } = useTranslation()
-  const setRouteLabel = useStore(state => state.setRouteLabel)
+  const setRouteLabel = useStore((state) => state.setRouteLabel)
   const languageCode = i18n.language.split('-').shift()
 
   useEffect(() => {
@@ -36,11 +36,14 @@ const LanguageRouter = () => {
     setRouteLabel(routeLabel)
     console.debug(
       '[LanguageRouter] @useEffect ',
-      '\n - pathname:', pathname,
-      '\n - languageCode:',  languageCode,
-      '\n - routeLabel:', routeLabel
+      '\n - pathname:',
+      pathname,
+      '\n - languageCode:',
+      languageCode,
+      '\n - routeLabel:',
+      routeLabel,
     )
-  }, [pathname, languageCode])
+  }, [pathname, languageCode, setRouteLabel])
 
   return null
 }
