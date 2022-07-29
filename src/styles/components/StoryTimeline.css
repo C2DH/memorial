@@ -1,0 +1,60 @@
+.StoryTimeline_emptyYear,
+.StoryTimeline_emptyYearLabeled,
+.StoryTimeline_decadeYear {
+  height: 2px;
+  background: var(--bs-dark);
+  width: 12px;
+  margin-top: 4px;
+  position: relative;
+}
+.StoryTimeline_emptyYearLabeled {
+  margin-left: -20px;
+  width: 32px;
+  color: coral;
+  background-color: coral;
+}
+.StoryTimeline_emptyYearLabeled label,
+.StoryTimeline_decadeYear label {
+  font-weight: bold;
+  position: absolute;
+  line-height: 16px;
+  font-size: 12px;
+  top: -7px;
+  right: 35px;
+}
+
+.StoryTimeline_decadeYear {
+  width: 30px;
+}
+.StoryTimeline_decadeYear label {
+  right: auto;
+  left: 32px;
+}
+
+.StoryTimeline ol {
+  list-style-type: none;
+  padding-left: 50px;
+}
+
+.StoryTimeline_withDocs ol {
+  padding-left: 34px;
+}
+.StoryTimeline_withDocs h4 {
+  margin-top: 0 !important;
+
+  margin-left: 32px;
+  position: relative;
+}
+
+.StoryTimeline_withDocs h4::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: -32px;
+  width: 32px;
+  height: 2px;
+  background-color: black;
+}
+
+ol.StoryTimeline_unknownDate {
+}

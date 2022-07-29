@@ -1,22 +1,15 @@
 import React from 'react'
 import { useInfiniteDocuments } from '@c2dh/react-miller'
 import { useOnScreen } from '../hooks/viewport'
-import DocumentReference from './DocumentReference'
-import DocumentImage from './DocumentImage'
+import DocumentItem from './DocumentItem'
 import '../styles/components/SearchDocuments.css'
-
-const AvailableDocumentListItemComponents = {
-  reference: DocumentReference,
-  image: DocumentImage,
-  doc: DocumentImage,
-}
 
 const SearchDocuments = ({ q = '', filters = {}, limit = 20, orderby = '-id' }) => {
   const params = {
     filters,
     limit,
     orderby,
-    detailed: true
+    detailed: true,
   }
   if (q.length > 0) {
     params.q = q
@@ -60,25 +53,14 @@ const SearchDocuments = ({ q = '', filters = {}, limit = 20, orderby = '-id' }) 
       {isSuccess && count === 0 && <li>No results.</li>}
       {isSuccess &&
         count > 0 &&
-        results.map((doc, i) => {
-          const DocumentListItem = AvailableDocumentListItemComponents[doc.data.type]
-          if (typeof DocumentListItem !== 'undefined') {
-            return (
-              <li key={doc.id} className="mt-2 ">
-                <label class="small text-muted">
-                  {i + 1} / {count}
-                </label>
-                <DocumentListItem doc={doc} />
-              </li>
-            )
-          }
-          return (
-            <li key={doc.id}>
-              {doc.data.type}
-              <pre>{JSON.stringify(doc, null, 2)}</pre>
-            </li>
-          )
-        })}
+        results.map((doc, i) => (
+          <li key={doc.id} className="mt-2 ">
+            <label class="small text-muted">
+              {i + 1} / {count}
+            </label>
+            <DocumentItem doc={doc} />
+          </li>
+        ))}
       <li ref={ref} className="text-center small mt-2">
         {isLoading ? 'loading...' : hasNextPage ? '...' : '-'}
       </li>
