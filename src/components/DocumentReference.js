@@ -1,19 +1,25 @@
 import React from 'react'
 import Cite from 'citation-js'
+import '../styles/components/DocumentReference.css'
 
-const DocumentReference = ({ doc = {} }) => {
+const DocumentReference = ({ doc = {}, className = 'small' }) => {
   if (!doc.data?.csljson) {
     console.error('data.csljson field not found in doc:', doc)
     return null
   }
   const cite = new Cite(doc.data.csljson)
-  const reference = cite.format('bibliography', {
+  let reference = cite.format('bibliography', {
     template: 'apa',
     format: 'html',
   })
-
+  if (typeof reference === 'string') {
+    reference = reference.replace(
+      /(https?:\/\/[0-9a-zA-Z-./_:?=%&#;]+)/g,
+      (m, link) => `<a href="${link}" target="_blank">${link}</a>`,
+    )
+  }
   return (
-    <div class="small">
+    <div className={`DocumentReference ${className}`}>
       {reference !== null && <p dangerouslySetInnerHTML={{ __html: reference }} />}
     </div>
   )

@@ -16,6 +16,7 @@ const SearchDocuments = ({ q = '', filters = {}, limit = 20, orderby = '-id' }) 
     filters,
     limit,
     orderby,
+    detailed: true
   }
   if (q.length > 0) {
     params.q = q
