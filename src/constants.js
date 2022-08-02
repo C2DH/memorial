@@ -18,6 +18,11 @@ export const StoryRoute = {
   label: 'navigationStory',
   parentRoute: SearchStoryRoute,
 }
+export const AuthorRoute = {
+  to: '/author/:authorId',
+  label: 'navigationAuthor',
+  parentRoute: SearchStoryRoute,
+}
 export const DocumentRoute = {
   to: '/doc/:docId',
   label: 'navigationDoc',
@@ -60,4 +65,10 @@ export const BootstrapStartColumnLayout = Object.freeze({
 })
 export const BootstrapEndColumnLayout = Object.freeze({
   md: { span: 4 },
+})
+export const BootstrapStartReducedColumnLayout = Object.freeze({
+  md: { span: 5, offset: 0 },
+})
+export const BootstrapEndExtendedColumnLayout = Object.freeze({
+  md: { span: 5, offset: 2 },
 })

@@ -14,7 +14,7 @@ import { BootstrapStartColumnLayout, BootstrapEndColumnLayout } from '../constan
 import '../styles/pages/Story.css'
 
 const Story = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { storyId } = useParams()
   const safeStoryId = storyId.replace(/[^\dA-Za-z-_]/g, '')
 

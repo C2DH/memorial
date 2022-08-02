@@ -1,0 +1,28 @@
+.DocumentViewerImage_tools {
+  z-index: 100;
+  left: 2px;
+  top: 2px;
+}
+
+.DocumentViewerImage_tools button {
+  border: 0px solid;
+  background-color: var(--bs-dark);
+  color: var(--white);
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  width: 30px;
+  position: relative;
+  cursor: pointer;
+}
+.DocumentViewerImage_tools button:hover {
+  background-color: var(--white);
+  color: var(--bs-dark);
+  cursor: pointer;
+}
+
+.DocumentViewerImage_tools svg {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+}

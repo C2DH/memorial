@@ -1,0 +1,5 @@
+.DocumentMetadata label {
+  opacity: 0.4;
+  text-transform: uppercase;
+  font-size: var(--small-font-size);
+}
