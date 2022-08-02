@@ -14,6 +14,7 @@ console.info('initial languageCode', languageCode)
 const Home = lazy(() => import('./pages/Home'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 const Story = lazy(() => import('./pages/Story'))
+const Document = lazy(() => import('./pages/Document'))
 const Search = lazy(() => import('./pages/Search'))
 const Page = lazy(() => import('./pages/Page'))
 
@@ -53,6 +54,14 @@ const App = () => {
                 element={
                   <React.Suspense fallback={<>...</>}>
                     <Story />
+                  </React.Suspense>
+                }
+              />
+              <Route
+                path="doc/:docId"
+                element={
+                  <React.Suspense fallback={<>...</>}>
+                    <Document />
                   </React.Suspense>
                 }
               />

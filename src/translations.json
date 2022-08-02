@@ -9,8 +9,10 @@
       "languageFR": "Fr",
       "languageDE": "De",
       "navigationAbout": "About",
+      "navigationDoc": "document",
       "navigationHome": "Accueil",
       "navigationSearch": "Search",
+      "navigationSearchDoc": "Search documents",
       "navigationStories": "all biographies",
       "navigationStorySearch": "all stories",
       "navigationStory": "biography",
@@ -19,7 +21,11 @@
       "pagesHomeSubheading": "This memorial is bridging stories and memories of victims and survivors of the Shoah.",
       "pagesNotFoundTitle": "Not Found",
       "pagesNotFoundSubheading": "...",
-      "pagesStoryAdditionalInfo": "Have additional information or documents to contribute?"
+      "pagesStoryAdditionalInfo": "Have additional information or documents to contribute?",
+      "topStoriesIntro": "Chaque biographie est l'histoires d'une communauté.",
+      "AllStories": "Explorer toute Biographie",
+      "translatedIn": "traduit en",
+      "writtenBy": "écrit par"
     }
   },
   "en-GB": {

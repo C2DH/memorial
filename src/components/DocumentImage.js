@@ -2,7 +2,7 @@ import React from 'react'
 import DocumentReference from './DocumentReference'
 import '../styles/components/DocumentImage.css'
 
-const DocumentImage = ({ doc = { data: {} }, onclick }) => {
+const DocumentImage = ({ doc = { data: {} }, onClick }) => {
   const mediumResolution = doc.data.resolutions?.medium?.url
   const thumbnailResolution = doc.data.resolutions?.thumbnail?.url
   const caption = doc.data.title || doc.title || doc.slug
@@ -13,7 +13,7 @@ const DocumentImage = ({ doc = { data: {} }, onclick }) => {
 
   return (
     <div className="DocumentImage">
-      <picture onClick={onclick}>
+      <picture onClick={onClick}>
         <source media="(min-width:998px)" srcSet={mediumResolution} />
         <img src={thumbnailResolution} alt={doc.type} />
       </picture>

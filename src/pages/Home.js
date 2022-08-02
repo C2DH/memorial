@@ -2,26 +2,25 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSprings, a } from 'react-spring'
 import { Container, Row, Col } from 'react-bootstrap'
+import TopStories from '../components/TopStories'
 import {
   BootstrapStartColumnLayout,
   BootstrapEndColumnLayout,
-  BootstrapColumnLayout
+  BootstrapColumnLayout,
 } from '../constants'
 import '../styles/pages/Home.css'
-
 
 const to = (i) => ({
   opacity: 1,
 
-  delay: (i * 500) + Math.random() * 4500,
+  delay: i * 500 + Math.random() * 4500,
 })
 const from = () => ({ opacity: 0.12 })
-
 
 const Home = () => {
   const { t } = useTranslation()
   const words = String(t('pagesHomeSubheading')).split(' ')
-  const [animatedWords, ] = useSprings(words.length, (i) => ({
+  const [animatedWords] = useSprings(words.length, (i) => ({
     config: {
       duration: 2000,
     },
@@ -41,12 +40,15 @@ const Home = () => {
 
   return (
     <>
-    <div className="position-fixed top-0 left-0 w-100 h-100" style={{
-      opacity: .55,
-      zIndex: -1,
-      backgroundImage: "url('https://miro.medium.com/max/3548/1*gKF1YXEbCA2XdBD5me_wrA.png')"
-    }}/>
-    <Container className="Home page">
+      <div
+        className="d-none position-fixed top-0 left-0 w-100 h-100"
+        style={{
+          opacity: 0.55,
+          zIndex: -1,
+          backgroundImage: "url('https://miro.medium.com/max/3548/1*gKF1YXEbCA2XdBD5me_wrA.png')",
+        }}
+      />
+      <Container className="Home page">
         <Row>
           <Col {...BootstrapStartColumnLayout}>
             <div className="w-100">
@@ -62,22 +64,18 @@ const Home = () => {
             </div>
           </Col>
           <Col {...BootstrapEndColumnLayout}>
-
+            <TopStories />
           </Col>
         </Row>
       </Container>
       <Container>
         <Row>
-          <Col {...BootstrapColumnLayout}>
-            Biographies
-          </Col>
+          <Col {...BootstrapColumnLayout}>Biographies</Col>
         </Row>
       </Container>
       <Container>
         <Row>
-          <Col {...BootstrapColumnLayout}>
-            Biographies
-          </Col>
+          <Col {...BootstrapColumnLayout}>Biographies</Col>
         </Row>
       </Container>
     </>

@@ -1,26 +1,31 @@
-.Home.page{
+.Home.page {
   min-height: 65vh;
   margin-top: 80px;
 }
 
-.Home h2{
+.Home h2.animated {
   font-weight: bold;
   font-size: 48px;
-  background-image: url("https://i.imgur.com/2TdOqp8.gif");
+  background-image: url('https://i.imgur.com/2TdOqp8.gif');
   /* background-image: url("https://i.imgur.com/U7SCkat.gif"); */
   background-size: 160px 160px;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
 }
-.Home h2.first{
+.Home h2 {
+  font-weight: bold;
+  font-size: 48px;
+  color: var(--bs-primary-text);
+}
+.Home h2.first {
   /* margin-left: 68px !important; */
 }
 
-@media (min-width:576px) {
-  .Home{
+@media (min-width: 576px) {
+  .Home {
     margin-top: 0;
   }
-  .Home h2{
-    font-size: 6vw;
+  .Home h2 {
+    font-size: 5vw;
   }
 }

@@ -1,0 +1,14 @@
+.StoryItem del {
+  opacity: 0.24;
+}
+.StoryItem_languages label,
+.StoryItem_authors label {
+  opacity: 0.75;
+}
+.StoryItem_languages,
+.StoryItem_authors {
+  font-size: var(--small-font-size);
+}
+.StoryItem_title {
+  text-decoration: none;
+}

@@ -6,7 +6,7 @@ const Logo = ({
   height = 200,
   marginTop = 35,
   marginLeft = 25,
-  color = 'var(--bs-primary-text)',
+  color = 'var(--bs-dark)',
   className,
   style,
 }) => {

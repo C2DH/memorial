@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import DocumentReference from './DocumentReference'
 import DocumentImage from './DocumentImage'
 
@@ -8,11 +9,12 @@ const AvailableDocumentListItemComponents = {
   doc: DocumentImage,
 }
 
-const DocumentItem = ({ doc = { data: {} } }) => {
+const DocumentItem = ({ doc = { data: {} }, onClick }) => {
+  const navigate = useNavigate()
   const Component = AvailableDocumentListItemComponents[doc.data.type]
 
   if (typeof Component !== 'undefined') {
-    return <Component doc={doc} />
+    return <Component doc={doc} onClick={() => navigate(`/doc/${doc.slug}`)} />
   } else {
     return (
       <div>
