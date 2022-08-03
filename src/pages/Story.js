@@ -6,31 +6,51 @@ import { useParams } from 'react-router'
 //   StatusError,
 //   useGetJSON
 // } from '../hooks/data'
-import { useStory } from '@c2dh/react-miller'
+import { useGetJSON, StatusSuccess } from '../hooks/data'
+import { useAvailableLanguage } from '../hooks/language'
 import StoryModule from '../components/StoryModule'
-import PreciseScrolling from '../components/PreciseScrolling'
 import StoryTimeline from '../components/StoryTimeline'
 import { BootstrapStartColumnLayout, BootstrapEndColumnLayout } from '../constants'
 import '../styles/pages/Story.css'
 
 const Story = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const { storyId } = useParams()
   const safeStoryId = storyId.replace(/[^\dA-Za-z-_]/g, '')
+  const {
+    data: story,
+    status,
+    error,
+  } = useGetJSON({
+    url: `/api/story/${safeStoryId}`,
+    params: { parser: 'yaml' },
+  })
+  const isValidStory = status === StatusSuccess && Array.isArray(story?.contents?.modules)
+  const { availableLanguage } = useAvailableLanguage({
+    translatable: status === StatusSuccess ? story.data.title : {},
+  })
+  console.debug(
+    '[Story]',
+    '\n - safeStoryId:',
+    safeStoryId,
+    '\n - story:',
+    story,
+    availableLanguage,
+  )
 
-  const [story] = useStory(safeStoryId)
-  const isValidStory = Array.isArray(story?.contents?.modules)
-  // const { data:story, status, error } = useGetJSON({
-  //   url:`/api/story/${safeStoryId}`,
-  //   params: { parser: 'yaml' },
-  // })
+  if (error) {
+    console.error(error)
+    return null
+  }
   return (
     <div className="Story page">
       <Container>
         <Row>
           <Col {...BootstrapStartColumnLayout}>
             {isValidStory &&
-              story.contents.modules.map((module, i) => <StoryModule key={i} {...module} />)}
+              story.contents.modules.map((d, i) => (
+                <StoryModule key={i} language={availableLanguage} {...d} />
+              ))}
             {/*isValidStory && (
               <PreciseScrolling memoid={safeStoryId}>
                 {story.contents.modules.map((module, i) => (

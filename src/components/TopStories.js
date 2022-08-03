@@ -1,18 +1,13 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import StoryItem from './StoryItem'
-import LangLink from './LangLink'
 import { StatusError, StatusSuccess, useGetJSON } from '../hooks/data'
 import { shuffle } from '../logic/array'
 import '../styles/components/TopStories.css'
 
-const TopStories = () => {
-  const { t } = useTranslation()
+const TopStories = ({ params = {}, children, allStories = false }) => {
   const { data, status, error } = useGetJSON({
     url: '/api/story',
-    params: {
-      exclude: { tags__name: 'static' },
-    },
+    params,
   })
 
   if (status === StatusError) {
@@ -22,9 +17,9 @@ const TopStories = () => {
 
   return (
     <aside className="TopStories">
-      <p dangerouslySetInnerHTML={{ __html: t('topStoriesIntro') }} />
-      <LangLink to="/search/stories">{t('AllStories')}</LangLink>
-      <ol className="border-top border-dark mt-3">
+      {children}
+
+      <ol>
         {status === StatusSuccess
           ? shuffle(data.results).map((story) => (
               <li key={story.slug}>

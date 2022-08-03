@@ -6,7 +6,7 @@ import { useGetJSON, StatusSuccess } from '../hooks/data'
 import { BootstrapStartReducedColumnLayout, BootstrapEndExtendedColumnLayout } from '../constants'
 import DocumentViewer from '../components/DocumentViewer'
 import DocumentMetadata from '../components/DocumentMetadata'
-
+import TopStories from '../components/TopStories'
 const Document = () => {
   const [bbox, ref] = useBoundingClientRect()
   const { docId } = useParams()
@@ -33,7 +33,14 @@ const Document = () => {
               style={{ minHeight: viewerHeight }}
             >
               {status === StatusSuccess && (
-                <DocumentMetadata memoid={bbox.memo + ',' + doc.id} doc={doc} />
+                <>
+                  <DocumentMetadata memoid={bbox.memo + ',' + doc.id} doc={doc} />
+                  <TopStories
+                    params={{
+                      filters: { slug__startswith: doc.slug.split('-', -1).slice(0, -1).join('-') },
+                    }}
+                  />
+                </>
               )}
               <div>
                 <p className="mt-3">

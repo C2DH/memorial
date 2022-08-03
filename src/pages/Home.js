@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSprings, a } from 'react-spring'
 import { Container, Row, Col } from 'react-bootstrap'
+import LangLink from '../components/LangLink'
 import TopStories from '../components/TopStories'
 import {
   BootstrapStartColumnLayout,
@@ -64,7 +65,16 @@ const Home = () => {
             </div>
           </Col>
           <Col {...BootstrapEndColumnLayout}>
-            <TopStories />
+            <TopStories
+              params={{
+                exclude: { tags__name: 'static' },
+              }}
+            >
+              <section className="mb-3">
+                <p dangerouslySetInnerHTML={{ __html: t('topStoriesIntro') }} />
+                <LangLink to="/search/stories">{t('AllStories')}</LangLink>
+              </section>
+            </TopStories>
           </Col>
         </Row>
       </Container>

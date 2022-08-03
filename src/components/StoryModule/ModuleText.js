@@ -29,7 +29,7 @@ export const FootnoteDefinition = ({ identifier = '', label = '', children }) =>
   )
 }
 
-const ModuleText = ({ content = '', footnotes = [] }) => {
+const ModuleText = ({ content = '', language, footnotes = [] }) => {
   // console.debug('[ModuleText]', content, footnotes)
   let chunks = [content]
   const footnoteIndex = {}

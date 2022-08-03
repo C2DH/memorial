@@ -45,8 +45,6 @@ const StoryTimeline = ({ storyId }) => {
     allDates = Array.apply(null, Array(interval)).map(function (_, i) {
       const t = dates[0].t + i
       const idx = dates.findIndex((d) => d.t === t)
-      console.info('t=', t, idx)
-
       if (idx === -1) {
         return { t, relevant: t % 10 === 0 }
       }
