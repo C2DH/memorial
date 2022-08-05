@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import DocumentReference from './DocumentReference'
 import DocumentImage from './DocumentImage'
+import Person from './Person'
 
 const AvailableDocumentListItemComponents = {
   reference: DocumentReference,
   image: DocumentImage,
   doc: DocumentImage,
+  person: Person,
 }
 
 const DocumentItem = ({ doc = { data: {} }, onClick }) => {
@@ -17,7 +19,14 @@ const DocumentItem = ({ doc = { data: {} }, onClick }) => {
   const Component = AvailableDocumentListItemComponents[doc.data.type]
 
   if (typeof Component !== 'undefined') {
-    return <Component doc={doc} onClick={() => navigate(`/${language}/doc/${doc.slug}`)} />
+    return (
+      <Component
+        doc={doc}
+        onClick={() =>
+          typeof onClick === 'function' ? onClick(doc) : navigate(`/${language}/doc/${doc.slug}`)
+        }
+      />
+    )
   } else {
     return (
       <div>

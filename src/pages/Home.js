@@ -4,6 +4,7 @@ import { useSprings, a } from 'react-spring'
 import { Container, Row, Col } from 'react-bootstrap'
 import LangLink from '../components/LangLink'
 import TopStories from '../components/TopStories'
+import TopDocuments from '../components/TopDocuments'
 import {
   BootstrapStartColumnLayout,
   BootstrapEndColumnLayout,
@@ -75,6 +76,14 @@ const Home = () => {
                 <LangLink to="/search/stories">{t('AllStories')}</LangLink>
               </section>
             </TopStories>
+
+            <TopDocuments
+              params={{
+                filters: { data__type: 'person' },
+                limit: 3,
+              }}
+              label={t('people')}
+            />
           </Col>
         </Row>
       </Container>
