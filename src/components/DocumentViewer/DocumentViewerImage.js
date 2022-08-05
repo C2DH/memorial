@@ -12,13 +12,16 @@ const DocumentViewerImage = ({
 }) => {
   const viewer = useRef()
   const availableWidth = fullScreen ? window.innerWidth : width
-  const availableHeight = fullScreen ? window.innerheight : height
+  const availableHeight = fullScreen ? window.innerHeight : height
+  const imageOriginalWidth = doc.data.snapshot.width || availableWidth
+  const imageOriginalHeight = doc.data.snapshot.height || availableHeight
+
   const url = doc.data.resolutions?.preview?.url
 
   // const frameHeight = height - 20
   const frameWidth = width - 20
   // use calculated height to prepare the zoom
-  const perfectZoom = frameWidth / (doc.data.snapshot.width || frameWidth)
+  const perfectZoom = frameWidth / imageOriginalWidth
   // : (doc.data.snapshot.height || frameHeight) / frameHeight
   console.info(
     '[DocumentViewerImage]',
@@ -32,9 +35,19 @@ const DocumentViewerImage = ({
 
   useEffect(() => {
     if (viewer.current) {
-      viewer.current.centerView(perfectZoom)
+      // centerview recalculated.
+      const x = availableWidth / 2 - (imageOriginalWidth * perfectZoom) / 2
+      const y = availableHeight / 2 - (imageOriginalHeight * perfectZoom) / 2
+      viewer.current.setTransform(x, y, perfectZoom)
     }
-  }, [perfectZoom, fullScreen])
+  }, [
+    perfectZoom,
+    imageOriginalWidth,
+    imageOriginalHeight,
+    availableWidth,
+    availableHeight,
+    fullScreen,
+  ])
 
   if (typeof url !== 'string') {
     return <div>mediaNotSupported</div>

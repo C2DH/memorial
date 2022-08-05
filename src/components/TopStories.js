@@ -18,7 +18,7 @@ const TopStories = ({ params = {}, children, allStories = false }) => {
   return (
     <aside className="TopStories">
       {children}
-
+      <div className="TopStories_verticalLabel">biographies</div>
       <ol>
         {status === StatusSuccess
           ? shuffle(data.results).map((story) => (

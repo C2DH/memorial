@@ -41,7 +41,7 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .DocumentViewer_btn:active {
-  background: red;
+  background-color: red;
 }
 .DocumentViewer_btn:hover {
   background: var(--bs-primary);
