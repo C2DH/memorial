@@ -3,3 +3,12 @@
   text-transform: uppercase;
   font-size: var(--small-font-size);
 }
+
+.DocumentMetadata_languages {
+  font-size: var(--small-font-size);
+}
+.DocumentMetadata .DocumentMetadata_languages label {
+  opacity: 0.75;
+  text-transform: none !important;
+  font-size: var(--small-font-size);
+}

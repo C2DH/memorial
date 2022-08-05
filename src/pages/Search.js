@@ -24,9 +24,9 @@ const Search = () => {
           <Col>
             <h1>Stories</h1>
           </Col>
-          <Col>
+          {/*/}<Col>
             <h1>People</h1>
-          </Col>
+          </Col>/*/}
           <Col>
             <h1>Documents</h1>
           </Col>
@@ -39,7 +39,7 @@ const Search = () => {
           <Col className="h-100 border-dark" style={{ overflow: 'scroll' }}>
             {bbox.isReady && <SearchStories />}
           </Col>
-          <Col className="h-100" style={{ overflow: 'scroll' }}>
+          {/*/<Col className="h-100" style={{ overflow: 'scroll' }}>
             {bbox.isReady && (
               <SearchDocuments
                 filters={{
@@ -48,7 +48,7 @@ const Search = () => {
                 q={q}
               />
             )}
-          </Col>
+          </Col>/*/}
           <Col className="h-100 " style={{ overflow: 'scroll' }}>
             {bbox.isReady && (
               <SearchDocuments

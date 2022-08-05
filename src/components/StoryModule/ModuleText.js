@@ -2,32 +2,8 @@ import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { all } from 'mdast-util-to-hast'
-
-export const FootnoteReference = (props) => {
-  // console.debug('[FootnoteReference]', props)
-  return (
-    <>
-      <sup id={'ref-' + props.identifier}>
-        <a href={'#def-' + props.identifier}>{props.label}</a>
-      </sup>
-    </>
-  )
-}
-
-export const FootnoteDefinition = ({ identifier = '', label = '', children }) => {
-  return (
-    <div
-      id={'def-' + identifier}
-      className="d-flex"
-      style={{
-        fontSize: 'var(--small-font-size)',
-      }}
-    >
-      <label className="me-3">{label}</label>
-      <div>{children}</div>
-    </div>
-  )
-}
+import FootnoteReference from './FootnoteReference'
+import FootnoteDefinition from './FootnoteDefinition'
 
 const ModuleText = ({ content = '', language, footnotes = [] }) => {
   // console.debug('[ModuleText]', content, footnotes)

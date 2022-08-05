@@ -2,6 +2,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import DocumentReference from './DocumentReference'
 import DocumentDate from './DocumentDate'
+import AvailableLanguages from './AvailableLanguages'
+import { useAvailableLanguage } from '../hooks/language'
 import '../styles/components/DocumentMetadata.css'
 
 const DocumentMetadataField = ({ label, children }) => (
@@ -13,28 +15,48 @@ const DocumentMetadataField = ({ label, children }) => (
 )
 
 const DocumentMetadata = ({ doc, memoid }) => {
-  const { t, i18n } = useTranslation()
-  const language = i18n.language.split('-').join('_')
-  const availableLanguages = Object.keys(doc.data.title).filter(
-    (d) => typeof doc.data.title[d] === 'string',
+  const { t } = useTranslation()
+  const { isTranslatable, requestedLanguage, availableLanguage, availableLanguages } =
+    useAvailableLanguage({
+      translatable: doc.data.title,
+    })
+  let title = availableLanguage !== null ? doc.data.title[availableLanguage] : null
+
+  // if (availableLanguage === null) {
+  //
+  // }
+  //     ? typeof doc.data.title === 'string'
+  //       ? doc.data.title
+  //       : null
+  //     : doc.data.title[availableLanguage]
+
+  // extract title from the reference if any
+  console.info(
+    '[DocumentMetadata]',
+    '\n - title (metadata):',
+    title,
+    '\n - availableLanguages:',
+    availableLanguages,
   )
-  if (!availableLanguages.length) {
-    console.error('[DocumentMetadata] No language available in doc.data.title', '\n - doc :', doc)
-  }
-  const availableLanguage =
-    availableLanguages.length && typeof doc.data.title[language] !== 'string'
-      ? availableLanguages[0]
-      : language
-  console.info('[DocumentMetadata]', memoid, doc.data.title, availableLanguage)
 
   const references = Array.isArray(doc.documents)
     ? doc.documents.filter((d) => d.type === 'bibtex')
     : null
 
+  if (references !== null && title == null) {
+    title = references.map((d) => d.title).pop()
+  }
+
   return (
     <div className="DocumentMetadata">
-      <h2>{doc.data.title[availableLanguage] || doc.title || doc.slug}</h2>
-      <DocumentDate doc={doc} language={language.split('_').join('-')}>
+      <h2>{title}</h2>
+      <AvailableLanguages
+        languages={availableLanguages}
+        className="DocumentMetadata_languages mb-3"
+        labelIfEmpty="documentWithoutTranslations"
+        labelifTranslated="documentTranslatedIn"
+      />
+      <DocumentDate doc={doc} language={requestedLanguage.split('_').join('-')}>
         {t('unkownDate')}
       </DocumentDate>
       {typeof doc.data.creator === 'string' && (

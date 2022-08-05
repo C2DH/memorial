@@ -4,27 +4,27 @@ import AuthorItem from './AuthorItem'
 import CoverItems from './CoverItems'
 import LangLink from './LangLink'
 import { LanguageCodes, MillerLanguages } from '../constants'
-
+import AvailableLanguages from './AvailableLanguages'
+import { useAvailableLanguage } from '../hooks/language'
 import '../styles/components/StoryItem.css'
 
 const StoryItem = ({ story, className = '' }) => {
-  const { t, i18n } = useTranslation()
-  const language = i18n.language.split('-').join('_')
-  const availableLanguages = Object.keys(story.data.title)
-  if (!availableLanguages.length) {
-    console.error('[StoryItem] No language available in story.data.title', '\n - story :', story)
-    return null
-  }
-  // get available language from title
-  const availableLanguage =
-    typeof story.data.title[language] === 'undefined' ? availableLanguages[0] : language
-  console.info('[StoryItem]', story.data.title, availableLanguages)
+  const { t } = useTranslation()
+
+  const { availableLanguage, availableLanguages } = useAvailableLanguage({
+    translatable: story.data.title,
+  })
+  const title =
+    availableLanguage === null
+      ? story.data.title || story.title || story.slug
+      : story.data.title[availableLanguage]
+  console.info('[StoryItem]', '\n - title:', title, '\n - availableLanguages:', availableLanguages)
   return (
     <div className={`StoryItem d-flex align-items-center ${className}`}>
       {story.covers.length ? <CoverItems covers={story.covers} /> : null}
       <div className="ms-3">
         <LangLink className="StoryItem_title" to={`/story/${story.slug}`}>
-          <h4 className="m-0 ">{story.data.title[availableLanguage]}</h4>
+          <h4 className="m-0 ">{title}</h4>
         </LangLink>
         <div className="StoryItem_authors">
           <label>{t('writtenBy')}</label>&nbsp;
@@ -34,21 +34,11 @@ const StoryItem = ({ story, className = '' }) => {
             </span>
           ))}
         </div>
-        <div className="StoryItem_languages">
-          <label>{t('translatedIn')}</label>&nbsp;
-          {LanguageCodes.map((d, i) => {
-            const disabled = !availableLanguages.includes(MillerLanguages[i])
-            return disabled ? (
-              <del key={i} className="pe-2">
-                {t(`language${d.toUpperCase()}`)}
-              </del>
-            ) : (
-              <span key={i} className="pe-2">
-                {t(`language${d.toUpperCase()}`)}
-              </span>
-            )
-          })}
-        </div>
+        <AvailableLanguages
+          className="StoryItem_languages"
+          languages={availableLanguages}
+          language={availableLanguage}
+        />
       </div>
     </div>
   )

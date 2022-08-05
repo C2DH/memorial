@@ -55,7 +55,7 @@ const SearchDocuments = ({ q = '', filters = {}, limit = 20, orderby = '-id' }) 
         count > 0 &&
         results.map((doc, i) => (
           <li key={doc.id} className="mt-2 ">
-            <label class="small text-muted">
+            <label className="small text-muted">
               {i + 1} / {count}
             </label>
             <DocumentItem doc={doc} />
