@@ -153,3 +153,84 @@ export function useOnScreen({ threshold = [0, 1], rootMargin = '0% 0% 0% 0%' } =
   }, [])
   return [entry, ref]
 }
+
+export function isFullScreenElement(el) {
+  if (el) {
+    return Boolean(
+      document.fullscreenElement === el ||
+        document.mozFullScreenElement === el ||
+        document.webkitFullscreenElement === el ||
+        document.msFullscreenElement === el,
+    )
+  }
+
+  return Boolean(
+    document.fullscreenElement ||
+      document.mozFullScreenElement ||
+      document.webkitFullscreenElement ||
+      document.msFullscreenElement ||
+      document.fullscreen ||
+      document.mozFullScreen ||
+      document.webkitIsFullScreen ||
+      document.fullScreenMode,
+  )
+}
+
+/* Doc:
+https://pdcamargo.github.io/dreampact/docs/hooks/use-fullscreen
+*/
+// https://github.com/pdcamargo/dreampact/blob/master/src/hooks/useFullScreen/index.ts
+export function useFullScreen(refElement) {
+  const isClient = !!(
+    typeof window !== 'undefined' &&
+    window.document &&
+    window.document.createElement
+  )
+  const initialState = !isClient ? false : isFullScreenElement(refElement.current)
+  const [fullScreen, setFullScreen] = useState(initialState)
+
+  // access various open fullscreen methods
+  function openFullScreen() {
+    const el = (refElement && refElement.current) || document.documentElement
+
+    if (el.requestFullscreen) return el.requestFullscreen()
+    if (el.mozRequestFullScreen) return el.mozRequestFullScreen()
+    if (el.webkitRequestFullscreen) return el.webkitRequestFullscreen()
+    if (el.msRequestFullscreen) return el.msRequestFullscreen()
+  }
+
+  // access various exit fullscreen methods
+  function closeFullScreen() {
+    if (document.exitFullscreen) return document.exitFullscreen()
+    if (document.mozCancelFullScreen) return document.mozCancelFullScreen()
+    if (document.webkitExitFullscreen) return document.webkitExitFullscreen()
+    if (document.msExitFullscreen) return document.msExitFullscreen()
+  }
+
+  useEffect(() => {
+    function handleChange() {
+      setFullScreen(isFullScreenElement(refElement.current))
+    }
+
+    document.addEventListener('webkitfullscreenchange', handleChange, false)
+    document.addEventListener('mozfullscreenchange', handleChange, false)
+    document.addEventListener('msfullscreenchange', handleChange, false)
+    document.addEventListener('MSFullscreenChange', handleChange, false) // IE11
+    document.addEventListener('fullscreenchange', handleChange, false)
+
+    return () => {
+      document.removeEventListener('webkitfullscreenchange', handleChange)
+      document.removeEventListener('mozfullscreenchange', handleChange)
+      document.removeEventListener('msfullscreenchange', handleChange)
+      document.removeEventListener('MSFullscreenChange', handleChange)
+      document.removeEventListener('fullscreenchange', handleChange)
+    }
+  }, [refElement])
+
+  return {
+    fullScreen,
+    open: openFullScreen,
+    close: closeFullScreen,
+    toggle: fullScreen ? closeFullScreen : openFullScreen,
+  }
+}

@@ -26,8 +26,12 @@
 
 :root {
   --bs-primary: #61bfad;
+  --bs-dark: #212529;
   --bs-primary-text: #3d776c;
+  --bs-link-color: #3d776c;
+  --bs-link-hover-color: #212529;
   --bs-secondary: #ffefe5;
+  --bs-btn-focus-shadow-rgb: #61bfad;
   --small-font-size: 0.8rem;
   --white: white;
   --size-1: 0.25rem;
@@ -110,6 +114,10 @@ a {
 .btn-primary:active:focus,
 .show > .btn-primary.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgb(97 191 173 / 50%);
+}
+
+.btn-link:focus {
+  box-shadow: none !important;
 }
 
 .h-75 {

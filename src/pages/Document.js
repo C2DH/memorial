@@ -7,6 +7,7 @@ import { BootstrapStartReducedColumnLayout, BootstrapEndExtendedColumnLayout } f
 import DocumentViewer from '../components/DocumentViewer'
 import DocumentMetadata from '../components/DocumentMetadata'
 import TopStories from '../components/TopStories'
+
 const Document = () => {
   const [bbox, ref] = useBoundingClientRect()
   const { docId } = useParams()

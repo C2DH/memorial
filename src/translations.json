@@ -27,8 +27,9 @@
       "pagesStoryAdditionalInfo": "Have additional information or documents to contribute?",
       "topStoriesIntro": "Chaque biographie est l'histoires d'une communauté.",
       "AllStories": "Explorer toute Biographie",
-      "unkownDate": "Date inconnue.",
       "translatedIn": "traduit en",
+      "unkownDate": "Date inconnue.",
+      "viewFullScreen": "en plein écran",
       "writtenBy": "écrit par"
     }
   },
@@ -61,6 +62,7 @@
       "pagesNotFoundSubheading": "...",
       "pagesStoryAdditionalInfo": "Have additional information or documents to contribute?",
       "unkownDate": "Unknown date.",
+      "viewFullScreen": "view full screen",
       "writtenBy": "written by"
     }
   },
@@ -89,6 +91,7 @@
       "pagesNotFoundSubheading": "...",
       "pagesStoryAdditionalInfo": "Have additional information or documents to contribute?",
       "unkownDate": "Date inconnue.",
+      "viewFullScreen": "fullscreen",
       "writtenBy": "written by"
     }
   }

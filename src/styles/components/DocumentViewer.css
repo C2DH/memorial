@@ -26,3 +26,31 @@
   top: 6px;
   left: 6px;
 }
+
+.DocumentViewer_btn {
+  background: var(--bs-dark);
+  color: var(--white);
+  border-color: transparent;
+  height: 36px;
+  width: 36px;
+  overflow: hidden;
+  border-radius: 18px;
+  padding: 0;
+  line-height: 18px;
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.DocumentViewer_btn:active {
+  background: red;
+}
+.DocumentViewer_btn:hover {
+  background: var(--bs-primary);
+  border-color: var(--bs-primary);
+  cursor: pointer;
+}
+.DocumentViewer_toggleFullScreen {
+  opacity: 0.8;
+}
+.DocumentViewer:hover .DocumentViewer_toggleFullScreen {
+  opacity: 1;
+}
