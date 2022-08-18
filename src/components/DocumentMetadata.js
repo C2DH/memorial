@@ -40,7 +40,7 @@ const DocumentMetadata = ({ doc, memoid }) => {
   )
 
   const references = Array.isArray(doc.documents)
-    ? doc.documents.filter((d) => d.type === 'bibtex')
+    ? doc.documents.filter((d) => ['zotero-item', 'bibtex'].includes(d.type))
     : null
 
   if (references !== null && title == null) {
@@ -56,7 +56,11 @@ const DocumentMetadata = ({ doc, memoid }) => {
         labelIfEmpty="documentWithoutTranslations"
         labelifTranslated="documentTranslatedIn"
       />
-      <DocumentDate doc={doc} language={requestedLanguage.split('_').join('-')}>
+      <DocumentDate
+        doc={doc}
+        references={references}
+        language={requestedLanguage.split('_').join('-')}
+      >
         {t('unkownDate')}
       </DocumentDate>
       {typeof doc.data.creator === 'string' && (
