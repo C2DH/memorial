@@ -2,7 +2,7 @@ import React from 'react'
 import LangLink from './LangLink'
 
 const AuthorItem = ({ author }) => (
-  <LangLink to={`author/${author.slug}`} className="AuthorItem">
+  <LangLink to={`/biographies?author=${author.slug}`} className="AuthorItem">
     {author.fullname}
   </LangLink>
 )

@@ -1,9 +1,17 @@
 import React from 'react'
 import { useDate } from '../hooks/date'
 
-const DocumentDate = ({ doc, language, separator = null, className = '', children, ...rest }) => {
+const DocumentDate = ({
+  doc,
+  language,
+  references = [],
+  separator = null,
+  className = '',
+  children,
+  ...rest
+}) => {
   const { parseDate } = useDate({ language })
-
+  console.info('[DocumentDate]', doc.slug, references)
   if (!doc || !doc.data || !doc.data.start_date) {
     return (
       <span className={`DocumentDate ${className}`} {...rest}>

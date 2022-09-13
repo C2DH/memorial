@@ -11,6 +11,7 @@ import {
   HomeRoute,
   AboutRoute,
   TermsOfUseRoute,
+  BiographiesRoute,
 } from '../constants'
 import LogoFondLuxShoah from '../assets/images/fondluxshoah-logo.png'
 import { useStore } from '../store'
@@ -39,7 +40,7 @@ const Footer = () => {
               aria-label={t('ariaLabelLanguageAbout')}
             >
               <ul>
-                {[HomeRoute, AboutRoute, TermsOfUseRoute].map((route) => (
+                {[HomeRoute, BiographiesRoute, AboutRoute, TermsOfUseRoute].map((route) => (
                   <li key={route.to} className={route.label === routeLabel ? 'active' : null}>
                     <LangLink to={route.to}>{t(route.label)}</LangLink>
                   </li>

@@ -14,6 +14,7 @@ import {
   AboutRoute,
   SearchRoute,
   SearchStoryRoute,
+  BiographiesRoute,
 } from '../constants'
 import { useStore } from '../store'
 import '../styles/components/Header.css'

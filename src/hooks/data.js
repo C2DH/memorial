@@ -36,14 +36,14 @@ export const useGetJSON = ({
     },
     orderedKeys,
   )
-  console.info('useGetJSON', cacheKey)
+  console.info('useGetJSON cacheKey:', cacheKey)
   const [response, setResponse] = useState({
     data: null,
     error: null,
     status: StatusIdle,
   })
   if (process.env.NODE_ENV === 'development') {
-    console.debug('useGetDataset url:', url, 'response', response)
+    console.debug('useGetJSON url:', url, response.status)
   }
   useEffect(() => {
     let cancelRequest = false
@@ -62,9 +62,9 @@ export const useGetJSON = ({
         error: null,
         status: StatusFetching,
       })
-      if (cache.current[url] && allowCached === true) {
-        console.debug('useGetDataset allowCached url:', url)
-        const data = cache.current[url]
+      if (cache.current[cacheKey] && allowCached === true) {
+        console.debug('useGetJSON allowCached cacheKey:', cacheKey)
+        const data = cache.current[cacheKey]
         if (!raw) {
           data.cached = true
         }
@@ -75,7 +75,7 @@ export const useGetJSON = ({
           status: StatusSuccess,
         })
       } else {
-        console.debug('useGetDataset load fresh url:', url, 'timeout', timeout)
+        console.debug('useGetJSON load fresh url:', url, 'timeout', timeout)
         return axios
           .get(url, { params, timeout, onDownloadProgress })
           .then(({ data }) => {
@@ -100,9 +100,9 @@ export const useGetJSON = ({
       }
     }
     if (delay) {
-      console.debug('useGetDataset delayed: ', delay)
+      console.debug('useGetJSON delayed: ', delay)
       timer = setTimeout(() => {
-        console.debug('useGetDataset executed after: ', delay)
+        console.debug('useGetJSON executed after: ', delay)
         fetchData()
       }, delay)
     } else {
@@ -115,7 +115,7 @@ export const useGetJSON = ({
       clearTimeout(timer)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url, allowCached, delay])
+  }, [cacheKey, allowCached, delay])
   return response
 }
 

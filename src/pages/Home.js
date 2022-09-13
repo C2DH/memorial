@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSprings, a } from 'react-spring'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import LangLink from '../components/LangLink'
 import TopStories from '../components/TopStories'
 import TopDocuments from '../components/TopDocuments'
@@ -11,6 +11,7 @@ import {
   BootstrapColumnLayout,
 } from '../constants'
 import '../styles/pages/Home.css'
+import { useGetJSON } from '../hooks/data'
 
 const to = (i) => ({
   opacity: 1,
@@ -30,6 +31,15 @@ const Home = () => {
     ...to(i),
     from: from(),
   }))
+
+  const {
+    data: home,
+    status,
+    error,
+  } = useGetJSON({
+    url: '/api/story/home',
+  })
+
   //
   // React.useLayoutEffect(() => {
   //   const t = setTimeout(() => {
@@ -66,35 +76,46 @@ const Home = () => {
             </div>
           </Col>
           <Col {...BootstrapEndColumnLayout}>
+            <p className="my-3" dangerouslySetInnerHTML={{ __html: t('topStoriesIntro') }} />
+          </Col>
+        </Row>
+      </Container>
+      <Container>
+        <Row>
+          <Col {...BootstrapColumnLayout}>
+            <h2>Les biographies</h2>
             <TopStories
+              className="Home_topStories"
+              olClassName=" d-flex"
               params={{
                 exclude: { tags__name: 'static' },
               }}
             >
               <section className="mb-3">
                 <p dangerouslySetInnerHTML={{ __html: t('topStoriesIntro') }} />
-                <LangLink to="/search/stories">{t('AllStories')}</LangLink>
+              </section>
+              <section className="mb-5">
+                <LangLink to="/biographies">
+                  <Button>{t('allStories')}</Button>
+                </LangLink>
               </section>
             </TopStories>
-
-            <TopDocuments
-              params={{
-                filters: { data__type: 'person' },
-                limit: 3,
-              }}
-              label={t('people')}
-            />
           </Col>
         </Row>
       </Container>
-      <Container>
+      <Container className="mt-5">
         <Row>
-          <Col {...BootstrapColumnLayout}>Biographies</Col>
-        </Row>
-      </Container>
-      <Container>
-        <Row>
-          <Col {...BootstrapColumnLayout}>Biographies</Col>
+          <Col {...BootstrapColumnLayout}>
+            <h2>Trouver les documents d'archive</h2>
+            <section className="mb-3">
+              <p dangerouslySetInnerHTML={{ __html: t('topStoriesIntro') }} />
+            </section>
+            <section className="mb-5">
+              <LangLink to="/biographies">
+                <Button>{t('allStories')}</Button>
+              </LangLink>
+            </section>
+          </Col>
         </Row>
       </Container>
     </>

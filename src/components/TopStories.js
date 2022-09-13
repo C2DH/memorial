@@ -4,7 +4,7 @@ import { StatusError, StatusSuccess, useGetJSON } from '../hooks/data'
 import { shuffle } from '../logic/array'
 import '../styles/components/TopStories.css'
 
-const TopStories = ({ params = {}, children, allStories = false }) => {
+const TopStories = ({ className = '', params = {}, children, allStories = false }) => {
   const { data, status, error } = useGetJSON({
     url: '/api/story',
     params,
@@ -16,7 +16,7 @@ const TopStories = ({ params = {}, children, allStories = false }) => {
   }
 
   return (
-    <aside className="TopStories">
+    <aside className={`TopStories ${className}`}>
       {children}
       <div className="TopStories_verticalLabel">biographies</div>
       <ol>

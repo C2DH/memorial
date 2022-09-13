@@ -1,5 +1,6 @@
 export const HomeRoute = { to: '/', label: 'navigationHome' }
 export const SearchRoute = { to: '/search/all', label: 'navigationSearch' }
+export const BiographiesRoute = { to: '/biographies', label: 'navigationBiographies' }
 export const SearchStoryRoute = {
   to: '/search/stories',
   label: 'navigationStorySearch',
@@ -16,7 +17,7 @@ export const NotFoundRoute = { to: '/404', label: 'navigationNotFound' }
 export const StoryRoute = {
   to: '/story/:storyId',
   label: 'navigationStory',
-  parentRoute: SearchStoryRoute,
+  parentRoute: BiographiesRoute,
 }
 export const AuthorRoute = {
   to: '/author/:authorId',
@@ -41,6 +42,7 @@ export const AllRoutes = [
   SearchStoryRoute,
   TermsOfUseRoute,
   DocumentRoute,
+  BiographiesRoute,
 ]
 
 export const Languages = (process.env.REACT_APP_LANGUAGES ?? 'en-GB,fr-FR,de-DE').split(',')
