@@ -16,7 +16,6 @@ const NotFound = lazy(() => import('./pages/NotFound'))
 const Story = lazy(() => import('./pages/Story'))
 const Biographies = lazy(() => import('./pages/Biographies'))
 const Document = lazy(() => import('./pages/Document'))
-const Person = lazy(() => import('./pages/Person'))
 const Search = lazy(() => import('./pages/Search'))
 const Page = lazy(() => import('./pages/Page'))
 
@@ -80,14 +79,6 @@ const App = () => {
                 element={
                   <React.Suspense fallback={<>...</>}>
                     <Document />
-                  </React.Suspense>
-                }
-              />
-              <Route
-                path="person/:personId"
-                element={
-                  <React.Suspense fallback={<>...</>}>
-                    <Person />
                   </React.Suspense>
                 }
               />

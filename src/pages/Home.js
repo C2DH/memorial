@@ -4,7 +4,7 @@ import { useSprings, a } from 'react-spring'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import LangLink from '../components/LangLink'
 import TopStories from '../components/TopStories'
-import TopDocuments from '../components/TopDocuments'
+// import TopDocuments from '../components/TopDocuments'
 import {
   BootstrapStartColumnLayout,
   BootstrapEndColumnLayout,
@@ -31,14 +31,6 @@ const Home = () => {
     ...to(i),
     from: from(),
   }))
-
-  const {
-    data: home,
-    status,
-    error,
-  } = useGetJSON({
-    url: '/api/story/home',
-  })
 
   //
   // React.useLayoutEffect(() => {

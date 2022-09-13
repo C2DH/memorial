@@ -16,10 +16,9 @@ const DocumentMetadataField = ({ label, children }) => (
 
 const DocumentMetadata = ({ doc, memoid }) => {
   const { t } = useTranslation()
-  const { isTranslatable, requestedLanguage, availableLanguage, availableLanguages } =
-    useAvailableLanguage({
-      translatable: doc.data.title,
-    })
+  const { requestedLanguage, availableLanguage, availableLanguages } = useAvailableLanguage({
+    translatable: doc.data.title,
+  })
   let title = availableLanguage !== null ? doc.data.title[availableLanguage] : null
 
   // if (availableLanguage === null) {
