@@ -22,3 +22,11 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals()
+
+// add information on version on startup
+console.info(
+  'version',
+  process.env.REACT_APP_GIT_TAG,
+  process.env.REACT_APP_GIT_BRANCH,
+  `\nhttps://github.com/C2DH/memorial/commit/${process.env.REACT_APP_GIT_REVISION}`,
+)
