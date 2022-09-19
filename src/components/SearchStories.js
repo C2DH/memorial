@@ -1,4 +1,3 @@
-import { useStories } from '@c2dh/react-miller'
 import { useTranslation } from 'react-i18next'
 import StoryItem from '../components/StoryItem'
 import { StatusSuccess, useGetJSON } from '../hooks/data'
@@ -13,6 +12,7 @@ const SearchStories = ({ q = '', filters = {}, limit = 20, orderby = '-id' }) =>
       exclude: {
         tags__slug: 'static',
       },
+      limit: 100,
       filters,
       q,
     },
@@ -20,6 +20,9 @@ const SearchStories = ({ q = '', filters = {}, limit = 20, orderby = '-id' }) =>
   const count = data?.count
   const stories = data?.results
 
+  if (error) {
+    console.warn('[SearchStories] error:', error)
+  }
   return (
     <ol className="SearchStories">
       {status === StatusSuccess && count === 0 && <li>{t('noResults')}</li>}

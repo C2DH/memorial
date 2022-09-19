@@ -11,7 +11,7 @@ import {
   BootstrapColumnLayout,
 } from '../constants'
 import '../styles/pages/Home.css'
-import { useGetJSON } from '../hooks/data'
+// import { useGetJSON } from '../hooks/data'
 
 const to = (i) => ({
   opacity: 1,
@@ -68,11 +68,36 @@ const Home = () => {
             </div>
           </Col>
           <Col {...BootstrapEndColumnLayout}>
-            <p className="my-3" dangerouslySetInnerHTML={{ __html: t('topStoriesIntro') }} />
+            <div className="my-3" dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphA') }} />
+            <p className="mb-5">
+              <LangLink to="/biographies">
+                <Button>{t('allStories')}</Button>
+              </LangLink>
+            </p>
           </Col>
         </Row>
       </Container>
       <Container>
+        <Row className="my-4">
+          <Col {...BootstrapColumnLayout}>
+            <Container fluid className="p-0">
+              <Row>
+                <Col>
+                  <div
+                    className="border-top border-dark pt-4"
+                    dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphB') }}
+                  />
+                </Col>
+                <Col>
+                  <div
+                    className="border-top border-dark pt-4"
+                    dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphC') }}
+                  />
+                </Col>
+              </Row>
+            </Container>
+          </Col>
+        </Row>
         <Row>
           <Col {...BootstrapColumnLayout}>
             <h2>Les biographies</h2>

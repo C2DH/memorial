@@ -4,7 +4,7 @@ import { useQueryParam, withDefault } from 'use-query-params'
 import { QParam, SlugParam } from '../logic/params'
 
 import SearchStories from '../components/SearchStories'
-import { BootstrapEndColumnLayout, BootstrapStartColumnLayout } from '../constants'
+import { BootstrapStartColumnLayout } from '../constants'
 import { useTranslation } from 'react-i18next'
 
 const Biographies = () => {
@@ -16,7 +16,7 @@ const Biographies = () => {
     filters.authors__slug = author
   }
   return (
-    <div className="Biographies page">
+    <div className="Biographies Page page">
       <Container>
         <Row>
           <Col {...BootstrapStartColumnLayout}>

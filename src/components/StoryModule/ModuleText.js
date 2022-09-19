@@ -5,9 +5,10 @@ import { all } from 'mdast-util-to-hast'
 import FootnoteReference from './FootnoteReference'
 import FootnoteDefinition from './FootnoteDefinition'
 
-const ModuleText = ({ content = '', language, footnotes = [] }) => {
+const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = true }) => {
   // console.debug('[ModuleText]', content, footnotes)
-  let chunks = [content]
+  // remove {width=} image
+  let chunks = [content.replace(/\{width=[^}]+\}/g, '')]
   const footnoteIndex = {}
   if (footnotes.length) {
     // add to markdown contents

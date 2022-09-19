@@ -1,6 +1,6 @@
 .Home.page {
-  min-height: 65vh;
   margin-top: 80px;
+  margin-bottom: 80px;
 }
 
 .Home h2.animated {
@@ -17,20 +17,12 @@
   font-size: 48px;
   color: var(--bs-primary-text);
 }
-.Home h2.first {
-  /* margin-left: 68px !important; */
-}
-
-.Home_topStories > ol {
-  display: flex;
-}
 
 .Home_topStories > ol > li {
-  flex: 1 1 0;
-  width: 0;
   margin: 0.2rem;
   border-radius: 0.2rem;
   position: relative;
+  padding: 1rem;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   transition: box-shadow 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }

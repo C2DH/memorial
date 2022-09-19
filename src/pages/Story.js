@@ -12,6 +12,7 @@ import StoryModule from '../components/StoryModule'
 import StoryTimeline from '../components/StoryTimeline'
 import { BootstrapStartColumnLayout, BootstrapEndColumnLayout } from '../constants'
 import '../styles/pages/Story.css'
+import StoryAuthors from '../components/StoryAuthors'
 
 const Story = () => {
   const { t } = useTranslation()
@@ -42,15 +43,26 @@ const Story = () => {
     console.error(error)
     return null
   }
+  const isLongTitle = isValidStory && story.title.length > 30
   return (
-    <div className="Story page">
+    <div className={`Story page ${isLongTitle ? 'long-title' : ''}`}>
       <Container>
         <Row>
           <Col {...BootstrapStartColumnLayout}>
             {isValidStory &&
-              story.contents.modules.map((d, i) => (
-                <StoryModule key={i} language={availableLanguage} {...d} />
-              ))}
+              story.contents.modules.map((d, i) => {
+                return (
+                  <section
+                    key={i}
+                    className={`Story_StoryModule ${
+                      i < story.contents.modules.length - 1 ? 'no-footnotes' : ''
+                    }`}
+                  >
+                    <StoryModule language={availableLanguage} {...d} />
+                    {i === 0 && <StoryAuthors authors={story.authors}></StoryAuthors>}
+                  </section>
+                )
+              })}
             {/*isValidStory && (
               <PreciseScrolling memoid={safeStoryId}>
                 {story.contents.modules.map((module, i) => (
@@ -64,12 +76,12 @@ const Story = () => {
               <b>{t('pagesStoryAdditionalInfo')}</b>
             </div>
 
-            <div className="mb-3" style={{ textAlign: 'left' }}>
+            <div className="mb-5" style={{ textAlign: 'left' }}>
               <Button>{t('actionSendUsPageOfTestimony')}</Button>
             </div>
-            <div className="mb-3" style={{ textAlign: 'right' }}>
+            {/* <div className="mb-3" style={{ textAlign: 'right' }}>
               <Button>{t('actionAddAPebble')}</Button>
-            </div>
+            </div> */}
             <StoryTimeline storyId={safeStoryId} />
             <div className="position-sticky top-page"></div>
           </Col>

@@ -1,6 +1,7 @@
 export const HomeRoute = { to: '/', label: 'navigationHome' }
 export const SearchRoute = { to: '/search/all', label: 'navigationSearch' }
 export const BiographiesRoute = { to: '/biographies', label: 'navigationBiographies' }
+
 export const SearchStoryRoute = {
   to: '/search/stories',
   label: 'navigationStorySearch',

@@ -55,6 +55,31 @@ code {
 .page {
   margin-top: 2rem;
 }
+.page h1 {
+  color: transparent; /* var(--bs-primary); */
+  font-weight: normal;
+  font-size: 3.4rem;
+  line-height: 1.2em;
+  margin-top: var(--size-5);
+  margin-bottom: var(--size-3);
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: var(--bs-primary-text);
+  color: transparent;
+  /* var(--bs-primary-text); */
+}
+
+@media (min-width: 576px) {
+  .page {
+    margin-top: 0;
+  }
+  .page h1 {
+    font-size: 6rem;
+  }
+  .page.long-title h1 {
+    font-size: 3.5rem;
+  }
+}
+
 .top-page {
   top: 2rem;
 }

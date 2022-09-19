@@ -6,7 +6,7 @@ const StoryTimeline = ({ storyId }) => {
   // load all documents starting with storyId
   const [data, { isSuccess }] = useDocuments({
     params: {
-      filters: { slug__startswith: storyId },
+      filters: { slug__istartswith: storyId },
     },
   })
 
@@ -42,7 +42,7 @@ const StoryTimeline = ({ storyId }) => {
     dates.sort((a, b) => a.t - b.t)
     // fill remaining dates
     const interval = dates[dates.length - 1].t - dates[0].t
-    allDates = Array.apply(null, Array(interval)).map(function (_, i) {
+    allDates = Array.apply(null, Array(interval + 1)).map(function (_, i) {
       const t = dates[0].t + i
       const idx = dates.findIndex((d) => d.t === t)
       if (idx === -1) {
@@ -54,7 +54,7 @@ const StoryTimeline = ({ storyId }) => {
     documentWithoutDates = data.results.filter((d) => typeof d.data.start_date !== 'string')
   }
 
-  console.debug('[StoryTimeline]', '\n- storyId:', storyId, '\n - data:', data, dates)
+  console.debug('[StoryTimeline]', '\n- storyId:', storyId, '\n - data:', data, dates, allDates)
   return (
     <aside className="StoryTimeline">
       <ol className="mb-4">

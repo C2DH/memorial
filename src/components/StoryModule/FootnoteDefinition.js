@@ -4,7 +4,7 @@ const FootnoteDefinition = ({ identifier = '', label = '', children }) => {
   return (
     <div
       id={'def-' + identifier}
-      className="d-flex"
+      className="FootnoteDefinition d-flex"
       style={{
         fontSize: 'var(--small-font-size)',
       }}
