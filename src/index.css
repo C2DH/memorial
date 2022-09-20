@@ -46,6 +46,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bs-secondary);
+  font-size: 1.15rem;
 }
 
 code {

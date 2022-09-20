@@ -38,7 +38,9 @@ const Document = () => {
                   <DocumentMetadata memoid={bbox.memo + ',' + doc.id} doc={doc} />
                   <TopStories
                     params={{
-                      filters: { slug__startswith: doc.slug.split('-', -1).slice(0, -1).join('-') },
+                      filters: {
+                        slug__istartswith: doc.slug.split('-', -1).slice(0, -1).join('-'),
+                      },
                     }}
                   />
                 </>

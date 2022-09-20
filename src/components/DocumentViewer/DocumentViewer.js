@@ -6,7 +6,7 @@ import '../../styles/components/DocumentViewer.css'
 
 const DocumentViewerImage = lazy(() => import('./DocumentViewerImage'))
 const DocumentViewerAudio = lazy(() => import('./DocumentViewerAudio'))
-const DocumentViewerPdf = lazy(() => import('./DocumentViewerPdf'))
+// const DocumentViewerPdf = lazy(() => import('./DocumentViewerPdf'))
 
 const DocumentViewer = ({ doc, caption, width, height }) => {
   const { t } = useTranslation()
@@ -27,7 +27,7 @@ const DocumentViewer = ({ doc, caption, width, height }) => {
   } else if (doc.type === 'audio') {
     Component = <DocumentViewerAudio {...props} />
   } else if (doc.type === 'pdf') {
-    Component = <DocumentViewerPdf {...props} />
+    Component = <DocumentViewerImage {...props} />
   }
   return (
     <div ref={ref} className="DocumentViewer rounded position-relative" style={{ width, height }}>
