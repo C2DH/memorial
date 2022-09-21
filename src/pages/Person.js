@@ -39,7 +39,12 @@ const Person = () => {
               )}
             </div>
           </Col>
-          <Col {...BootstrapEndExtendedColumnLayout}></Col>
+          <Col
+            {...BootstrapEndExtendedColumnLayout}
+            className="position-relative"
+            ref={ref}
+            style={{ height: viewerHeight }}
+          ></Col>
         </Row>
       </Container>
     </div>

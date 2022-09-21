@@ -6,15 +6,13 @@ import LangLink from '../LangLink'
  * Component to integrate ReactMarkdown specs
  */
 const ModuleTextAnchor = ({ node, children, href, ...props }) => {
-  console.debug(children, props)
-
+  const textNode = children
+    .map((child) => String(child))
+    .join('')
+    .replace('[', '')
+    .replace(']', '')
   // check if href is the website one (internal links)
   if (href.indexOf(process.env.REACT_APP_ORIGIN) !== -1) {
-    const textNode = children
-      .map((child) => String(child))
-      .join('')
-      .replace('[', '')
-      .replace(']', '')
     // remove origin, e.g. `https://` and language `/en/` from the href to make page specific
     const to = href.replace(process.env.REACT_APP_ORIGIN, '').replace(LanguagePathRegExp, '')
     return (
@@ -24,11 +22,9 @@ const ModuleTextAnchor = ({ node, children, href, ...props }) => {
     )
   }
   return (
-    <i style={{ color: 'red' }} {...props}>
-      {children.map((child, i) => (
-        <React.Fragment key={i}>{child}</React.Fragment>
-      ))}
-    </i>
+    <a href={href} {...props} target="_blank" rel="noreferrer noopener">
+      {textNode}
+    </a>
   )
 }
 

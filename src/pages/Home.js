@@ -11,6 +11,7 @@ import {
   BootstrapColumnLayout,
 } from '../constants'
 import '../styles/pages/Home.css'
+import HomeLandscape from '../components/HomeLandscape'
 // import { useGetJSON } from '../hooks/data'
 
 const to = (i) => ({
@@ -44,21 +45,14 @@ const Home = () => {
 
   return (
     <>
-      <div
-        className="d-none position-fixed top-0 left-0 w-100 h-100"
-        style={{
-          opacity: 0.55,
-          zIndex: -1,
-          backgroundImage: "url('https://miro.medium.com/max/3548/1*gKF1YXEbCA2XdBD5me_wrA.png')",
-        }}
-      />
+      <HomeLandscape width={window.innerWidth} height={window.innerHeight} />
       <Container className="Home page">
         <Row>
           <Col {...BootstrapStartColumnLayout}>
             <div className="w-100">
               {animatedWords.map((w, i) => (
                 <a.h2
-                  className={`animated display-2 d-inline-block m-0 ${i === 0 ? 'first' : ''} `}
+                  className={`outlined display-2 d-inline-block m-0 ${i === 0 ? 'first' : ''} `}
                   style={w}
                   key={i}
                 >
@@ -68,7 +62,10 @@ const Home = () => {
             </div>
           </Col>
           <Col {...BootstrapEndColumnLayout}>
-            <div className="my-3" dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphA') }} />
+            <div
+              className="my-3 text-dark"
+              dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphA') }}
+            />
             <p className="mb-5">
               <LangLink to="/biographies">
                 <Button>{t('allStories')}</Button>
