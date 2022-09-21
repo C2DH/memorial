@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useSpring, a, config } from 'react-spring'
-import backgroundImage from '../assets/images/landscape_3.png' // Import using relative path
+import backgroundImage from '../assets/images/landscape.png' // Import using relative path
 
 const calc =
   (speed = -0.5) =>
@@ -9,7 +9,7 @@ const calc =
 
 const HomeLandscape = ({ width, height, initialOffset = 100 }) => {
   const ref = useRef()
-  const [{ offset }, set] = useSpring(() => ({ offset: 0, config: config.molasses }))
+  const [{ offset }, set] = useSpring(() => ({ offset: 0, config: config.stiff }))
 
   useEffect(() => {
     const handleScroll = () => {
