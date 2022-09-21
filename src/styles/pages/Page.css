@@ -13,6 +13,7 @@
 
 .Page p:first-of-type {
   font-size: 1.25em;
+  margin-bottom: 2rem;
 }
 
 .Page h2 {
@@ -23,12 +24,12 @@
 
 .Page h3,
 .Page h4 {
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
+  font-size: 0.85em;
 }
 
 .Page h3 {
   font-weight: bold;
-  font-size: inherit;
 }
 
 @media (min-width: 576px) {
