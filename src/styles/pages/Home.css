@@ -5,9 +5,9 @@
 
 .Home h2.animated {
   font-weight: bold;
-  font-size: 48px;
+  font-size: 5rem;
   background-image: url('https://i.imgur.com/2TdOqp8.gif');
-  /* background-image: url("https://i.imgur.com/U7SCkat.gif"); */
+  /* background-image: url('https://i.imgur.com/U7SCkat.gif'); */
   background-size: 160px 160px;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;

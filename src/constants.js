@@ -70,8 +70,8 @@ export const BootstrapEndColumnLayout = Object.freeze({
   md: { span: 4 },
 })
 export const BootstrapStartReducedColumnLayout = Object.freeze({
-  md: { span: 5, offset: 0 },
+  md: { span: 5, offset: 1 },
 })
 export const BootstrapEndExtendedColumnLayout = Object.freeze({
-  md: { span: 5, offset: 2 },
+  md: { span: 6, offset: 0 },
 })

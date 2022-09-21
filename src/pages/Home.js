@@ -58,7 +58,7 @@ const Home = () => {
             <div className="w-100">
               {animatedWords.map((w, i) => (
                 <a.h2
-                  className={`display-2 d-inline-block m-0 ${i === 0 ? 'first' : ''} `}
+                  className={`animated display-2 d-inline-block m-0 ${i === 0 ? 'first' : ''} `}
                   style={w}
                   key={i}
                 >

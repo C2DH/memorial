@@ -1,6 +1,7 @@
 import React from 'react'
 import StoryModuleText from './StoryModuleText'
 import StoryModuleNotFound from './StoryModuleNotFound'
+import '../../styles/components/StoryModule.css'
 
 const StoryModule = (args) => {
   switch (args.module) {

@@ -6,6 +6,7 @@ import LangLink from './LangLink'
 import LanguageSwitch from './LanguageSwitch'
 import LogoC2dhUnilu from './LogoC2dhUnilu'
 import {
+  BootstrapColumnLayout,
   BootstrapStartColumnLayout,
   BootstrapEndColumnLayout,
   HomeRoute,
@@ -57,7 +58,7 @@ const Footer = () => {
           </Col>
         </Row>
         <Row>
-          <Col {...BootstrapStartColumnLayout} className="d-flex">
+          <Col {...BootstrapColumnLayout} className="d-flex">
             <LogoC2dhUnilu style={{ marginLeft: -23 }} color="var(--bs-dark)" height={70} />
             <a
               href="https://fondluxshoah.lu/"

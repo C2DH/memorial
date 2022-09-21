@@ -13,6 +13,8 @@ import StoryTimeline from '../components/StoryTimeline'
 import { BootstrapStartColumnLayout, BootstrapEndColumnLayout } from '../constants'
 import '../styles/pages/Story.css'
 import StoryAuthors from '../components/StoryAuthors'
+import TopDocuments from '../components/TopDocuments'
+import GetInTouch from '../components/GetInTouch'
 
 const Story = () => {
   const { t } = useTranslation()
@@ -44,6 +46,7 @@ const Story = () => {
     return null
   }
   const isLongTitle = isValidStory && story.title.length > 30
+
   return (
     <div className={`Story page ${isLongTitle ? 'long-title' : ''}`}>
       <Container>
@@ -59,7 +62,24 @@ const Story = () => {
                     }`}
                   >
                     <StoryModule language={availableLanguage} {...d} />
-                    {i === 0 && <StoryAuthors authors={story.authors}></StoryAuthors>}
+                    {i === 0 && (
+                      <>
+                        <StoryAuthors authors={story.authors}></StoryAuthors>
+
+                        <TopDocuments
+                          className="Story_TopDocuments mt-3"
+                          params={{
+                            filters: {
+                              data__household__startswith: safeStoryId.split('-', 1)[0],
+                            },
+                          }}
+                        >
+                          <label className="text-uppercase small fw-bold">
+                            {t('people')}&nbsp;
+                          </label>
+                        </TopDocuments>
+                      </>
+                    )}
                   </section>
                 )
               })}
@@ -77,7 +97,7 @@ const Story = () => {
             </div>
 
             <div className="mb-5" style={{ textAlign: 'left' }}>
-              <Button>{t('actionSendUsPageOfTestimony')}</Button>
+              <GetInTouch />
             </div>
             {/* <div className="mb-3" style={{ textAlign: 'right' }}>
               <Button>{t('actionAddAPebble')}</Button>

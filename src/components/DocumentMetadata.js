@@ -19,7 +19,7 @@ const DocumentMetadata = ({ doc, memoid }) => {
   const { requestedLanguage, availableLanguage, availableLanguages } = useAvailableLanguage({
     translatable: doc.data.title,
   })
-  let title = availableLanguage !== null ? doc.data.title[availableLanguage] : null
+  let title = availableLanguage !== null ? doc.data.title[availableLanguage] : doc.title
 
   // if (availableLanguage === null) {
   //

@@ -4,11 +4,19 @@ import remarkGfm from 'remark-gfm'
 import { all } from 'mdast-util-to-hast'
 import FootnoteReference from './FootnoteReference'
 import FootnoteDefinition from './FootnoteDefinition'
+import ModuleTextAnchor from './ModuleTextAnchor'
 
 const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = true }) => {
   // console.debug('[ModuleText]', content, footnotes)
   // remove {width=} image
-  let chunks = [content.replace(/\{width=[^}]+\}/g, '')]
+  // and correct badly retrieved markdown errors
+  let chunks = [
+    content
+      .replace(/\{width=[^}]+\}/g, '') // replace image spec {width= ...} (sic)
+      .replace(/\{\.[^}]+\}/g, ''), // replace {.underline} mentions (sic)
+    // .replace(/\{\.[^}]+\}/g, ''), // replace internal links {.underline} mentions (sic)
+  ]
+  console.debug('[ModuleText]', chunks)
   const footnoteIndex = {}
   if (footnotes.length) {
     // add to markdown contents
@@ -25,6 +33,7 @@ const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = t
       components={{
         footnoteReference: FootnoteReference,
         footnoteDefinition: FootnoteDefinition,
+        a: ModuleTextAnchor,
       }}
       remarkRehypeOptions={{
         footnoteLabel: 'Voetnoten',

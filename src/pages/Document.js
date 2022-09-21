@@ -7,8 +7,10 @@ import { BootstrapStartReducedColumnLayout, BootstrapEndExtendedColumnLayout } f
 import DocumentViewer from '../components/DocumentViewer'
 import DocumentMetadata from '../components/DocumentMetadata'
 import TopStories from '../components/TopStories'
+import TopDocuments from '../components/TopDocuments'
+import GetInTouch from '../components/GetInTouch'
 
-const Document = () => {
+const Document = ({ relatedPersons = false }) => {
   const [bbox, ref] = useBoundingClientRect()
   const { docId } = useParams()
   const safeDocumentId = docId.replace(/[^\dA-Za-z-_]/g, '')
@@ -43,15 +45,24 @@ const Document = () => {
                       },
                     }}
                   />
+                  {relatedPersons && (
+                    <TopDocuments
+                      params={{
+                        filters: {
+                          data__household__startswith: doc.slug.split('-', 1)[0],
+                        },
+                      }}
+                    />
+                  )}
                 </>
               )}
               <div>
-                <p className="mt-3">
+                {/* <p className="mt-3">
                   Interested in this archival item? <a href="mailto:info@c2dh.uni.lu">Contact us</a>{' '}
                   to find out how to get access to it
                 </p>
-                <p>Have additional information or documents to contribute?</p>
-                <button className="btn btn-primary">Send us Pages of Testimony</button>
+                <p>Have additional ZZZ information or documents to contribute?</p> */}
+                <GetInTouch />
               </div>
             </div>
           </Col>
