@@ -12,6 +12,7 @@ import {
 } from '../constants'
 import '../styles/pages/Home.css'
 import HomeLandscape from '../components/HomeLandscape'
+import { useCurrentWindowDimensions } from '../hooks/viewport'
 // import { useGetJSON } from '../hooks/data'
 
 const to = (i) => ({
@@ -19,10 +20,11 @@ const to = (i) => ({
 
   delay: i * 500 + Math.random() * 4500,
 })
-const from = () => ({ opacity: 0.12 })
+const from = () => ({ opacity: 0.02 })
 
 const Home = () => {
   const { t } = useTranslation()
+  const { width, height } = useCurrentWindowDimensions()
   const words = String(t('pagesHomeSubheading')).split(' ')
   const [animatedWords] = useSprings(words.length, (i) => ({
     config: {
@@ -33,26 +35,23 @@ const Home = () => {
     from: from(),
   }))
 
-  //
-  // React.useLayoutEffect(() => {
-  //   const t = setTimeout(() => {
-  //     api.start(i => to(i))
-  //   }, 10000)
-  //   return function cleanup() {
-  //     clearTimeout(t)
-  //   }
-  // }, [])
-
   return (
     <>
-      <HomeLandscape width={window.innerWidth} height={window.innerHeight} />
-      <Container className="Home page">
-        <Row>
+      <HomeLandscape availableWidth={width} availableHeight={height} />
+      <div className="position-absolute w-100" style={{ top: height - 160 }}>
+        <div className="scroll-container mx-auto mt-5">
+          <div className="scroller"></div>
+        </div>
+      </div>
+      <Container className="Home page" style={{ minHeight: height - 160 }}>
+        <Row className="d-flex">
           <Col {...BootstrapStartColumnLayout}>
             <div className="w-100">
               {animatedWords.map((w, i) => (
                 <a.h2
-                  className={`outlined display-2 d-inline-block m-0 ${i === 0 ? 'first' : ''} `}
+                  className={`Home_animatedWord outlined display-2 d-inline-block m-0 ${
+                    i === 0 ? 'first' : ''
+                  } `}
                   style={w}
                   key={i}
                 >
@@ -66,30 +65,28 @@ const Home = () => {
               className="my-3 text-dark"
               dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphA') }}
             />
-            <p className="mb-5">
+            <p className="mt-5">
               <LangLink to="/biographies">
-                <Button>{t('allStories')}</Button>
+                <button lg className="btn btn-white btn-lg">
+                  {t('allStories')}
+                </button>
               </LangLink>
             </p>
           </Col>
         </Row>
       </Container>
+
+      {/* <div className="bg-secondary"> */}
       <Container>
-        <Row className="my-4">
+        <Row className="my-4 ">
           <Col {...BootstrapColumnLayout}>
             <Container fluid className="p-0">
               <Row>
                 <Col>
-                  <div
-                    className="border-top border-dark pt-4"
-                    dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphB') }}
-                  />
+                  <div dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphB') }} />
                 </Col>
                 <Col>
-                  <div
-                    className="border-top border-dark pt-4"
-                    dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphC') }}
-                  />
+                  <div dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphC') }} />
                 </Col>
               </Row>
             </Container>
@@ -117,6 +114,7 @@ const Home = () => {
           </Col>
         </Row>
       </Container>
+      {/* </div> */}
       <Container className="mt-5">
         <Row>
           <Col {...BootstrapColumnLayout}>

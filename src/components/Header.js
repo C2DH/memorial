@@ -42,6 +42,7 @@ const Header = () => {
                 top: '50%',
                 marginTop: -40,
               }}
+              color="var(--bs-primary-text)"
               className="position-absolute"
             />
           </Col>

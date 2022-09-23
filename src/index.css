@@ -69,6 +69,10 @@ code {
   /* var(--bs-primary-text); */
 }
 
+.bg-secondary {
+  background-color: var(--bs-secondary) !important;
+}
+
 @media (min-width: 576px) {
   .page {
     margin-top: 0;
@@ -87,6 +91,16 @@ code {
 
 a {
   color: var(--bs-primary-text);
+}
+
+.btn-white {
+  border: 2px solid;
+  font-weight: bold;
+  background: #ffffff25;
+}
+.btn-white:hover {
+  background-color: var(--bs-secondary) !important;
+  /* color: var(--white) !important; */
 }
 
 .btn-primary {

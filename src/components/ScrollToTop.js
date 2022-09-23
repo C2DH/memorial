@@ -18,8 +18,8 @@ const ScrollToTop = () => {
         const element = document.getElementById(id)
         console.info('ScrollToTop: reaching id =', id)
         if (element) {
-          // element.scrollIntoView();
-          window.scrollTo(0, element.offsetTop + window.innerHeight * 0.01)
+          element.scrollIntoView()
+          // window.scrollTo(0, element.offsetTop + 100) // window.innerHeight * 0.01)
         } else {
           console.warn('ScrollToTop: element not found using id =', id)
         }
