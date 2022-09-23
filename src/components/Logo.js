@@ -9,9 +9,10 @@ const Logo = ({
   color = 'var(--bs-dark)',
   className,
   style,
+  onClick,
 }) => {
   return (
-    <div className={`Logo ${className}`} style={style}>
+    <div className={`Logo ${className}`} style={style} onClick={onClick}>
       <svg
         width={width}
         height={height}

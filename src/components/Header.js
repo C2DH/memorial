@@ -35,16 +35,18 @@ const Header = () => {
       <Container>
         <Row>
           <Col md={{ span: 1 }} className="position-relative">
-            <Logo
-              width={80}
-              height={80}
-              style={{
-                top: '50%',
-                marginTop: -40,
-              }}
-              color="var(--bs-primary-text)"
-              className="position-absolute"
-            />
+            <LangLink to={HomeRoute.to} className="">
+              <Logo
+                width={80}
+                height={80}
+                style={{
+                  top: '50%',
+                  marginTop: -40,
+                }}
+                color="var(--bs-primary-text)"
+                className="position-absolute"
+              />
+            </LangLink>
           </Col>
           <Col {...BootstrapStartColumnLayoutNoOffset}>
             <nav className="Header_ariaSearch" role="navigation" aria-label={t('ariaLabelSearch')}>

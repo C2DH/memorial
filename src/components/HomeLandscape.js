@@ -63,7 +63,7 @@ const HomeLandscape = ({
           autoplay
           width={scaledWidth}
           height={scaledHeight}
-          className="position-absolute"
+          className="position-absolute "
           style={{
             top: -(scaledHeight / 2 - availableHeight / 2),
             zIndex: 0,

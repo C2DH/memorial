@@ -8,7 +8,7 @@ const GetInTouch = ({ emailSubjectTranslationLabel = 'getInTouchSubject' }) => {
   )}`
 
   return (
-    <a className="GetInTouch btn btn-primary" href={href} target="_blank" rel="noreferrer">
+    <a className="GetInTouch btn btn-white btn-lg" href={href} target="_blank" rel="noreferrer">
       {t('actionSendUsPageOfTestimony')}
     </a>
   )
