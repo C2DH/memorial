@@ -38,8 +38,28 @@ const DocumentDate = ({
           {typeof separator === 'string' && <>&nbsp;{separator}&nbsp;</>}
         </>
       )
+    }
+    if (days > 360 && startDate.getFullYear() == endDate.getFullYear()) {
+      return (
+        <>
+          <span className={`DocumentDate ${className}`} {...rest}>
+            ca. {startDate.getFullYear()}
+          </span>
+          {typeof separator === 'string' && <>&nbsp;{separator}&nbsp;</>}
+        </>
+      )
     } else if (days > 30) {
-      // Only months
+      if (startDate.getFullYear() !== endDate.getFullYear()) {
+        // Only months
+        return (
+          <>
+            <span className={`DocumentDate ${className}`} {...rest}>
+              {startDate.getFullYear()} &mdash; {endDate.getFullYear()}
+            </span>
+            {typeof separator === 'string' && <>&nbsp;{separator}&nbsp;</>}
+          </>
+        )
+      }
     }
   }
   return (

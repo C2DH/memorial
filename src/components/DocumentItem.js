@@ -25,6 +25,7 @@ const DocumentItem = ({ doc = { data: {} }, onClick }) => {
         onClick={() =>
           typeof onClick === 'function' ? onClick(doc) : navigate(`/${language}/doc/${doc.slug}`)
         }
+        language={language}
       />
     )
   } else {
