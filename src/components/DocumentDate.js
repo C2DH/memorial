@@ -39,7 +39,7 @@ const DocumentDate = ({
         </>
       )
     }
-    if (days > 360 && startDate.getFullYear() == endDate.getFullYear()) {
+    if (days > 360 && startDate.getFullYear() === endDate.getFullYear()) {
       return (
         <>
           <span className={`DocumentDate ${className}`} {...rest}>
