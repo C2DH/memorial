@@ -73,6 +73,7 @@ const Story = () => {
                               data__household__startswith: safeStoryId.split('-', 1)[0],
                             },
                           }}
+                          hideIfEmpty
                         >
                           <label className="text-uppercase small fw-bold">
                             {t('people')}&nbsp;
