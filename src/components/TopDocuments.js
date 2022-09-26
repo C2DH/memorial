@@ -9,6 +9,7 @@ const TopDocuments = ({
   children,
   label,
   allStories = false,
+  hideIfEmpty = false,
   onClick,
   className = '',
 }) => {
@@ -19,6 +20,9 @@ const TopDocuments = ({
 
   if (status === StatusError) {
     console.error('TopDocuments error in reading api:', status, data, error)
+    return null
+  }
+  if (status === StatusSuccess && !data.results.length && hideIfEmpty) {
     return null
   }
 
