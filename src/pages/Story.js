@@ -46,9 +46,14 @@ const Story = () => {
     return null
   }
   const isLongTitle = isValidStory && story.title.length > 30
+  const isVeryLongTitle = isLongTitle && story.title.length > 100
 
   return (
-    <div className={`Story page ${isLongTitle ? 'long-title' : ''}`}>
+    <div
+      className={`Story page ${
+        isVeryLongTitle ? 'very-long-title' : isLongTitle ? 'long-title' : ''
+      }`}
+    >
       <Container>
         <Row>
           <Col {...BootstrapStartColumnLayout}>

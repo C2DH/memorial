@@ -19,6 +19,9 @@
   .Story.long-title h1 {
     font-size: 3.5rem;
   }
+  .Story.very-long-title h1 {
+    font-size: 2.75rem;
+  }
 }
 
 .Story_TopDocuments h4 {

@@ -16,7 +16,7 @@ const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = t
       .replace(/\{\.[^}]+\}/g, ''), // replace {.underline} mentions (sic)
     // .replace(/\{\.[^}]+\}/g, ''), // replace internal links {.underline} mentions (sic)
   ]
-  console.debug('[ModuleText]', chunks)
+  // console.debug('[ModuleText]', chunks)
   const footnoteIndex = {}
   if (footnotes.length) {
     // add to markdown contents
