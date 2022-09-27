@@ -1,12 +1,10 @@
 import React from 'react'
-import { isMobile } from 'react-device-detect'
 import { Container, Row, Col } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import LangLink from './LangLink'
 import LanguageSwitch from './LanguageSwitch'
 import LogoC2dhUnilu from './LogoC2dhUnilu'
 import {
-  BootstrapColumnLayout,
   BootstrapStartColumnLayout,
   BootstrapEndColumnLayout,
   HomeRoute,

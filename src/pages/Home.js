@@ -5,11 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import LangLink from '../components/LangLink'
 import TopStories from '../components/TopStories'
 // import TopDocuments from '../components/TopDocuments'
-import {
-  BootstrapStartColumnLayout,
-  BootstrapEndColumnLayout,
-  BootstrapColumnLayout,
-} from '../constants'
+import { BootstrapColumnLayout } from '../constants'
 import '../styles/pages/Home.css'
 import HomeLandscape from '../components/HomeLandscape'
 import GetInTouch from '../components/GetInTouch'
