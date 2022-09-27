@@ -119,7 +119,7 @@ const App = () => {
           </Routes>
         </QueryParamProvider>
       </WithMiller>
-      <Footer />
+      <Footer isMobile={isMobile} />
     </BrowserRouter>
   )
 }

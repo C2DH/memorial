@@ -48,35 +48,43 @@ const HomeLandscape = ({
   return (
     <div
       className="position-absolute top-0"
-      style={{ width: availableWidth, height: availableHeight, zIndex: -1, overflow: 'hidden' }}
+      style={{
+        width: availableWidth,
+        height: availableHeight,
+        zIndex: -1,
+        overflow: 'hidden',
+      }}
     >
       <a.div
         className="position-absolute top-0 w-100 h-100"
         style={{
           zIndex: -1,
-          transform: offset.to(calc(-0.5)),
-          opacity,
+          transform: offset.to(calc(1.5)),
+          background:
+            'linear-gradient(to bottom, var(--bs-secondary), rgb(89,196,171), rgb(60,139,161))',
         }}
       >
-        <Vimeo
-          video={videoId}
-          autoplay
-          width={scaledWidth}
-          height={scaledHeight}
-          className="position-absolute "
-          style={{
-            top: -(scaledHeight / 2 - availableHeight / 2),
-            zIndex: 0,
-            left: -(scaledWidth / 2 - availableWidth / 2),
-          }}
-          loop
-          muted
-          background
-          onPlay={() => {
-            console.debug('[HomeLandscape] @onPlay')
-            set({ opacity: 1 })
-          }}
-        />
+        <a.div style={{ opacity }} className="position-absolute top-0 w-100 h-100">
+          <Vimeo
+            video={videoId}
+            autoplay
+            width={scaledWidth}
+            height={scaledHeight}
+            className="position-absolute "
+            style={{
+              top: -(scaledHeight / 2 - availableHeight / 2),
+              zIndex: 0,
+              left: -(scaledWidth / 2 - availableWidth / 2),
+            }}
+            loop
+            muted
+            background
+            onPlay={() => {
+              console.debug('[HomeLandscape] @onPlay')
+              set({ opacity: 1 })
+            }}
+          />
+        </a.div>
       </a.div>
     </div>
   )

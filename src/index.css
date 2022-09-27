@@ -164,6 +164,9 @@ a {
   height: 75vh !important;
 }
 
+.right-0 {
+  right: 0;
+}
 .bg-primary {
   background-color: var(--bs-primary) !important;
 }

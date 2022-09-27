@@ -118,6 +118,7 @@
   font-weight: normal;
   font-size: 3.4rem;
   line-height: 1.2em;
+  font-weight: bold;
   margin-top: var(--size-5);
   margin-bottom: var(--size-5);
   -webkit-text-stroke-width: 2px;

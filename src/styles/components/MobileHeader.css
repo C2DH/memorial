@@ -1,8 +1,8 @@
-.MobileHeader_menu li.active a{
+.MobileHeader_menu li.active a {
   color: var(--bs-secondary);
   font-weight: bold;
 }
-.MobileHeader_menu li a{
+.MobileHeader_menu li a {
   color: var(--bs-primary);
   padding: 5px 10px;
   display: block;
@@ -10,16 +10,26 @@
 }
 .MobileHeader_menu {
   top: 0;
-  padding-top:100px;
+  padding-top: 100px;
   padding-left: 10px;
-  background-color: var(--bs-dark);
+  background-color: var(--bs-primary-text);
   z-index: -1;
 }
-.MobileHeader_menu ul{
+.MobileHeader_menu ul {
   list-style-type: none;
   padding: 0;
 }
-.MobileHeader_menu_LanguageSwitch{
+.MobileHeader_menu_LanguageSwitch {
   display: flex;
   margin-top: 20px;
+}
+.MobileHeader_menubtn {
+  margin: var(--size-2);
+  padding: 1px 4px;
+  border-radius: 2px;
+  color: var(--bs-dark);
+  font-weight: bold;
+  background-color: transparent;
+  border: 2px solid;
+  font-size: 16px;
 }

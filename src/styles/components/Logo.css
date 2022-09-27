@@ -14,3 +14,13 @@
   font-size: 16px;
   font-family: var(--bs-font-sans-serif);
 }
+
+.Logo_mobiletext span {
+  font-weight: bold;
+  font-size: 18px;
+  color: var(--bs-secondary);
+  background-color: var(--bs-dark);
+  border-radius: 1px;
+  padding: 1px 4px 2px;
+  line-height: 28px;
+}

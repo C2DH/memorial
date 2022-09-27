@@ -21,7 +21,7 @@ const to = (i) => ({
 
   delay: i * 500 + Math.random() * 4500,
 })
-const from = () => ({ opacity: 0.12 })
+const from = () => ({ opacity: 0.21 })
 
 const Home = () => {
   const { t } = useTranslation()
@@ -66,13 +66,13 @@ const Home = () => {
           <div className="scroller"></div>
         </div>
       </div>
-      <Container className="Home page" style={{ minHeight: height - 160 }}>
-        <Row className="d-flex">
-          <Col {...BootstrapStartColumnLayout}>
+      <Container className="Home page" style={{ minHeight: height * 2 - 160 }}>
+        <Row>
+          <Col {...BootstrapColumnLayout}>
             <a.div
               className="w-100"
               style={{
-                transform: offset.to((o) => `translateY(${o * 0.25}px)`),
+                transform: offset.to((o) => `translateY(${o * 0.35}px)`),
               }}
             >
               {animatedWords.map((w, i) => (
@@ -88,10 +88,16 @@ const Home = () => {
               ))}
             </a.div>
           </Col>
-          <Col {...BootstrapEndColumnLayout}>
+        </Row>
+      </Container>
+
+      {/* <div className="bg-secondary"> */}
+      <Container>
+        <Row className="my-4 ">
+          <Col {...BootstrapColumnLayout}>
             <a.div
               style={{
-                transform: offset.to((o) => `translateY(${o * -0.35}px)`),
+                transform: offset.to((o) => `translateY(${o * -0.15}px)`),
               }}
             >
               <div
@@ -106,17 +112,9 @@ const Home = () => {
                 </LangLink>
               </p>
             </a.div>
-          </Col>
-        </Row>
-      </Container>
-
-      {/* <div className="bg-secondary"> */}
-      <Container>
-        <Row className="my-4 ">
-          <Col {...BootstrapColumnLayout}>
             <Container fluid className="p-0">
               <Row>
-                <Col>
+                <Col md={{ span: 6 }} sm={{ span: 12 }}>
                   <div
                     className="Home_firstParagraph"
                     dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphB') }}

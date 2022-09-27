@@ -18,7 +18,7 @@ import LogoFondLuxShoah from '../assets/images/fondluxshoah-logo.png'
 import { useStore } from '../store'
 import '../styles/components/Footer.css'
 
-const Footer = () => {
+const Footer = ({ isMobile = false }) => {
   const { t } = useTranslation()
   const routeLabel = useStore((state) => state.routeLabel)
 
@@ -58,8 +58,10 @@ const Footer = () => {
           </Col>
         </Row>
         <Row>
-          <Col {...BootstrapColumnLayout} className="d-flex">
+          <Col {...BootstrapStartColumnLayout} className="d-flex">
             <LogoC2dhUnilu style={{ marginLeft: -23 }} color="var(--bs-dark)" height={70} />
+          </Col>
+          <Col>
             <a
               href="https://fondluxshoah.lu/"
               target="_blank"
@@ -74,7 +76,6 @@ const Footer = () => {
               />
             </a>
           </Col>
-          <Col />
         </Row>
       </Container>
     </footer>
