@@ -18,6 +18,7 @@ const getWindowDimensions = () => ({
 */
 export const useCurrentWindowDimensions = (isMobile) => {
   let [windowDimensions, setWindowDimensions] = useState(getWindowDimensions())
+
   useEffect(() => {
     let timeoutId = null
     const resizeListener = () => {
@@ -43,7 +44,7 @@ export const useCurrentWindowDimensions = (isMobile) => {
       clearTimeout(timeoutId)
       window.removeEventListener('resize', resizeListener)
     }
-  }, [isMobile])
+  }, [isMobile, windowDimensions.width])
   return windowDimensions
 }
 

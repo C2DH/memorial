@@ -130,7 +130,7 @@ const Home = ({ isMobile }) => {
       <a.div
         className="w-100"
         style={{
-          minHeight: height,
+          minHeight: isMobile ? height : height * 0.7,
           transform: offset.to((o) => `translateY(${o * biographiesSpringSpeed}px)`),
         }}
       >
@@ -154,7 +154,10 @@ const Home = ({ isMobile }) => {
                   />
                 </Col>
                 <Col>
-                  <div dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphC') }} />
+                  <div
+                    dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphC') }}
+                    className="mb-5 mb-md-4"
+                  />
                   <GetInTouch />
                 </Col>
               </Row>
