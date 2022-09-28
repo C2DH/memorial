@@ -4,11 +4,10 @@ import { BootstrapColumnLayout } from '../constants'
 import StoryItem from './StoryItem'
 import { StatusError, StatusSuccess, useGetJSON } from '../hooks/data'
 import { shuffle } from '../logic/array'
-import '../styles/components/HomeBiographies.css'
 import { useTranslation } from 'react-i18next'
 import { animated, useSpring, config } from 'react-spring'
 import { useGesture } from '@use-gesture/react'
-import { useBoundingClientRect } from '../hooks/viewport'
+import '../styles/components/HomeBiographies.css'
 
 const HomeBiographies = ({ speed, availableWidth, availableHeight }) => {
   const { t } = useTranslation()
@@ -67,7 +66,7 @@ const HomeBiographies = ({ speed, availableWidth, availableHeight }) => {
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [api, speed])
 
   console.info('[HomeBiographies] rendered, ', { availableWidth, availableHeight })
 
@@ -108,7 +107,7 @@ const HomeBiographies = ({ speed, availableWidth, availableHeight }) => {
       <Container>
         <Row>
           <Col {...BootstrapColumnLayout}>
-            <h2 className="display-outlined">biographies</h2>
+            <h2 className="display-outlined">{t('latestBiographies')}</h2>
           </Col>
         </Row>
       </Container>
