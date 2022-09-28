@@ -70,10 +70,10 @@ const Home = ({ isMobile }) => {
       <Container className="Home page">
         <Row
           style={{
-            minHeight: isMobile ? height : height * 0.6,
-            marginBottom: isMobile ? 0 : height * 0.25,
+            minHeight: isMobile ? height * 0.6 : height * 0.6,
+            marginBottom: isMobile ? height * 0.25 : height * 0.25,
           }}
-          className="align-items-md-center"
+          className="align-items-center"
         >
           {isMobile ? null : (
             <Col sm={{ span: 3 }}>
