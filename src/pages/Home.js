@@ -10,6 +10,7 @@ import '../styles/pages/Home.css'
 import HomeLandscape from '../components/HomeLandscape'
 import GetInTouch from '../components/GetInTouch'
 import { useCurrentWindowDimensions } from '../hooks/viewport'
+import Logo from '../components/Logo'
 // import { useGetJSON } from '../hooks/data'
 
 const to = (i) => ({
@@ -67,8 +68,19 @@ const Home = ({ isMobile }) => {
         </a.div>
       </div>
       <Container className="Home page">
-        <Row style={{ minHeight: isMobile ? height : height - 160 }}>
-          <Col {...BootstrapColumnLayout}>
+        <Row
+          style={{
+            minHeight: isMobile ? height : height * 0.6,
+            marginBottom: isMobile ? 0 : height * 0.25,
+          }}
+          className="align-items-md-center"
+        >
+          {isMobile ? null : (
+            <Col sm={{ span: 3 }}>
+              <Logo width={250} height={350} style={{ color: 'var(--bs-secondary)' }} />
+            </Col>
+          )}
+          <Col>
             <a.div
               className="w-100"
               style={{

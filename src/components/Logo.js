@@ -16,12 +16,14 @@ const Logo = ({
     <div className={`Logo ${className}`} style={style} onClick={onClick}>
       {isMobile ? (
         <p className="Logo_mobiletext">
-          <span style={{ paddingLeft: 12 }}>Luxembourg</span> <br />
-          <span className="ms-2" style={{ paddingLeft: 25 }}>
-            Mémorial
+          <span style={{ paddingLeft: 12 }}>Luxembourg</span>
+          <span style={{ paddingLeft: 35, marginLeft: 25 }}>
+            <b>Mémorial</b>
           </span>
+          <br />
           &nbsp;
-          <span>de la Shoah</span>
+          <span style={{ paddingLeft: 15 }}>de</span>&nbsp;
+          <span style={{ paddingLeft: 15 }}>la</span>&nbsp;<span>Shoah</span>
         </p>
       ) : (
         <svg

@@ -86,7 +86,7 @@ const HomeBiographies = ({ isMobile, speed, availableWidth, availableHeight }) =
           dragOffset.current = slideOffsetLeft.current + x
           console.info('[HomeBiographies]', x, dx)
           if (isMobile) {
-            api.set({ x: slideOffsetLeft.current + x, config: config.stiff })
+            api.start({ x: slideOffsetLeft.current + x, config: config.stiff })
           } else {
             api.start({ x: slideOffsetLeft.current + x, config: config.stiff })
           }

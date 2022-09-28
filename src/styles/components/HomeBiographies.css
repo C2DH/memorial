@@ -7,7 +7,7 @@
 
 .HomeBiographies > ol {
   display: flex;
-  touch-action: pan-y;
+  touch-action: none;
 }
 .HomeBiographies > ol > li {
   display: inline-block;
