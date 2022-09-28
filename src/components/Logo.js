@@ -10,7 +10,7 @@ const Logo = ({
   className,
   style,
   onClick,
-  isMobile = true,
+  isMobile = false,
 }) => {
   return (
     <div className={`Logo ${className}`} style={style} onClick={onClick}>

@@ -1,0 +1,36 @@
+.HomeBiographies {
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.HomeBiographies > ol {
+  display: flex;
+  touch-action: pan-y;
+}
+.HomeBiographies > ol > li {
+  display: inline-block;
+  border-radius: 0.2rem;
+  position: relative;
+  min-width: 250px;
+  /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
+  /* transition: box-shadow 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); */
+}
+.HomeBiographies > ol > li .StoryItem {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: var(--size-3) var(--size-1);
+  margin: 0 10px !important;
+  transition: box-shadow 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.HomeBiographies h4 {
+  font-size: inherit;
+}
+/* .Home_topStories > ol > li:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.Home_topStories .CoverItems {
+  padding-left: 1rem;
+} */

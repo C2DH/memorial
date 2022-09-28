@@ -47,7 +47,7 @@ const App = () => {
                 path=""
                 element={
                   <React.Suspense fallback={<div className="h-75" />}>
-                    <Home />
+                    <Home isMobile={isMobile} />
                   </React.Suspense>
                 }
               />

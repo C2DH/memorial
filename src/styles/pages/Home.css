@@ -21,7 +21,7 @@
 
 .Home h2.outlined {
   font-weight: bold;
-  font-size: 6vh;
+  font-size: 45px;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: var(--bs-dark);
   color: transparent;
@@ -49,6 +49,9 @@
   }
   .Home h2 {
     font-size: 5vw;
+  }
+  .Home h2.outlined {
+    font-size: 6vh;
   }
 }
 

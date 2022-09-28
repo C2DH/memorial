@@ -2697,6 +2697,18 @@
     "@vimeo/player" "^2.14.1"
     prop-types "^15.7.2"
 
+"@use-gesture/core@10.2.20":
+  version "10.2.20"
+  resolved "https://registry.yarnpkg.com/@use-gesture/core/-/core-10.2.20.tgz#b29e0aadd5e90336e599d849e50eef0e06aa28bf"
+  integrity sha512-4lFhHc8so4yIHkBEs641DnEsBxPyhJ5GEjB4PURFDH4p/FcZriH6w99knZgI63zN/MBFfylMyb8+PDuj6RIXKQ==
+
+"@use-gesture/react@^10.2.20":
+  version "10.2.20"
+  resolved "https://registry.yarnpkg.com/@use-gesture/react/-/react-10.2.20.tgz#2d556a62c22200507b9d478ce7159057004acb8d"
+  integrity sha512-KnJq9ZSqprWA6uNhWTUHZqTCh+rfa0j8ehTzqeBhktUPrmTj7yVOBvEQ/vSFU/7d72cGgWSsJ0f5T6GQCHXnvg==
+  dependencies:
+    "@use-gesture/core" "10.2.20"
+
 "@vimeo/player@^2.14.1":
   version "2.17.1"
   resolved "https://registry.yarnpkg.com/@vimeo/player/-/player-2.17.1.tgz#613f722aaafc18bb7dad73c58f1b9ad3e3996b2a"
@@ -4542,6 +4554,13 @@ dotenv@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
   integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
+
+downsize@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/downsize/-/downsize-0.0.8.tgz#21435a610c8c68220f5cc31474979b4d025f038e"
+  integrity sha512-6vNP5DESwCTwefIFlMUp7MX6GfvjNYWjoLIdfdqPcYPNUcKKfjUctw2yMNbyM1wlkgfCO0oydSR/eysDHFo60w==
+  dependencies:
+    xregexp "2.0.0"
 
 duplexer@^0.1.2:
   version "0.1.2"
@@ -11673,6 +11692,11 @@ xmlchars@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/xmlchars/-/xmlchars-2.2.0.tgz#060fe1bcb7f9c76fe2a17db86a9bc3ab894210cb"
   integrity sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==
+
+xregexp@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/xregexp/-/xregexp-2.0.0.tgz#52a63e56ca0b84a7f3a5f3d61872f126ad7a5943"
+  integrity sha512-xl/50/Cf32VsGq/1R8jJE5ajH1yMCQkpmoS10QbFZWl2Oor4H0Me64Pu2yxvsRWK3m6soJbmGfzSR7BYmDcWAA==
 
 xtend@^4.0.2:
   version "4.0.2"
