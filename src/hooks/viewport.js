@@ -23,13 +23,24 @@ export const useCurrentWindowDimensions = (isMobile) => {
     const resizeListener = () => {
       clearTimeout(timeoutId)
       const dims = getWindowDimensions()
-      console.debug('[useCurrentWindowDimensions] Dimension changed to', dims, isMobile)
-      timeoutId = setTimeout(() => setWindowDimensions(dims), 150)
+      if (isMobile) {
+        console.debug('[useCurrentWindowDimensions] in mobile.', dims.width, windowDimensions.width)
+
+        if (dims.width !== windowDimensions.width) {
+          setWindowDimensions(dims)
+        }
+      } else {
+        console.debug('[useCurrentWindowDimensions] Dimension changed to', dims, isMobile)
+        timeoutId = setTimeout(() => setWindowDimensions(dims), 150)
+      }
       // console.info('setWindowDimensions', dims)
     }
     window.addEventListener('resize', resizeListener)
-
+    if (isMobile) {
+      resizeListener()
+    }
     return () => {
+      clearTimeout(timeoutId)
       window.removeEventListener('resize', resizeListener)
     }
   }, [isMobile])

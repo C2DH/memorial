@@ -21,7 +21,7 @@
 
 .Home h2.outlined {
   font-weight: bold;
-  font-size: 45px;
+  font-size: 40px;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: var(--bs-dark);
   color: transparent;
@@ -62,7 +62,7 @@
   border-radius: 15px;
   position: relative;
   cursor: pointer;
-  transition: border-color 0.36s ease-in-out;
+  transition: border-color 0.36s ease-in-out, opacity 0.36s ease-in-out;
   background-color: #ffffff26;
 }
 

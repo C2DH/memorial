@@ -21,8 +21,9 @@ const from = () => ({ opacity: 0.16 })
 
 const Home = ({ isMobile }) => {
   const { t } = useTranslation()
-  const { width, height } = useCurrentWindowDimensions()
+  const { width, height } = useCurrentWindowDimensions(isMobile)
   const words = String(t('pagesHomeSubheading')).split(' ')
+  const biographiesSpringSpeed = isMobile ? 0.2 : 0.25
   const [animatedWords] = useSprings(words.length, (i) => ({
     config: {
       duration: 2000,
@@ -58,9 +59,12 @@ const Home = ({ isMobile }) => {
         }}
         style={{ top: height - 160 }}
       >
-        <div className="scroll-container mx-auto mt-5">
+        <a.div
+          className="scroll-container mx-auto mt-5"
+          style={{ opacity: offset.to((o) => (o > height / 3 ? 0 : 1)) }}
+        >
           <div className="scroller"></div>
-        </div>
+        </a.div>
       </div>
       <Container className="Home page">
         <Row style={{ minHeight: isMobile ? height : height - 160 }}>
@@ -68,7 +72,7 @@ const Home = ({ isMobile }) => {
             <a.div
               className="w-100"
               style={{
-                transform: offset.to((o) => `translateY(${o * 0.35}px)`),
+                transform: offset.to((o) => `translateY(${isMobile ? o * 0.5 : o * 0.35}px)`),
               }}
             >
               {animatedWords.map((w, i) => (
@@ -87,15 +91,15 @@ const Home = ({ isMobile }) => {
         </Row>
         <Row>
           <Col {...BootstrapColumnLayout}>
-            <Container fluid className="p-0">
+            <Container fluid className="p-0 mb-5 mb-md-0">
               <Row>
                 <Col md={{ span: 6 }} sm={{ span: 12 }}>
                   <a.div
                     style={{
-                      transform: offset.to((o) => `translateY(${o * 0.2}px)`),
+                      transform: offset.to((o) => `translateY(${isMobile ? o * 0.17 : o * 0.2}px)`),
                     }}
                   >
-                    <section className="my-3 text-dark Home_firstParagraph">
+                    <section className="my-3 text-primary Home_firstParagraph">
                       <p dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphA') }} />
                     </section>
                     <p className="mt-5">
@@ -115,10 +119,15 @@ const Home = ({ isMobile }) => {
         className="w-100"
         style={{
           minHeight: height,
-          transform: offset.to((o) => `translateY(${o * 0.25}px)`),
+          transform: offset.to((o) => `translateY(${o * biographiesSpringSpeed}px)`),
         }}
       >
-        <HomeBiographies speed={0.25} availableWidth={width} availableHeight={height / 2} />
+        <HomeBiographies
+          isMobile={isMobile}
+          speed={biographiesSpringSpeed}
+          availableWidth={width}
+          availableHeight={height / 2}
+        />
       </a.div>
       {/* <div className="bg-secondary"> */}
       <Container>

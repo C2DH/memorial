@@ -170,6 +170,10 @@ a {
 .bg-primary {
   background-color: var(--bs-primary) !important;
 }
+.text-primary {
+  color: var(--bs-primary-text) !important;
+}
+
 .text-secondary {
   color: var(--bs-secondary) !important;
 }
@@ -193,7 +197,7 @@ a:hover {
 .display-outlined {
   color: transparent; /* var(--bs-primary); */
   font-weight: normal;
-  font-size: 3.4rem;
+  font-size: 36px;
   line-height: 1.2em;
   font-weight: bold;
   margin-top: var(--size-5);
@@ -202,4 +206,10 @@ a:hover {
   -webkit-text-stroke-color: var(--bs-primary-text);
   color: transparent;
   /* var(--bs-primary-text); */
+}
+
+@media (min-width: 576px) {
+  .display-outlined {
+    font-size: 3.4rem;
+  }
 }

@@ -9,7 +9,7 @@ import { animated, useSpring, config } from 'react-spring'
 import { useGesture } from '@use-gesture/react'
 import '../styles/components/HomeBiographies.css'
 
-const HomeBiographies = ({ speed, availableWidth, availableHeight }) => {
+const HomeBiographies = ({ isMobile, speed, availableWidth, availableHeight }) => {
   const { t } = useTranslation()
   const ref = useRef()
   const dragOffset = useRef(0)
@@ -59,7 +59,7 @@ const HomeBiographies = ({ speed, availableWidth, availableHeight }) => {
         // reset
         slideOffsetLeft.current = -window.innerWidth
         dragOffset.current = 0
-        api.start({ x: -window.innerWidth })
+        api.start({ x: -window.innerWidth, config: config.molasses })
       }
     }
     window.addEventListener('scroll', handleScroll)
@@ -85,7 +85,11 @@ const HomeBiographies = ({ speed, availableWidth, availableHeight }) => {
         if (dx) {
           dragOffset.current = slideOffsetLeft.current + x
           console.info('[HomeBiographies]', x, dx)
-          api.start({ x: slideOffsetLeft.current + x })
+          if (isMobile) {
+            api.set({ x: slideOffsetLeft.current + x, config: config.stiff })
+          } else {
+            api.start({ x: slideOffsetLeft.current + x, config: config.stiff })
+          }
         }
         //   runSprings(wheelOffset.current + -x, -dx)
         // }
