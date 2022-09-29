@@ -1,8 +1,8 @@
 import React from 'react'
 import '../styles/components/CoverItems.css'
-const CoverItems = ({ covers = [], size = 50, ...rest }) => {
+const CoverItems = ({ covers = [], size = 120, style, ...rest }) => {
   return (
-    <ol className="CoverItems" {...rest}>
+    <ol className="CoverItems" style={{ width: size, ...style }} {...rest}>
       {covers.map((doc, i) => {
         const thumbnailResolution = doc.data.resolutions?.thumbnail?.url
         return (

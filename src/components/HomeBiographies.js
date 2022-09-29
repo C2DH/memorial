@@ -74,6 +74,7 @@ const HomeBiographies = ({ isMobile, speed, availableWidth, availableHeight }) =
     url: '/api/story',
     params: {
       exclude: { tags__name: 'static' },
+      orderby: '-date_last_modified',
     },
   })
 
