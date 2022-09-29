@@ -11,6 +11,7 @@ import HomeThreeLandscape from '../components/HomeThreeLandscape'
 import GetInTouch from '../components/GetInTouch'
 import { useCurrentWindowDimensions } from '../hooks/viewport'
 import Logo from '../components/Logo'
+import { Dodecaedron } from '../components/Pebble'
 // import { useGetJSON } from '../hooks/data'
 
 const to = (i) => ({
@@ -48,7 +49,7 @@ const Home = ({ isMobile }) => {
       title:
         'Liba Hélène KAPLAN (1872-1942), Alexandre WONAGUS (1879-1915), Bernhard WONAGUS (1907-?), Joseph WONAGUS (1909-1943), Max WONAGUS (1911-1943), Ida WONAGUS (1913-?)',
       slug: '0120-wonagus-kaplan',
-      geometry: 4,
+      geometry: Dodecaedron,
     },
     {
       title: 'Gerson Aronow (1888-1943), Sophie Herz (1897-1942)',
@@ -64,6 +65,7 @@ const Home = ({ isMobile }) => {
     {
       title: 'Rebecca genannt Rely LEVY (1898-1942)',
       slug: '0064-levy-rebecca',
+      geometry: Dodecaedron,
     },
     {
       title: 'Samuel Rubin (1903-1991) -- Elise Weyland (1903-1984)',

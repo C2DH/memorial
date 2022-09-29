@@ -5,7 +5,7 @@ import '../styles/components/Pebble.css'
 
 const title = ''
 
-export const Cube = 'Cube'
+export const Cube = 4
 export const Dodecaedron = 'Dodecaedron'
 export const Sphere = 'Sphere'
 export const Polyhedron = 'Polyhedron'
