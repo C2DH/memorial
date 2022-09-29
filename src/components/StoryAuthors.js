@@ -9,9 +9,9 @@ const StoryAuthors = ({ authors = [] }) => {
   }
   return (
     <div>
-      <label className="text-uppercase small fw-bold">{t('writtenBy')}&nbsp;</label>
+      <label className="text-uppercase small fw-bold">{t('writtenBy')}</label>
       {authors.map((author) => (
-        <AuthorItem key={author.id} author={author} />
+        <AuthorItem key={author.id} author={author} className="ms-3" />
       ))}
     </div>
   )
