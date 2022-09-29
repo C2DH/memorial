@@ -3,13 +3,14 @@ import { useTranslation } from 'react-i18next'
 import { useSprings, useSpring, a, config } from 'react-spring'
 import { Container, Row, Col } from 'react-bootstrap'
 import LangLink from '../components/LangLink'
-import TopStories from '../components/TopStories'
 // import TopDocuments from '../components/TopDocuments'
+import HomeBiographies from '../components/HomeBiographies'
 import { BootstrapColumnLayout } from '../constants'
 import '../styles/pages/Home.css'
 import HomeThreeLandscape from '../components/HomeThreeLandscape'
 import GetInTouch from '../components/GetInTouch'
 import { useCurrentWindowDimensions } from '../hooks/viewport'
+import Logo from '../components/Logo'
 // import { useGetJSON } from '../hooks/data'
 
 const to = (i) => ({
@@ -17,12 +18,13 @@ const to = (i) => ({
 
   delay: i * 500 + Math.random() * 4500,
 })
-const from = () => ({ opacity: 0.21 })
+const from = () => ({ opacity: 0.16 })
 
-const Home = () => {
+const Home = ({ isMobile }) => {
   const { t } = useTranslation()
-  const { width, height } = useCurrentWindowDimensions()
+  const { width, height } = useCurrentWindowDimensions(isMobile)
   const words = String(t('pagesHomeSubheading')).split(' ')
+  const biographiesSpringSpeed = isMobile ? 0.2 : 0.25
   const [animatedWords] = useSprings(words.length, (i) => ({
     config: {
       duration: 2000,
@@ -58,17 +60,31 @@ const Home = () => {
         }}
         style={{ top: height - 160 }}
       >
-        <div className="scroll-container mx-auto mt-5">
+        <a.div
+          className="scroll-container mx-auto mt-5"
+          style={{ opacity: offset.to((o) => (o > height / 3 ? 0 : 1)) }}
+        >
           <div className="scroller"></div>
-        </div>
+        </a.div>
       </div>
-      <Container className="Home page" style={{ minHeight: height * 2 - 160 }}>
-        <Row>
-          <Col {...BootstrapColumnLayout}>
+      <Container className="Home page">
+        <Row
+          style={{
+            minHeight: isMobile ? height * 0.6 : height * 0.6,
+            marginBottom: isMobile ? height * 0.25 : height * 0.25,
+          }}
+          className="align-items-center"
+        >
+          {isMobile ? null : (
+            <Col sm={{ span: 3 }}>
+              <Logo width={250} height={350} style={{ color: 'var(--bs-secondary)' }} />
+            </Col>
+          )}
+          <Col>
             <a.div
               className="w-100"
               style={{
-                transform: offset.to((o) => `translateY(${o * 0.35}px)`),
+                transform: offset.to((o) => `translateY(${isMobile ? o * 0.5 : o * 0.35}px)`),
               }}
             >
               {animatedWords.map((w, i) => (
@@ -85,29 +101,50 @@ const Home = () => {
             </a.div>
           </Col>
         </Row>
+        <Row>
+          <Col {...BootstrapColumnLayout}>
+            <Container fluid className="p-0 mb-5 mb-md-0">
+              <Row>
+                <Col md={{ span: 6 }} sm={{ span: 12 }}>
+                  <a.div
+                    style={{
+                      transform: offset.to((o) => `translateY(${isMobile ? o * 0.17 : o * 0.2}px)`),
+                    }}
+                  >
+                    <section className="my-3 text-primary Home_firstParagraph">
+                      <p dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphA') }} />
+                    </section>
+                    <p className="mt-5">
+                      <LangLink to="/biographies">
+                        <button className="btn btn-white btn-lg">{t('allStories')}</button>
+                      </LangLink>
+                    </p>
+                  </a.div>
+                </Col>
+                <Col></Col>
+              </Row>
+            </Container>
+          </Col>
+        </Row>
       </Container>
-
+      <a.div
+        className="w-100"
+        style={{
+          minHeight: height,
+          transform: offset.to((o) => `translateY(${o * biographiesSpringSpeed}px)`),
+        }}
+      >
+        <HomeBiographies
+          isMobile={isMobile}
+          speed={biographiesSpringSpeed}
+          availableWidth={width}
+          availableHeight={height / 2}
+        />
+      </a.div>
       {/* <div className="bg-secondary"> */}
       <Container>
         <Row className="my-4 ">
           <Col {...BootstrapColumnLayout}>
-            <a.div
-              style={{
-                transform: offset.to((o) => `translateY(${o * -0.15}px)`),
-              }}
-            >
-              <div
-                className="my-3 text-dark"
-                dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphA') }}
-              />
-              <p className="mt-5">
-                <LangLink to="/biographies">
-                  <button lg className="btn btn-white btn-lg">
-                    {t('allStories')}
-                  </button>
-                </LangLink>
-              </p>
-            </a.div>
             <Container fluid className="p-0">
               <Row>
                 <Col md={{ span: 6 }} sm={{ span: 12 }}>
@@ -117,51 +154,17 @@ const Home = () => {
                   />
                 </Col>
                 <Col>
-                  <div dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphC') }} />
+                  <div
+                    dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphC') }}
+                    className="mb-5 mb-md-4"
+                  />
                   <GetInTouch />
                 </Col>
               </Row>
             </Container>
           </Col>
         </Row>
-        <Row className="my-4 ">
-          <Col {...BootstrapColumnLayout}>
-            <h2 className="Home_outlined">Les biographies</h2>
-            <TopStories
-              className="Home_topStories"
-              olClassName=" d-flex"
-              params={{
-                exclude: { tags__name: 'static' },
-              }}
-            >
-              <section className="mb-3">
-                <p dangerouslySetInnerHTML={{ __html: t('topStoriesIntro') }} />
-              </section>
-              <section className="mb-5">
-                <LangLink to="/biographies">
-                  <button className="btn btn-white">{t('allStories')}</button>
-                </LangLink>
-              </section>
-            </TopStories>
-          </Col>
-        </Row>
       </Container>
-      {/* </div> */}
-      {/* <Container className="mt-5">
-        <Row>
-          <Col {...BootstrapColumnLayout}>
-            <h2>Trouver les documents d'archive</h2>
-            <section className="mb-3">
-              <p dangerouslySetInnerHTML={{ __html: t('topStoriesIntro') }} />
-            </section>
-            <section className="mb-5">
-              <LangLink to="/biographies">
-                <Button>{t('allStories')}</Button>
-              </LangLink>
-            </section>
-          </Col>
-        </Row>
-      </Container> */}
     </>
   )
 }

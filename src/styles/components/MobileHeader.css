@@ -26,11 +26,22 @@
 }
 .MobileHeader_menubtn {
   margin: var(--size-2);
-  padding: 1px 4px;
   border-radius: 2px;
   color: var(--bs-dark);
   font-weight: bold;
   background-color: transparent;
   border: 2px solid;
+  display: flex;
+  align-items: center;
+  /* font-size: 16px;
+  line-height: 16px;
+  padding: 0 4px 1px; */
+
+  padding: 2px 5px;
+}
+.MobileHeader_menubtn span {
+  display: inline-block;
+
   font-size: 16px;
+  margin-right: 5px;
 }

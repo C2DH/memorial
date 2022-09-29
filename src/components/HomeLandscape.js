@@ -15,7 +15,7 @@ const HomeLandscape = ({
   availableWidth = 100,
   availableHeight = 100,
 }) => {
-  const [{ offset, opacity }, set] = useSpring(() => ({
+  const [{ offset, opacity }, api] = useSpring(() => ({
     offset: 0,
     opacity: 0,
     config: config.stiff,
@@ -28,14 +28,14 @@ const HomeLandscape = ({
     const handleScroll = () => {
       // const posY = ref.current.getBoundingClientRect().top;
       const offset = window.pageYOffset - initialOffset
-      set({ offset })
+      api.start({ offset })
     }
     window.addEventListener('scroll', handleScroll)
-    set({ offset: -initialOffset })
+    api.start({ offset: -initialOffset })
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [set, initialOffset])
+  }, [api, initialOffset])
 
   console.debug(
     '[HomeLandscape] \n- availableWidth:',
@@ -81,7 +81,7 @@ const HomeLandscape = ({
             background
             onPlay={() => {
               console.debug('[HomeLandscape] @onPlay')
-              set({ opacity: 1 })
+              api.start({ opacity: 1 })
             }}
           />
         </a.div>

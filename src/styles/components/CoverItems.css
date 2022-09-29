@@ -3,3 +3,14 @@
   border-radius: 2px;
   border: 2px solid white;
 }
+
+.CoverItems {
+  position: relative;
+}
+
+.CoverItems picture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(-20px, -50%, 0) rotate(-5deg);
+}

@@ -31,8 +31,8 @@ const MobileHeader = () => {
       onClick={onClick}
       style={{ zIndex: 1000, cursor: 'pointer' }}
     >
-      <Logo style={{ color: 'white' }} height={70} width={70} className="mx-2 mt-1" />
-      <div className="MobileHeader_menubtn position-absolute right-0 top-0">
+      <Logo style={{ color: 'white' }} height={70} width={70} className="mx-2 mt-1" isMobile />
+      <div className="MobileHeader_menubtn position-absolute bg-secondary right-0 top-0">
         <span>{t('Menu')}</span> <Menu size={22} />{' '}
       </div>
       <a.div style={{ width, height, ...style }} className="position-absolute MobileHeader_menu">

@@ -1,4 +1,4 @@
-FROM node:16.13.2-alpine as builder
+FROM node:18-alpine as builder
 
 ARG GIT_TAG
 ARG GIT_BRANCH
@@ -7,9 +7,9 @@ ARG GIT_REVISION
 WORKDIR /app
 
 COPY package.json .
-COPY package-lock.json .
+COPY yarn.lock .
 
-RUN npm install
+RUN yarn install
 
 COPY public ./public
 COPY src ./src
@@ -22,7 +22,7 @@ ENV REACT_APP_GIT_TAG=${GIT_TAG}
 ENV REACT_APP_GIT_BRANCH=${GIT_BRANCH}
 ENV REACT_APP_GIT_REVISION=${GIT_REVISION}
 
-RUN npm run build
+RUN yarn run build
 
 FROM busybox
 WORKDIR /app
