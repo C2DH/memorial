@@ -24,3 +24,11 @@
   padding: 1px 4px 2px;
   line-height: 28px;
 }
+.Logo svg text::selection {
+  background-color: transparent;
+}
+.Logo svg text::selection,
+.Logo_mobiletext span::selection,
+.Logo_mobiletext span::-moz-selection {
+  background-color: transparent;
+}

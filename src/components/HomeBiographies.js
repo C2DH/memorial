@@ -22,6 +22,9 @@ const HomeBiographies = ({ isMobile, speed, availableWidth, availableHeight }) =
 
   useEffect(() => {
     const handleScroll = () => {
+      if (!target.current || !ref.current) {
+        return
+      }
       const pageYOffset = window.pageYOffset
       // get translatedOffset, that is the value to add because of parallax coeff "speed"
       const translatedOffset = speed * pageYOffset
@@ -123,7 +126,12 @@ const HomeBiographies = ({ isMobile, speed, availableWidth, availableHeight }) =
         </li>
         {status === StatusSuccess
           ? shuffle(data.results).map((story) => (
-              <li key={story.slug}>
+              <li
+                key={story.slug}
+                className={`HomeBiographies_storyListItem ${
+                  story.covers.length ? 'with-covers' : ''
+                }`}
+              >
                 <StoryItem reduced story={story} className="my-3" />
               </li>
             ))

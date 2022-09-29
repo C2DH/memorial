@@ -1,5 +1,8 @@
 .Home.page {
   margin-top: 80px;
+  position: relative;
+  pointer-events: none;
+  z-index: 1;
   /* margin-bottom: 80px; */
 }
 
@@ -26,7 +29,9 @@
   -webkit-text-stroke-color: var(--bs-dark);
   color: transparent;
 }
-
+.Home h2.outlined::selection {
+  background-color: transparent;
+}
 .Home_topStories > ol > li {
   margin: 0.2rem;
   border-radius: 0.2rem;

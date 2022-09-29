@@ -7,7 +7,7 @@ const Logo = ({
   marginTop = 35,
   marginLeft = 25,
   color = 'var(--bs-dark)',
-  className,
+  className = '',
   style,
   onClick,
   isMobile = false,

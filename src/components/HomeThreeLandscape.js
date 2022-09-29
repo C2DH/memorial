@@ -6,7 +6,7 @@ const HomeThreeLandscape = ({ availableWidth, availableHeight, ...props }) => {
   return (
     <div
       id="canvas-container"
-      style={{ width: availableWidth, height: availableHeight, zIndex: -1 }}
+      style={{ width: availableWidth, height: availableHeight, zIndex: 0 }}
       className="position-absolute top-0"
     >
       <Canvas shadows camera={{ position: [0, 0, 2], far: 3000, fov: 50 }}>

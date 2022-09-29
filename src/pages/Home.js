@@ -33,7 +33,7 @@ const Home = ({ isMobile }) => {
     ...to(i),
     from: from(),
   }))
-  const [{ offset }, set] = useSpring(() => ({
+  const [{ offset }, api] = useSpring(() => ({
     offset: 0,
     config: config.stiff,
   }))
@@ -42,17 +42,19 @@ const Home = ({ isMobile }) => {
     const handleScroll = () => {
       // const posY = ref.current.getBoundingClientRect().top;
       const offset = window.pageYOffset
-      set({ offset })
+      api.start({ offset })
     }
     window.addEventListener('scroll', handleScroll)
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [set])
+  }, [api])
 
   return (
     <>
-      <HomeThreeLandscape availableWidth={width} availableHeight={height} />
+      <React.Suspense fallback={null}>
+        <HomeThreeLandscape availableWidth={width} availableHeight={height} />
+      </React.Suspense>
       <div
         className="position-absolute w-100"
         onClick={() => {
@@ -89,7 +91,7 @@ const Home = ({ isMobile }) => {
             >
               {animatedWords.map((w, i) => (
                 <a.h2
-                  className={`Home_animatedWord outlined display-2 d-inline-block m-0 ${
+                  className={`Home_animatedWord outlined display-2 d-inline-block m-0 pointer-events-auto ${
                     i === 0 ? 'first' : ''
                   } `}
                   style={w}
