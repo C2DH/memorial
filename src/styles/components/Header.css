@@ -19,3 +19,8 @@
   position: relative;
   z-index: 1;
 }
+
+.Header nav li a,
+.Header nav li.active a {
+  text-decoration: none;
+}

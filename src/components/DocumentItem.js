@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import DocumentReference from './DocumentReference'
 import DocumentImage from './DocumentImage'
+import DocumentDoc from './DocumentDoc'
 import Person from './Person'
 
 const AvailableDocumentListItemComponents = {
@@ -10,6 +11,7 @@ const AvailableDocumentListItemComponents = {
   image: DocumentImage,
   doc: DocumentImage,
   person: Person,
+  document: DocumentDoc,
 }
 
 const DocumentItem = ({ doc = { data: {} }, onClick }) => {
@@ -31,7 +33,8 @@ const DocumentItem = ({ doc = { data: {} }, onClick }) => {
   } else {
     return (
       <div>
-        Not found!<pre>{JSON.stringify(doc.data, null, 1)}</pre>
+        Not found! {doc.slug}
+        <pre>{JSON.stringify(doc.data, null, 1)}</pre>
       </div>
     )
   }

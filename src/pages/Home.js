@@ -107,7 +107,7 @@ const Home = ({ isMobile }) => {
         </Row>
         <Row>
           <Col {...BootstrapColumnLayout}>
-            <Container fluid className="p-0 mb-5 mb-md-0">
+            <Container fluid className="p-0 mb-5 mb-md-0 pointer-events-auto">
               <Row>
                 <Col md={{ span: 6 }} sm={{ span: 12 }}>
                   <a.div

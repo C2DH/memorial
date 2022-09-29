@@ -9,7 +9,7 @@
   display: flex;
   touch-action: none;
 }
-.HomeBiographies > ol > li {
+.HomeBiographies_storyListItem {
   display: inline-block;
   border-radius: 0.2rem;
   position: relative;
@@ -34,3 +34,7 @@
 .Home_topStories .CoverItems {
   padding-left: 1rem;
 } */
+.HomeBiographies_storyListItem.with-covers {
+  min-width: 350px;
+  margin-left: 15px;
+}
