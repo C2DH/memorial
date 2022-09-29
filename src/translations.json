@@ -3,7 +3,7 @@
     "translation": {
       "actionAddAPebble": "Add a pebble to the Memorial",
       "actionSendUsPageOfTestimony": "Get in touch with us",
-      "allStories": "Explorer toute Biographie",
+      "allStories": "Explorer toutes les biographies",
       "ariaLabelSearch": "search & find",
       "asNumber": "{{ n,2 }}",
       "citeAs": "Reference",
@@ -44,7 +44,7 @@
     "translation": {
       "actionAddAPebble": "Add a pebble to the Memorial",
       "actionSendUsPageOfTestimony": "Get in touch with us",
-      "allStories": "Explorer toute Biographie",
+      "allStories": "Explore the Biographies",
       "ariaLabelSearch": "search & find",
       "asNumber": "{{ n,2 }}",
       "citeAs": "Reference",
