@@ -5,7 +5,12 @@ import '../styles/components/Pebble.css'
 
 const title = ''
 
-function Pebble({ scale, rotation, title, ...props }) {
+export const Cube = 'Cube'
+export const Dodecaedron = 'Dodecaedron'
+export const Sphere = 'Sphere'
+export const Polyhedron = 'Polyhedron'
+
+function Pebble({ geometry = Cube, color = '#9BC995', scale, rotation, title, ...props }) {
   // This reference gives us direct access to the THREE.Mesh object
   const ref = useRef()
 
@@ -35,8 +40,11 @@ function Pebble({ scale, rotation, title, ...props }) {
           {title}
         </div>
       </Html>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? '#EA1744' : '#9BC995'} />
+      {geometry === Cube && <boxGeometry args={[1, 1, 1]} />}
+      {geometry === Dodecaedron && <dodecahedronGeometry />}
+      {geometry === Sphere && <sphereGeometry args={[1, 16, 16]} />}
+      {geometry === Polyhedron && <icosahedronGeometry />}
+      <meshStandardMaterial color={hovered ? '#EA1744' : color} />
     </mesh>
   )
 }

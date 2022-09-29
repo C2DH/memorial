@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
-import Pebble from './Pebble'
+import Pebble, { Dodecaedron, Sphere, Polyhedron } from './Pebble'
 
 const HomeThreeLandscape = ({ availableWidth, availableHeight, ...props }) => {
   return (
@@ -16,8 +16,15 @@ const HomeThreeLandscape = ({ availableWidth, availableHeight, ...props }) => {
         <ambientLight intensity={0.25} />
         <directionalLight color="gold" position={[16, 20, 25]} />
         <Pebble scale={0.5} position={[0, 0, -10]} title={'Hello'} />
-        <Pebble scale={0.5} position={[3, 1, -5]} title={'Yaroslav'} />
-        <Pebble scale={0.5} position={[5, -1, -3]} title={'How are you?'} />
+        <Pebble
+          geometry={Dodecaedron}
+          color="pink"
+          scale={0.5}
+          position={[3, 1, -5]}
+          title={'Yaroslav'}
+        />
+        <Pebble geometry={Sphere} scale={0.5} position={[5, -1, -3]} title={'How are you?'} />
+        <Pebble geometry={Polyhedron} scale={0.5} position={[5, -1, -1]} title={'How are you?'} />
         <OrbitControls autoRotate={true} autoRotateSpeed={0.2} enableZoom={false} />
       </Canvas>
     </div>
