@@ -30,9 +30,9 @@ const SearchStories = ({ q = '', filters = {}, limit = 20, orderby = '-id' }) =>
         count > 0 &&
         stories.map((story, i) => (
           <li key={story.slug} className="mt-2 ">
-            <label className="small text-muted">
+            {/* <label className="small text-muted">
               {i + 1} / {count}
-            </label>
+            </label> */}
             <StoryItem story={story} />
           </li>
         ))}

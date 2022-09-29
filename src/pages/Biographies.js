@@ -21,8 +21,8 @@ const Biographies = () => {
         <Row>
           <Col {...BootstrapStartColumnLayout}>
             <h1>{t('pagesBiographiesTitle')}</h1>
-            {author.length ? author : 'all'}
-            <button onClick={() => setAuthor(null)}>All</button>
+            {/* {author.length ? author : 'all'}
+            <button onClick={() => setAuthor(null)}>All</button> */}
             <SearchStories q={q} filters={filters} />
           </Col>
         </Row>
