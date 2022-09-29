@@ -7,7 +7,7 @@ import LangLink from '../components/LangLink'
 import HomeBiographies from '../components/HomeBiographies'
 import { BootstrapColumnLayout } from '../constants'
 import '../styles/pages/Home.css'
-import HomeLandscape from '../components/HomeLandscape'
+import HomeThreeLandscape from '../components/HomeThreeLandscape'
 import GetInTouch from '../components/GetInTouch'
 import { useCurrentWindowDimensions } from '../hooks/viewport'
 import Logo from '../components/Logo'
@@ -52,7 +52,7 @@ const Home = ({ isMobile }) => {
 
   return (
     <>
-      <HomeLandscape availableWidth={width} availableHeight={height} />
+      <HomeThreeLandscape availableWidth={width} availableHeight={height} />
       <div
         className="position-absolute w-100"
         onClick={() => {

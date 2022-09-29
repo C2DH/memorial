@@ -7,6 +7,8 @@
     "@kokarn/react-zoom-pan-pinch": "^2.1.5",
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "@react-spring/parallax": "^9.4.5",
+    "@react-three/drei": "^9.32.3",
+    "@react-three/fiber": "^8.8.6",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -35,6 +37,7 @@
     "react-spring": "^9.4.5",
     "remark-footnotes": "^4.0.1",
     "remark-gfm": "^3.0.1",
+    "three": "^0.144.0",
     "use-query-params": "^1.2.3",
     "web-vitals": "^2.1.4",
     "zustand": "^4.0.0-rc.1"
