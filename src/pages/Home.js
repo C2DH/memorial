@@ -7,7 +7,7 @@ import TopStories from '../components/TopStories'
 // import TopDocuments from '../components/TopDocuments'
 import { BootstrapColumnLayout } from '../constants'
 import '../styles/pages/Home.css'
-import HomeLandscape from '../components/HomeLandscape'
+import HomeThreeLandscape from '../components/HomeThreeLandscape'
 import GetInTouch from '../components/GetInTouch'
 import { useCurrentWindowDimensions } from '../hooks/viewport'
 // import { useGetJSON } from '../hooks/data'
@@ -50,7 +50,7 @@ const Home = () => {
 
   return (
     <>
-      <HomeLandscape availableWidth={width} availableHeight={height} />
+      <HomeThreeLandscape availableWidth={width} availableHeight={height} />
       <div
         className="position-absolute w-100"
         onClick={() => {
