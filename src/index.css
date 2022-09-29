@@ -213,3 +213,7 @@ a:hover {
     font-size: 3.4rem;
   }
 }
+
+.pointer-events-auto {
+  pointer-events: auto;
+}
