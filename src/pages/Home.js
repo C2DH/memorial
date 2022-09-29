@@ -130,7 +130,7 @@ const Home = ({ isMobile }) => {
       <a.div
         className="w-100"
         style={{
-          minHeight: isMobile ? height : height * 0.7,
+          minHeight: height,
           transform: offset.to((o) => `translateY(${o * biographiesSpringSpeed}px)`),
         }}
       >
