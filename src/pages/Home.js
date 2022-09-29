@@ -38,6 +38,39 @@ const Home = ({ isMobile }) => {
     config: config.stiff,
   }))
 
+  const pebbles = [
+    {
+      title: 'Esther MEYER (1871-1942)',
+      slug: '0014-esther-meyer',
+      geometry: 4,
+    },
+    {
+      title:
+        'Liba Hélène KAPLAN (1872-1942), Alexandre WONAGUS (1879-1915), Bernhard WONAGUS (1907-?), Joseph WONAGUS (1909-1943), Max WONAGUS (1911-1943), Ida WONAGUS (1913-?)',
+      slug: '0120-wonagus-kaplan',
+      geometry: 4,
+    },
+    {
+      title: 'Gerson Aronow (1888-1943), Sophie Herz (1897-1942)',
+      slug: '0058-aronow-herz',
+      geometry: 4,
+    },
+    {
+      title:
+        'Max GOLD (1900-1961), Reine PRESYTE (1909-?), Elka PRESYTE (1914-1943), Erika GOLD (1940-?)',
+      slug: '0103-gold-presyte',
+      geometry: 4,
+    },
+    {
+      title: 'Rebecca genannt Rely LEVY (1898-1942)',
+      slug: '0064-levy-rebecca',
+    },
+    {
+      title: 'Samuel Rubin (1903-1991) -- Elise Weyland (1903-1984)',
+      slug: '0027-rubin-weyland',
+    },
+  ]
+
   useEffect(() => {
     const handleScroll = () => {
       // const posY = ref.current.getBoundingClientRect().top;
@@ -53,7 +86,7 @@ const Home = ({ isMobile }) => {
   return (
     <>
       <React.Suspense fallback={null}>
-        <HomeThreeLandscape availableWidth={width} availableHeight={height} />
+        <HomeThreeLandscape pebbles={pebbles} availableWidth={width} availableHeight={height} />
       </React.Suspense>
       <div className="position-absolute w-100 pointer-events-none" style={{ top: height - 160 }}>
         <a.div
