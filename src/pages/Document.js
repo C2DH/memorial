@@ -44,6 +44,7 @@ const Document = ({ relatedPersons = false }) => {
                         slug__istartswith: doc.slug.split('-', -1).slice(0, -1).join('-'),
                       },
                     }}
+                    reduced
                   />
                   {relatedPersons && (
                     <TopDocuments
