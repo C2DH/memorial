@@ -13,8 +13,8 @@ const HomeThreeLandscape = ({ availableWidth, availableHeight, ...props }) => {
         <color attach="background" args={['#ffefe5']} />
         <fog attach="fog" args={['#ffefe5', 1000, 3000]} />
         <Suzi rotation={[0, 0, 0]} scale={0.6} position={[0, -400, 0]} />
-        <ambientLight intensity={0.1} />
-        <directionalLight color="red" position={[16, 20, 25]} />
+        <ambientLight intensity={0.25} />
+        <directionalLight color="gold" position={[16, 20, 25]} />
         <Suspense fallback={null}></Suspense>
         <OrbitControls autoRotate autoRotateSpeed={0.2} enableZoom={false} />
       </Canvas>
