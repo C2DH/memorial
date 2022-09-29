@@ -55,15 +55,12 @@ const Home = ({ isMobile }) => {
       <React.Suspense fallback={null}>
         <HomeThreeLandscape availableWidth={width} availableHeight={height} />
       </React.Suspense>
-      <div
-        className="position-absolute w-100"
-        onClick={() => {
-          window.scrollTo({ top: height - 160, behaviour: 'smooth' })
-        }}
-        style={{ top: height - 160 }}
-      >
+      <div className="position-absolute w-100 pointer-events-none" style={{ top: height - 160 }}>
         <a.div
-          className="scroll-container mx-auto mt-5"
+          className="scroll-container pointer-events-auto mx-auto mt-5"
+          onClick={() => {
+            window.scrollTo({ top: height - 160, behaviour: 'smooth' })
+          }}
           style={{ opacity: offset.to((o) => (o > height / 3 ? 0 : 1)) }}
         >
           <div className="scroller"></div>
@@ -75,11 +72,16 @@ const Home = ({ isMobile }) => {
             minHeight: isMobile ? height * 0.6 : height * 0.6,
             marginBottom: isMobile ? height * 0.25 : height * 0.25,
           }}
-          className="align-items-center"
+          className="align-items-center align-items-md-start"
         >
           {isMobile ? null : (
             <Col sm={{ span: 3 }}>
-              <Logo width={250} height={350} style={{ color: 'var(--bs-secondary)' }} />
+              <Logo
+                className="position-absolute"
+                width={250}
+                height={350}
+                style={{ top: -50, color: 'var(--bs-secondary)' }}
+              />
             </Col>
           )}
           <Col>
