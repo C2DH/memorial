@@ -29,10 +29,14 @@
 }
 
 .Story_TopDocuments ol {
-  padding-left: 1rem !important;
+  padding-left: var(--size-3);
   margin-top: 0.5rem !important;
   margin-bottom: 0.5rem !important;
-  border-left: 1px solid;
+  /* border-left: 1px solid; */
+}
+.Story_TopDocuments ol li {
+  display: inline-block;
+  margin: var(--size-3);
 }
 .Story_StoryModule.no-footnotes .FootnoteDefinition {
   display: none !important;
