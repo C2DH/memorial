@@ -1,12 +1,16 @@
 import React from 'react'
 import LangLink from './LangLink'
 
-const Person = ({ doc }) => {
+const Person = ({ doc, className = '', active = false }) => {
   return (
-    <div>
-      <LangLink className="Person_title" to={`/person/${doc.slug}`}>
-        <h4 className="m-0 ">{doc.title}</h4>
-      </LangLink>
+    <div className={`Person ${className}`}>
+      {active ? (
+        <LangLink className="Person_title" to={`/person/${doc.slug}`}>
+          <h4 className="m-0 ">{doc.title}</h4>
+        </LangLink>
+      ) : (
+        <h4 className="m-0 fw-bold">{doc.title}</h4>
+      )}
       <div className="small">
         {doc.data.birth_date}
         <br />
