@@ -8,13 +8,6 @@ import ModuleTextAnchor, {
   FootnoteReferencePrefix,
   FootnoteDefinitionPrefix,
 } from './ModuleTextAnchor'
-import MarkdownIt from 'markdown-it'
-
-export const markdownParser = MarkdownIt({
-  html: false,
-  linkify: true,
-  typographer: true,
-})
 
 const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = true }) => {
   // console.debug('[ModuleText]', content, footnotes)
