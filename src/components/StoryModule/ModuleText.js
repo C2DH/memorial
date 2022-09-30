@@ -4,17 +4,32 @@ import remarkGfm from 'remark-gfm'
 import { all } from 'mdast-util-to-hast'
 import FootnoteReference from './FootnoteReference'
 import FootnoteDefinition from './FootnoteDefinition'
-import ModuleTextAnchor from './ModuleTextAnchor'
+import ModuleTextAnchor, {
+  FootnoteReferencePrefix,
+  FootnoteDefinitionPrefix,
+} from './ModuleTextAnchor'
+import MarkdownIt from 'markdown-it'
+
+export const markdownParser = MarkdownIt({
+  html: false,
+  linkify: true,
+  typographer: true,
+})
 
 const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = true }) => {
   // console.debug('[ModuleText]', content, footnotes)
   // remove {width=} image
   // and correct badly retrieved markdown errors
+  // console.debug('[ModuleText]', markdownParser.render(content), footnotes)
   let chunks = [
     content
       .replace(/\{width=[^}]+\}/g, '') // replace image spec {width= ...} (sic)
-      .replace(/\{\.[^}]+\}/g, ''), // replace {.underline} mentions (sic)
-    // .replace(/\{\.[^}]+\}/g, ''), // replace internal links {.underline} mentions (sic)
+      .replace(/\{\.[^}]+\}/g, '') // replace {.underline} mentions (sic)
+      .replace(/\[\^(\d+)\](:)?/g, (m, num, def) => {
+        return def === undefined
+          ? `[${num}](${FootnoteReferencePrefix}/${num})`
+          : `[${num}](${FootnoteDefinitionPrefix}/${num})`
+      }), // VERY IMPORTANT, we build FAKE footnotes! as we hve now sections.
   ]
   // console.debug('[ModuleText]', chunks)
   const footnoteIndex = {}

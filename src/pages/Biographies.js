@@ -2,7 +2,6 @@ import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { useQueryParam, withDefault } from 'use-query-params'
 import { QParam, SlugParam } from '../logic/params'
-
 import SearchStories from '../components/SearchStories'
 import { BootstrapStartColumnLayout } from '../constants'
 import { useTranslation } from 'react-i18next'
