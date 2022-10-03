@@ -69,7 +69,7 @@ const HomeThreeLandscape = ({
 }
 
 function Suzi(props) {
-  const { scene } = useGLTF('/Landscape.gltf')
+  const { scene } = useGLTF('/Landscape.glb')
 
   return <primitive object={scene} {...props} />
 }
