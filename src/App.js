@@ -8,6 +8,7 @@ import LanguageRouter from './components/LanguageRouter'
 import RouteAdapter from './components/RouteAdapter'
 import { WithMiller } from './logic/miller'
 import { initializeI18next } from './logic/language'
+
 const { languageCode } = initializeI18next()
 console.info('initial languageCode', languageCode)
 
@@ -19,6 +20,7 @@ const Document = lazy(() => import('./pages/Document'))
 const Person = lazy(() => import('./pages/Person'))
 const Search = lazy(() => import('./pages/Search'))
 const Page = lazy(() => import('./pages/Page'))
+const Lines = lazy(() => import('./pages/Lines'))
 
 const Header = lazy(() => import('./components/Header'))
 const MobileHeader = lazy(() => import('./components/MobileHeader'))
@@ -51,6 +53,14 @@ const App = () => {
                   </React.Suspense>
                 }
               />
+              <Route
+                path="lines"
+                element={
+                  <React.Suspense fallback={<>...</>}>
+                    <Lines isMobile={isMobile} />
+                  </React.Suspense>
+                }
+              ></Route>
               <Route
                 path="story/:storyId"
                 element={
