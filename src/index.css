@@ -54,7 +54,7 @@ code {
 }
 
 .page {
-  margin-top: 2rem;
+  margin-top: 80px;
 }
 .page h1 {
   color: transparent; /* var(--bs-primary); */
