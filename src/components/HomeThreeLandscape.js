@@ -4,7 +4,13 @@ import Pebble, { Dodecaedron, Sphere, Polyhedron } from './Pebble'
 import { Suspense } from 'react'
 import ErrorBoundary from './ErrorBoundary'
 
-const HomeThreeLandscape = ({ pebbles = [], availableWidth, availableHeight, ...props }) => {
+const HomeThreeLandscape = ({
+  pebbles = [],
+  availableWidth,
+  availableHeight,
+  backgroudnColor = '#fdf8f4',
+  ...props
+}) => {
   const theta = pebbles.length ? (Math.PI * 2) / pebbles.length : 0
   const maxRadius = 20
   const minRadius = 5
@@ -15,9 +21,9 @@ const HomeThreeLandscape = ({ pebbles = [], availableWidth, availableHeight, ...
       style={{ width: availableWidth, height: availableHeight, zIndex: 0 }}
       className="position-absolute top-0"
     >
-      <Canvas shadows camera={{ position: [0, 0, 2], far: 3000, fov: 50 }}>
-        <color attach="background" args={['#ffefe5']} />
-        <fog attach="fog" args={['#ffefe5', 1000, 3000]} />
+      <Canvas camera={{ position: [0, 0, 2], far: 3000, fov: 50 }}>
+        <color attach="background" args={[backgroudnColor]} />
+        <fog attach="fog" args={[backgroudnColor, 1000, 3000]} />
         <ErrorBoundary>
           <Suspense fallback={null}>
             <Suzi rotation={[0, 0, 0]} scale={0.6} position={[0, -400, 0]} />
