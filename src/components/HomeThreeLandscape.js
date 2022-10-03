@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
-import Pebble, { Dodecaedron, Sphere, Polyhedron } from './Pebble'
+import Pebble, { Dodecaedron } from './Pebble'
 import { Suspense } from 'react'
 import ErrorBoundary from './ErrorBoundary'
 
@@ -20,6 +20,7 @@ const HomeThreeLandscape = ({
       id="canvas-container"
       style={{ width: availableWidth, height: availableHeight, zIndex: 0 }}
       className="position-absolute top-0"
+      {...props}
     >
       <Canvas camera={{ position: [0, 0, 2], far: 3000, fov: 50 }}>
         <color attach="background" args={[backgroudnColor]} />
@@ -53,7 +54,7 @@ const HomeThreeLandscape = ({
           return (
             <Pebble
               key={i}
-              geometry={p.geometry}
+              geometry={p.geometry ?? Dodecaedron}
               scale={p.scale ?? 0.5}
               position={[x, y, z]}
               title={p.title}

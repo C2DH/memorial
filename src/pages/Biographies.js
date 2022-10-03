@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 const Biographies = () => {
   const { t } = useTranslation()
   const [q] = useQueryParam('q', withDefault(QParam, ''))
-  const [author, setAuthor] = useQueryParam('author', withDefault(SlugParam, ''))
+  const [author] = useQueryParam('author', withDefault(SlugParam, ''))
   let filters = {}
   if (author.length) {
     filters.authors__slug = author

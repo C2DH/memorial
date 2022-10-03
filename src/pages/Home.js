@@ -36,7 +36,7 @@ const Home = ({ isMobile }) => {
   }))
   const [{ offset }, api] = useSpring(() => ({
     offset: 0,
-    config: config.stiff,
+    config: config.slow,
   }))
 
   const pebbles = [
@@ -178,7 +178,7 @@ const Home = ({ isMobile }) => {
           isMobile={isMobile}
           speed={biographiesSpringSpeed}
           availableWidth={width}
-          availableHeight={height / 2}
+          availableHeight={isMobile ? height / 1.5 : height / 2}
         />
       </a.div>
       {/* <div className="bg-secondary"> */}

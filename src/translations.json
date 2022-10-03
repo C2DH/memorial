@@ -2,7 +2,7 @@
   "fr-FR": {
     "translation": {
       "actionAddAPebble": "Add a pebble to the Memorial",
-      "actionSendUsPageOfTestimony": "Get in touch with us",
+      "actionSendUsPageOfTestimony": "Contactez-nous",
       "allStories": "Explorer toutes les biographies",
       "ariaLabelSearch": "search & find",
       "asNumber": "{{ n,2 }}",
@@ -32,7 +32,7 @@
       "pagesHomeSubheading": "Ce mémorial construit un pont entre les histoires et les souvenirs des victimes et des survivants de la Shoah.",
       "pagesNotFoundTitle": "Not Found",
       "pagesNotFoundSubheading": "...",
-      "pagesStoryAdditionalInfo": "Have additional information or documents to contribute?",
+      "pagesStoryAdditionalInfo": "Avez-vous des informations ou des documents supplémentaires à nous communiquer ?",
       "people": "Personnes mentionnées :",
       "topStoriesIntro": "Nous allons retracer tous ensemble, dans la mesure du possible le vécu de ces personnes, le milieu dans lequel ils ont évolué au Luxembourg avant la Shoah et de décrire leur parcours pendant la Seconde Guerre mondiale. ",
       "translatedIn": "traduit en",
@@ -86,7 +86,7 @@
   "de-DE": {
     "translation": {
       "actionAddAPebble": "Add a pebble to the Memorial",
-      "actionSendUsPageOfTestimony": "Get in touch with us",
+      "actionSendUsPageOfTestimony": "Nehmen Sie Kontakt mit uns auf",
       "allStories": "Explorer toute Biographie",
       "ariaLabelSearch": "search & find",
       "asNumber": "{{ n,2 }}",
@@ -97,30 +97,30 @@
       "languageEN": "En",
       "languageFR": "Fr",
       "languageDE": "De",
-      "latestBiographies": "Latest biographies",
+      "latestBiographies": "Biografien",
       "navigationAbout": "Über uns",
-      "navigationBiographies": "Biographien",
+      "navigationBiographies": "Biografien",
       "navigationHome": "Startseite",
       "navigationSearch": "Search",
-      "navigationStories": "Biographien",
-      "navigationStorySearch": "Biographien",
+      "navigationStories": "Biografien",
+      "navigationStorySearch": "Biografien",
       "navigationStory": "biography",
       "navigationTermsOfUse": "Nutzungsbedingungen",
-      "pagesBiographiesTitle": "Biographies",
+      "pagesBiographiesTitle": "Biografien",
       "pagesHomeParagraphA": "Le Mémorial se définit comme un work in progress participatif, avec l'objectif d'écrire ensemble <i>les biographies des familles</i> des environ 5.000 personnes ayant vécu au Luxembourg avant la guerre et qui ont été persécutées pour des motifs raciaux avant et pendant la Seconde Guerre mondiale.",
-      "pagesHomeParagraphB": "<p>Avec l'idée de construire un pont entre les morts et les vivants, la Fondation luxembourgeoise pour la Mémoire de la Shoah (FLMS) et le Luxembourg Centre for Contemporary and Digital History (C²DH) de l’Université du Luxembourg se sont donné la mission de construire un Mémorial digital à la mémoire des personnes ayant vécu au Luxembourg qui ont été persécutées pour des motifs raciaux avant et pendant la Seconde Guerre mondiale.</p><p>L’objectif principal du mémorial est de retracer dans la mesure du possible le vécu de ces hommes, femmes et enfants, le milieu dans lequel ils ont évolué au Luxembourg avant la Shoah et de décrire leur parcours pendant la Seconde Guerre mondiale. </p>",
-      "pagesHomeParagraphC": "<p>Ce projet à caractère scientifique et public, auquel participent déjà plus de trente historien-ne-s,  est ouvert à tou-te-s les intéressé-e-s, chercheur-e-s, survivant-e-s, descendant-e-s des victimes, associations et milieu scolaire. Chaque personne intéressée est invitée à contribuer au Mémorial.</p>",
+      "pagesHomeParagraphB": "<p>Mit der Idee, eine Brücke zwischen den Toten und den Lebenden zu bauen, haben die Fondation luxembourgeoise pour la Mémoire de la Shoah (FLMS) und das Luxembourg Centre for Contemporary and Digital History (C²DH) der Universität Luxemburg es sich zur Aufgabe gemacht, eine digitale Gedenkstätte zu errichten um an die Menschen zu erinnern, die vor und während des Zweiten Weltkrieges in Luxemburg lebten und aus rassistischen Gründen verfolgt wurden.</p><p>Das Hauptziel der Gedenkstätte ist es, das Leben dieser Männer, Frauen und Kinder, sowie die Kontexte, in denen sie vor der Shoah in Luxemburg lebten, so weit wie möglich nachzuvollziehen und ihr Schicksal während des Zweiten Weltkriegs zu beschreiben.</p>",
+      "pagesHomeParagraphC": "<p>CDieses wissenschaftliche und öffentliche Projekt, an dem bereits mehr als dreißig HistorikerInnen beteiligt sind, steht allen Interessierten, ForscherInnen, Überlebenden, Nachkommen der Opfer, Vereinen und Schulen offen. Alle Interessierten sind eingeladen, sich an der Gedenkstätte zu beteiligen.</p>",
       "pagesHomeTitle": "Memorial (en)",
-      "pagesHomeSubheading": "Das Memorial will eine Brücke zwischen den Erinnerungen und Geschichten der Opfer und Überlebenden der Shoah bauen.",
+      "pagesHomeSubheading": "Das Memorial baut eine Brücke zwischen den Geschichten und den Erinnerungen der Opfer und der Überlebenden der Shoah.",
       "pagesNotFoundTitle": "Not Found",
       "pagesNotFoundSubheading": "...",
-      "pagesStoryAdditionalInfo": "Have additional information or documents to contribute?",
+      "pagesStoryAdditionalInfo": "Haben Sie zusätzliche Informationen oder Dokumente?",
       "people": "Personen",
       "topStoriesIntro": "Nous allons retracer tous ensemble, dans la mesure du possible le vécu de ces personnes, le milieu dans lequel ils ont évolué au Luxembourg avant la Shoah et de décrire leur parcours pendant la Seconde Guerre mondiale. ",
-      "translatedIn": "translated in",
+      "translatedIn": "übersetzt auf",
       "unkownDate": "Date inconnue.",
       "viewFullScreen": "fullscreen",
-      "writtenBy": "written by"
+      "writtenBy": "text von"
     }
   }
 }

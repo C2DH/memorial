@@ -3,8 +3,6 @@ import { useFrame } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import '../styles/components/Pebble.css'
 
-const title = ''
-
 export const Cube = 4
 export const Dodecaedron = 'Dodecaedron'
 export const Sphere = 'Sphere'

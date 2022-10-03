@@ -1,6 +1,4 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
-import AuthorItem from './AuthorItem'
 import CoverItems from './CoverItems'
 import LangLink from './LangLink'
 import AvailableLanguages from './AvailableLanguages'
@@ -10,8 +8,6 @@ import '../styles/components/StoryItem.css'
 import downsize from 'downsize'
 
 const StoryItem = ({ story, reduced = false, className = '' }) => {
-  const { t } = useTranslation()
-
   const { availableLanguage, availableLanguages } = useAvailableLanguage({
     translatable: story.data.title,
   })
