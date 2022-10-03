@@ -14,6 +14,10 @@ export default class ErrorBoundary extends React.Component {
     console.warn('[ErrorBoundary] error', error, errorInfo)
   }
 
+  componentDidUpdate() {
+    console.debug('ErrorBoundary update children')
+  }
+
   render() {
     if (!this.state.hasError) {
       // You can render any custom fallback UI      return <h1>Something went wrong.</h1>;    }

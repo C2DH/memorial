@@ -1,8 +1,11 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
 import Pebble, { Dodecaedron } from './Pebble'
-import { Suspense } from 'react'
+import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import ErrorBoundary from './ErrorBoundary'
+import { Vector3 } from 'three'
+import { Info } from 'react-feather'
+import { useSpring, easings } from 'react-spring'
 
 const HomeThreeLandscape = ({
   pebbles = [],
@@ -11,9 +14,71 @@ const HomeThreeLandscape = ({
   backgroudnColor = '#fdf8f4',
   ...props
 }) => {
+  const [cameraPosition, setCameraPosition] = useSpring(() => ({
+    x: 0,
+    y: 0,
+    z: 0,
+    config: {
+      duration: 2000,
+      easing: easings.easeInOutQuart,
+    },
+    onChange: (e) => {
+      orbitRef.current.target = new Vector3(e.value.x, e.value.y, e.value.z)
+    },
+  }))
+  const orbitRef = useRef()
   const theta = pebbles.length ? (Math.PI * 2) / pebbles.length : 0
   const maxRadius = 20
   const minRadius = 5
+  const currentPebbleIdx = useRef(-1)
+  // get points
+  const pebblePositions = useMemo(
+    () =>
+      pebbles.map((d, i) => {
+        const dist = minRadius + Math.random() * (maxRadius - minRadius)
+        const x = Math.cos(i * theta) * dist
+        const y = 2 - Math.random() * 3 //
+        const z = Math.sin(i * theta) * dist
+        return [x, y, z]
+      }),
+    [pebbles],
+  )
+  const [isPlaying, setisPlaying] = useState(true)
+
+  useLayoutEffect(() => {
+    let t = 0
+    const h = () => {
+      // if (currentPebbleIdx.current === -1) {
+      //   setCameraPosition.set(orbitRef.current.target)
+      // }
+      if (currentPebbleIdx.current + 1 < pebblePositions.length) {
+        currentPebbleIdx.current += 1
+      } else {
+        currentPebbleIdx.current = 0
+      }
+      console.debug(
+        '[HomeThreeLandscape] done timeout. idx=',
+        currentPebbleIdx.current,
+        pebblePositions[currentPebbleIdx.current],
+      )
+      setCameraPosition.start({
+        x: pebblePositions[currentPebbleIdx.current][0],
+        y: pebblePositions[currentPebbleIdx.current][1],
+        z: pebblePositions[currentPebbleIdx.current][2],
+      })
+      // orbitRef.current.target = pebblePositions[currentPebbleIdx.current]
+      t = setTimeout(h, 5000)
+    }
+    console.debug('[HomeThreeLandscape] playing:', isPlaying)
+
+    if (!isPlaying) {
+      clearTimeout(t)
+    } else {
+      t = setTimeout(h, 5000)
+    }
+    return () => clearTimeout(t)
+  }, [isPlaying])
+  // camera.lookAt( point );
 
   return (
     <div
@@ -46,23 +111,18 @@ const HomeThreeLandscape = ({
          <OrbitControls autoRotate={true} autoRotateSpeed={0.2} enableZoom={false} /> */}
 
         {pebbles.map((p, i) => {
-          const dist = minRadius + Math.random() * (maxRadius - minRadius)
-          const x = Math.cos(i * theta) * dist
-          const y = 2 - Math.random() * 3 //
-          const z = Math.sin(i * theta) * dist
-
           return (
             <Pebble
               key={i}
               geometry={p.geometry ?? Dodecaedron}
               scale={p.scale ?? 0.5}
-              position={[x, y, z]}
+              position={pebblePositions[i]}
               title={p.title}
             />
           )
         })}
 
-        <OrbitControls autoRotate={true} autoRotateSpeed={0.2} enableZoom={false} />
+        <OrbitControls ref={orbitRef} autoRotate={true} autoRotateSpeed={0.2} enableZoom={false} />
       </Canvas>
     </div>
   )
