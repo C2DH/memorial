@@ -1,6 +1,8 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
 import Pebble, { Dodecaedron, Sphere, Polyhedron } from './Pebble'
+import { Suspense } from 'react'
+import ErrorBoundary from './ErrorBoundary'
 
 const HomeThreeLandscape = ({ pebbles = [], availableWidth, availableHeight, ...props }) => {
   const theta = pebbles.length ? (Math.PI * 2) / pebbles.length : 0
@@ -16,7 +18,11 @@ const HomeThreeLandscape = ({ pebbles = [], availableWidth, availableHeight, ...
       <Canvas shadows camera={{ position: [0, 0, 2], far: 3000, fov: 50 }}>
         <color attach="background" args={['#ffefe5']} />
         <fog attach="fog" args={['#ffefe5', 1000, 3000]} />
-        <Suzi rotation={[0, 0, 0]} scale={0.6} position={[0, -400, 0]} />
+        <ErrorBoundary>
+          <Suspense fallback={null}>
+            <Suzi rotation={[0, 0, 0]} scale={0.6} position={[0, -400, 0]} />
+          </Suspense>
+        </ErrorBoundary>
         <ambientLight intensity={0.25} />
         <directionalLight color="gold" position={[16, 20, 25]} />
 
@@ -56,7 +62,7 @@ const HomeThreeLandscape = ({ pebbles = [], availableWidth, availableHeight, ...
 }
 
 function Suzi(props) {
-  const { scene } = useGLTF('../Landscape.gltf')
+  const { scene } = useGLTF('/Landscape.gltf')
 
   return <primitive object={scene} {...props} />
 }
