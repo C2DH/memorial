@@ -24,7 +24,7 @@ const HomeThreeLandscape = ({
     y: 0,
     z: 0,
     config: {
-      duration: 2000,
+      duration: 2700,
       easing: easings.easeInOutQuart,
     },
     onChange: (e) => {
@@ -116,7 +116,19 @@ const HomeThreeLandscape = ({
             />
           )
         })}
-        <OrbitControls ref={orbitRef} autoRotate={false} autoRotateSpeed={0.2} enableZoom={false} />
+        <OrbitControls
+          enableDamping
+          ref={orbitRef}
+          autoRotate={true}
+          maxDistance={10}
+          minDistance={3}
+          autoRotateSpeed={0.12}
+          panSpeed={1.25}
+          enableZoom={false}
+          enableDamping={true}
+          maxPolarAngle={1.45}
+          minPolarAngle={0.2}
+        />
       </Canvas>
     </div>
   )
