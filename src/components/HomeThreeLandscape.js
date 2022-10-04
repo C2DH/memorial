@@ -13,8 +13,12 @@ const HomeThreeLandscape = ({
   availableHeight,
   backgroudnColor = '#fdf8f4',
   withModel = false,
+  maxRadius = 20,
+  minRadius = 5,
   ...props
 }) => {
+  const orbitRef = useRef()
+  const currentPebbleIdx = useRef(-1)
   const [, setCameraPosition] = useSpring(() => ({
     x: 0,
     y: 0,
@@ -27,10 +31,7 @@ const HomeThreeLandscape = ({
       orbitRef.current.target = new Vector3(e.value.x, e.value.y, e.value.z)
     },
   }))
-  const orbitRef = useRef()
-  const maxRadius = 20
-  const minRadius = 5
-  const currentPebbleIdx = useRef(-1)
+
   // get points
   const pebblePositions = useMemo(() => {
     const theta = pebbles.length ? (Math.PI * 2) / pebbles.length : 0
@@ -42,7 +43,7 @@ const HomeThreeLandscape = ({
       return [x, y, z]
     })
   }, [pebbles])
-  const [isPlaying] = useState(true)
+  const [isPlaying, setIsPlaying] = useState(true)
 
   useLayoutEffect(() => {
     let t = 0
@@ -85,6 +86,13 @@ const HomeThreeLandscape = ({
       className="position-absolute top-0"
       {...props}
     >
+      <button
+        className="d-none position-absolute bottom-0"
+        onClick={() => setIsPlaying(!isPlaying)}
+        style={{ zIndex: 1001 }}
+      >
+        {isPlaying ? 'stop!' : 'play!'}
+      </button>
       <Canvas shadows camera={{ position: [0, 0, 2], far: 3000, fov: 50 }}>
         <color attach="background" args={[backgroudnColor]} />
         <fog attach="fog" args={[backgroudnColor, 1, 25]} />
@@ -108,7 +116,7 @@ const HomeThreeLandscape = ({
             />
           )
         })}
-        <OrbitControls ref={orbitRef} autoRotate={true} autoRotateSpeed={0.2} enableZoom={false} />
+        <OrbitControls ref={orbitRef} autoRotate={false} autoRotateSpeed={0.2} enableZoom={false} />
       </Canvas>
     </div>
   )
