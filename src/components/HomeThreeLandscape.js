@@ -1,8 +1,8 @@
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Sky, Plane, useHelper, useTexture, useGLTF } from '@react-three/drei'
+import { OrbitControls, useGLTF } from '@react-three/drei'
 import Pebble, { Dodecaedron } from './Pebble'
 import Terrain from './Terrain'
-import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { Suspense, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import ErrorBoundary from './ErrorBoundary'
 import { Vector3 } from 'three'
 import { useSpring, easings } from 'react-spring'
@@ -12,10 +12,10 @@ const HomeThreeLandscape = ({
   availableWidth,
   availableHeight,
   backgroudnColor = '#fdf8f4',
-  withModel = true,
+  withModel = false,
   ...props
 }) => {
-  const [cameraPosition, setCameraPosition] = useSpring(() => ({
+  const [, setCameraPosition] = useSpring(() => ({
     x: 0,
     y: 0,
     z: 0,
@@ -96,19 +96,6 @@ const HomeThreeLandscape = ({
         <ErrorBoundary>
           <Suspense fallback={null}>{withModel ? <Suzi /> : <Terrain />}</Suspense>
         </ErrorBoundary>
-
-        {/*  <Pebble scale={0.5} position={[0, 0, -10]} title={'Hello'} />
-         <Pebble
-           geometry={Dodecaedron}
-           color="pink"
-           scale={0.5}
-           position={[3, 1, -5]}
-           title={'Yaroslav'}
-         />
-         <Pebble geometry={Sphere} scale={0.5} position={[5, -1, -3]} title={'How are you?'} />
-         <Pebble geometry={Polyhedron} scale={0.5} position={[5, -1, -1]} title={'How are you?'} />
-         */}
-
         {pebbles.map((p, i) => {
           return (
             <Pebble
@@ -122,7 +109,6 @@ const HomeThreeLandscape = ({
             />
           )
         })}
-
         <OrbitControls ref={orbitRef} autoRotate={true} autoRotateSpeed={0.2} enableZoom={false} />
       </Canvas>
     </div>
