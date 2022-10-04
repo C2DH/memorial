@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { Plane, useTexture } from '@react-three/drei'
-import { BufferAttribute, LinearEncoding } from 'three'
+import { BufferAttribute } from 'three'
 
 function TerrainPlane() {
   const terrainTextures = useTexture({

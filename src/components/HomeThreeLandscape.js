@@ -76,8 +76,7 @@ const HomeThreeLandscape = ({
       t = setTimeout(h, 5000)
     }
     return () => clearTimeout(t)
-  }, [isPlaying])
-  // camera.lookAt( point );
+  }, [isPlaying, pebblePositions, setCameraPosition])
 
   return (
     <div
