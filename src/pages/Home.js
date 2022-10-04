@@ -36,7 +36,7 @@ const Home = ({ isMobile }) => {
   }))
   const [{ offset }, api] = useSpring(() => ({
     offset: 0,
-    config: config.stiff,
+    config: config.slow,
   }))
 
   const pebbles = [
@@ -167,17 +167,18 @@ const Home = ({ isMobile }) => {
         </Row>
       </Container>
       <a.div
-        className="w-100"
+        className="w-100 pointer-events-none"
         style={{
           minHeight: height,
           transform: offset.to((o) => `translateY(${o * biographiesSpringSpeed}px)`),
         }}
       >
         <HomeBiographies
+          className="pointer-events-auto"
           isMobile={isMobile}
           speed={biographiesSpringSpeed}
           availableWidth={width}
-          availableHeight={height / 2}
+          availableHeight={isMobile ? height / 1.5 : height / 2}
         />
       </a.div>
       {/* <div className="bg-secondary"> */}

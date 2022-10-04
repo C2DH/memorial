@@ -9,7 +9,7 @@ import { animated, useSpring, config } from 'react-spring'
 import { useGesture } from '@use-gesture/react'
 import '../styles/components/HomeBiographies.css'
 
-const HomeBiographies = ({ isMobile, speed, availableWidth, availableHeight }) => {
+const HomeBiographies = ({ isMobile, speed, availableWidth, availableHeight, className = '' }) => {
   const { t } = useTranslation()
   const ref = useRef()
   const dragOffset = useRef(0)
@@ -110,7 +110,7 @@ const HomeBiographies = ({ isMobile, speed, availableWidth, availableHeight }) =
     <div
       ref={ref}
       style={{ width: availableWidth, height: availableHeight }}
-      className="HomeBiographies"
+      className={`HomeBiographies ${className}`}
     >
       <Container>
         <Row>

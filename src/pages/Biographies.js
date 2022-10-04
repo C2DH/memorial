@@ -2,7 +2,6 @@ import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { useQueryParam, withDefault } from 'use-query-params'
 import { QParam, SlugParam } from '../logic/params'
-
 import SearchStories from '../components/SearchStories'
 import { BootstrapStartColumnLayout } from '../constants'
 import { useTranslation } from 'react-i18next'
@@ -10,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 const Biographies = () => {
   const { t } = useTranslation()
   const [q] = useQueryParam('q', withDefault(QParam, ''))
-  const [author, setAuthor] = useQueryParam('author', withDefault(SlugParam, ''))
+  const [author] = useQueryParam('author', withDefault(SlugParam, ''))
   let filters = {}
   if (author.length) {
     filters.authors__slug = author

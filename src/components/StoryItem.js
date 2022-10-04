@@ -1,16 +1,13 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
-import AuthorItem from './AuthorItem'
 import CoverItems from './CoverItems'
 import LangLink from './LangLink'
 import AvailableLanguages from './AvailableLanguages'
+import StoryAuthors from './StoryAuthors'
 import { useAvailableLanguage } from '../hooks/language'
 import '../styles/components/StoryItem.css'
 import downsize from 'downsize'
 
 const StoryItem = ({ story, reduced = false, className = '' }) => {
-  const { t } = useTranslation()
-
   const { availableLanguage, availableLanguages } = useAvailableLanguage({
     translatable: story.data.title,
   })
@@ -29,14 +26,7 @@ const StoryItem = ({ story, reduced = false, className = '' }) => {
         <LangLink className="StoryItem_title" to={`/story/${story.slug}`}>
           <h4 className="m-0 " dangerouslySetInnerHTML={{ __html: title }} />
         </LangLink>
-        <div className="StoryItem_authors">
-          <label>{t('writtenBy')}</label>&nbsp;
-          {story.authors.map((a, i) => (
-            <span key={i}>
-              <AuthorItem author={a} />
-            </span>
-          ))}
-        </div>
+        <StoryAuthors className="StoryItem_authors" authors={story.authors} />
         <AvailableLanguages
           className="StoryItem_languages"
           languages={availableLanguages}

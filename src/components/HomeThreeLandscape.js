@@ -1,29 +1,101 @@
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Sky, Plane, useHelper, useTexture } from '@react-three/drei'
-import Pebble, { Dodecaedron, Sphere, Polyhedron } from './Pebble'
+import { OrbitControls, Sky, Plane, useHelper, useTexture, useGLTF } from '@react-three/drei'
+import Pebble, { Dodecaedron } from './Pebble'
 import Terrain from './Terrain'
+import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import ErrorBoundary from './ErrorBoundary'
+import { Vector3 } from 'three'
+import { useSpring, easings } from 'react-spring'
 
-const HomeThreeLandscape = ({ pebbles = [], availableWidth, availableHeight, ...props }) => {
-  const theta = pebbles.length ? (Math.PI * 2) / pebbles.length : 0
+const HomeThreeLandscape = ({
+  pebbles = [],
+  availableWidth,
+  availableHeight,
+  backgroudnColor = '#fdf8f4',
+  withModel = true,
+  ...props
+}) => {
+  const [cameraPosition, setCameraPosition] = useSpring(() => ({
+    x: 0,
+    y: 0,
+    z: 0,
+    config: {
+      duration: 2000,
+      easing: easings.easeInOutQuart,
+    },
+    onChange: (e) => {
+      orbitRef.current.target = new Vector3(e.value.x, e.value.y, e.value.z)
+    },
+  }))
+  const orbitRef = useRef()
   const maxRadius = 20
   const minRadius = 5
+  const currentPebbleIdx = useRef(-1)
+  // get points
+  const pebblePositions = useMemo(() => {
+    const theta = pebbles.length ? (Math.PI * 2) / pebbles.length : 0
+    return pebbles.map((d, i) => {
+      const dist = minRadius + Math.random() * (maxRadius - minRadius)
+      const x = Math.cos(i * theta) * dist
+      const y = 2 - Math.random() * 3 //
+      const z = Math.sin(i * theta) * dist
+      return [x, y, z]
+    })
+  }, [pebbles])
+  const [isPlaying] = useState(true)
+
+  useLayoutEffect(() => {
+    let t = 0
+    const h = () => {
+      // if (currentPebbleIdx.current === -1) {
+      //   setCameraPosition.set(orbitRef.current.target)
+      // }
+      if (currentPebbleIdx.current + 1 < pebblePositions.length) {
+        currentPebbleIdx.current += 1
+      } else {
+        currentPebbleIdx.current = 0
+      }
+      console.debug(
+        '[HomeThreeLandscape] done timeout. idx=',
+        currentPebbleIdx.current,
+        pebblePositions[currentPebbleIdx.current],
+      )
+      setCameraPosition.start({
+        x: pebblePositions[currentPebbleIdx.current][0],
+        y: pebblePositions[currentPebbleIdx.current][1],
+        z: pebblePositions[currentPebbleIdx.current][2],
+      })
+      // orbitRef.current.target = pebblePositions[currentPebbleIdx.current]
+      t = setTimeout(h, 5000)
+    }
+    console.debug('[HomeThreeLandscape] playing:', isPlaying)
+
+    if (!isPlaying) {
+      clearTimeout(t)
+    } else {
+      t = setTimeout(h, 5000)
+    }
+    return () => clearTimeout(t)
+  }, [isPlaying])
+  // camera.lookAt( point );
 
   return (
     <div
       id="canvas-container"
       style={{ width: availableWidth, height: availableHeight, zIndex: 0 }}
       className="position-absolute top-0"
+      {...props}
     >
       <Canvas shadows camera={{ position: [0, 0, 2], far: 3000, fov: 50 }}>
-        <color attach="background" args={['#ffefe5']} />
-        <fog attach="fog" args={['#ffefe5', 1, 25]} />
+        <color attach="background" args={[backgroudnColor]} />
+        <fog attach="fog" args={[backgroudnColor, 1, 25]} />
 
         <hemisphereLight intensity={0.5} color="#a1f4ff" groundColor="#713405" />
         <directionalLight intensity={1} position={[-100, 5, -100]} color="#5400bb" />
         <pointLight castShadow intensity={0.8} position={[100, 100, 100]} />
-        {/* <ambientLight intensity={0.25} /> */}
-        <Terrain />
-        {/* <Environment files="sky.hdr" /> */}
+        <ErrorBoundary>
+          <Suspense fallback={null}>{withModel ? <Suzi /> : <Terrain />}</Suspense>
+        </ErrorBoundary>
 
         {/*  <Pebble scale={0.5} position={[0, 0, -10]} title={'Hello'} />
          <Pebble
@@ -38,17 +110,12 @@ const HomeThreeLandscape = ({ pebbles = [], availableWidth, availableHeight, ...
          */}
 
         {pebbles.map((p, i) => {
-          const dist = minRadius + Math.random() * (maxRadius - minRadius)
-          const x = Math.cos(i * theta) * dist
-          const y = 2 - Math.random() * 3 //
-          const z = Math.sin(i * theta) * dist
-
           return (
             <Pebble
               key={i}
-              geometry={p.geometry}
+              geometry={p.geometry ?? Dodecaedron}
               scale={p.scale ?? 0.5}
-              position={[x, y, z]}
+              position={pebblePositions[i]}
               title={p.title}
               castShadow
               receiveShadow
@@ -56,16 +123,15 @@ const HomeThreeLandscape = ({ pebbles = [], availableWidth, availableHeight, ...
           )
         })}
 
-        <OrbitControls autoRotate={true} autoRotateSpeed={0.2} enableZoom={false} />
+        <OrbitControls ref={orbitRef} autoRotate={true} autoRotateSpeed={0.2} enableZoom={false} />
       </Canvas>
     </div>
   )
 }
 
-// function Suzi(props) {
-//   const { scene } = useGLTF('../Landscape.glb')
-
-//   return <primitive object={scene} {...props} />
-// }
+function Suzi(props) {
+  const { scene } = useGLTF('/Landscape.glb')
+  return <primitive object={scene} {...props} />
+}
 
 export default HomeThreeLandscape

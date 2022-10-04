@@ -1,7 +1,11 @@
 import React from 'react'
 import { LanguagePathRegExp } from '../../constants'
 import LangLink from '../LangLink'
+import { Link } from 'react-router-dom'
+import { ArrowLeft } from 'react-feather'
 
+export const FootnoteReferencePrefix = 'ref'
+export const FootnoteDefinitionPrefix = 'def'
 /**
  * Component to integrate ReactMarkdown specs
  */
@@ -11,6 +15,33 @@ const ModuleTextAnchor = ({ node, children, href, ...props }) => {
     .join('')
     .replace('[', '')
     .replace(']', '')
+  // check if the item is a footnote definition
+  if (href.indexOf(FootnoteReferencePrefix) === 0) {
+    return (
+      <>
+        <span className="anchor" id={[FootnoteReferencePrefix, textNode].join('-')}></span>
+        <Link
+          className="ModuleTextAnchor Reference"
+          to={`#${[FootnoteDefinitionPrefix, textNode].join('-')}`}
+        >
+          {textNode}
+        </Link>
+      </>
+    )
+  }
+  if (href.indexOf(FootnoteDefinitionPrefix) === 0) {
+    return (
+      <>
+        <span className="anchor" id={[FootnoteDefinitionPrefix, textNode].join('-')}></span>
+        <Link
+          className="ModuleTextAnchor Definition"
+          to={`#${[FootnoteReferencePrefix, textNode].join('-')}`}
+        >
+          <ArrowLeft /> {textNode}
+        </Link>
+      </>
+    )
+  }
   // check if href is the website one (internal links)
   if (href.indexOf(process.env.REACT_APP_ORIGIN) !== -1) {
     // remove origin, e.g. `https://` and language `/en/` from the href to make page specific

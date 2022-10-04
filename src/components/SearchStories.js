@@ -29,7 +29,7 @@ const SearchStories = ({ q = '', filters = {}, limit = 20, orderby = '-id' }) =>
       {status === StatusSuccess &&
         count > 0 &&
         stories.map((story, i) => (
-          <li key={story.slug} className="mt-2 ">
+          <li key={story.slug} className="mt-5 ">
             {/* <label className="small text-muted">
               {i + 1} / {count}
             </label> */}
