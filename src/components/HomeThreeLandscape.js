@@ -97,9 +97,9 @@ const HomeThreeLandscape = ({
         <color attach="background" args={[backgroudnColor]} />
         <fog attach="fog" args={[backgroudnColor, 1, 25]} />
 
-        <hemisphereLight intensity={0.5} color="#a1f4ff" groundColor="#713405" />
+        <hemisphereLight intensity={0.5} color="#ffd0ec" groundColor="#713405" />
         <directionalLight intensity={1} position={[-100, 5, -100]} color="#5400bb" />
-        <pointLight castShadow intensity={0.8} position={[100, 100, 100]} />
+        <pointLight intensity={0.8} position={[100, 100, 100]} />
         <ErrorBoundary>
           <Suspense fallback={null}>{withModel ? <Suzi /> : <Terrain />}</Suspense>
         </ErrorBoundary>
@@ -111,8 +111,6 @@ const HomeThreeLandscape = ({
               scale={p.scale ?? 0.5}
               position={pebblePositions[i]}
               title={p.title}
-              castShadow
-              receiveShadow
             />
           )
         })}

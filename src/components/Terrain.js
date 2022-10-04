@@ -22,13 +22,7 @@ function TerrainPlane() {
   })
 
   return (
-    <Plane
-      args={[100, 100, 200, 200]}
-      rotation-x={-Math.PI / 2}
-      ref={mesh}
-      position={[0, -2.3, 0]}
-      receiveShadow
-    >
+    <Plane args={[100, 100, 200, 200]} rotation-x={-Math.PI / 2} ref={mesh} position={[0, -2.3, 0]}>
       <meshPhysicalMaterial
         color={'#43f1a8'}
         {...terrainTextures}
