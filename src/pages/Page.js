@@ -16,7 +16,7 @@ const Page = ({ children }) => {
       <Container>
         <Row>
           <Col {...BootstrapStartColumnLayout}>
-            <h1>{page?.data.title}</h1>
+            <h1 dangerouslySetInnerHTML={{ __html: page?.data.title }} />
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{page?.data.abstract}</ReactMarkdown>
           </Col>
           {children}

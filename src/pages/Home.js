@@ -105,7 +105,7 @@ const Home = ({ isMobile }) => {
         <Row
           style={{
             minHeight: isMobile ? height * 0.6 : height * 0.6,
-            marginBottom: isMobile ? height * 0.25 : height * 0.25,
+            marginBottom: isMobile ? height * 0.3 : height * 0.25,
           }}
           className="align-items-center align-items-md-start"
         >
