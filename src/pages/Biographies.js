@@ -15,7 +15,7 @@ const Biographies = () => {
     filters.authors__slug = author
   }
   return (
-    <div className="Biographies Page page">
+    <div className="Biographies page">
       <Container>
         <Row>
           <Col {...BootstrapStartColumnLayout}>
