@@ -1,11 +1,12 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
-import Pebble, { Dodecaedron } from './Pebble'
+import Pebble, { Dodecaedron, Polyhedron, Octahedron, Capsule } from './Pebble'
 import Terrain from './Terrain'
 import { Suspense, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import ErrorBoundary from './ErrorBoundary'
 import { Vector3 } from 'three'
 import { useSpring, easings } from 'react-spring'
+import PlayPauseBtn from './PlayPauseBtn'
 
 const HomeThreeLandscape = ({
   pebbles = [],
@@ -86,13 +87,8 @@ const HomeThreeLandscape = ({
       className="position-absolute top-0"
       {...props}
     >
-      <button
-        className="d-none position-absolute bottom-0"
-        onClick={() => setIsPlaying(!isPlaying)}
-        style={{ zIndex: 1001 }}
-      >
-        {isPlaying ? 'stop!' : 'play!'}
-      </button>
+      <PlayPauseBtn playPause={{ playing: isPlaying, func: setIsPlaying }}></PlayPauseBtn>
+
       <Canvas shadows camera={{ position: [0, 0, 2], far: 3000, fov: 50 }}>
         <color attach="background" args={[backgroudnColor]} />
         <fog attach="fog" args={[backgroudnColor, 1, 25]} />
@@ -107,7 +103,7 @@ const HomeThreeLandscape = ({
           return (
             <Pebble
               key={i}
-              geometry={p.geometry ?? Dodecaedron}
+              geometry={p.geometry ?? Capsule}
               scale={p.scale ?? 0.5}
               position={pebblePositions[i]}
               title={p.title}

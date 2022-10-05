@@ -7,6 +7,8 @@ export const Cube = 4
 export const Dodecaedron = 'Dodecaedron'
 export const Sphere = 'Sphere'
 export const Polyhedron = 'Polyhedron'
+export const Octahedron = 'Octahedron'
+export const Capsule = 'Capsule'
 
 function Pebble({ geometry = Cube, color = '#9BC995', scale, rotation, title, ...props }) {
   // This reference gives us direct access to the THREE.Mesh object
@@ -32,6 +34,7 @@ function Pebble({ geometry = Cube, color = '#9BC995', scale, rotation, title, ..
       onClick={(event) => click(!clicked)}
       onPointerOver={(event) => hover(true)}
       onPointerOut={(event) => hover(false)}
+      flatShading
     >
       <Html distanceFactor={10}>
         <div className="Pebble_content" style={{ display: hovered ? 'inline-block' : 'none' }}>
@@ -42,6 +45,9 @@ function Pebble({ geometry = Cube, color = '#9BC995', scale, rotation, title, ..
       {geometry === Dodecaedron && <dodecahedronGeometry />}
       {geometry === Sphere && <sphereGeometry args={[1, 16, 16]} />}
       {geometry === Polyhedron && <icosahedronGeometry />}
+      {geometry === Octahedron && <octahedronGeometry />}
+      {geometry === Capsule && <capsuleGeometry args={[0.9, 0.4, 1, 4]} />}
+
       <meshStandardMaterial color={hovered ? '#EA1744' : color} />
     </mesh>
   )

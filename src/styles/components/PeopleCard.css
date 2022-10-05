@@ -26,19 +26,47 @@ img {
 }
 
 .Wrapper {
-  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 20px 20px 10px;
   color: var(--bs-primary);
+}
+
+.Wrapper span {
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: rgb(191, 191, 191);
+}
+
+.Wrapper h3 {
+  margin-bottom: 0;
 }
 
 .Wrapper p {
   color: var(--white);
   margin-bottom: 0.5rem;
+  font-size: 1rem;
 }
 
-.Wrapper .Read_More {
+.PeopleCard .Read_More {
+  display: flex;
+  align-self: end;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  padding: 5px 15px;
   color: var(--white);
+  background-color: #b392e9;
   text-align: right;
   font-size: 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+#VectorIcon {
+  margin-right: 8px;
+  margin-bottom: 2px;
 }
 
 @keyframes cardAnimation {
