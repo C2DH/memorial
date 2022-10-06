@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
-import Pebble, { Dodecaedron, Polyhedron, Octahedron, Capsule } from './Pebble'
+import Pebble, { Capsule } from './Pebble'
 import Terrain from './Terrain'
 import { Suspense, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import ErrorBoundary from './ErrorBoundary'
@@ -44,7 +44,7 @@ const HomeThreeLandscape = ({
       const z = Math.sin(i * theta) * dist
       return [x, y, z]
     })
-  }, [pebbles])
+  }, [pebbles, maxRadius, minRadius])
   const [isPlaying, setIsPlaying] = useState(true)
 
   useLayoutEffect(() => {
@@ -121,7 +121,6 @@ const HomeThreeLandscape = ({
           autoRotateSpeed={0.12}
           panSpeed={1.25}
           enableZoom={false}
-          enableDamping={true}
           maxPolarAngle={1.45}
           minPolarAngle={0.2}
         />

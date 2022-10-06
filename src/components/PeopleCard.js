@@ -3,14 +3,17 @@ import { VectorIcon } from './SvgIcons'
 import '../styles/components/PeopleCard.css'
 import { useStore } from '../store'
 
-const PeopleCard = (props) => {
+const PeopleCard = ({ debug, alt, src, ...props }) => {
   const selectedPebble = useStore((state) => state.selectedPebble)
   if (!selectedPebble) {
     return null
   }
+  if (!debug) {
+    return null
+  }
   return (
-    <div className="PeopleCard">
-      <img src={props.src}></img>
+    <div className="PeopleCard" {...props}>
+      <img src={src} alt={alt}></img>
 
       <div className="Wrapper">
         <div className="TextWrapper">
