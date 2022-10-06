@@ -7,6 +7,7 @@ import ErrorBoundary from './ErrorBoundary'
 import { Vector3 } from 'three'
 import { useSpring, easings } from 'react-spring'
 import PlayPauseBtn from './PlayPauseBtn'
+import { useStore } from '../store'
 
 const HomeThreeLandscape = ({
   pebbles = [],
@@ -32,7 +33,7 @@ const HomeThreeLandscape = ({
       orbitRef.current.target = new Vector3(e.value.x, e.value.y, e.value.z)
     },
   }))
-
+  const setSelectedPebble = useStore((state) => state.setSelectedPebble)
   // get points
   const pebblePositions = useMemo(() => {
     const theta = pebbles.length ? (Math.PI * 2) / pebbles.length : 0
@@ -67,6 +68,7 @@ const HomeThreeLandscape = ({
         y: pebblePositions[currentPebbleIdx.current][1],
         z: pebblePositions[currentPebbleIdx.current][2],
       })
+      setSelectedPebble(pebbles[currentPebbleIdx.current])
       // orbitRef.current.target = pebblePositions[currentPebbleIdx.current]
       t = setTimeout(h, 5000)
     }
@@ -78,7 +80,7 @@ const HomeThreeLandscape = ({
       t = setTimeout(h, 5000)
     }
     return () => clearTimeout(t)
-  }, [isPlaying, pebblePositions, setCameraPosition])
+  }, [isPlaying, pebblePositions, setCameraPosition, setSelectedPebble, pebbles])
 
   return (
     <div
