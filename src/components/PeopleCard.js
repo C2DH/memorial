@@ -5,6 +5,9 @@ import { useStore } from '../store'
 
 const PeopleCard = (props) => {
   const selectedPebble = useStore((state) => state.selectedPebble)
+  if (!selectedPebble) {
+    return null
+  }
   return (
     <div className="PeopleCard">
       <img src={props.src}></img>
