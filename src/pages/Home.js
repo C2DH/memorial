@@ -78,7 +78,7 @@ const Home = ({ isMobile }) => {
     const handleScroll = () => {
       // const posY = ref.current.getBoundingClientRect().top;
       const offset = window.pageYOffset
-      api.start({ offset })
+      api.set({ offset })
     }
     window.addEventListener('scroll', handleScroll)
     return () => {
@@ -107,7 +107,7 @@ const Home = ({ isMobile }) => {
         <Row
           style={{
             minHeight: isMobile ? height * 0.6 : height * 0.6,
-            marginBottom: isMobile ? height * 0.25 : height * 0.25,
+            marginBottom: isMobile ? height * 0.28 : height * 0.25,
           }}
           className="align-items-center align-items-md-start"
         >
@@ -123,9 +123,10 @@ const Home = ({ isMobile }) => {
           )}
           <Col>
             <a.div
-              className="w-100"
+              className="w-100 Home_animatedWordWrapper"
               style={{
                 transform: offset.to((o) => `translateY(${isMobile ? o * 0.5 : o * 0.35}px)`),
+                opacity: offset.to((o) => (o > height * 0.7 ? 0 : 1)),
               }}
             >
               {animatedWords.map((w, i) => (

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 /**
  * @param {{ to: string }} props
  */
-export default function LangLink({ to, language, disabled, children, ...props }) {
+export default function LangLink({ to, language, disabled, children, onClick, ...props }) {
   const { i18n } = useTranslation()
   const url = language
     ? `/${language}${to}`
@@ -14,5 +14,11 @@ export default function LangLink({ to, language, disabled, children, ...props })
   if (disabled) {
     return <del {...props}>{children}</del>
   }
-  return <Link {...props} to={url} children={children} />
+  const onClickHandler = (e) => {
+    console.debug('[LangLink] typeof onClick', typeof onClick)
+    if (typeof onClick === 'function') {
+      onClick(e)
+    }
+  }
+  return <Link {...props} to={url} onClick={onClickHandler} children={children} />
 }

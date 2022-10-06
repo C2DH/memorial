@@ -25,6 +25,11 @@ const MobileHeader = () => {
     }
     setIsOpen(!isOpen)
   }
+
+  const routeOnClickHandler = () => {
+    api.start({ x: -width })
+    setIsOpen(false)
+  }
   return (
     <>
       <header
@@ -41,14 +46,16 @@ const MobileHeader = () => {
           <ul>
             {[HomeRoute, BiographiesRoute, AboutRoute, TermsOfUseRoute].map((route) => (
               <li key={route.to} className={route.label === routeLabel ? 'active' : null}>
-                <LangLink to={route.to}>{t(route.label)}</LangLink>
+                <LangLink to={route.to} onClick={routeOnClickHandler}>
+                  {t(route.label)}
+                </LangLink>
               </li>
             ))}
           </ul>
           <LanguageSwitch className="MobileHeader_menu_LanguageSwitch" />
         </a.div>
       </header>
-      <LangLink to={HomeRoute.to}>
+      <LangLink to={HomeRoute.to} onClick={routeOnClickHandler}>
         <Logo
           style={{ color: 'white', zIndex: 1001, top: -20, left: -15 }}
           height={155}
