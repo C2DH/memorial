@@ -1,5 +1,4 @@
-import PlayIcon from './svg/PlayIcon'
-import PauseIcon from './svg/PauseIcon'
+import { PauseIcon, PlayIcon } from './SvgIcons'
 import '../styles/components/PlayPauseBtn.css'
 
 const PlayPauseBtn = ({ playPause }) => {

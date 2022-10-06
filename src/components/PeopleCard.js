@@ -1,5 +1,5 @@
-import VectorIcon from './svg/VectorIcon'
 import downsize from 'downsize'
+import { VectorIcon } from './SvgIcons'
 import '../styles/components/PeopleCard.css'
 import { useStore } from '../store'
 

@@ -16,7 +16,7 @@
   animation-delay: 1s;
 }
 
-img {
+.PeopleCard img {
   display: block;
   margin: 15px;
   height: 170px;
