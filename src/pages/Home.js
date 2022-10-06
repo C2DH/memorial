@@ -12,6 +12,7 @@ import GetInTouch from '../components/GetInTouch'
 import { useCurrentWindowDimensions } from '../hooks/viewport'
 import Logo from '../components/Logo'
 import { Dodecaedron } from '../components/Pebble'
+import PeopleCard from '../components/PeopleCard'
 // import { useGetJSON } from '../hooks/data'
 
 const to = (i) => ({
@@ -90,6 +91,7 @@ const Home = ({ isMobile }) => {
       <React.Suspense fallback={null}>
         <HomeThreeLandscape pebbles={pebbles} availableWidth={width} availableHeight={height} />
       </React.Suspense>
+      <PeopleCard src="/img/lukmanski-carmen.png"></PeopleCard>
       <div className="position-absolute w-100 pointer-events-none" style={{ top: height - 160 }}>
         <a.div
           className="scroll-container pointer-events-auto mx-auto mt-5"

@@ -33,8 +33,8 @@ const MobileHeader = () => {
   return (
     <>
       <header
-        className="MobileHeader position-fixed top-0 w-100"
-        style={{ zIndex: 1000, cursor: 'pointer' }}
+        className="MobileHeader position-fixed top-0"
+        style={{ zIndex: 1000, cursor: 'pointer', width }}
       >
         <div
           onClick={onClick}

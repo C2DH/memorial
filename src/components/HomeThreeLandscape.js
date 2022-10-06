@@ -1,11 +1,13 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
-import Pebble, { Dodecaedron } from './Pebble'
+import Pebble, { Capsule } from './Pebble'
 import Terrain from './Terrain'
 import { Suspense, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import ErrorBoundary from './ErrorBoundary'
 import { Vector3 } from 'three'
 import { useSpring, easings } from 'react-spring'
+import PlayPauseBtn from './PlayPauseBtn'
+import { useStore } from '../store'
 
 const HomeThreeLandscape = ({
   pebbles = [],
@@ -31,7 +33,7 @@ const HomeThreeLandscape = ({
       orbitRef.current.target = new Vector3(e.value.x, e.value.y, e.value.z)
     },
   }))
-
+  const setSelectedPebble = useStore((state) => state.setSelectedPebble)
   // get points
   const pebblePositions = useMemo(() => {
     const theta = pebbles.length ? (Math.PI * 2) / pebbles.length : 0
@@ -42,7 +44,7 @@ const HomeThreeLandscape = ({
       const z = Math.sin(i * theta) * dist
       return [x, y, z]
     })
-  }, [pebbles])
+  }, [pebbles, maxRadius, minRadius])
   const [isPlaying, setIsPlaying] = useState(true)
 
   useLayoutEffect(() => {
@@ -66,6 +68,7 @@ const HomeThreeLandscape = ({
         y: pebblePositions[currentPebbleIdx.current][1],
         z: pebblePositions[currentPebbleIdx.current][2],
       })
+      setSelectedPebble(pebbles[currentPebbleIdx.current])
       // orbitRef.current.target = pebblePositions[currentPebbleIdx.current]
       t = setTimeout(h, 5000)
     }
@@ -77,7 +80,7 @@ const HomeThreeLandscape = ({
       t = setTimeout(h, 5000)
     }
     return () => clearTimeout(t)
-  }, [isPlaying, pebblePositions, setCameraPosition])
+  }, [isPlaying, pebblePositions, setCameraPosition, setSelectedPebble, pebbles])
 
   return (
     <div
@@ -86,20 +89,15 @@ const HomeThreeLandscape = ({
       className="position-absolute top-0"
       {...props}
     >
-      <button
-        className="d-none position-absolute bottom-0"
-        onClick={() => setIsPlaying(!isPlaying)}
-        style={{ zIndex: 1001 }}
-      >
-        {isPlaying ? 'stop!' : 'play!'}
-      </button>
+      <PlayPauseBtn playPause={{ playing: isPlaying, func: setIsPlaying }}></PlayPauseBtn>
+
       <Canvas shadows camera={{ position: [0, 0, 2], far: 3000, fov: 50 }}>
         <color attach="background" args={[backgroudnColor]} />
         <fog attach="fog" args={[backgroudnColor, 1, 25]} />
 
-        <hemisphereLight intensity={0.5} color="#a1f4ff" groundColor="#713405" />
+        <hemisphereLight intensity={0.5} color="#ffd0ec" groundColor="#713405" />
         <directionalLight intensity={1} position={[-100, 5, -100]} color="#5400bb" />
-        <pointLight castShadow intensity={0.8} position={[100, 100, 100]} />
+        <pointLight intensity={0.8} position={[100, 100, 100]} />
         <ErrorBoundary>
           <Suspense fallback={null}>{withModel ? <Suzi /> : <Terrain />}</Suspense>
         </ErrorBoundary>
@@ -107,12 +105,10 @@ const HomeThreeLandscape = ({
           return (
             <Pebble
               key={i}
-              geometry={p.geometry ?? Dodecaedron}
+              geometry={p.geometry ?? Capsule}
               scale={p.scale ?? 0.5}
               position={pebblePositions[i]}
               title={p.title}
-              castShadow
-              receiveShadow
             />
           )
         })}
@@ -125,7 +121,6 @@ const HomeThreeLandscape = ({
           autoRotateSpeed={0.12}
           panSpeed={1.25}
           enableZoom={false}
-          enableDamping={true}
           maxPolarAngle={1.45}
           minPolarAngle={0.2}
         />
