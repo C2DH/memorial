@@ -1,0 +1,114 @@
+.PeopleCard {
+  display: flex;
+  position: absolute;
+  width: 520px;
+  min-height: 200px;
+  padding: 15px;
+  bottom: 18%;
+  left: calc(50% - 260px);
+  background: rgb(32, 28, 40);
+  background: linear-gradient(180deg, rgba(32, 28, 40, 0.7) 0%, rgba(34, 79, 85, 0.7) 100%);
+  border-radius: 20px;
+  animation-name: cardAnimation;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  opacity: 0;
+  animation-delay: 1s;
+  z-index: 2;
+}
+
+.PeopleCard img {
+  display: block;
+  margin-right: 15px;
+  height: inherit;
+  width: 170px;
+  border-radius: 14px;
+  border: 1px solid var(--bs-primary);
+  object-fit: cover;
+}
+
+.PeopleCard .Wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--bs-primary);
+}
+
+.PeopleCard .TextWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.PeopleCard .Wrapper span {
+  display: block;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: rgb(191, 191, 191);
+}
+
+.PeopleCard .Wrapper h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+/* .Wrapper p {
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+} */
+
+.PeopleCard .Read_More {
+  display: flex;
+  align-self: end;
+  position: relative;
+  padding: 5px 15px;
+  margin-top: 5px;
+  color: var(--white);
+  background-color: #b392e9;
+  text-align: right;
+  font-size: 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.PeopleCard #VectorIcon {
+  margin-right: 8px;
+  margin-bottom: 2px;
+}
+
+@keyframes cardAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+}
+
+@media (max-width: 576px) {
+  .PeopleCard {
+    left: calc(50% - 185px);
+    width: 370px;
+  }
+  .PeopleCard .Wrapper h3 {
+    font-size: 1.3rem;
+  }
+
+  .PeopleCard img {
+    width: 130px;
+  }
+}

@@ -22,22 +22,16 @@ function TerrainPlane() {
   })
 
   return (
-    <Plane
-      args={[40, 40, 128, 128]}
-      rotation-x={-Math.PI / 2}
-      ref={mesh}
-      position={[0, -1.8, 0]}
-      receiveShadow
-    >
+    <Plane args={[100, 100, 200, 200]} rotation-x={-Math.PI / 2} ref={mesh} position={[0, -2.3, 0]}>
       <meshPhysicalMaterial
-        color={'#38f5cf'}
+        color={'#43f1a8'}
         {...terrainTextures}
-        displacementScale={2}
+        displacementScale={4.5}
         flatShading
-        metalness={0.6}
+        metalness={0.13}
         // normalMap-encoding={LinearEncoding}
         // aoMapIntensity={0.5}
-        roughness={0.2}
+        roughness={0.3}
         // displacementScale={0}
       />
     </Plane>

@@ -1,5 +1,5 @@
 .Home.page {
-  margin-top: 80px;
+  margin-top: 110px;
   position: relative;
   pointer-events: none;
   z-index: 1;
@@ -16,6 +16,9 @@
   -webkit-background-clip: text;
 }
 
+.Home_animatedWordWrapper {
+  transition: opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
 .Home h2 {
   font-weight: bold;
   font-size: 48px;
@@ -50,13 +53,19 @@
 
 @media (min-width: 576px) {
   .Home {
-    margin-top: 0;
+    margin-top: 60px;
   }
   .Home h2 {
     font-size: 5vw;
   }
   .Home h2.outlined {
     font-size: 6vh;
+  }
+}
+
+@media (min-width: 992px) {
+  .Home {
+    margin-top: 0;
   }
 }
 
