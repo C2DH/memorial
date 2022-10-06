@@ -9,11 +9,7 @@
 }
 
 @media (min-width: 576px) {
-  .Story {
-    margin-top: 0;
-  }
   .Story h1 {
-    font-size: 6rem;
     margin-bottom: var(--size-5);
   }
   .Story.long-title h1 {
