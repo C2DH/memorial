@@ -1,0 +1,24 @@
+.pebble-side-icon {
+  position: absolute;
+  align-items: center;
+  right: 30px;
+  top: calc(50% + 130px);
+  display: flex;
+  z-index: 1;
+  transform-origin: right top;
+  transform: rotate(90deg);
+  cursor: pointer;
+}
+
+.pebble-side-icon p {
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.6rem;
+  padding-right: 0.4rem;
+}
+
+.pebble-side-icon p:nth-child(3) {
+  padding-left: 1rem;
+}

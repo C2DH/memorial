@@ -2,6 +2,7 @@
   "fr-FR": {
     "translation": {
       "actionAddAPebble": "Add a pebble to the Memorial",
+      "actionCreateAPebble": "Creer un caillou",
       "actionSendUsPageOfTestimony": "Contactez-nous",
       "allStories": "Explorer toutes les biographies",
       "ariaLabelSearch": "search & find",
@@ -44,6 +45,7 @@
   "en-GB": {
     "translation": {
       "actionAddAPebble": "Add a pebble to the Memorial",
+      "actionCreateAPebble": "Create a pebble",
       "actionSendUsPageOfTestimony": "Get in touch with us",
       "allStories": "Explore the Biographies",
       "ariaLabelSearch": "search & find",

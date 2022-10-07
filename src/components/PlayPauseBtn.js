@@ -6,7 +6,7 @@ const PlayPauseBtn = ({ playPause }) => {
     <div
       className="PlayBtn position-absolute"
       onClick={() => playPause.func(!playPause.playing)}
-      style={{ zIndex: 1001, bottom: '40px', right: '40px' }}
+      style={{ zIndex: 1001, bottom: '30px', right: '30px' }}
     >
       {playPause.playing ? <PauseIcon></PauseIcon> : <PlayIcon></PlayIcon>}
     </div>

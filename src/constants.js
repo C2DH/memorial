@@ -75,3 +75,5 @@ export const BootstrapStartReducedColumnLayout = Object.freeze({
 export const BootstrapEndExtendedColumnLayout = Object.freeze({
   md: { span: 6, offset: 0 },
 })
+
+export const PebbleColors = ['#7dc0ff', '#ae96ff', '#e592e9', '#d6dd71', '#dcbf87', '#dcdec3']
