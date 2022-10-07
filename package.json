@@ -44,6 +44,7 @@
     "three": "^0.144.0",
     "use-query-params": "^1.2.3",
     "web-vitals": "^2.1.4",
+    "worker-loader": "^3.0.8",
     "zustand": "^4.0.0-rc.1"
   },
   "scripts": {
