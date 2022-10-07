@@ -1,9 +1,11 @@
 export const useDate = ({ language }) => ({
-  parseDate: (dateStr, long = false, opts = null) => {
+  parseDate: (dateStr, long = false, opts = null, ifInvalid = null) => {
     if (!dateStr) return null
     const date = new Date(dateStr)
     const dateItems = dateStr.split('-')
-
+    if (isNaN(date.valueOf())) {
+      return ifInvalid ? ifInvalid : dateStr
+    }
     return date.toLocaleString(
       language,
       opts || {
