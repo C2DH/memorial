@@ -1,9 +1,31 @@
 .Linesmap_marker {
-  position: relative;
+  /* position: relative; */
 }
 
-.Linesmap_marker > div {
+.Linesmap_marker > label {
   position: absolute;
+  width: 200px;
+}
+.Linesmap_cluster {
+  width: 24px;
+  height: 24px;
+  background: #00000066;
+  border-radius: 20px;
+  border: 1px solid;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  line-height: 21px;
+}
+.Linesmap_marker::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 4px;
+  height: 4px;
+  background: black;
+  border-radius: 2px;
 }
 
 .Linesmap_marker_point {

@@ -1,4 +1,4 @@
-const RegexQParam = new RegExp(/^[0-9a-zA-Z- ]+$/)
+const RegexQParam = new RegExp(/^[0-9a-zA-Z- *]+$/)
 const RegexSlugParam = new RegExp(/^[0-9a-zA-Z-]+$/)
 
 export const QParam = {
@@ -7,6 +7,12 @@ export const QParam = {
       return value
     }
     return null
+  },
+  encode(value) {
+    if (RegexQParam.test(value)) {
+      return value
+    }
+    return undefined
   },
 }
 
