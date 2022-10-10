@@ -14,6 +14,7 @@ import Logo from '../components/Logo'
 import { Dodecaedron } from '../components/Pebble'
 import PeopleCard from '../components/PeopleCard'
 // import { useGetJSON } from '../hooks/data'
+import { ArrowRightCircle } from 'react-feather'
 
 const to = (i) => ({
   opacity: 1,
@@ -158,7 +159,10 @@ const Home = ({ isMobile }) => {
                     </section>
                     <p className="mt-5">
                       <LangLink to="/biographies">
-                        <button className="btn btn-white btn-lg">{t('allStories')}</button>
+                        <button className="btn btn-white btn-lg">
+                          <span className="me-2">{t('allAvailableStories')} </span>
+                          <ArrowRightCircle size={28} />
+                        </button>
                       </LangLink>
                     </p>
                   </a.div>
