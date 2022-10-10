@@ -37,7 +37,14 @@ const VectorIcon = () => {
 
 const PebbleIcon = () => {
   return (
-    <svg width="31" height="32" viewBox="0 0 31 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className="pebble-icon"
+      width="31"
+      height="32"
+      viewBox="0 0 31 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <rect
         x="2.29654"
         y="16"

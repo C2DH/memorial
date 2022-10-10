@@ -6,6 +6,7 @@ import '../styles/components/CreatePebbleMenu.css'
 import React, { useState } from 'react'
 import { PebbleColors } from '../constants'
 import { useTranslation } from 'react-i18next'
+import { PebbleIcon } from './SvgIcons'
 
 const CreatePebbleMenu = ({ show, handleClose }) => {
   const [shape, setShape] = useState(Octahedron)
@@ -16,56 +17,34 @@ const CreatePebbleMenu = ({ show, handleClose }) => {
     <>
       {/* <button variant="primary">Launch demo modal</button> */}
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal className="create-pebble-menu" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{t('actionCreateAPebble')}</Modal.Title>
+          <Modal.Title>
+            <PebbleIcon></PebbleIcon>
+            <b>{t('actionCreateAPebble')}</b>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="modal-content-wrapper w-100 h-100">
             <h5>Pebble Shape</h5>
             <div className="pebble-shape-btn-g">
-              <button
-                onClick={() => setShape(Octahedron)}
-                className="pebble-shape-btn btn btn-white btn-lg"
-              >
-                <PebbleIconOctahedron></PebbleIconOctahedron>
-              </button>
-              <button
-                onClick={() => setShape(Cube)}
-                className="pebble-shape-btn btn btn-white btn-lg"
-              >
-                <PebbleIconOctahedron></PebbleIconOctahedron>
-              </button>
-              <button
-                onClick={() => setShape(Capsule)}
-                className="pebble-shape-btn btn btn-white btn-lg"
-              >
-                <PebbleIconOctahedron></PebbleIconOctahedron>
-              </button>
-              <button
-                onClick={() => setShape(Sphere)}
-                className="pebble-shape-btn btn btn-white btn-lg"
-              >
-                <PebbleIconOctahedron></PebbleIconOctahedron>
-              </button>
-              <button
-                onClick={() => setShape(Polyhedron)}
-                className="pebble-shape-btn btn btn-white btn-lg"
-              >
-                <PebbleIconOctahedron></PebbleIconOctahedron>
-              </button>
-              <button
-                onClick={() => setShape(Dodecaedron)}
-                className="pebble-shape-btn btn btn-white btn-lg"
-              >
-                <PebbleIconOctahedron></PebbleIconOctahedron>
-              </button>
+              {[Octahedron, Cube, Capsule, Sphere, Polyhedron, Dodecaedron].map((geometry, i) => (
+                <button
+                  key={i}
+                  onClick={() => setShape(geometry)}
+                  className={`pebble-shape-btn btn btn-white btn-lg ${
+                    shape === geometry ? 'active' : ''
+                  }`}
+                >
+                  <PebbleIconOctahedron></PebbleIconOctahedron>
+                </button>
+              ))}
             </div>
             <h5>Pebble Color</h5>
             <div className="pebble-color-btn-g">
               {PebbleColors.map((c, i) => (
                 <button
-                  className="pebble-color-btn btn btn-sm"
+                  className={`pebble-color-btn btn btn-sm ${c === color ? 'active' : ''}`}
                   style={{ backgroundColor: c }}
                   key={i}
                   onClick={() => setColor(c)}

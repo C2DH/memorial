@@ -1,8 +1,9 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, useLayoutEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Html, useTexture } from '@react-three/drei'
 import '../styles/components/Pebble.css'
 import * as THREE from 'three'
+import { ModifierStack, Twist, Vector3 } from 'three.modifiers'
 
 export const Cube = 4
 export const Dodecaedron = 'Dodecaedron'
@@ -19,6 +20,7 @@ function Pebble({
   rotation,
   title,
   onClick,
+  twistFactor = 0.23,
   ...props
 }) {
   // This reference gives us direct access to the THREE.Mesh object
@@ -41,6 +43,7 @@ function Pebble({
     roughnessMap: '/texture/pebble-rough.jpeg',
     normalMap: '/texture/pebble-nor.jpeg',
     metalnessMap: '/texture/pebble-met.jpeg',
+    // displacementMap: '/texture/pebble-disp.jpeg',
   })
   pebbleTextures.wrapS = pebbleTextures.wrapT = THREE.RepeatWrapping
 
@@ -60,6 +63,15 @@ function Pebble({
     return () => (document.body.style.cursor = 'auto')
   }, [hovered])
 
+  useLayoutEffect(() => {
+    console.debug('[Pebble] @useLayoutEffect twistFactor', twistFactor)
+    const modifier = new ModifierStack(ref.current)
+    const twist = new Twist(twistFactor)
+    twist.vector = new Vector3(1, 1, 0)
+    modifier.addModifier(twist)
+    modifier.apply()
+  }, [twistFactor, geometry])
+
   return (
     <mesh
       {...props}
@@ -78,7 +90,7 @@ function Pebble({
           </div>
         </Html>
       )}
-      {geometry === Cube && <boxGeometry args={[1.2, 1.2, 1.2, 1, 1, 1]} />}
+      {geometry === Cube && <boxGeometry args={[1.2, 1.2, 1.2, 3, 3, 3]} />}
       {geometry === Dodecaedron && <dodecahedronGeometry />}
       {geometry === Sphere && <sphereGeometry args={[1, 16, 16]} />}
       {geometry === Polyhedron && <icosahedronGeometry />}
@@ -92,7 +104,7 @@ function Pebble({
         roughness={0.3}
         aoMapIntensity={1}
         metalness={0.4}
-        // normalMap={normalMap}
+        // displacementScale={1}
       />
     </mesh>
   )

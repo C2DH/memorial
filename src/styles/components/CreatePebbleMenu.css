@@ -1,42 +1,72 @@
-.modal-content-wrapper {
+.create-pebble-menu .modal-content-wrapper {
   display: flex;
   flex-direction: column;
 }
 
-.modal-dialog {
+.create-pebble-menu .modal-dialog {
   width: 320px;
 }
 
-.modal-content {
+.create-pebble-menu .modal-content {
   background-color: #f2f2f2;
 }
 
-.pebble-shape-btn {
+.create-pebble-menu .modal-title {
+  display: flex;
+  align-items: center;
+}
+
+.modal-title .pebble-icon {
+  margin-right: 5px;
+}
+
+.create-pebble-menu .pebble-shape-btn {
   width: 80px;
   height: 80px;
   margin: 5px;
   background-color: var(--white);
   border: 0 none;
   border-radius: 20px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.07);
 }
 
-.pebble-color-btn {
+.create-pebble-menu .pebble-color-btn {
   width: 36px;
   height: 36px;
   margin: 5px;
   border-radius: 50%;
 }
 
-h5 {
+.create-pebble-menu h5 {
   display: flex;
   flex-grow: 1;
-  margin-top: 10px;
-  font-size: 1rem;
+  margin-top: 15px;
+  font-size: 0.9rem;
   justify-content: center;
+  white-space: nowrap;
+  align-items: center;
+  color: #a4a4a4;
 }
 
-.pebble-shape-btn-g,
-.pebble-color-btn-g {
+.create-pebble-menu h5::after,
+.create-pebble-menu h5::before {
+  display: block;
+  content: '';
+  height: 1px;
+  width: 80px;
+  background-color: #a4a4a4;
+}
+
+.create-pebble-menu h5::after {
+  margin-left: 10px;
+}
+
+.create-pebble-menu h5::before {
+  margin-right: 10px;
+}
+
+.create-pebble-menu .pebble-shape-btn-g,
+.create-pebble-menu .pebble-color-btn-g {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

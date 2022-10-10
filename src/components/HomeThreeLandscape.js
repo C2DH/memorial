@@ -99,8 +99,8 @@ const HomeThreeLandscape = ({
         <color attach="background" args={[backgroudnColor]} />
         <fog attach="fog" args={[backgroudnColor, 1, 25]} />
 
-        <hemisphereLight intensity={3} color="#bdb2a6" groundColor="#713405" />
-        <directionalLight intensity={0.9} position={[-100, 5, -100]} color="#d2aeff" />
+        <hemisphereLight intensity={3} color="#ffeb6b" groundColor="#077105" />
+        <directionalLight intensity={0.9} position={[-100, 5, -100]} color="#ffdbae" />
         <directionalLight intensity={0.9} position={[-100, 5, 100]} color="#f3ffc0" />
         <directionalLight intensity={0.3} color="#fff1aa" position={[100, 5, 100]} />
         <directionalLight intensity={0.6} color="#ffb3ef" position={[100, 5, -100]} />
