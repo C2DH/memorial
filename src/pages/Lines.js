@@ -4,11 +4,13 @@ import LinesMap from '../components/LinesMap'
 import { StatusSuccess, useGetJSON } from '../hooks/data'
 import { useCurrentWindowDimensions } from '../hooks/viewport'
 import { QParam } from '../logic/params'
-import { BootstrapStartColumnLayout } from '../constants'
+import { BootstrapStartColumnLayout, BootstrapEndColumnLayout } from '../constants'
 import { useTranslation } from 'react-i18next'
+import SearchField from '../components/SearchField'
 
 const LinesMapWithEvents = ({ width, height, places = [], className = '' }) => {
-  const [q] = useQueryParam('q', withDefault(QParam, ''))
+  const { t } = useTranslation()
+  const [q, setQuery] = useQueryParam('q', withDefault(QParam, ''))
   const params = {
     filters: {
       data__type: 'person',
@@ -47,21 +49,46 @@ const LinesMapWithEvents = ({ width, height, places = [], className = '' }) => {
     return 'loading events...'
   }
   return (
-    <LinesMap
-      className={className}
-      places={places}
-      people={[data.results[0], data.results[1]]}
-      eventsByPlace={eventsByPlace}
-      events={data.results}
-      width={width}
-      height={height}
-    />
+    <>
+      <Container>
+        <Row>
+          <Col {...BootstrapStartColumnLayout}>
+            <h1 dangerouslySetInnerHTML={{ __html: t('pagesLinesTitle') }} />
+            {status === StatusSuccess && (
+              <h2 className="People_numResults mb-3 pb-3">
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: t(q.length > 1 ? 'peopleCountWithQuery' : 'peopleCount', {
+                      n: data.count,
+                      q,
+                    }),
+                  }}
+                />
+              </h2>
+            )}
+          </Col>
+          <Col {...BootstrapEndColumnLayout}>
+            <SearchField status={status} />
+          </Col>
+        </Row>
+      </Container>
+      <div className="position-relative" style={{ height }}>
+        <LinesMap
+          className={className}
+          places={places}
+          people={[data.results[0], data.results[1]]}
+          eventsByPlace={eventsByPlace}
+          events={data.results}
+          width={width}
+          height={height}
+        />
+      </div>
+    </>
   )
 }
 
 const Lines = ({ isMobile }) => {
   const { width, height } = useCurrentWindowDimensions(isMobile)
-  const { t } = useTranslation()
   const params = {
     filters: {
       data__type: 'place',
@@ -79,21 +106,12 @@ const Lines = ({ isMobile }) => {
   }
   return (
     <div className="Lines page">
-      <Container>
-        <Row>
-          <Col {...BootstrapStartColumnLayout}>
-            <h1 dangerouslySetInnerHTML={{ __html: t('pagesLinesTitle') }} />
-          </Col>
-        </Row>
-      </Container>
-      <div className="position-relative" style={{ height }}>
-        <LinesMapWithEvents
-          className="position-absolute top-0"
-          places={data.results}
-          width={width}
-          height={height}
-        ></LinesMapWithEvents>
-      </div>
+      <LinesMapWithEvents
+        className="position-absolute top-0"
+        places={data.results}
+        width={width}
+        height={height}
+      ></LinesMapWithEvents>
     </div>
   )
 }
