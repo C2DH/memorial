@@ -1,16 +1,16 @@
 import React, { useLayoutEffect, useRef } from 'react'
-import { Container, Row, Col, Form, InputGroup } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { useQueryParam, withDefault } from 'use-query-params'
 import { BootstrapStartColumnLayout, BootstrapEndColumnLayout } from '../constants'
-import { useGetJSON, StatusFetching, StatusSuccess } from '../hooks/data'
+import { useGetJSON, StatusSuccess } from '../hooks/data'
 import { QParam } from '../logic/params'
 import Person from '../components/Person'
 import '../styles/pages/People.css'
+import SearchField from '../components/SearchField'
 
 const People = () => {
   const { t } = useTranslation()
-  const searchQueryRef = useRef()
   const [q, setQuery] = useQueryParam('q', withDefault(QParam, ''))
   const params = {
     filters: {
@@ -27,11 +27,7 @@ const People = () => {
     params,
     delay: 0,
   })
-  useLayoutEffect(() => {
-    if (searchQueryRef.current) {
-      searchQueryRef.current.focus()
-    }
-  }, [status])
+
   return (
     <div className="People page">
       <Container>
@@ -51,31 +47,11 @@ const People = () => {
             )}
           </Col>
           <Col {...BootstrapEndColumnLayout}>
-            <Form
-              className="mt-5"
-              onSubmit={(e) => {
-                e.preventDefault()
-                if (searchQueryRef.current && searchQueryRef.current.value.length > 1) {
-                  setQuery(searchQueryRef.current.value)
-                } else {
-                  setQuery(undefined)
-                }
-              }}
-            >
-              <InputGroup size="lg">
-                <Form.Control
-                  placeholder={t('pagesPeopleSearchPlaceholder')}
-                  aria-label={t('pagesPeopleSearchPlaceholder')}
-                  aria-describedby="basic-addon2"
-                  defaultValue={q}
-                  ref={searchQueryRef}
-                  className="People_inputSearchQuery"
-                />
-                <button className="btn btn-white btn-lg People_inputSubmit" id="button-addon2">
-                  {t(status === StatusFetching ? 'loading' : 'actionSearchPerson')}
-                </button>
-              </InputGroup>
-            </Form>
+            <SearchField
+              status={status}
+              defaultValue={q}
+              onSubmit={(e, value) => setQuery(value)}
+            />
             {/* <p dangerouslySetInnerHTML={{ __html: t('pagesPeopleSubheading') }} /> */}
           </Col>
         </Row>
@@ -85,7 +61,7 @@ const People = () => {
           data.results.map((person) => {
             return (
               <li className="People_listItem" key={person.slug}>
-                <Person doc={person} />
+                <Person doc={person} withLinks />
               </li>
             )
           })}
