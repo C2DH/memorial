@@ -10,8 +10,8 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { propTypes } from 'react-bootstrap/esm/Image'
 
 const Map = ReactMapboxGl({
-  accessToken:
-    'pk.eyJ1IjoibGVnaW9ubmFpcmVzIiwiYSI6ImNrcm02cGxvYTAwa2IzMm85MG02b2VqMjYifQ.OuFSbi7i0SVS8O8QnOjpKA',
+  accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
+  projection: 'naturalEarth',
 })
 
 export const FitBoundsOptionsSm = {
@@ -105,7 +105,7 @@ const LinesMap = ({
   return (
     <div className={`LinesMap ${className}`} style={{ width, height, overflow: 'hidden' }}>
       <Map
-        style={`mapbox://styles/legionnaires/ckto0cfh40okl17pmek6tmiuz?optimize=true`}
+        style={`${process.env.REACT_APP_MAPBOX_STYLE_URL}?optimize=true`}
         className="map h-100 w-100"
         center={center}
         zoom={[zoom]}
