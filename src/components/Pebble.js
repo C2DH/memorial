@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
+
 import { Html } from '@react-three/drei'
 import '../styles/components/Pebble.css'
 
@@ -9,14 +10,19 @@ export const Sphere = 'Sphere'
 export const Polyhedron = 'Polyhedron'
 export const Octahedron = 'Octahedron'
 export const Capsule = 'Capsule'
-
-function Pebble({ geometry = Cube, color = '#9BC995', scale, rotation, title, ...props }) {
+function Pebble({ geometry = Cube, color = '#9BC995', scale, rotation, title, funcCamera, myIndex, ...props }) {
   // This reference gives us direct access to the THREE.Mesh object
   const ref = useRef()
-
   // Hold state for hovered and clicked events
   const [hovered, hover] = useState(false)
   const [clicked, click] = useState(false)
+  
+  //Switch camera to clicked pebble
+  function switchToClicked(event){
+    if(clicked==false){//unnecessary if statement :D
+      funcCamera(myIndex)//Sending pebble's index to external function in HomeThreeLandscape
+    }
+  }
   // Subscribe this component to the render-loop, rotate the mesh every frame
   useFrame((state, delta) => (ref.current.rotation.z += delta))
   // Return the view, these are regular Threejs elements expressed in JSX
@@ -26,12 +32,13 @@ function Pebble({ geometry = Cube, color = '#9BC995', scale, rotation, title, ..
   }, [hovered])
 
   return (
+    <group>
     <mesh
       {...props}
       ref={ref}
-      scale={clicked ? 1.5 : scale}
-      rotation={[0.78, 0, 0]}
-      onClick={(event) => click(!clicked)}
+      //scale={clicked ? 1.5 : scale}
+      rotation={[0, 0, 1]}
+      onClick={(event)=>switchToClicked(event)}
       onPointerOver={(event) => hover(true)}
       onPointerOut={(event) => hover(false)}
       flatShading
@@ -50,6 +57,7 @@ function Pebble({ geometry = Cube, color = '#9BC995', scale, rotation, title, ..
 
       <meshStandardMaterial color={hovered ? '#EA1744' : color} />
     </mesh>
+    </group>
   )
 }
 

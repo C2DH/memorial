@@ -9,6 +9,7 @@
   border-radius: 5px;
   white-space: nowrap;
   z-index: -1;
+  user-select: none;
 }
 
 .Pebble_content::before {

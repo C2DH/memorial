@@ -47,6 +47,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bs-secondary);
   font-size: 1.15rem;
+  overflow-x: hidden; /* Removing scrollbar from the bottom of the page*/
 }
 
 code {
