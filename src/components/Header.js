@@ -14,6 +14,7 @@ import {
   StoryRoute,
   BiographiesRoute,
   HomeRoute,
+  PeopleRoute,
 } from '../constants'
 import { useStore } from '../store'
 import '../styles/components/Header.css'
@@ -95,6 +96,11 @@ const Header = () => {
                 <li className={routeLabel === AboutRoute.label ? 'active' : null}>
                   <LangLink to={AboutRoute.to} className="">
                     {t(AboutRoute.label)}
+                  </LangLink>
+                </li>
+                <li className={routeLabel === PeopleRoute.label ? 'active' : null}>
+                  <LangLink to={PeopleRoute.to} className="">
+                    {t(PeopleRoute.label)}
                   </LangLink>
                 </li>
                 <li>
