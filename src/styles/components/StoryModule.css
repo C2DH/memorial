@@ -1,12 +1,15 @@
 .ModuleTextAnchor {
-  background: #08d1ab49;
+  /* background: #08d1ab49; */
 }
 
 .ModuleTextAnchor.Reference {
   position: relative;
-  padding: 1px 3px;
+  padding: 0px 2px;
   margin: 0 4px;
-  text-decoration: none;
-  border: 1px solid;
+  text-decoration: underline;
+  /* border: 1px solid; */
+  vertical-align: super;
   border-radius: 5px;
+  font-size: 0.8em;
+  font-weight: bold;
 }
