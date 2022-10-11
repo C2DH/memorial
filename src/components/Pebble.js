@@ -21,6 +21,8 @@ function Pebble({
   scale,
   rotation,
   title,
+  funcCamera,
+  myIndex,
   onClick,
   twistFactor = 1,
 

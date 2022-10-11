@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import CreatePebbleMenu from './CreatePebbleMenu'
 import '../styles/components/PebbleTextIcon.css'
 import { useTranslation } from 'react-i18next'
-
+import { PlusCircle } from 'react-feather'
 const PebbleSideIcon = () => {
   const [show, setShow] = useState(false)
 
@@ -14,7 +14,7 @@ const PebbleSideIcon = () => {
     <>
       <div onClick={handleShow} className="pebble-side-icon d-none d-md-flex">
         <p>{t('modalIconCreate')}</p>
-        <PebbleIcon></PebbleIcon>
+        <PlusCircle />
         <p>{t('modalIconPebble')}</p>
       </div>
       <CreatePebbleMenu show={show} handleClose={handleClose}></CreatePebbleMenu>

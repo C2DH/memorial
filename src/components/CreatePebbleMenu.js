@@ -14,34 +14,14 @@ import React, { useReducer, useState } from 'react'
 import { PebbleColors } from '../constants'
 import { useTranslation } from 'react-i18next'
 import { PebbleIcon, SimpleVectorIcon } from './SvgIcons'
+import { PlusCircle } from 'react-feather'
+
+const ShapeGeometries = [Octahedron, IcosahedronGeometry, Capsule, Sphere, Polyhedron, Dodecaedron]
 
 const CreatePebbleMenu = ({ show, handleClose }) => {
-  const arr = [Octahedron, IcosahedronGeometry, Capsule, Sphere, Polyhedron, Dodecaedron]
-  const [i, setI] = useState(0)
   const [shape, setShape] = useState(Octahedron)
   const [color, setColor] = useState(PebbleColors[0])
   const { t } = useTranslation()
-  const switchShape = (op) => {
-    if (op === '-') {
-      console.log('sdjhadjahd')
-      if (i === 0) {
-        setI(arr.length - 1)
-        setShape(arr[i])
-        return
-      }
-      setI(i - 1)
-      setShape(arr[i])
-    }
-    if (op === '+') {
-      if (i === arr.length - 1) {
-        setI(0)
-        setShape(arr[i])
-        return
-      }
-      setI(i + 1)
-      setShape(arr[i])
-    }
-  }
 
   return (
     <>
@@ -50,16 +30,16 @@ const CreatePebbleMenu = ({ show, handleClose }) => {
       <Modal className="create-pebble-menu" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
-            <PebbleIcon></PebbleIcon>
-            <b>{t('modalTitleCreateAPebble')}</b>
+            <PlusCircle />
+            <b className="ms-2">{t('modalTitleCreateAPebble')}</b>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="modal-content-wrapper w-100">
             <h5>{t('modalPebbleShape')}</h5>
             <div className="canva-wrapper w-100">
-              <SimpleVectorIcon></SimpleVectorIcon>
-              <SimpleVectorIcon></SimpleVectorIcon>
+              {/* <SimpleVectorIcon></SimpleVectorIcon>
+              <SimpleVectorIcon></SimpleVectorIcon> */}
               <Canvas>
                 <ambientLight intensity={0.5} />
                 <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
