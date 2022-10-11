@@ -2,7 +2,7 @@
   "fr-FR": {
     "translation": {
       "actionAddAPebble": "Add a pebble to the Memorial",
-      "actionReadBiography": "Read biography",
+      "actionReadBiography": "Lire la biographie",
       "actionSearchPerson": "search",
       "actionSendUsPageOfTestimony": "Contactez-nous",
       "allAvailableStories": "Explorez les premières cinquante biographies.",
@@ -41,6 +41,7 @@
       "pagesPeopleSubheading": "5.000 personnes ayant vécu au Luxembourg avant la guerre et qui ont été persécutées pour des motifs raciaux avant et pendant la Seconde Guerre mondiale.",
       "pagesPeopleTitle": "Personnes",
       "pagesStoryAdditionalInfo": "Avez-vous des informations ou des documents supplémentaires à nous communiquer ?",
+      "pebbleCreatedAt": "This pebble was created on {{ d }}",
       "people": "Personnes mentionnées :",
       "peopleCount": "{{n,2}} personnes",
       "peopleCountWithQuery": "{{n,2}} personnes matching <em>{{q}}</em>",
@@ -54,7 +55,7 @@
   "en-GB": {
     "translation": {
       "actionAddAPebble": "Add a pebble to the Memorial",
-      "actionReadBiography": "Read biography",
+      "actionReadBiography": "Read this biography",
       "actionSearchPerson": "search",
       "actionSendUsPageOfTestimony": "Get in touch with us",
       "allAvailableStories": "Explore the first fifty biographies",
@@ -93,6 +94,7 @@
       "pagesPeopleSubheading": "5.000 personnes ayant vécu au Luxembourg avant la guerre et qui ont été persécutées pour des motifs raciaux avant et pendant la Seconde Guerre mondiale.",
       "pagesPeopleTitle": "Persons",
       "pagesStoryAdditionalInfo": "Have additional information or documents to contribute?",
+      "pebbleCreatedAt": "This pebble was created on {{ d }}",
       "people": "People mentioned:",
       "peopleCount": "{{n,2}} persons",
       "peopleCountWithQuery": "{{n,2}} personnes matching <em>{{q}}</em>",
@@ -106,7 +108,7 @@
   "de-DE": {
     "translation": {
       "actionAddAPebble": "Add a pebble to the Memorial",
-      "actionReadBiography": "Read biography",
+      "actionReadBiography": "Lesen Sie diese Biografie",
       "actionSearchPerson": "search",
       "actionSendUsPageOfTestimony": "Nehmen Sie Kontakt mit uns auf",
       "allAvailableStories": "Erkunden Sie die ersten fünfzig Biografien",
@@ -143,6 +145,7 @@
       "pagesPeopleSubheading": "5.000 personnes ayant vécu au Luxembourg avant la guerre et qui ont été persécutées pour des motifs raciaux avant et pendant la Seconde Guerre mondiale.",
       "pagesPeopleTitle": "People",
       "pagesStoryAdditionalInfo": "Haben Sie zusätzliche Informationen oder Dokumente?",
+      "pebbleCreatedAt": "This pebble was created on {{ d }}",
       "people": "Personen",
       "peopleCount": "{{n,2}} personnes",
       "peopleCountWithQuery": "{{n,2}} personnes matching <em>{{q}}</em>",

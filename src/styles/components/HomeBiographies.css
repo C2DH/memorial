@@ -13,7 +13,7 @@
   display: inline-block;
   border-radius: 0.2rem;
   position: relative;
-  min-width: 250px;
+  min-width: 25%;
   /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
   /* transition: box-shadow 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); */
 }
@@ -25,7 +25,7 @@
 }
 
 .HomeBiographies h4 {
-  font-size: inherit;
+  font-size: 1.05em;
 }
 /* .Home_topStories > ol > li:hover {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -37,4 +37,7 @@
 .HomeBiographies_storyListItem.with-covers {
   min-width: 350px;
   margin-left: 15px;
+}
+.HomeBiographies .StoryItem .StoryAuthors {
+  font-size: 0.8em;
 }

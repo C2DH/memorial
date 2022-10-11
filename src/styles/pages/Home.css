@@ -7,6 +7,7 @@
 }
 
 .Home h2.animated {
+  pointer-events: none;
   font-weight: bold;
   font-size: 5rem;
   background-image: url('https://i.imgur.com/2TdOqp8.gif');
@@ -26,6 +27,8 @@
 }
 
 .Home h2.outlined {
+  pointer-events: none;
+
   font-weight: bold;
   font-size: 40px;
   -webkit-text-stroke-width: 2px;
@@ -120,10 +123,10 @@
   }
 }
 
-.Home_animatedWord:hover {
+/* .Home_animatedWord:hover {
   opacity: 1 !important;
   color: var(--bs-secondary) !important;
-}
+} */
 
 .Home_firstParagraph p:first-of-type {
   font-size: 1.25em;
