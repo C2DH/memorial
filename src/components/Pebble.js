@@ -5,7 +5,7 @@ import '../styles/components/Pebble.css'
 import * as THREE from 'three'
 import { ModifierStack, Twist, Vector3 } from 'three.modifiers'
 
-export const Cube = 4
+export const IcosahedronGeometry = 'Icosahedron'
 export const Dodecaedron = 'Dodecaedron'
 export const Sphere = 'Sphere'
 export const Polyhedron = 'Polyhedron'
@@ -13,14 +13,14 @@ export const Octahedron = 'Octahedron'
 export const Capsule = 'Capsule'
 
 function Pebble({
-  geometry = Cube,
-  color = '#7dc0ff',
+  geometry = IcosahedronGeometry,
+  color = '#ae96ff',
   hideTitle = false,
   scale,
   rotation,
   title,
   onClick,
-  twistFactor = 0.23,
+  twistFactor = 1,
   ...props
 }) {
   // This reference gives us direct access to the THREE.Mesh object
@@ -67,7 +67,7 @@ function Pebble({
     console.debug('[Pebble] @useLayoutEffect twistFactor', twistFactor)
     const modifier = new ModifierStack(ref.current)
     const twist = new Twist(twistFactor)
-    twist.vector = new Vector3(1, 1, 0)
+    twist.vector = new Vector3(1, 1, 1)
     modifier.addModifier(twist)
     modifier.apply()
   }, [twistFactor, geometry])
@@ -90,11 +90,11 @@ function Pebble({
           </div>
         </Html>
       )}
-      {geometry === Cube && <boxGeometry args={[1.2, 1.2, 1.2, 3, 3, 3]} />}
+      {geometry === IcosahedronGeometry && <icosahedronGeometry args={[1, 0]} />}
       {geometry === Dodecaedron && <dodecahedronGeometry />}
-      {geometry === Sphere && <sphereGeometry args={[1, 16, 16]} />}
-      {geometry === Polyhedron && <icosahedronGeometry />}
-      {geometry === Octahedron && <octahedronGeometry args={[1.1, 0]} />}
+      {geometry === Sphere && <sphereGeometry args={[1, 4, 4]} />}
+      {geometry === Polyhedron && <icosahedronGeometry args={[1, 1]} />}
+      {geometry === Octahedron && <octahedronGeometry args={[1.1, 1]} />}
       {geometry === Capsule && <capsuleGeometry args={[0.9, 0.4, 1, 4]} />}
 
       <meshStandardMaterial

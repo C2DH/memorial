@@ -2,7 +2,7 @@
   "fr-FR": {
     "translation": {
       "actionAddAPebble": "Add a pebble to the Memorial",
-      "actionCreateAPebble": "Creer un caillou",
+      "actionModalCreatePebble": "Créer",
       "actionSendUsPageOfTestimony": "Contactez-nous",
       "allStories": "Explorer toutes les biographies",
       "ariaLabelSearch": "search & find",
@@ -15,6 +15,11 @@
       "languageFR": "Fr",
       "languageDE": "De",
       "latestBiographies": "Dernières biographies",
+      "modalIconCreate": "Créer",
+      "modalIconPebble": "Caillou",
+      "modalTitleCreateAPebble": "Créer un caillou",
+      "modalPebbleShape": "Forme de caillou",
+      "modalPebbleColor": "Couleur de caillou",
       "navigationAbout": "Sur nous",
       "navigationBiographies": "Biographies",
       "navigationDoc": "document",
@@ -45,7 +50,7 @@
   "en-GB": {
     "translation": {
       "actionAddAPebble": "Add a pebble to the Memorial",
-      "actionCreateAPebble": "Create a pebble",
+      "actionModalCreatePebble": "Create",
       "actionSendUsPageOfTestimony": "Get in touch with us",
       "allStories": "Explore the Biographies",
       "ariaLabelSearch": "search & find",
@@ -58,6 +63,11 @@
       "languageFR": "Fr",
       "languageDE": "De",
       "latestBiographies": "Latest biographies",
+      "modalIconCreate": "Create",
+      "modalIconPebble": "Pebble",
+      "modalTitleCreateAPebble": "Create a pebble",
+      "modalPebbleShape": "Pebble Shape",
+      "modalPebbleColor": "Pebble Color",
       "navigationAbout": "About",
       "navigationBiographies": "Biographies",
       "navigationDoc": "Document",

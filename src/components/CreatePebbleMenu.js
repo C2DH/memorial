@@ -1,17 +1,47 @@
 import Modal from 'react-bootstrap/Modal'
 import { Canvas } from '@react-three/fiber'
-import Pebble, { Capsule, Octahedron, Cube, Sphere, Polyhedron, Dodecaedron } from './Pebble'
+import Pebble, {
+  Capsule,
+  Octahedron,
+  IcosahedronGeometry,
+  Sphere,
+  Polyhedron,
+  Dodecaedron,
+} from './Pebble'
 import { PebbleIconOctahedron } from './SvgIcons'
 import '../styles/components/CreatePebbleMenu.css'
-import React, { useState } from 'react'
+import React, { useReducer, useState } from 'react'
 import { PebbleColors } from '../constants'
 import { useTranslation } from 'react-i18next'
-import { PebbleIcon } from './SvgIcons'
+import { PebbleIcon, SimpleVectorIcon } from './SvgIcons'
 
 const CreatePebbleMenu = ({ show, handleClose }) => {
+  const arr = [Octahedron, IcosahedronGeometry, Capsule, Sphere, Polyhedron, Dodecaedron]
+  const [i, setI] = useState(0)
   const [shape, setShape] = useState(Octahedron)
   const [color, setColor] = useState(PebbleColors[0])
   const { t } = useTranslation()
+  const switchShape = (op) => {
+    if (op === '-') {
+      console.log('sdjhadjahd')
+      if (i === 0) {
+        setI(arr.length - 1)
+        setShape(arr[i])
+        return
+      }
+      setI(i - 1)
+      setShape(arr[i])
+    }
+    if (op === '+') {
+      if (i === arr.length - 1) {
+        setI(0)
+        setShape(arr[i])
+        return
+      }
+      setI(i + 1)
+      setShape(arr[i])
+    }
+  }
 
   return (
     <>
@@ -21,30 +51,50 @@ const CreatePebbleMenu = ({ show, handleClose }) => {
         <Modal.Header closeButton>
           <Modal.Title>
             <PebbleIcon></PebbleIcon>
-            <b>{t('actionCreateAPebble')}</b>
+            <b>{t('modalTitleCreateAPebble')}</b>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="modal-content-wrapper w-100 h-100">
-            <h5>Pebble Shape</h5>
-            <div className="pebble-shape-btn-g">
-              {[Octahedron, Cube, Capsule, Sphere, Polyhedron, Dodecaedron].map((geometry, i) => (
-                <button
-                  key={i}
-                  onClick={() => setShape(geometry)}
-                  className={`pebble-shape-btn btn btn-white btn-lg ${
-                    shape === geometry ? 'active' : ''
-                  }`}
-                >
-                  <PebbleIconOctahedron></PebbleIconOctahedron>
-                </button>
-              ))}
+          <div className="modal-content-wrapper w-100">
+            <h5>{t('modalPebbleShape')}</h5>
+            <div className="canva-wrapper w-100">
+              <SimpleVectorIcon></SimpleVectorIcon>
+              <SimpleVectorIcon></SimpleVectorIcon>
+              <Canvas>
+                <ambientLight intensity={0.5} />
+                <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+                <pointLight position={[-10, -10, -10]} />
+                <Pebble
+                  hideTitle
+                  onClick={() => {
+                    console.info('úseless here')
+                  }}
+                  geometry={shape}
+                  color={color}
+                  scale={2.5}
+                ></Pebble>
+              </Canvas>
             </div>
-            <h5>Pebble Color</h5>
+            {/* <div className="pebble-shape-btn-g">
+              {[Octahedron, IcosahedronGeometry, Capsule, Sphere, Polyhedron, Dodecaedron].map(
+                (geometry, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setShape(geometry)}
+                    className={`pebble-shape-btn btn btn-white btn-lg ${
+                      shape === geometry ? 'active' : ''
+                    }`}
+                  >
+                    <PebbleIconOctahedron></PebbleIconOctahedron>
+                  </button>
+                ),
+              )}
+            </div> */}
+            <h5>{t('modalPebbleColor')}</h5>
             <div className="pebble-color-btn-g">
               {PebbleColors.map((c, i) => (
                 <button
-                  className={`pebble-color-btn btn btn-sm ${c === color ? 'active' : ''}`}
+                  className={`pebble-color-btn btn btn-sm ${color === c ? 'active' : ''}`}
                   style={{ backgroundColor: c }}
                   key={i}
                   onClick={() => setColor(c)}
@@ -52,26 +102,10 @@ const CreatePebbleMenu = ({ show, handleClose }) => {
               ))}
             </div>
           </div>
-          <div className="w-100" style={{ height: 200 }}>
-            <Canvas>
-              <ambientLight intensity={0.5} />
-              <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-              <pointLight position={[-10, -10, -10]} />
-              <Pebble
-                hideTitle
-                onClick={() => {
-                  console.info('úseless here')
-                }}
-                geometry={shape}
-                color={color}
-                scale={2.5}
-              ></Pebble>
-            </Canvas>
-          </div>
         </Modal.Body>
         <Modal.Footer>
           <button className="btn btn-white btn-lg" onClick={handleClose}>
-            Create
+            {t('actionModalCreatePebble')}
           </button>
         </Modal.Footer>
       </Modal>

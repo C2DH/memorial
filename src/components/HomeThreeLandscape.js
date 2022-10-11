@@ -10,6 +10,7 @@ import PlayPauseBtn from './PlayPauseBtn'
 import { useStore } from '../store'
 import PebbleSideIcon from './PebbleTextIcon'
 import CreatePebbleMenu from './CreatePebbleMenu'
+import { Particles } from './Particles'
 
 const HomeThreeLandscape = ({
   pebbles = [],
@@ -104,6 +105,7 @@ const HomeThreeLandscape = ({
         <directionalLight intensity={0.9} position={[-100, 5, 100]} color="#f3ffc0" />
         <directionalLight intensity={0.3} color="#fff1aa" position={[100, 5, 100]} />
         <directionalLight intensity={0.6} color="#ffb3ef" position={[100, 5, -100]} />
+        {/* <Particles amount={333} size={0.01} opacity={0.6} /> */}
         <ErrorBoundary>
           <Suspense fallback={null}>{withModel ? <Suzi /> : <Terrain />}</Suspense>
         </ErrorBoundary>
