@@ -1,17 +1,19 @@
 import React, { useRef, useEffect } from 'react'
 import { Plane, useTexture } from '@react-three/drei'
 import { BufferAttribute } from 'three'
+import * as THREE from 'three'
 
 function TerrainPlane() {
   const terrainTextures = useTexture({
-    // map: '/rocks_diff.jpg',
-    displacementMap: '/rocks_disp.jpeg',
-    // aoMap: '/rocks_arm.jpeg',
-    // roughnessMap: '/rocks_rough.jpeg',
+    map: '/texture/rocks_diff.jpg',
+    displacementMap: '/texture/rocks_disp.jpeg',
+    aoMap: '/texture/rocks_arm.jpeg',
+    roughnessMap: '/texture/rocks_rough.jpeg',
     // metalnessMap: "/textures/aerial_rocks_02_arm_4k_metalness_edited.jpg",
-    // normalMap: '/rocks_nor.jpeg',
+    // normalMap: '/texture/rocks_nor.jpeg',
     // alphaMap: "/textures/alpha.png",
   })
+  terrainTextures.wrapS = terrainTextures.wrapT = THREE.RepeatWrapping
 
   const mesh = useRef(null)
   useEffect(() => {
@@ -23,15 +25,15 @@ function TerrainPlane() {
 
   return (
     <Plane args={[100, 100, 200, 200]} rotation-x={-Math.PI / 2} ref={mesh} position={[0, -2.3, 0]}>
-      <meshPhysicalMaterial
-        color={'#43f1a8'}
+      <meshStandardMaterial
+        color={'#a4e4ff'}
         {...terrainTextures}
+        map-repeat={[1, 1]}
         displacementScale={4.5}
         flatShading
-        metalness={0.13}
-        // normalMap-encoding={LinearEncoding}
-        // aoMapIntensity={0.5}
-        roughness={0.3}
+        // metalness={0}
+        // aoMapIntensity={0}
+        roughness={1}
         // displacementScale={0}
       />
     </Plane>

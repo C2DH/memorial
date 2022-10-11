@@ -11541,10 +11541,15 @@ three-stdlib@2.17.0:
     potpack "^1.0.1"
     zstddec "^0.0.2"
 
-three@^0.144.0:
-  version "0.144.0"
-  resolved "https://registry.npmjs.org/three/-/three-0.144.0.tgz"
-  integrity sha512-R8AXPuqfjfRJKkYoTQcTK7A6i3AdO9++2n8ubya/GTU+fEHhYKu1ZooRSCPkx69jbnzT7dD/xEo6eROQTt2lJw==
+three.modifiers@^2.5.7:
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/three.modifiers/-/three.modifiers-2.5.7.tgz#2fcf36a9e561ae3342ab2662c4af05d70cbcb674"
+  integrity sha512-Z8BU0K3D3zJJNTNfSmeicbqokLGqbD9EbVmm56+/1DUAV98QE9jSI+IQQiRiOcVFBhUZEzZTfyYo4rXXZdp7TQ==
+
+three@^0.145.0:
+  version "0.145.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.145.0.tgz#a613d71e75effc2aed88be630027ca01e2b6502e"
+  integrity sha512-EKoHQEtEJ4CB6b2BGMBgLZrfwLjXcSUfoI/MiIXUuRpeYsfK5aPWbYhdtIVWOH+x6X0TouldHKHBuc/LAiFzAw==
 
 throat@^6.0.1:
   version "6.0.1"

@@ -8,6 +8,8 @@ import { Vector3 } from 'three'
 import { useSpring, easings } from 'react-spring'
 import PlayPauseBtn from './PlayPauseBtn'
 import { useStore } from '../store'
+import PebbleSideIcon from './PebbleTextIcon'
+import CreatePebbleMenu from './CreatePebbleMenu'
 
 const HomeThreeLandscape = ({
   pebbles = [],
@@ -82,21 +84,20 @@ const HomeThreeLandscape = ({
     return () => clearTimeout(t)
   }, [isPlaying, pebblePositions, setCameraPosition, setSelectedPebble, pebbles])
 
-
   //Switch Camera to clicked pebble
-  function SwitchCameraToPebble(ind){
+  function SwitchCameraToPebble(ind) {
     // for(let j=0;j<pebbles.length;j++){
     //   currentPebbleIdx.current=j;
     //   pebbles[currentPebbleIdx.current].style.scale=2
     // }
-    setIsPlaying(false)//Stopping automatical camera switch
-    currentPebbleIdx.current=ind;
+    setIsPlaying(false) //Stopping automatical camera switch
+    currentPebbleIdx.current = ind
     setSelectedPebble(pebbles[currentPebbleIdx.current])
     setCameraPosition.start({
-        x: pebblePositions[currentPebbleIdx.current][0],
-        y: pebblePositions[currentPebbleIdx.current][1],
-        z: pebblePositions[currentPebbleIdx.current][2],
-      })
+      x: pebblePositions[currentPebbleIdx.current][0],
+      y: pebblePositions[currentPebbleIdx.current][1],
+      z: pebblePositions[currentPebbleIdx.current][2],
+    })
   }
 
   return (
@@ -107,14 +108,19 @@ const HomeThreeLandscape = ({
       {...props}
     >
       <PlayPauseBtn playPause={{ playing: isPlaying, func: setIsPlaying }}></PlayPauseBtn>
+      <PebbleSideIcon></PebbleSideIcon>
+      <CreatePebbleMenu></CreatePebbleMenu>
 
       <Canvas shadows camera={{ position: [0, 0, 2], far: 3000, fov: 50 }}>
         <color attach="background" args={[backgroudnColor]} />
         <fog attach="fog" args={[backgroudnColor, 1, 25]} />
 
-        <hemisphereLight intensity={0.5} color="#ffd0ec" groundColor="#713405" />
-        <directionalLight intensity={1} position={[-100, 5, -100]} color="#5400bb" />
-        <pointLight intensity={0.8} position={[100, 100, 100]} />
+        <hemisphereLight intensity={3} color="#ffeb6b" groundColor="#077105" />
+        <directionalLight intensity={0.9} position={[-100, 5, -100]} color="#ffdbae" />
+        <directionalLight intensity={0.9} position={[-100, 5, 100]} color="#f3ffc0" />
+        <directionalLight intensity={0.3} color="#fff1aa" position={[100, 5, 100]} />
+        <directionalLight intensity={0.6} color="#ffb3ef" position={[100, 5, -100]} />
+        {/* <Particles amount={333} size={0.01} opacity={0.6} /> */}
         <ErrorBoundary>
           <Suspense fallback={null}>{withModel ? <Suzi /> : <Terrain />}</Suspense>
         </ErrorBoundary>

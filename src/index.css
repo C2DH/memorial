@@ -39,6 +39,12 @@
   --size-2: 0.5rem;
   --size-3: 1rem;
   --size-5: 3rem;
+  --pebble-color-1: #87dcdc;
+  --pebble-color-2: #4e97da;
+  --pebble-color-3: #66b5a9;
+  --pebble-color-4: #b392e9;
+  --pebble-color-5: #dd71c5;
+  --pebble-color-6: #dcbf87;
   --bs-font-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }

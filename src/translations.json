@@ -2,6 +2,7 @@
   "fr-FR": {
     "translation": {
       "actionAddAPebble": "Add a pebble to the Memorial",
+      "actionModalCreatePebble": "Créer",
       "actionReadBiography": "Lire la biographie",
       "actionSearchPerson": "search",
       "actionSendUsPageOfTestimony": "Contactez-nous",
@@ -17,6 +18,11 @@
       "languageFR": "Fr",
       "languageDE": "De",
       "latestBiographies": "Biographies",
+      "modalIconCreate": "Créer",
+      "modalIconPebble": "Caillou",
+      "modalTitleCreateAPebble": "Créer un caillou",
+      "modalPebbleShape": "Forme de caillou",
+      "modalPebbleColor": "Couleur de caillou",
       "navigationAbout": "Sur le Mémorial",
       "navigationBiographies": "Biographies",
       "navigationDoc": "document",
@@ -55,6 +61,7 @@
   "en-GB": {
     "translation": {
       "actionAddAPebble": "Add a pebble to the Memorial",
+      "actionModalCreatePebble": "Create",
       "actionReadBiography": "Read this biography",
       "actionSearchPerson": "search",
       "actionSendUsPageOfTestimony": "Get in touch with us",
@@ -70,6 +77,11 @@
       "languageFR": "Fr",
       "languageDE": "De",
       "latestBiographies": "Biographies",
+      "modalIconCreate": "Create",
+      "modalIconPebble": "Pebble",
+      "modalTitleCreateAPebble": "Create a pebble",
+      "modalPebbleShape": "Pebble Shape",
+      "modalPebbleColor": "Pebble Color",
       "navigationAbout": "About the Memorial",
       "navigationBiographies": "Biographies",
       "navigationDoc": "Document",

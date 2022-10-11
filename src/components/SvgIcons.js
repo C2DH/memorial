@@ -35,4 +35,58 @@ const VectorIcon = () => {
   )
 }
 
-export { PauseIcon, PlayIcon, VectorIcon }
+const SimpleVectorIcon = () => {
+  return (
+    <div className="simple-vector-icon">
+      <svg
+        width="10"
+        height="16"
+        viewBox="0 0 10 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M1.17651 1L8.17651 8L1.17651 15" stroke="#9B9B9B" strokeWidth="2" />
+      </svg>
+    </div>
+  )
+}
+
+const PebbleIcon = () => {
+  return (
+    <svg
+      className="pebble-icon"
+      width="31"
+      height="32"
+      viewBox="0 0 31 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="2.29654"
+        y="16"
+        width="19.2963"
+        height="19.2963"
+        transform="rotate(-45 2.29654 16)"
+        stroke="black"
+        strokeWidth="2"
+      />
+      <path d="M15.9707 19.9707L15.9707 11.4707" stroke="black" strokeWidth="2" />
+      <path d="M11.7207 15.7207H20.2207" stroke="black" strokeWidth="2" />
+    </svg>
+  )
+}
+
+const PebbleIconOctahedron = () => {
+  return (
+    <svg width="30" height="39" viewBox="0 0 30 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 2.5V37.5M1.5 19.5H28.5" stroke="#BDBDBD" />
+      <path
+        d="M1.26163 19.5L15 1.64012L28.7384 19.5L15 37.3599L1.26163 19.5Z"
+        stroke="#BDBDBD"
+        strokeWidth="2"
+      />
+    </svg>
+  )
+}
+
+export { PauseIcon, PlayIcon, VectorIcon, PebbleIcon, PebbleIconOctahedron, SimpleVectorIcon }
