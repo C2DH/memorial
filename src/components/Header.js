@@ -71,17 +71,26 @@ const Header = () => {
                 >
                   <LangLink to={SearchRoute.to}>{t(SearchRoute.label)}</LangLink>
                 </li> */}
-                <li
-                  className={
-                    [BiographiesRoute.label, StoryRoute.label].includes(routeLabel)
-                      ? 'active'
-                      : null
-                  }
-                  style={{ borderRight: '1px solid', paddingRight: '1.75rem' }}
-                >
-                  <LangLink to={BiographiesRoute.to} className="">
-                    {t(BiographiesRoute.label)}
-                  </LangLink>
+                <li>
+                  <ul className="d-flex">
+                    <li
+                      className={
+                        [BiographiesRoute.label, StoryRoute.label].includes(routeLabel)
+                          ? 'active'
+                          : null
+                      }
+                    >
+                      <LangLink to={BiographiesRoute.to}>{t(BiographiesRoute.label)}</LangLink>
+                    </li>
+                    <li
+                      style={{ borderRight: '1px solid', paddingRight: '1.75rem' }}
+                      className={routeLabel === PeopleRoute.label ? 'active' : null}
+                    >
+                      <LangLink to={PeopleRoute.to} className="ms-4">
+                        {t(PeopleRoute.label)}
+                      </LangLink>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </nav>
@@ -98,11 +107,7 @@ const Header = () => {
                     {t(AboutRoute.label)}
                   </LangLink>
                 </li>
-                <li className={routeLabel === PeopleRoute.label ? 'active' : null}>
-                  <LangLink to={PeopleRoute.to} className="">
-                    {t(PeopleRoute.label)}
-                  </LangLink>
-                </li>
+
                 <li>
                   <ul className="d-flex">
                     {LanguageCodes.map((d) => {
