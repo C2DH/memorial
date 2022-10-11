@@ -24,7 +24,16 @@ const StoryItem = ({ story, reduced = false, className = '' }) => {
       {story.covers.length ? <CoverItems covers={story.covers} /> : null}
       <div className="ms-3">
         <LangLink className="StoryItem_title" to={`/story/${story.slug}`}>
-          <h4 className="m-0 " dangerouslySetInnerHTML={{ __html: title }} />
+          <h4
+            className="m-0 "
+            dangerouslySetInnerHTML={{
+              __html: title
+                .split(/[\[\]]/)
+                .join('')
+                .split(/\{[^}]+\}/)
+                .join(''),
+            }}
+          />
         </LangLink>
         <StoryAuthors className="StoryItem_authors" authors={story.authors} />
         <AvailableLanguages

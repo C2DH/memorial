@@ -14,6 +14,7 @@ import Logo from '../components/Logo'
 import { Capsule, Dodecaedron, IcosahedronGeometry } from '../components/Pebble'
 import PeopleCard from '../components/PeopleCard'
 // import { useGetJSON } from '../hooks/data'
+import { ArrowRightCircle } from 'react-feather'
 
 const to = (i) => ({
   opacity: 1,
@@ -92,7 +93,7 @@ const Home = ({ isMobile }) => {
       <React.Suspense fallback={null}>
         <HomeThreeLandscape pebbles={pebbles} availableWidth={width} availableHeight={height} />
       </React.Suspense>
-      <PeopleCard src="/img/lukmanski-carmen.png"></PeopleCard>
+      <PeopleCard debug src="/img/lukmanski-carmen.png"></PeopleCard>
       <div className="position-absolute w-100 pointer-events-none" style={{ top: height - 160 }}>
         <a.div
           className="scroll-container pointer-events-auto mx-auto mt-5"
@@ -159,7 +160,10 @@ const Home = ({ isMobile }) => {
                     </section>
                     <p className="mt-5">
                       <LangLink to="/biographies">
-                        <button className="btn btn-white btn-lg">{t('allStories')}</button>
+                        <button className="btn btn-white btn-lg">
+                          <span className="me-2">{t('allAvailableStories')} </span>
+                          <ArrowRightCircle size={28} />
+                        </button>
                       </LangLink>
                     </p>
                   </a.div>

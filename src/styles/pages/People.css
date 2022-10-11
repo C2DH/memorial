@@ -1,0 +1,14 @@
+.People_listItem {
+  display: inline-block;
+  border-radius: 0.2rem;
+  position: relative;
+  max-width: 300px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: var(--size-3);
+  margin: 0 10px 20px !important;
+  transition: box-shadow 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.People_numResults {
+  border-bottom: 2px solid;
+}

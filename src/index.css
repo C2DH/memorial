@@ -28,6 +28,7 @@
   --bs-primary: #61bfad;
   --bs-dark: #212529;
   --bs-primary-text: #3d776c;
+  --bs-primary-alpha: #61bfaebc;
   --bs-link-color: #3d776c;
   --bs-link-hover-color: #212529;
   --bs-secondary: #ffefe5;
@@ -53,6 +54,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bs-secondary);
   font-size: 1.15rem;
+  overflow-x: hidden; /* Removing scrollbar from the bottom of the page*/
 }
 
 code {
@@ -60,7 +62,7 @@ code {
 }
 
 .page {
-  margin-top: 80px;
+  margin-top: 100px;
 }
 .page h1 {
   color: transparent; /* var(--bs-primary); */
@@ -74,12 +76,29 @@ code {
   color: transparent;
   /* var(--bs-primary-text); */
 }
-
+.page.very-long-title h1 {
+  font-size: 2rem;
+}
 .bg-secondary {
   background-color: var(--bs-secondary) !important;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 768px) {
+  .page {
+    margin-top: 70px;
+  }
+  .page h1 {
+    font-size: 5rem;
+  }
+  .page.long-title h1 {
+    font-size: 2.5rem;
+  }
+  .page.very-long-title h1 {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 992px) {
   .page {
     margin-top: 0;
   }

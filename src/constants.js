@@ -15,6 +15,8 @@ export const SearchDocRoute = {
 export const PeopleRoute = { to: '/people', label: 'navigationPeople' }
 export const NotFoundRoute = { to: '/404', label: 'navigationNotFound' }
 
+export const LinesMapRoute = { to: '/map', label: 'navigationLinesMapRoute' }
+
 export const StoryRoute = {
   to: '/story/:storyId',
   label: 'navigationStory',
@@ -44,6 +46,7 @@ export const AllRoutes = [
   TermsOfUseRoute,
   DocumentRoute,
   BiographiesRoute,
+  LinesMapRoute,
 ]
 
 export const Languages = (process.env.REACT_APP_LANGUAGES ?? 'en-GB,fr-FR,de-DE').split(',')

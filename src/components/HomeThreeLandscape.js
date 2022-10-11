@@ -23,7 +23,7 @@ const HomeThreeLandscape = ({
   ...props
 }) => {
   const orbitRef = useRef()
-  const currentPebbleIdx = useRef(-1)
+  const currentPebbleIdx = useRef(0)
   const [, setCameraPosition] = useSpring(() => ({
     x: 0,
     y: 0,
@@ -85,6 +85,23 @@ const HomeThreeLandscape = ({
     return () => clearTimeout(t)
   }, [isPlaying, pebblePositions, setCameraPosition, setSelectedPebble, pebbles])
 
+
+  //Switch Camera to clicked pebble
+  function SwitchCameraToPebble(ind){
+    // for(let j=0;j<pebbles.length;j++){
+    //   currentPebbleIdx.current=j;
+    //   pebbles[currentPebbleIdx.current].style.scale=2
+    // }
+    setIsPlaying(false)//Stopping automatical camera switch
+    currentPebbleIdx.current=ind;
+    setSelectedPebble(pebbles[currentPebbleIdx.current])
+    setCameraPosition.start({
+        x: pebblePositions[currentPebbleIdx.current][0],
+        y: pebblePositions[currentPebbleIdx.current][1],
+        z: pebblePositions[currentPebbleIdx.current][2],
+      })
+  }
+
   return (
     <div
       id="canvas-container"
@@ -112,6 +129,8 @@ const HomeThreeLandscape = ({
         {pebbles.map((p, i) => {
           return (
             <Pebble
+              myIndex={i}
+              funcCamera={SwitchCameraToPebble}
               key={i}
               geometry={p.geometry ?? Capsule}
               scale={p.scale ?? 0.5}

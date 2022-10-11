@@ -1,6 +1,8 @@
 import { useRef, useState, useEffect, useLayoutEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
+
 import { Html, useTexture } from '@react-three/drei'
+
 import '../styles/components/Pebble.css'
 import * as THREE from 'three'
 import { ModifierStack, Twist, Vector3 } from 'three.modifiers'
@@ -21,11 +23,11 @@ function Pebble({
   title,
   onClick,
   twistFactor = 1,
+
   ...props
 }) {
   // This reference gives us direct access to the THREE.Mesh object
   const ref = useRef()
-
   // Hold state for hovered and clicked events
   const [hovered, hover] = useState(false)
   const [clicked, click] = useState(false)
@@ -47,13 +49,13 @@ function Pebble({
   })
   pebbleTextures.wrapS = pebbleTextures.wrapT = THREE.RepeatWrapping
 
-  // const mesh = useRef(null)
-  // useEffect(() => {
-  //   mesh.current.geometry.setAttribute(
-  //     'uv2',
-  //     new BufferAttribute(mesh.current.geometry.attributes.uv.array, 2),
-  //   )
-  // })
+  //Switch camera to clicked pebble
+  function switchToClicked(event) {
+    if (clicked == false) {
+      //unnecessary if statement :D
+      funcCamera(myIndex) //Sending pebble's index to external function in HomeThreeLandscape
+    }
+  }
 
   // Subscribe this component to the render-loop, rotate the mesh every frame
   useFrame((state, delta) => (ref.current.rotation.z += delta))
@@ -76,9 +78,11 @@ function Pebble({
     <mesh
       {...props}
       ref={ref}
-      scale={clicked ? 1.5 : scale}
+      onClick={(event) => {
+        switchToClicked(event)
+        handleClick()
+      }}
       rotation={[0.78, 0, 0]}
-      onClick={handleClick}
       onPointerOver={(event) => hover(true)}
       onPointerOut={(event) => hover(false)}
       flatShading
