@@ -8,7 +8,7 @@ const StoryAuthors = ({ authors = [] }) => {
     return null
   }
   return (
-    <div>
+    <div className="StoryAuthors">
       <label className="text-uppercase small fw-bold">{t('writtenBy')}</label>
       {authors.map((author) => (
         <AuthorItem key={author.id} author={author} className="ms-3" />

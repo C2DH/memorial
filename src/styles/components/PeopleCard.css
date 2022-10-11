@@ -1,17 +1,16 @@
 .PeopleCard {
   display: flex;
   position: absolute;
-  width: 520px;
-  min-height: 200px;
-  padding: 15px;
+  width: 400px;
+  /* min-height: 200px; */
+  padding: var(--size-3);
   bottom: 18%;
-  left: calc(50% - 260px);
+  left: calc(50% - 200px);
   background: rgb(32, 28, 40);
   background: linear-gradient(180deg, rgba(32, 28, 40, 0.7) 0%, rgba(34, 79, 85, 0.7) 100%);
-  border-radius: 20px;
-  
+  border-radius: 7px;
 }
-.cardAnimation{
+.cardAnimation {
   animation-name: cardAnimation;
   animation-iteration-count: 1;
   animation-duration: 2.5s;
@@ -19,7 +18,7 @@
   opacity: 1;
   z-index: 2;
 }
-.cardAnimationIN{
+.cardAnimationIN {
   animation-name: cardAnimationIN;
   animation-iteration-count: 1;
   animation-duration: 2.5s;
@@ -40,29 +39,24 @@
 
 .PeopleCard .Wrapper {
   display: flex;
+  width: 100%;
   flex-direction: column;
   justify-content: space-between;
   color: var(--bs-primary);
 }
 
-.PeopleCard .TextWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-grow: 1;
-}
-
 .PeopleCard .Wrapper span {
   display: block;
-  color: var(--white);
+  color: var(--bs-secondary);
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
-  color: rgb(191, 191, 191);
 }
 
 .PeopleCard .Wrapper h3 {
   font-size: 1.5rem;
+  line-height: 1.5em;
   margin-bottom: 0;
+  color: var(--bs-secondary);
 }
 
 /* .Wrapper p {
@@ -71,25 +65,29 @@
   font-size: 1rem;
 } */
 
-.PeopleCard .Read_More {
+.PeopleCard_btn {
   display: flex;
   align-self: end;
   position: relative;
-  padding: 5px 15px;
   margin-top: 5px;
-  color: var(--white);
-  background-color: #b392e9;
+  padding-right: 8px;
+  color: var(--bs-secondary);
+  /* background-color: #b392e9; */
+  border: 2px solid var(--bs-secondary);
   text-align: right;
   font-size: 1rem;
-  border-radius: 25px;
+  border-radius: 7px;
   cursor: pointer;
 }
 
+.PeopleCard_btn:hover {
+  color: var(--white) !important;
+  border-color: transparent !important;
+}
 .PeopleCard #VectorIcon {
   margin-right: 8px;
   margin-bottom: 2px;
 }
-
 
 @keyframes cardAnimation {
   0% {
@@ -110,7 +108,7 @@
   }
 }
 @keyframes cardAnimationIN {
-  0%{
+  0% {
     opacity: 0;
     transform: translateY(50px);
   }
