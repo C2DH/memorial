@@ -17,7 +17,7 @@ export const Capsule = 'Capsule'
 function Pebble({
   geometry = IcosahedronGeometry,
   color = '#ae96ff',
-  hideTitle = false,
+  hideTitle = true,
   scale,
   rotation,
   title,
