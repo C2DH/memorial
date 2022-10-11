@@ -10,7 +10,6 @@ import PlayPauseBtn from './PlayPauseBtn'
 import { useStore } from '../store'
 import PebbleSideIcon from './PebbleTextIcon'
 import CreatePebbleMenu from './CreatePebbleMenu'
-import { Particles } from './Particles'
 
 const HomeThreeLandscape = ({
   pebbles = [],
@@ -85,21 +84,20 @@ const HomeThreeLandscape = ({
     return () => clearTimeout(t)
   }, [isPlaying, pebblePositions, setCameraPosition, setSelectedPebble, pebbles])
 
-
   //Switch Camera to clicked pebble
-  function SwitchCameraToPebble(ind){
+  function SwitchCameraToPebble(ind) {
     // for(let j=0;j<pebbles.length;j++){
     //   currentPebbleIdx.current=j;
     //   pebbles[currentPebbleIdx.current].style.scale=2
     // }
-    setIsPlaying(false)//Stopping automatical camera switch
-    currentPebbleIdx.current=ind;
+    setIsPlaying(false) //Stopping automatical camera switch
+    currentPebbleIdx.current = ind
     setSelectedPebble(pebbles[currentPebbleIdx.current])
     setCameraPosition.start({
-        x: pebblePositions[currentPebbleIdx.current][0],
-        y: pebblePositions[currentPebbleIdx.current][1],
-        z: pebblePositions[currentPebbleIdx.current][2],
-      })
+      x: pebblePositions[currentPebbleIdx.current][0],
+      y: pebblePositions[currentPebbleIdx.current][1],
+      z: pebblePositions[currentPebbleIdx.current][2],
+    })
   }
 
   return (
