@@ -4,7 +4,7 @@ import { StatusSuccess, useGetJSON } from '../hooks/data'
 
 import '../styles/components/SearchStories.css'
 
-const SearchStories = ({ q = '', filters = {}, limit = 20, orderby = '-id' }) => {
+const SearchStories = ({ filters = {}, limit = 20, orderby = '-id' }) => {
   const { t } = useTranslation()
   const { data, status, error } = useGetJSON({
     url: '/api/story',
@@ -12,9 +12,11 @@ const SearchStories = ({ q = '', filters = {}, limit = 20, orderby = '-id' }) =>
       exclude: {
         tags__slug: 'static',
       },
-      limit: 100,
+      limit,
+      // ...params,
       filters,
-      q,
+      orderby,
+      // q,
     },
   })
   const count = data?.count
@@ -26,6 +28,11 @@ const SearchStories = ({ q = '', filters = {}, limit = 20, orderby = '-id' }) =>
   return (
     <ol className="SearchStories">
       {status === StatusSuccess && count === 0 && <li>{t('noResults')}</li>}
+      {status === StatusSuccess && count > 0 && (
+        <li>
+          <p dangerouslySetInnerHTML={{ __html: t('biographiesCount', { n: count }) }} />
+        </li>
+      )}
       {status === StatusSuccess &&
         count > 0 &&
         stories.map((story, i) => (

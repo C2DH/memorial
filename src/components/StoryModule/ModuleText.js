@@ -17,6 +17,7 @@ const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = t
   let chunks = [
     content
       .replace(/\{width=[^}]+\}/g, '') // replace image spec {width= ...} (sic)
+      .replace(/\[([^\]]+)\]\{\.[^}]+\}/g, (m, t) => t) // replace {.smallcaps}
       .replace(/\{\.[^}]+\}/g, '') // replace {.underline} mentions (sic)
       .replace(/\[\^(\d+)\](:)?/g, (m, num, def) => {
         return def === undefined
