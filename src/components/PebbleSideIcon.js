@@ -1,7 +1,7 @@
 import { PebbleIcon } from './SvgIcons'
 import React, { useState } from 'react'
 import CreatePebbleMenu from './CreatePebbleMenu'
-import '../styles/components/PebbleTextIcon.css'
+import '../styles/components/PebbleSideIcon.css'
 import { useTranslation } from 'react-i18next'
 import { PlusCircle } from 'react-feather'
 const PebbleSideIcon = () => {
@@ -12,10 +12,12 @@ const PebbleSideIcon = () => {
   const { t } = useTranslation()
   return (
     <>
-      <div onClick={handleShow} className="pebble-side-icon d-none d-md-flex">
-        <p>{t('modalIconCreate')}</p>
-        <PlusCircle />
-        <p>{t('modalIconPebble')}</p>
+      <div className="pebble-side-icon-wrapper">
+        <div onClick={handleShow} className="pebble-side-icon d-none d-md-flex">
+          <p>{t('modalIconCreate')}</p>
+          <PlusCircle />
+          <p>{t('modalIconPebble')}</p>
+        </div>
       </div>
       <CreatePebbleMenu show={show} handleClose={handleClose}></CreatePebbleMenu>
     </>

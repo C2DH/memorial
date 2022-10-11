@@ -8,7 +8,7 @@ import { Vector3 } from 'three'
 import { useSpring, easings } from 'react-spring'
 import PlayPauseBtn from './PlayPauseBtn'
 import { useStore } from '../store'
-import PebbleSideIcon from './PebbleTextIcon'
+import PebbleSideIcon from './PebbleSideIcon'
 import CreatePebbleMenu from './CreatePebbleMenu'
 
 const HomeThreeLandscape = ({

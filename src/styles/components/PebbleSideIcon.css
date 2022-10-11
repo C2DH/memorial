@@ -1,11 +1,17 @@
-.pebble-side-icon {
+.pebble-side-icon-wrapper {
   position: absolute;
-  align-items: center;
-  right: 30px;
-  top: calc(50% + 130px);
   display: flex;
-  z-index: 1;
-  transform-origin: right top;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100px;
+  z-index: 2;
+  right: 0;
+}
+
+.pebble-side-icon {
+  align-items: center;
+  display: flex;
   transform: rotate(90deg);
   cursor: pointer;
 }

@@ -8,13 +8,11 @@ import Pebble, {
   Polyhedron,
   Dodecaedron,
 } from './Pebble'
-import { PebbleIconOctahedron } from './SvgIcons'
 import '../styles/components/CreatePebbleMenu.css'
-import React, { useReducer, useState } from 'react'
+import React, { useState } from 'react'
 import { PebbleColors } from '../constants'
 import { useTranslation } from 'react-i18next'
-import { PebbleIcon, SimpleVectorIcon } from './SvgIcons'
-import { PlusCircle } from 'react-feather'
+import { PlusCircle, ChevronLeft, ChevronRight } from 'react-feather'
 
 const ShapeGeometries = [Octahedron, IcosahedronGeometry, Capsule, Sphere, Polyhedron, Dodecaedron]
 
@@ -38,8 +36,8 @@ const CreatePebbleMenu = ({ show, handleClose }) => {
           <div className="modal-content-wrapper w-100">
             <h5>{t('modalPebbleShape')}</h5>
             <div className="canva-wrapper w-100">
-              {/* <SimpleVectorIcon></SimpleVectorIcon>
-              <SimpleVectorIcon></SimpleVectorIcon> */}
+              <ChevronLeft className="chevron-icon" />
+              <ChevronRight className="chevron-icon" />
               <Canvas>
                 <ambientLight intensity={0.5} />
                 <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
