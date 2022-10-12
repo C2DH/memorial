@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, useGLTF } from '@react-three/drei'
+import { OrbitControls, useGLTF, PerspectiveCamera } from '@react-three/drei'
 import Pebble, { Capsule } from './Pebble'
 import Terrain from './Terrain'
 import { Suspense, useLayoutEffect, useMemo, useRef, useState } from 'react'
@@ -8,7 +8,7 @@ import { Vector3 } from 'three'
 import { useSpring, easings } from 'react-spring'
 import PlayPauseBtn from './PlayPauseBtn'
 import { useStore } from '../store'
-import PebbleSideIcon from './PebbleTextIcon'
+import PebbleSideIcon from './PebbleSideIcon'
 import CreatePebbleMenu from './CreatePebbleMenu'
 
 const HomeThreeLandscape = ({
@@ -23,6 +23,7 @@ const HomeThreeLandscape = ({
 }) => {
   const orbitRef = useRef()
   const currentPebbleIdx = useRef(0)
+
   const [, setCameraPosition] = useSpring(() => ({
     x: 0,
     y: 0,
@@ -111,10 +112,11 @@ const HomeThreeLandscape = ({
       <PebbleSideIcon></PebbleSideIcon>
       <CreatePebbleMenu></CreatePebbleMenu>
 
-      <Canvas shadows camera={{ position: [0, 0, 2], far: 3000, fov: 50 }}>
+      <Canvas camera={{ position: [20, 2, 30], far: 3000, fov: 50 }}>
         <color attach="background" args={[backgroudnColor]} />
         <fog attach="fog" args={[backgroudnColor, 1, 25]} />
-
+        {/* 
+        <PerspectiveCamera position={[0, 10, 0]} /> */}
         <hemisphereLight intensity={3} color="#ffeb6b" groundColor="#077105" />
         <directionalLight intensity={0.9} position={[-100, 5, -100]} color="#ffdbae" />
         <directionalLight intensity={0.9} position={[-100, 5, 100]} color="#f3ffc0" />
@@ -137,7 +139,9 @@ const HomeThreeLandscape = ({
             />
           )
         })}
+
         <OrbitControls
+          // target={[7.3245106300298435, 0.95327058839988, 12.686424551790013]}
           enableDamping
           ref={orbitRef}
           autoRotate={true}
