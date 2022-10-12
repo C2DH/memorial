@@ -104,7 +104,7 @@ function Pebble({
       {geometry === Capsule && <capsuleGeometry args={[0.9, 0.4, 1, 4]} />}
 
       <meshStandardMaterial
-        color={hovered ? '#EA1744' : color}
+        color={hovered ? '#61bfad' : color}
         {...pebbleTextures}
         map-repeat={[1, 1]}
         roughness={0.3}
