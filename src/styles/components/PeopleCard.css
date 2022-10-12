@@ -9,6 +9,7 @@
   background: rgb(32, 28, 40);
   background: linear-gradient(180deg, rgba(32, 28, 40, 0.7) 0%, rgba(34, 79, 85, 0.7) 100%);
   border-radius: 7px;
+  z-index: 3;
 }
 .cardAnimation {
   animation-name: cardAnimation;
@@ -16,15 +17,14 @@
   animation-duration: 2.5s;
   animation-timing-function: ease-in-out;
   opacity: 1;
-  z-index: 2;
 }
+
 .cardAnimationIN {
   animation-name: cardAnimationIN;
   animation-iteration-count: 1;
   animation-duration: 2.5s;
   animation-timing-function: ease-in-out;
   opacity: 1;
-  z-index: 2;
 }
 
 .PeopleCard img {
