@@ -1,5 +1,5 @@
-import { PauseIcon, PlayIcon } from './SvgIcons'
 import '../styles/components/PlayPauseBtn.css'
+import { Play, Pause } from 'react-feather'
 
 const PlayPauseBtn = ({ playPause }) => {
   return (
@@ -8,7 +8,7 @@ const PlayPauseBtn = ({ playPause }) => {
       onClick={() => playPause.func(!playPause.playing)}
       style={{ zIndex: 1001, bottom: '30px', right: '30px' }}
     >
-      {playPause.playing ? <PauseIcon></PauseIcon> : <PlayIcon></PlayIcon>}
+      {playPause.playing ? <Pause /> : <Play className="play-icon" />}
     </div>
   )
 }

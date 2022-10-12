@@ -8,13 +8,14 @@ import Pebble, {
   Polyhedron,
   Dodecaedron,
 } from './Pebble'
-import { PebbleIconOctahedron } from './SvgIcons'
 import '../styles/components/CreatePebbleMenu.css'
-import React, { useReducer, useState } from 'react'
+import React, { useRef, useState, useMemo } from 'react'
 import { PebbleColors } from '../constants'
 import { useTranslation } from 'react-i18next'
-import { PebbleIcon, SimpleVectorIcon } from './SvgIcons'
-import { PlusCircle } from 'react-feather'
+import { PlusCircle, ChevronLeft, ChevronRight } from 'react-feather'
+import { useSpring, easings } from 'react-spring'
+import { Vector3 } from 'three'
+import { PerspectiveCamera } from '@react-three/drei'
 
 const ShapeGeometries = [Octahedron, IcosahedronGeometry, Capsule, Sphere, Polyhedron, Dodecaedron]
 
@@ -22,6 +23,42 @@ const CreatePebbleMenu = ({ show, handleClose }) => {
   const [shape, setShape] = useState(Octahedron)
   const [color, setColor] = useState(PebbleColors[0])
   const { t } = useTranslation()
+  //   const canvasRef = useRef(null)
+
+  //   const cameraRef = useRef()
+  //   const [, setCameraPosition] = useSpring(() => ({
+  //     x: 0,
+  //     y: 0,
+  //     z: 0,
+  //     config: {
+  //       duration: 2700,
+  //       easing: easings.easeInOutQuart,
+  //     },
+  //     onChange: (e) => {
+  //       cameraRef.current.target = new Vector3(e.value.x, e.value.y, e.value.z)
+  //     },
+  //   }))
+
+  //   const pebblePositions = useMemo(() => {
+  //     let x = 0
+  //     return ShapeGeometries.map((d, i) => {
+  //       x += 2
+  //       const y = 2
+  //       const z = 2
+  //       return [x, y, z]
+  //     })
+  //   }, ShapeGeometries)
+
+  //   setCameraPosition.start({
+  //     x: 0,
+  //     y: 0,
+  //     z: 0,
+  //   })
+
+  //   setTimeout(() => {
+  //     console.info('canvasRef', canvasRef, 'pebblePositions', pebblePositions)
+  //     debugger
+  //   }, 2000)
 
   return (
     <>
@@ -38,21 +75,25 @@ const CreatePebbleMenu = ({ show, handleClose }) => {
           <div className="modal-content-wrapper w-100">
             <h5>{t('modalPebbleShape')}</h5>
             <div className="canva-wrapper w-100">
-              {/* <SimpleVectorIcon></SimpleVectorIcon>
-              <SimpleVectorIcon></SimpleVectorIcon> */}
+              <ChevronLeft className="chevron-icon" />
+              <ChevronRight className="chevron-icon" />
               <Canvas>
+                <PerspectiveCamera position={[0, 0, 0]} />
                 <ambientLight intensity={0.5} />
                 <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
                 <pointLight position={[-10, -10, -10]} />
-                <Pebble
-                  hideTitle
-                  onClick={() => {
-                    console.info('úseless here')
-                  }}
-                  geometry={shape}
-                  color={color}
-                  scale={2.5}
-                ></Pebble>
+                {ShapeGeometries.map((pebblePositions, i) => (
+                  <Pebble
+                    // ref={canvasRef}
+                    position={[0, 0, 0]}
+                    hideTitle
+                    onClick={() => {}}
+                    geometry={'Octahedron'}
+                    color={color}
+                    scale={2.5}
+                    key={i}
+                  ></Pebble>
+                ))}
               </Canvas>
             </div>
             {/* <div className="pebble-shape-btn-g">

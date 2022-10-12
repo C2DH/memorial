@@ -130,6 +130,7 @@
   "de-DE": {
     "translation": {
       "actionAddAPebble": "Add a pebble to the Memorial",
+      "actionModalCreatePebble": "Créer",
       "actionReadBiography": "Lesen Sie diese Biografie",
       "actionSearchPerson": "search",
       "actionSendUsPageOfTestimony": "Nehmen Sie Kontakt mit uns auf",
@@ -149,6 +150,11 @@
       "languageFR": "Fr",
       "languageDE": "De",
       "latestBiographies": "Biografien",
+      "modalIconCreate": "Créer",
+      "modalIconPebble": "Caillou",
+      "modalTitleCreateAPebble": "Créer un caillou",
+      "modalPebbleShape": "Forme de caillou",
+      "modalPebbleColor": "Couleur de caillou",
       "navigationAbout": "Über das Memorial",
       "navigationBiographies": "Biografien",
       "navigationHome": "Startseite",

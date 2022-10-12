@@ -8,3 +8,7 @@
   border: 2px solid var(--bs-dark);
   cursor: pointer;
 }
+
+.PlayBtn .play-icon {
+  transform: translateX(2px);
+}

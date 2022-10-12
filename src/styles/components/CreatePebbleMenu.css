@@ -61,7 +61,7 @@
 }
 
 .create-pebble-menu .canva-wrapper canvas {
-  transform: scale(0.7);
+  transform: scale(1.6);
 }
 
 .create-pebble-menu .modal-footer {
@@ -144,8 +144,9 @@
   justify-content: center;
 }
 
-.create-pebble-menu .simple-vector-icon {
+.create-pebble-menu .chevron-icon {
   display: flex;
+  padding: 1rem;
   justify-content: center;
   right: 0;
   align-items: center;
@@ -155,19 +156,20 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   z-index: 2;
+  stroke: #bbbbbb;
 }
 
-.create-pebble-menu .simple-vector-icon:hover,
-.create-pebble-menu .simple-vector-icon:nth-child(1):hover {
+.create-pebble-menu .chevron-icon:hover,
+.create-pebble-menu .chevron-icon:nth-child(1):hover {
   transform: scale(1.3);
   stroke: var(--bs-primary);
 }
 
-.create-pebble-menu .simple-vector-icon:nth-child(1) {
+.create-pebble-menu .chevron-icon:nth-child(1) {
   left: 0;
 }
 
-.create-pebble-menu .simple-vector-icon:nth-child(1) svg {
+.create-pebble-menu .chevron-icon:nth-child(1) svg {
   left: 0;
   transform: rotate(180deg);
 }
