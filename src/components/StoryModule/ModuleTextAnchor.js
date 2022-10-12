@@ -4,8 +4,8 @@ import LangLink from '../LangLink'
 import { Link } from 'react-router-dom'
 import { ArrowLeft } from 'react-feather'
 
-export const FootnoteReferencePrefix = 'ref'
-export const FootnoteDefinitionPrefix = 'def'
+export const FootnoteReferencePrefix = 'fnref'
+export const FootnoteDefinitionPrefix = 'fndef'
 /**
  * Component to integrate ReactMarkdown specs
  */

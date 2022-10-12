@@ -58,9 +58,9 @@ const People = () => {
       </Container>
       <ol>
         {status === StatusSuccess &&
-          data.results.map((person) => {
+          data.results.map((person, i) => {
             return (
-              <li className="People_listItem" key={person.slug}>
+              <li className="People_listItem" key={i}>
                 <Person doc={person} withLinks />
               </li>
             )

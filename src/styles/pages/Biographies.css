@@ -1,0 +1,11 @@
+.Biographies_summary em {
+  background-color: var(--bs-primary-alpha);
+  padding: 0 4px;
+}
+.Biographies ol {
+  list-style-type: none;
+}
+
+.Biographies ol li {
+  margin-bottom: var(--size-4);
+}

@@ -1,0 +1,8 @@
+.Author h2 {
+  color: var(--bs-primary-text);
+}
+
+.Author label {
+  font-weight: bold;
+  text-transform: uppercase;
+}
