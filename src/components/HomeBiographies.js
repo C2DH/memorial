@@ -77,7 +77,16 @@ const HomeBiographies = ({ isMobile, speed, availableWidth, availableHeight, cla
     url: '/api/story',
     params: {
       exclude: { tags__name: 'static' },
-      orderby: '-date_last_modified',
+      filters: {
+        slug__in: [
+          '0076-grossvogel-macharowska',
+          '0109-abraham-fredy',
+          '0127-dorflaufer',
+          '0010-adler-wolf-ermann',
+          '0014-esther-meyer',
+        ],
+      },
+      // orderby: '-date_last_modified',
     },
   })
 
@@ -125,7 +134,7 @@ const HomeBiographies = ({ isMobile, speed, availableWidth, availableHeight, cla
           empty
         </li>
         {status === StatusSuccess
-          ? shuffle(data.results).map((story) => (
+          ? data.results.map((story) => (
               <li
                 key={story.slug}
                 className={`HomeBiographies_storyListItem ${

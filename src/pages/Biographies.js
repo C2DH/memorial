@@ -38,7 +38,8 @@ const Biographies = () => {
   })
 
   const count = data?.count
-  const stories = data?.results
+  let stories = data?.results || []
+  stories.sort((a, b) => (a.covers.length > b.covers.length ? -1 : 1))
 
   if (error) {
     console.warn('[SearchStories] error:', error)

@@ -44,13 +44,13 @@ const Home = ({ isMobile }) => {
   const pebbles = [
     {
       title: 'Esther MEYER (1871-1942)',
-      slug: '0064-Lukmanski-Lubinstein',
+      slug: '0014-esther-meyer',
       geometry: IcosahedronGeometry,
     },
     {
       title:
-        'Liba Hélène KAPLAN (1872-1942), Alexandre WONAGUS (1879-1915), Bernhard WONAGUS (1907-?), Joseph WONAGUS (1909-1943), Max WONAGUS (1911-1943), Ida WONAGUS (1913-?)',
-      slug: '0120-wonagus-kaplan',
+        'Aron-Samuel LUKMANSKI (1889-1942?), Frieda LUBINSTEIN (1888-1942?), Claire LUKMANSKI (1912-?), Henri Lukmanski (1915-1940), Jeanne Lukmanski (1921-1942?)',
+      slug: '0147-lukmanski-lubinstein',
       geometry: Dodecaedron,
     },
     {
@@ -71,20 +71,15 @@ const Home = ({ isMobile }) => {
     },
     {
       title: 'Sprinca DORFLAUFER (1907-1942?)',
-      slug: '0127-Dorflaufer',
+      slug: '0127-dorflaufer',
       geometry: Capsule,
     },
-    {
-      title: 'Sprinca DORFLAUFER (1907-1942?)',
-      slug: '0127-Dorflaufer',
-      geometry: Capsule,
-    },
-    {
-      title:
-        'Tobias Schlang (1902-1942), Anna Glaser (1895-1942), Sophie Schlang (1922-1942), Joseph Schlang (1924-2013)',
-      slug: '0028-Schlang-Glaser',
-      geometry: IcosahedronGeometry,
-    },
+    // {
+    //   title:
+    //     'Tobias Schlang (1902-1942), Anna Glaser (1895-1942), Sophie Schlang (1922-1942), Joseph Schlang (1924-2013)',
+    //   slug: '0028-schlang-glaser',
+    //   geometry: IcosahedronGeometry,
+    // },
     {
       title: 'Paula et Maurice BLAU-ERMANN',
       slug: '0111-blau-ermann',
@@ -97,8 +92,8 @@ const Home = ({ isMobile }) => {
       geometry: Dodecaedron,
     },
     {
-      title: '0109-abraham-fredy',
-      slug: 'Fredy Abraham dit Brahms (1927-1944)',
+      title: 'Fredy Abraham dit Brahms (1927-1944)',
+      slug: '0109-abraham-fredy',
       geometry: IcosahedronGeometry,
     },
   ]
