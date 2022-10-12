@@ -112,7 +112,7 @@ const HomeThreeLandscape = ({
       <PebbleSideIcon></PebbleSideIcon>
       <CreatePebbleMenu></CreatePebbleMenu>
 
-      <Canvas camera={{ position: [20, 2, 30], far: 3000, fov: 50 }}>
+      <Canvas>
         <color attach="background" args={[backgroudnColor]} />
         <fog attach="fog" args={[backgroudnColor, 1, 25]} />
         {/* 
@@ -141,7 +141,6 @@ const HomeThreeLandscape = ({
         })}
 
         <OrbitControls
-          // target={[7.3245106300298435, 0.95327058839988, 12.686424551790013]}
           enableDamping
           ref={orbitRef}
           autoRotate={true}

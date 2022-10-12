@@ -11,6 +11,7 @@ import {
   AboutRoute,
   TermsOfUseRoute,
   BiographiesRoute,
+  TimelineRoute,
 } from '../constants'
 import LogoFondLuxShoah from '../assets/images/fondluxshoah-logo.png'
 import { useStore } from '../store'
@@ -39,11 +40,13 @@ const Footer = ({ isMobile = false }) => {
               aria-label={t('ariaLabelLanguageAbout')}
             >
               <ul>
-                {[HomeRoute, BiographiesRoute, AboutRoute, TermsOfUseRoute].map((route) => (
-                  <li key={route.to} className={route.label === routeLabel ? 'active' : null}>
-                    <LangLink to={route.to}>{t(route.label)}</LangLink>
-                  </li>
-                ))}
+                {[HomeRoute, BiographiesRoute, AboutRoute, TimelineRoute, TermsOfUseRoute].map(
+                  (route) => (
+                    <li key={route.to} className={route.label === routeLabel ? 'active' : null}>
+                      <LangLink to={route.to}>{t(route.label)}</LangLink>
+                    </li>
+                  ),
+                )}
               </ul>
 
               {isMobile && (

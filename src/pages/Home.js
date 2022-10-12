@@ -44,7 +44,7 @@ const Home = ({ isMobile }) => {
   const pebbles = [
     {
       title: 'Esther MEYER (1871-1942)',
-      slug: '0014-esther-meyer',
+      slug: '0064-Lukmanski-Lubinstein',
       geometry: IcosahedronGeometry,
     },
     {
@@ -70,9 +70,36 @@ const Home = ({ isMobile }) => {
       geometry: Dodecaedron,
     },
     {
-      title: 'Samuel Rubin (1903-1991) -- Elise Weyland (1903-1984)',
-      slug: '0027-rubin-weyland',
+      title: 'Sprinca DORFLAUFER (1907-1942?)',
+      slug: '0127-Dorflaufer',
       geometry: Capsule,
+    },
+    {
+      title: 'Sprinca DORFLAUFER (1907-1942?)',
+      slug: '0127-Dorflaufer',
+      geometry: Capsule,
+    },
+    {
+      title:
+        'Tobias Schlang (1902-1942), Anna Glaser (1895-1942), Sophie Schlang (1922-1942), Joseph Schlang (1924-2013)',
+      slug: '0028-Schlang-Glaser',
+      geometry: IcosahedronGeometry,
+    },
+    {
+      title: 'Paula et Maurice BLAU-ERMANN',
+      slug: '0111-blau-ermann',
+      geometry: IcosahedronGeometry,
+    },
+    {
+      title:
+        'Jakob Grossvogel (1893-1969), Rosa Macharowska (1895-1982), Samuel Grossvogel (1920-2009), Dina Grossvogel (1922-2014), Léon Grossvogel (1924-1945)',
+      slug: '0076-grossvogel-macharowska',
+      geometry: Dodecaedron,
+    },
+    {
+      title: '0109-abraham-fredy',
+      slug: 'Fredy Abraham dit Brahms (1927-1944)',
+      geometry: IcosahedronGeometry,
     },
   ]
 

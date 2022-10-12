@@ -34,6 +34,7 @@ export const DocumentRoute = {
 }
 export const AboutRoute = { to: '/pages/about', label: 'navigationAbout' }
 export const TermsOfUseRoute = { to: '/pages/terms-of-use', label: 'navigationTermsOfUse' }
+export const TimelineRoute = { to: '/pages/timeline', label: 'navigationTimeline' }
 export const PrimaryRoutes = [HomeRoute, PeopleRoute, SearchRoute, AboutRoute]
 
 export const AllRoutes = [
