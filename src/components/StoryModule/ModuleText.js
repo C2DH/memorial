@@ -16,9 +16,15 @@ const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = t
   // console.debug('[ModuleText]', markdownParser.render(content), footnotes)
   let chunks = [
     content
-      .replace(/\{width=[^}]+\}/g, '') // replace image spec {width= ...} (sic)
-      .replace(/\[([^\]]+)\]\{\.[^}]+\}/g, (m, t) => t) // replace {.smallcaps}
-      .replace(/\{\.[^}]+\}/g, '') // replace {.underline} mentions (sic)
+      // replace image spec {width= ...} (sic)
+      .replace(/\{width=[^}]+\}/g, '')
+      // replace {.smallcaps}
+      .replace(/\[([^\]]+)\]\{\.[^}]+\}/g, (m, t) => t)
+      // replace {.underline} mentions (sic)
+      .replace(/\{\.[^}]+\}/g, '')
+      // replace weird list item: e:g am\n29. Juli 1947 MUST NOT BE A LIST
+      .replace(/([^\.])\n(\d+)\./g, (m, dot, num) => `. ${num}.`)
+      // replace footnotes and their references
       .replace(/\[\^(\d+)\](:)?/g, (m, num, def) => {
         return def === undefined
           ? `[${num}](${FootnoteReferencePrefix}/${num})`
@@ -27,15 +33,15 @@ const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = t
   ]
   // console.debug('[ModuleText]', chunks)
   const footnoteIndex = {}
-  if (footnotes.length) {
-    // add to markdown contents
-    chunks = chunks.concat(
-      footnotes.map((d) => {
-        footnoteIndex[d.id] = d
-        return `[^${d.id}]: ${d.text}`
-      }),
-    )
-  }
+  // if (footnotes.length) {
+  //   // add to markdown contents
+  //   chunks = chunks.concat(
+  //     footnotes.map((d) => {
+  //       footnoteIndex[d.id] = d
+  //       return `[^${d.id}]: ${d.text}`
+  //     }),
+  //   )
+  // }
 
   return (
     <ReactMarkdown
