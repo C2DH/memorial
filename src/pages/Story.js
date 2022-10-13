@@ -19,7 +19,7 @@ import GetInTouch from '../components/GetInTouch'
 const Story = () => {
   const { t } = useTranslation()
   const { storyId } = useParams()
-  const safeStoryId = storyId.replace(/[^\dA-Za-z-_]/g, '')
+  const safeStoryId = storyId.replace(/[^\dA-Za-z-_]/g, '').toLowerCase()
   const {
     data: story,
     status,
@@ -60,12 +60,7 @@ const Story = () => {
             {isValidStory &&
               story.contents.modules.map((d, i) => {
                 return (
-                  <section
-                    key={i}
-                    className={`Story_StoryModule ${
-                      i < story.contents.modules.length - 1 ? 'no-footnotes' : ''
-                    }`}
-                  >
+                  <section key={i} className="Story_StoryModule">
                     <StoryModule language={availableLanguage} {...d} />
                     {i === 0 && (
                       <>
