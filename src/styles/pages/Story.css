@@ -37,3 +37,11 @@
 .Story_StoryModule.no-footnotes .FootnoteDefinition {
   display: none !important;
 }
+
+.Story_StoryModule:first-child p {
+  font-size: 1.2em;
+}
+
+.Story_StoryModule:first-child p > em {
+  font-style: normal;
+}
