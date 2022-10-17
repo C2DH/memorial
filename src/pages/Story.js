@@ -13,6 +13,7 @@ import StoryTimeline from '../components/StoryTimeline'
 import { BootstrapStartColumnLayout, BootstrapEndColumnLayout } from '../constants'
 import '../styles/pages/Story.css'
 import StoryAuthors from '../components/StoryAuthors'
+import StoryEndnotes from '../components/StoryEndnotes'
 import TopDocuments from '../components/TopDocuments'
 import GetInTouch from '../components/GetInTouch'
 
@@ -29,9 +30,10 @@ const Story = () => {
     params: { parser: 'yaml' },
   })
   const isValidStory = status === StatusSuccess && Array.isArray(story?.contents?.modules)
-  const { availableLanguage } = useAvailableLanguage({
+  const { availableLanguage, requestedLanguage } = useAvailableLanguage({
     translatable: status === StatusSuccess ? story.data.title : {},
   })
+  const endnotes = isValidStory && story?.contents?.endnotes
   console.debug(
     '[Story]',
     '\n - safeStoryId:',
@@ -39,6 +41,7 @@ const Story = () => {
     '\n - story:',
     story,
     availableLanguage,
+    endnotes,
   )
 
   if (error) {
@@ -84,6 +87,13 @@ const Story = () => {
                   </section>
                 )
               })}
+            {isValidStory && (
+              <StoryEndnotes
+                className="small mt-4 border-top border-dark pt-4 "
+                language={requestedLanguage}
+                endnotes={endnotes}
+              />
+            )}
             {/*isValidStory && (
               <PreciseScrolling memoid={safeStoryId}>
                 {story.contents.modules.map((module, i) => (
