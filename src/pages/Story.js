@@ -89,7 +89,7 @@ const Story = () => {
               })}
             {isValidStory && (
               <StoryEndnotes
-                className="small mt-4 border-top border-dark pt-4 "
+                className="Story_StoryEndnotes small mt-4 border-top border-dark pt-4 "
                 language={requestedLanguage}
                 endnotes={endnotes}
               />

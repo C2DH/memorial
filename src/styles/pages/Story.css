@@ -45,3 +45,7 @@
 .Story_StoryModule:first-child p > em {
   font-style: normal;
 }
+
+.Story_StoryEndnotes a {
+  word-break: break-all;
+}
