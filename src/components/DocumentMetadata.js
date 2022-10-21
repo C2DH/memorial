@@ -6,13 +6,18 @@ import AvailableLanguages from './AvailableLanguages'
 import { useAvailableLanguage } from '../hooks/language'
 import '../styles/components/DocumentMetadata.css'
 
-const DocumentMetadataField = ({ label, children }) => (
-  <section className="mt-3">
-    <label>{label}</label>
-    <br />
-    {children}
-  </section>
-)
+const DocumentMetadataField = ({ label, children }) => {
+  if (typeof children === 'string' && children.length === 0) {
+    return null
+  }
+  return (
+    <section className="mt-3">
+      <label>{label}</label>
+      <br />
+      {children}
+    </section>
+  )
+}
 
 const DocumentMetadata = ({ doc, memoid }) => {
   const { t } = useTranslation()
@@ -83,20 +88,13 @@ const DocumentMetadata = ({ doc, memoid }) => {
               <label>{t('citeAs')}</label>
               <DocumentReference className="" key={d.id} doc={d} />
 
-              {typeof d.data.archive === 'string' && (
-                <DocumentMetadataField label={t('archive')}>{d.data.archive}</DocumentMetadataField>
-              )}
-              {typeof d.data.archiveLocation === 'string' && (
-                <DocumentMetadataField label={t('archiveLocation')}>
-                  {d.data.archiveLocation}
-                </DocumentMetadataField>
-              )}
-              {typeof d.data?.csljson?.abstract === 'string' &&
-                d.data.csljson.abstract.length > 0 && (
-                  <DocumentMetadataField label={t('moreInfo')}>
-                    {d.data?.csljson?.abstract}
-                  </DocumentMetadataField>
-                )}
+              <DocumentMetadataField label={t('archive')}>{d.data.archive}</DocumentMetadataField>
+              <DocumentMetadataField label={t('archiveLocation')}>
+                {d.data.archiveLocation}
+              </DocumentMetadataField>
+              <DocumentMetadataField label={t('moreInfo')}>
+                {d.data?.csljson?.abstract}
+              </DocumentMetadataField>
             </React.Fragment>
           ))}
       </section>
