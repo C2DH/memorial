@@ -77,9 +77,28 @@ const DocumentMetadata = ({ doc, memoid }) => {
         <DocumentMetadataField label={t('copyright')} children={doc.data.copyright} />
       )}
       <section className="mt-3">
-        <label>{t('citeAs')}</label>
         {references !== null &&
-          references.map((d) => <DocumentReference className="" key={d.id} doc={d} />)}
+          references.map((d) => (
+            <React.Fragment key={d.id}>
+              <label>{t('citeAs')}</label>
+              <DocumentReference className="" key={d.id} doc={d} />
+
+              {typeof d.data.archive === 'string' && (
+                <DocumentMetadataField label={t('archive')}>{d.data.archive}</DocumentMetadataField>
+              )}
+              {typeof d.data.archiveLocation === 'string' && (
+                <DocumentMetadataField label={t('archiveLocation')}>
+                  {d.data.archiveLocation}
+                </DocumentMetadataField>
+              )}
+              {typeof d.data?.csljson?.abstract === 'string' &&
+                d.data.csljson.abstract.length > 0 && (
+                  <DocumentMetadataField label={t('moreInfo')}>
+                    {d.data?.csljson?.abstract}
+                  </DocumentMetadataField>
+                )}
+            </React.Fragment>
+          ))}
       </section>
     </div>
   )
