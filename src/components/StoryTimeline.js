@@ -7,6 +7,8 @@ const StoryTimeline = ({ storyId }) => {
   const [data, { isSuccess }] = useDocuments({
     params: {
       filters: { slug__istartswith: storyId },
+
+      limit: 100,
     },
   })
 

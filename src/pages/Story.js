@@ -75,6 +75,7 @@ const Story = () => {
                             filters: {
                               data__household__startswith: safeStoryId.split('-', 1)[0],
                             },
+                            limit: 100,
                           }}
                           hideIfEmpty
                         >
