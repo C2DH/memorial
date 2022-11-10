@@ -43,7 +43,7 @@ const DocumentDate = ({
       return (
         <>
           <span className={`DocumentDate ${className}`} {...rest}>
-            ca. {startDate.getFullYear()}
+            {startDate.getFullYear()}
           </span>
           {typeof separator === 'string' && <>&nbsp;{separator}&nbsp;</>}
         </>
