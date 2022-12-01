@@ -19,7 +19,7 @@ const Page = ({ children }) => {
             <h1 dangerouslySetInnerHTML={{ __html: page?.data.title }} />
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{page?.data.abstract}</ReactMarkdown>
           </Col>
-          {children}
+          {children({ pageId })}
         </Row>
       </Container>
     </div>

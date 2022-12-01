@@ -1,12 +1,15 @@
 {
   "fr-FR": {
     "translation": {
+      "acceptAnalyticsCookies": "Opt for website tracking",
+      "acceptAnalyticsCookiesDescription": "You may choose to prevent this website from aggregating and analyzing the actions you take here. Doing so will protect your privacy, but will also prevent the owner from learning from your actions and creating a better experience for you and other users. ",
+      "acceptAnalyticsCookiesLabel": "I agree sending analytics data",
       "actionAddAPebble": "Déposer une pierre au Mémorial",
       "actionModalCreatePebble": "Déposer une pierre",
       "actionReadBiography": "Lire la biographie",
       "actionSearchPerson": "search",
       "actionSendUsPageOfTestimony": "Contactez-nous",
-      "allAvailableStories": "Explorez les premières cinquante biographies.",
+      "allAvailableStories": "Explorez les premières biographies.",
       "allStories": "Explorer toutes les biographies",
       "ariaLabelSearch": "search & find",
       "archive": "Archive",
@@ -70,12 +73,15 @@
   },
   "en-GB": {
     "translation": {
+      "acceptAnalyticsCookies": "Opt for website tracking",
+      "acceptAnalyticsCookiesDescription": "You may choose to prevent this website from aggregating and analyzing the actions you take here. Doing so will protect your privacy, but will also prevent the owner from learning from your actions and creating a better experience for you and other users. ",
+      "acceptAnalyticsCookiesLabel": "I agree sending analytics data",
       "actionAddAPebble": "Add a pebble to the Memorial",
       "actionModalCreatePebble": "Create",
       "actionReadBiography": "Read this biography",
       "actionSearchPerson": "search",
       "actionSendUsPageOfTestimony": "Get in touch with us",
-      "allAvailableStories": "Explore the first fifty biographies",
+      "allAvailableStories": "Explore the first biographies",
       "allStories": "Explore the Biographies",
       "ariaLabelSearch": "search & find",
       "archive": "Archive",
@@ -139,12 +145,15 @@
   },
   "de-DE": {
     "translation": {
+      "acceptAnalyticsCookies": "Opt for website tracking",
+      "acceptAnalyticsCookiesDescription": "You may choose to prevent this website from aggregating and analyzing the actions you take here. Doing so will protect your privacy, but will also prevent the owner from learning from your actions and creating a better experience for you and other users. ",
+      "acceptAnalyticsCookiesLabel": "I agree sending analytics data",
       "actionAddAPebble": "Add a pebble to the Memorial",
       "actionModalCreatePebble": "Einen Stein erschaffen",
       "actionReadBiography": "Lesen Sie diese Biografie",
       "actionSearchPerson": "suchen",
       "actionSendUsPageOfTestimony": "Nehmen Sie Kontakt mit uns auf",
-      "allAvailableStories": "Erkunden Sie die ersten fünfzig Biografien",
+      "allAvailableStories": "Erkunden Sie die ersten Biografien",
       "allStories": "Alle Biografien erkunden",
       "ariaLabelSearch": "search & find",
       "archive": "Archiv",

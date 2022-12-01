@@ -11,11 +11,19 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
+// replace console.* for disable log debug on production
+if (
+  process.env.NODE_ENV === 'production' &&
+  process.env.REACT_APP_BASEURL === window.location.origin
+) {
+  console.debug = () => {}
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  // <React.StrictMode>
-  <App />,
-  // </React.StrictMode>,
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
 )
 
 // If you want to start measuring performance in your app, pass a function

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@c2dh/react-miller": "^1.0.0",
+    "@jonkoops/matomo-tracker-react": "^0.7.0",
     "@kokarn/react-zoom-pan-pinch": "^2.1.5",
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "@react-spring/parallax": "^9.4.5",

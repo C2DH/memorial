@@ -1,0 +1,25 @@
+.Cookies__AgreeButton {
+  width: 100%;
+  font-weight: bold;
+  border-radius: 50px;
+}
+
+.Cookies__disclaimer {
+  font-size: 0.8em;
+}
+
+.Cookies__agreement {
+  font-size: 0.8em;
+}
+@media (min-width: 768px) {
+  .Cookies__AgreeButton {
+    width: auto;
+    padding-left: var(--spacer-4);
+    padding-right: var(--spacer-4);
+  }
+
+  .Cookies__disclaimer,
+  .Cookies__agreement {
+    font-size: inherit;
+  }
+}
