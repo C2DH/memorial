@@ -246,3 +246,12 @@ a:hover {
 .pointer-events-none {
   pointer-events: none;
 }
+
+.form-check-input:checked {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary-text);
+  border-width: 2px;
+}
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.17rem var(--bs-primary-alpha);
+}

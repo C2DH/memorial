@@ -10,9 +10,7 @@ const TermsOfUseCookies = ({ defaultAcceptCookies }) => {
   const handleChange = (e) => {
     setAcceptAnalyticsCookies(e.target.checked)
   }
-  if (defaultAcceptCookies) {
-    return null
-  }
+
   return (
     <Col>
       <section className="pt-5 ps-3">
