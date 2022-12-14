@@ -1,5 +1,7 @@
-import { useRef, useState, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
+import { useTimeout } from './timeout'
+import { useQuery } from 'react-query'
 
 const orderedKeys = (key, value) => {
   if (value instanceof Object && !(value instanceof Array)) {
@@ -13,109 +15,36 @@ const orderedKeys = (key, value) => {
   return value
 }
 
-export const StatusIdle = 'IDLE'
-export const StatusNone = 'NONE'
-export const StatusFetching = 'FETCHING'
-export const StatusError = 'ERROR'
-export const StatusSuccess = 'SUCCESS'
+export const StatusIdle = 'idle'
+export const StatusFetching = 'loading'
+export const StatusSuccess = 'success'
+export const StatusError = 'error'
+export const StatusNone = 'none'
 
 export const useGetJSON = ({
   url,
-  params = {},
-  allowCached = true,
+  memoid = '',
   delay = 0,
-  onDownloadProgress,
   timeout = process.env.REACT_APP_API_TIMEOUT || 0,
-  raw = false,
+  onDownloadProgress,
+  params,
 }) => {
-  const cache = useRef({})
-  const cacheKey = JSON.stringify(
-    {
-      url,
-      params,
-    },
-    orderedKeys,
-  )
-  console.info('useGetJSON cacheKey:', cacheKey)
-  const [response, setResponse] = useState({
-    data: null,
-    error: null,
-    status: StatusIdle,
+  const [enabled, setEnabled] = useState(false)
+  const memoparams = params ? JSON.stringify(params).split('').sort().join('') : ''
+
+  const response = useQuery({
+    queryKey: [url, memoparams, memoid],
+    queryFn: () => axios.get(url, { timeout, onDownloadProgress, params }).then(({ data }) => data),
+    enabled,
   })
-  if (process.env.NODE_ENV === 'development') {
-    console.debug('useGetJSON url:', url, response.status)
+  useTimeout(() => {
+    if (!enabled) {
+      setEnabled(true)
+    }
+  }, delay)
+  if (enabled && process.env.NODE_ENV === 'development') {
+    console.debug('[useGetJSON] url:', url, 'status', response.status, memoparams)
   }
-  useEffect(() => {
-    let cancelRequest = false
-    let timer = null
-    if (!url) {
-      setResponse({
-        data: null,
-        error: null,
-        status: StatusNone,
-      })
-      return
-    }
-    const fetchData = async () => {
-      setResponse({
-        data: null,
-        error: null,
-        status: StatusFetching,
-      })
-      if (cache.current[cacheKey] && allowCached === true) {
-        console.debug('useGetJSON allowCached cacheKey:', cacheKey)
-        const data = cache.current[cacheKey]
-        if (!raw) {
-          data.cached = true
-        }
-        if (cancelRequest) return
-        setResponse({
-          data: data,
-          error: null,
-          status: StatusSuccess,
-        })
-      } else {
-        console.debug('useGetJSON load fresh url:', url, 'timeout', timeout)
-        return axios
-          .get(url, { params, timeout, onDownloadProgress })
-          .then(({ data }) => {
-            cache.current[url] = data // set response in cache;
-            if (cancelRequest) return
-            setResponse({
-              data: data,
-              error: null,
-              status: StatusSuccess,
-            })
-          })
-          .catch((err) => {
-            if (cancelRequest) return
-
-            setResponse({
-              data: null,
-              error: err,
-              errorCode: err.response?.status || err.code,
-              status: StatusError,
-            })
-          })
-      }
-    }
-    if (delay) {
-      console.debug('useGetJSON delayed: ', delay)
-      timer = setTimeout(() => {
-        console.debug('useGetJSON executed after: ', delay)
-        fetchData()
-      }, delay)
-    } else {
-      fetchData()
-    }
-
-    // "If useEffect returns a function, React will run it when it is time to clean up:"
-    return function cleanup() {
-      cancelRequest = true
-      clearTimeout(timer)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cacheKey, allowCached, delay])
   return response
 }
 

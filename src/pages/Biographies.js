@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import { useQueryParam, withDefault } from 'use-query-params'
-import { QParam, SlugParam } from '../logic/params'
+import { useQueryParams, withDefault } from 'use-query-params'
+import { QParam, SlugParam, createEnumParam } from '../logic/params'
 import StoryItem from '../components/StoryItem'
 import { BootstrapStartColumnLayout, BootstrapEndColumnLayout } from '../constants'
 import { useTranslation } from 'react-i18next'
@@ -11,15 +11,45 @@ import Author from '../components/Author'
 import authorIndex from '../data/authors.json'
 import { X } from 'react-feather'
 import '../styles/pages/Biographies.css'
+import OrderByDropdown from '../components/OrderByDropdown'
+
+const OrderByLatestModifiedFirst = '-date_last_modified'
+const OrderByOldestModifiedFirst = 'date_last_modified'
+const OrderByLatestCreatedFirst = '-date_created'
+const OrderByOldestCreatedFirst = 'date_created'
+
+const AvailableOrderBy = [
+  {
+    value: OrderByLatestModifiedFirst,
+    label: 'orderByLatestModifiedFirst',
+  },
+  {
+    value: OrderByOldestModifiedFirst,
+    label: 'orderByOldestModifiedFirst',
+  },
+  {
+    value: OrderByLatestCreatedFirst,
+    label: 'orderByLatestCreatedFirst',
+  },
+  {
+    value: OrderByOldestCreatedFirst,
+    label: 'orderByOldestCreatedFirst',
+  },
+]
+
+const AvailableOrderByValues = AvailableOrderBy.map((d) => d.value)
 
 const Biographies = () => {
   const { t } = useTranslation()
-  const [q, setQuery] = useQueryParam('q', withDefault(QParam, ''))
-  const [authorSlug, setAuthorSlug] = useQueryParam('author', withDefault(SlugParam, ''))
-  const authorMetadata = authorIndex[authorSlug]
+  const [{ q, orderBy, author }, setQuery] = useQueryParams({
+    q: withDefault(QParam, ''),
+    orderBy: withDefault(createEnumParam(AvailableOrderByValues), OrderByLatestCreatedFirst),
+    author: withDefault(SlugParam, ''),
+  })
+  const authorMetadata = authorIndex[author]
   const filters = {}
-  if (authorSlug.length) {
-    filters.authors__slug = authorSlug
+  if (author.length) {
+    filters.authors__slug = author
   }
   if (q.length > 2) {
     filters.title__icontains = q.toLowerCase()
@@ -32,18 +62,21 @@ const Biographies = () => {
       },
       limit: 100,
       facets: ['author'],
-      orderby: '-id',
+      orderby: orderBy,
       filters,
     },
   })
 
   const count = data?.count
   let stories = data?.results || []
-  stories.sort((a, b) => (a.covers.length > b.covers.length ? -1 : 1))
 
   if (error) {
     console.warn('[SearchStories] error:', error)
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [orderBy, author, q])
 
   return (
     <div className="Biographies page">
@@ -68,7 +101,7 @@ const Biographies = () => {
                           }}
                         />
                         <button
-                          onClick={() => setAuthorSlug(undefined)}
+                          onClick={() => setQuery({ author: undefined })}
                           className="btn btn-transparent d-inline p-0 btn-sm"
                         >
                           <X />
@@ -97,7 +130,7 @@ const Biographies = () => {
                           }}
                         />
                         <button
-                          onClick={() => setAuthorSlug(undefined)}
+                          onClick={() => setQuery({ author: undefined })}
                           className="btn btn-transparent d-inline p-0 btn-sm"
                         >
                           <X />
@@ -112,6 +145,13 @@ const Biographies = () => {
                     )}
                   </>
                 )}
+                <OrderByDropdown
+                  values={AvailableOrderBy}
+                  selectedValue={orderBy}
+                  onChange={(item) => {
+                    setQuery({ orderBy: item.value })
+                  }}
+                />
               </div>
             )}
           </Col>
@@ -119,7 +159,7 @@ const Biographies = () => {
             <SearchField
               status={status}
               defaultValue={q}
-              onSubmit={(e, value) => setQuery(value)}
+              onSubmit={(e, value) => setQuery({ q: value })}
             />
           </Col>
         </Row>
@@ -139,7 +179,7 @@ const Biographies = () => {
             </ol>
           </Col>
           <Col {...BootstrapEndColumnLayout}>
-            {authorSlug.length > 0 && <Author className="mt-3" author={{ slug: authorSlug }} />}
+            {author.length > 0 && <Author className="mt-3" author={{ slug: author }} />}
           </Col>
         </Row>
       </Container>

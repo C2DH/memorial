@@ -30,3 +30,18 @@ export const SlugParam = {
     return undefined
   },
 }
+
+export const createEnumParam = (values) => ({
+  decode(value) {
+    if (values.includes(value)) {
+      return value
+    }
+    return null
+  },
+  encode(value) {
+    if (typeof value === 'string') {
+      return value
+    }
+    return undefined
+  },
+})
