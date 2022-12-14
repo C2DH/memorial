@@ -2,6 +2,7 @@
   "name": "memorialshoah",
   "version": "0.1.0",
   "private": true,
+  "license": "AGPL-3.0",
   "dependencies": {
     "@c2dh/react-miller": "^1.0.0",
     "@jonkoops/matomo-tracker-react": "^0.7.0",
