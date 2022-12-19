@@ -23,7 +23,7 @@ const Person = () => {
     status,
     error,
   } = useGetJSON({
-    url: `/api/document/${safePersonId}`,
+    url: `/api/document/${safePersonId}?a=b`,
   })
   const relatedImage =
     person && Array.isArray(person.documents) && person.documents.length > 0
@@ -45,7 +45,7 @@ const Person = () => {
             >
               {status === StatusSuccess && (
                 <>
-                  <PersonSummary person={person} />
+                  <PersonSummary person={person} className="mt-3" />
                   {/* <pre>{JSON.stringify(person, null, 2)}</pre> */}
                   {/* <DocumentMetadata memoid={bbox.memo + ',' + person.id} doc={person} /> */}
                 </>
@@ -56,9 +56,9 @@ const Person = () => {
             {...BootstrapEndColumnLayout}
             className="position-relative"
             ref={ref}
-            style={{ height: viewerHeight }}
+            style={{ minHeight: viewerHeight }}
           >
-            {relatedImage !== null && <DocumentImage doc={relatedImage} />}
+            {relatedImage !== null && <DocumentImage className="mt-5" doc={relatedImage} />}
 
             {status === StatusSuccess &&
               Array.isArray(person.data.households) &&
@@ -82,6 +82,11 @@ const Person = () => {
                       filters: {
                         data__households__contains: [d],
                       },
+                    }}
+                    itemProps={{
+                      withLinks: true,
+                      active: true,
+                      className: 'mt-4',
                     }}
                     hideIfEmpty
                   >

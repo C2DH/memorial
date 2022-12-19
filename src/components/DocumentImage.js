@@ -4,7 +4,7 @@ import DocumentDate from './DocumentDate'
 import '../styles/components/DocumentImage.css'
 import { useTranslation } from 'react-i18next'
 
-const DocumentImage = ({ doc = { data: {} }, language = 'en', onClick }) => {
+const DocumentImage = ({ doc = { data: {} }, language = 'en', onClick, className = '' }) => {
   const { t } = useTranslation()
   const mediumResolution = doc.data.resolutions?.medium?.url
   const thumbnailResolution = doc.data.resolutions?.thumbnail?.url
@@ -15,7 +15,7 @@ const DocumentImage = ({ doc = { data: {} }, language = 'en', onClick }) => {
   console.info('DocumentImage', doc, '\n - ref:', references)
 
   return (
-    <div className="DocumentImage">
+    <div className={`DocumentImage ${className}`}>
       <picture onClick={onClick}>
         <source media="(min-width:998px)" srcSet={mediumResolution} />
         <img src={thumbnailResolution} alt={doc.type} />

@@ -12,11 +12,29 @@ const PersonSummary = ({ person, className = '' }) => {
   const firstName = person.data.first_name
   const lastName = person.data.last_name
   const profession = person.data
-  const birth = null
-  const death = null
+  const birthDate = new Date(person.data.birth_date)
+  const deathDate = new Date(person.data.death_date)
+  let birth = null
+  let death = null
+
+  if (!isNaN(birthDate)) {
+    if (indexOfPlaces.birth_place) {
+      birth = t('summaryBirth', {
+        birthDate: birthDate,
+        birthPlace: indexOfPlaces.birth_place.toponymName,
+      })
+    } else {
+      birth = t('summaryBirthNoPlace', { birthDate: birthDate })
+    }
+  }
+
   return (
     <div className={`PersonSummary ${className}`}>
-      <h2>{t('summaryPerson', { firstName, lastName, birth, death })}</h2>
+      <h2
+        dangerouslySetInnerHTML={{
+          __html: t('summaryPerson', { firstName, lastName, birth, death }),
+        }}
+      />
       {/* <pre>{JSON.stringify(indexOfPlaces, null, 2)}</pre> */}
     </div>
   )

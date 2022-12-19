@@ -12,6 +12,7 @@ const TopDocuments = ({
   hideIfEmpty = false,
   onClick,
   className = '',
+  itemProps,
 }) => {
   const { data, status, error } = useGetJSON({
     url: '/api/document',
@@ -34,7 +35,7 @@ const TopDocuments = ({
         {status === StatusSuccess
           ? shuffle(data.results).map((doc) => (
               <li key={doc.slug}>
-                <DocumentItem doc={doc} onClick={onClick} />
+                <DocumentItem doc={doc} onClick={onClick} {...itemProps} />
               </li>
             ))
           : null}

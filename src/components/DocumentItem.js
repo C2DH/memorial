@@ -14,7 +14,7 @@ const AvailableDocumentListItemComponents = {
   document: DocumentDoc,
 }
 
-const DocumentItem = ({ doc = { data: {} }, onClick }) => {
+const DocumentItem = ({ doc = { data: {} }, onClick, ...rest }) => {
   const navigate = useNavigate()
   const { i18n } = useTranslation()
   const language = i18n.language.split('-').shift()
@@ -28,6 +28,7 @@ const DocumentItem = ({ doc = { data: {} }, onClick }) => {
           typeof onClick === 'function' ? onClick(doc) : navigate(`/${language}/doc/${doc.slug}`)
         }
         language={language}
+        {...rest}
       />
     )
   } else {

@@ -26,7 +26,7 @@ const Person = ({ doc, className = '', active = false, withLinks = false }) => {
         Array.isArray(doc.data.households) &&
         doc.data.households.map((storyId, i) => {
           return (
-            <LangLink className="mt-2 btn btn-white btn-sm" to={`/story/${storyId}`}>
+            <LangLink key={i} className="mt-2 btn btn-white btn-sm" to={`/story/${storyId}`}>
               <ArrowRightCircle />
               &nbsp;&nbsp;{t('actionReadBiography')}
             </LangLink>

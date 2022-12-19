@@ -1,16 +1,16 @@
 import i18n from 'i18next'
-import {DateTime} from 'luxon'
+// import { DateTime } from 'luxon'
 import { initReactI18next, useTranslation } from 'react-i18next'
 // import { matchPath } from 'react-router'
 import { useParams } from 'react-router-dom'
 import translations from '../translations'
 import {
-  Languages, LanguageCodes,
+  Languages,
+  LanguageCodes,
   DefaultLanguageCode,
   LanguagePathRegExp,
-  LanguageRootPathRegExp
+  LanguageRootPathRegExp,
 } from '../constants'
-
 
 const getLanguage = () => {
   let languageCode = ''
@@ -26,21 +26,22 @@ const getLanguage = () => {
     const browserLangsShort = window.navigator?.languages ?? []
     console.info('browser languages detected:', browserLangsShort)
     const availablesLangsShort = browserLangsShort
-      .map(d => d.split('-').shift().toLowerCase())
-      .filter(d => LanguageCodes.includes(d))
-    languageCode = availablesLangsShort.length > 0
-        ? availablesLangsShort[0]
-        : DefaultLanguageCode
+      .map((d) => d.split('-').shift().toLowerCase())
+      .filter((d) => LanguageCodes.includes(d))
+    languageCode = availablesLangsShort.length > 0 ? availablesLangsShort[0] : DefaultLanguageCode
   }
 
   console.debug('[getLanguage] languageCode:', languageCode)
   return {
     languageCode,
-    language: Languages.find(l => l.indexOf(languageCode) === 0)
+    language: Languages.find((l) => l.indexOf(languageCode) === 0),
   }
 }
 
-
+const IndexOfDateFormats = {
+  long: { day: 'numeric', month: 'long', year: 'numeric' },
+  short: { day: 'numeric', month: 'short', year: 'numeric' },
+}
 const initializeI18next = () => {
   const { languageCode, language } = getLanguage()
   console.info('start language:', languageCode, language)
@@ -52,20 +53,23 @@ const initializeI18next = () => {
       fallbackLng: [DefaultLanguageCode],
       interpolation: {
         escapeValue: false, // react already safes from xss
-        format: function(value, format, lng) {
+        format: function (value, format, lng) {
           if (value instanceof Date) {
-            return DateTime.fromJSDate(value).toFormat(format)
+            const opts = IndexOfDateFormats[format]
+              ? IndexOfDateFormats[format]
+              : IndexOfDateFormats.long
+            return value.toLocaleString(lng, opts)
+            // return DateTime.fromJSDate(value).setLocale(lng).toFormat(format)
           } else if (typeof value === 'number') {
             // adapt number
             return new Intl.NumberFormat(lng, { maximumFractionDigits: format }).format(value)
           }
-          return value;
-        }
-      }
+          return value
+        },
+      },
     })
   return { languageCode, language }
 }
-
 
 function namespacePath(path, lang) {
   let pathWithLang = `/${lang}`
@@ -97,7 +101,4 @@ const useToWithLang = (to, forceLanguage) => {
   }
 }
 
-export {
-  initializeI18next,
-  useToWithLang
-}
+export { initializeI18next, useToWithLang }
