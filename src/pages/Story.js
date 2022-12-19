@@ -73,7 +73,7 @@ const Story = () => {
                           className="Story_TopDocuments mt-3"
                           params={{
                             filters: {
-                              data__household__startswith: safeStoryId.split('-', 1)[0],
+                              data__households__contains: [safeStoryId],
                             },
                             limit: 100,
                           }}
