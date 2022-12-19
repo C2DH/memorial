@@ -9,6 +9,7 @@ import PersonSummary from '../components/PersonSummary'
 import TopStories from '../components/TopStories'
 import TopDocuments from '../components/TopDocuments'
 import { useTranslation } from 'react-i18next'
+import DocumentImage from '../components/DocumentImage'
 
 const Person = () => {
   const { t } = useTranslation()
@@ -24,9 +25,14 @@ const Person = () => {
   } = useGetJSON({
     url: `/api/document/${safePersonId}`,
   })
+  const relatedImage =
+    person && Array.isArray(person.documents) && person.documents.length > 0
+      ? person.documents[0]
+      : null
   if (error) {
-    console.error('[Person]', '\n - docId:', safePersonId, '\n - api error:', error)
+    console.error('[Person]', '\n - docId:', safePersonId, '\n - api error:', error, person)
   }
+  console.debug('[Person]', '\n - docId:', safePersonId, '\n - data:', person)
   return (
     <div className="Person page">
       <Container>
@@ -52,6 +58,8 @@ const Person = () => {
             ref={ref}
             style={{ height: viewerHeight }}
           >
+            {relatedImage !== null && <DocumentImage doc={relatedImage} />}
+
             {status === StatusSuccess &&
               Array.isArray(person.data.households) &&
               person.data.households.map((d) => (
