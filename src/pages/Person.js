@@ -84,7 +84,7 @@ const Person = () => {
                       },
                     }}
                     itemProps={{
-                      withLinks: true,
+                      // withLinks: true,
                       active: true,
                       className: 'mt-4',
                     }}

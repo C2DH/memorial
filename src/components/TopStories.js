@@ -24,7 +24,7 @@ const TopStories = ({
   return (
     <aside className={`TopStories ${className}`}>
       {children}
-      <div className="TopStories_verticalLabel">biographies</div>
+      {/* <div className="TopStories_verticalLabel">biographies</div> */}
       <ol>
         {status === StatusSuccess
           ? shuffle(data.results).map((story) => (
