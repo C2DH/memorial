@@ -82,6 +82,9 @@ const Person = () => {
                       filters: {
                         data__households__contains: [d],
                       },
+                      exclude: {
+                        slug: person.slug,
+                      },
                     }}
                     itemProps={{
                       // withLinks: true,
