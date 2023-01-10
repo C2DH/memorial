@@ -33,6 +33,7 @@ export const DocumentRoute = {
   parentRoute: SearchDocRoute,
 }
 export const AboutRoute = { to: '/pages/about', label: 'navigationAbout' }
+export const FaqRoute = { to: '/pages/faq', label: 'navigationFaq' }
 export const TermsOfUseRoute = { to: '/pages/terms-of-use', label: 'navigationTermsOfUse' }
 export const TimelineRoute = { to: '/pages/timeline', label: 'navigationTimeline' }
 export const PrimaryRoutes = [HomeRoute, PeopleRoute, SearchRoute, AboutRoute]
@@ -43,6 +44,7 @@ export const AllRoutes = [
   SearchRoute,
   AboutRoute,
   StoryRoute,
+  FaqRoute,
   SearchStoryRoute,
   TermsOfUseRoute,
   DocumentRoute,
