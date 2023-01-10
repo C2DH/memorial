@@ -10,7 +10,7 @@ import SearchField from '../components/SearchField'
 
 const LinesMapWithEvents = ({ width, height, places = [], className = '' }) => {
   const { t } = useTranslation()
-  const [q, setQuery] = useQueryParam('q', withDefault(QParam, ''))
+  const [q] = useQueryParam('q', withDefault(QParam, ''))
   const params = {
     filters: {
       data__type: 'person',
@@ -48,6 +48,10 @@ const LinesMapWithEvents = ({ width, height, places = [], className = '' }) => {
   if (status !== StatusSuccess) {
     return 'loading events...'
   }
+  if (error) {
+    console.warn('[LinesMapWithEvents] error:', error)
+  }
+
   return (
     <>
       <Container>
@@ -103,6 +107,9 @@ const Lines = ({ isMobile }) => {
   })
   if (status !== StatusSuccess) {
     return null
+  }
+  if (error) {
+    console.warn('[Lines] error:', error)
   }
   return (
     <div className="Lines page">

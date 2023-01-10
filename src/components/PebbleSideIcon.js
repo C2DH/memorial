@@ -1,4 +1,3 @@
-import { PebbleIcon } from './SvgIcons'
 import React, { useState } from 'react'
 import CreatePebbleMenu from './CreatePebbleMenu'
 import '../styles/components/PebbleSideIcon.css'

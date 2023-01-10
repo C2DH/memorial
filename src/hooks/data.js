@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useTimeout } from './timeout'
 import { useQuery } from 'react-query'
 
-const orderedKeys = (key, value) => {
+export const orderedKeys = (key, value) => {
   if (value instanceof Object && !(value instanceof Array)) {
     return Object.keys(value)
       .sort()

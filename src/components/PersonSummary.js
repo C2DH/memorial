@@ -1,7 +1,5 @@
 import { useTranslation } from 'react-i18next'
 
-const LabelBirthPlace = 'birthPlace'
-
 const PersonSummary = ({ person, className = '' }) => {
   const { t } = useTranslation()
   const indexOfPlaces = person.data?.places?.reduce((acc, place) => {
@@ -11,7 +9,7 @@ const PersonSummary = ({ person, className = '' }) => {
 
   const firstName = person.data.first_name
   const lastName = person.data.last_name
-  const profession = person.data
+  // const profession = person.data
   const birthDate = new Date(person.data.birth_date)
   const deathDate = new Date(person.data.death_date)
   let birth = null
@@ -25,6 +23,17 @@ const PersonSummary = ({ person, className = '' }) => {
       })
     } else {
       birth = t('summaryBirthNoPlace', { birthDate: birthDate })
+    }
+  }
+
+  if (!isNaN(deathDate)) {
+    if (indexOfPlaces.birth_place) {
+      death = t('summaryDeath', {
+        deathDate: deathDate,
+        deathPlace: indexOfPlaces.death_place.toponymName,
+      })
+    } else {
+      death = t('summaryDeathNoPlace', { deathDate: deathDate })
     }
   }
 

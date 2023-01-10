@@ -2,12 +2,10 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import ReactMapboxGl, { MapContext, ZoomControl, Cluster, Marker } from 'react-mapbox-gl'
 import mapboxgl from 'mapbox-gl'
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker' // eslint-disable-line import/no-webpack-loader-syntax
-import { MapPin } from 'react-feather'
 import '../styles/components/LinesMap.css'
 import LinesMapLineLayer from './LinesMapLineLayer'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
-import { propTypes } from 'react-bootstrap/esm/Image'
 
 const Map = ReactMapboxGl({
   accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,

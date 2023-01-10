@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, useGLTF, PerspectiveCamera } from '@react-three/drei'
+import { OrbitControls, useGLTF } from '@react-three/drei'
 import Pebble, { Capsule } from './Pebble'
 import Terrain from './Terrain'
 import { Suspense, useLayoutEffect, useMemo, useRef, useState } from 'react'

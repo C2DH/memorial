@@ -14,7 +14,7 @@ import {
   StoryRoute,
   BiographiesRoute,
   HomeRoute,
-  PeopleRoute,
+  // PeopleRoute,
   FaqRoute,
 } from '../constants'
 import { useStore } from '../store'
@@ -83,14 +83,14 @@ const Header = () => {
                     >
                       <LangLink to={BiographiesRoute.to}>{t(BiographiesRoute.label)}</LangLink>
                     </li>
-                    <li
+                    {/* <li
                       style={{ borderRight: '1px solid', paddingRight: '1.75rem' }}
                       className={routeLabel === PeopleRoute.label ? 'active' : null}
                     >
                       <LangLink to={PeopleRoute.to} className="ms-4">
                         {t(PeopleRoute.label)}
                       </LangLink>
-                    </li>
+                    </li> */}
                   </ul>
                 </li>
               </ul>

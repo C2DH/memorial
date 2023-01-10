@@ -28,7 +28,7 @@ const StoryItem = ({ story, reduced = false, className = '' }) => {
             className="m-0 "
             dangerouslySetInnerHTML={{
               __html: title
-                .split(/[\[\]]/)
+                .split(/[[\]]/)
                 .join('')
                 .split(/\{[^}]+\}/)
                 .join(''),

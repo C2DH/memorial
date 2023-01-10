@@ -53,7 +53,7 @@ const Biographies = () => {
     params.filters.authors__slug = author
   }
   if (q.length > 2) {
-    params.q = q.toLowerCase().replace('*', '') + '*'
+    params.q = q.toLowerCase().split('*').join('') + '*'
   }
   const { data, status, error } = useGetJSON({
     url: '/api/story',

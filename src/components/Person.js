@@ -4,7 +4,7 @@ import LangLink from './LangLink'
 import { useDate } from '../hooks/date'
 import { ArrowRightCircle } from 'react-feather'
 
-const Person = ({ doc, className = '', active = false, withLinks = false }) => {
+const Person = ({ doc, className = '', active = true, withLinks = false }) => {
   const { t, i18n } = useTranslation()
   const { parseDate } = useDate({ language: i18n.language.split('_').join('-') })
   return (

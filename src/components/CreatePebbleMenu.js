@@ -9,18 +9,16 @@ import Pebble, {
   Dodecaedron,
 } from './Pebble'
 import '../styles/components/CreatePebbleMenu.css'
-import React, { useRef, useState, useMemo } from 'react'
+import React, { useState } from 'react'
 import { PebbleColors } from '../constants'
 import { useTranslation } from 'react-i18next'
 import { PlusCircle, ChevronLeft, ChevronRight } from 'react-feather'
-import { useSpring, easings } from 'react-spring'
-import { Vector3 } from 'three'
 import { PerspectiveCamera } from '@react-three/drei'
 
 const ShapeGeometries = [Octahedron, IcosahedronGeometry, Capsule, Sphere, Polyhedron, Dodecaedron]
 
 const CreatePebbleMenu = ({ show, handleClose }) => {
-  const [shape, setShape] = useState(Octahedron)
+  // const [shape, setShape] = useState(Octahedron)
   const [color, setColor] = useState(PebbleColors[0])
   const { t } = useTranslation()
   //   const canvasRef = useRef(null)

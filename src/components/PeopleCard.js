@@ -54,6 +54,7 @@ const PeopleCard = ({ debug, alt, src, ...props }) => {
       clearTimeout(t1)
       clearTimeout(t2)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPebble])
 
   if (!selectedPebble || !newValue) {

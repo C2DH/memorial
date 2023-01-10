@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react'
+import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { useQueryParam, withDefault } from 'use-query-params'
@@ -27,7 +27,9 @@ const People = () => {
     params,
     delay: 0,
   })
-
+  if (error) {
+    console.warn('[People] error:', error)
+  }
   return (
     <div className="People page">
       <Container>

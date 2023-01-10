@@ -52,8 +52,8 @@ function Pebble({
   pebbleTextures.wrapS = pebbleTextures.wrapT = THREE.RepeatWrapping
 
   //Switch camera to clicked pebble
-  function switchToClicked(event) {
-    if (clicked == false) {
+  function switchToClicked() {
+    if (clicked === false) {
       //unnecessary if statement :D
       funcCamera(myIndex) //Sending pebble's index to external function in HomeThreeLandscape
     }
