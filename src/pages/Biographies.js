@@ -47,12 +47,13 @@ const Biographies = () => {
     author: withDefault(SlugParam, ''),
   })
   const authorMetadata = authorIndex[author]
-  const filters = {}
+  const params = { filters: {} }
+
   if (author.length) {
-    filters.authors__slug = author
+    params.filters.authors__slug = author
   }
   if (q.length > 2) {
-    filters.title__icontains = q.toLowerCase()
+    params.q = q.toLowerCase().replace('*', '') + '*'
   }
   const { data, status, error } = useGetJSON({
     url: '/api/story',
@@ -63,7 +64,7 @@ const Biographies = () => {
       limit: 100,
       facets: ['author'],
       orderby: orderBy,
-      filters,
+      ...params,
     },
   })
 
