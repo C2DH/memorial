@@ -4,7 +4,14 @@ import { a, useSpring } from 'react-spring'
 import LanguageSwitch from './LanguageSwitch'
 import LangLink from './LangLink'
 import Logo from './Logo'
-import { HomeRoute, AboutRoute, TermsOfUseRoute, BiographiesRoute, PeopleRoute } from '../constants'
+import {
+  HomeRoute,
+  AboutRoute,
+  TermsOfUseRoute,
+  BiographiesRoute,
+  PeopleRoute,
+  FaqRoute,
+} from '../constants'
 import { useStore } from '../store'
 import { useCurrentWindowDimensions } from '../hooks/viewport'
 import '../styles/components/MobileHeader.css'
@@ -44,7 +51,7 @@ const MobileHeader = () => {
         </div>
         <a.div style={{ width, height, ...style }} className="position-absolute MobileHeader_menu">
           <ul>
-            {[HomeRoute, BiographiesRoute, PeopleRoute, AboutRoute, TermsOfUseRoute].map(
+            {[HomeRoute, BiographiesRoute, PeopleRoute, AboutRoute, FaqRoute, TermsOfUseRoute].map(
               (route) => (
                 <li key={route.to} className={route.label === routeLabel ? 'active' : null}>
                   <LangLink to={route.to} onClick={routeOnClickHandler}>
