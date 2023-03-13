@@ -25,7 +25,7 @@ const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = t
       // replace weird list item: e:g am\n29. Juli 1947 MUST NOT BE A LIST
       .replace(/([^.])\n(\d+)\./g, (m, dot, num) => `. ${num}.`)
       // replace /1 with [^1]
-      .replace(/[\\/](\d+)/g, (m, num) => `[${num}](${FootnoteReferencePrefix}/${num})`)
+      .replace(/[\\/](\d{1,3})[^\d]/g, (m, num) => `[${num}](${FootnoteReferencePrefix}/${num})`)
       // replace footnotes and their references
       .replace(/\[\^(\d+)\](:)?/g, (m, num, def) => {
         return def === undefined
