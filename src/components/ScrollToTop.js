@@ -5,7 +5,9 @@ const ScrollToTop = () => {
   const { pathname, hash } = useLocation()
   useEffect(() => {
     console.debug('[ScrollToTop] \n - pathname:', pathname, ' \n - hash:', hash)
-    window.scrollTo(0, 0)
+    if (!hash || hash.indexOf('#top') === 0) {
+      window.scrollTo(0, 0)
+    }
   }, [pathname, hash])
   // useEffect(() => {
   //   let timer

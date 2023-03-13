@@ -1,11 +1,7 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router'
-// import {
-//   StatusError,
-//   useGetJSON
-// } from '../hooks/data'
+import { useLocation, useParams } from 'react-router'
 import { useGetJSON, StatusSuccess } from '../hooks/data'
 import { useAvailableLanguage } from '../hooks/language'
 import StoryModule from '../components/StoryModule'
@@ -44,12 +40,29 @@ const Story = () => {
     endnotes,
   )
 
+  const isLongTitle = isValidStory && story.title.length > 30
+  const isVeryLongTitle = isLongTitle && story.title.length > 100
+
+  const { hash } = useLocation()
+  // scrollIntoView when hash is present and the story is fully loaded
+  React.useEffect(() => {
+    console.debug('[Story@useEffect]\n - status:', status, '\n - hash:', hash)
+    if (status === StatusSuccess && hash) {
+      const id = hash.replace('#', '')
+      const element = document.getElementById(id)
+      console.info('Story: reaching id =', id)
+      if (element) {
+        element.scrollIntoView()
+      } else {
+        console.warn('Story: element not found using id =', id)
+      }
+    }
+  }, [status, hash])
+
   if (error) {
     console.error(error)
     return null
   }
-  const isLongTitle = isValidStory && story.title.length > 30
-  const isVeryLongTitle = isLongTitle && story.title.length > 100
 
   return (
     <div
