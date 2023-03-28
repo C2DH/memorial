@@ -33,6 +33,7 @@ const Person = lazy(() => import('./pages/Person'))
 const People = lazy(() => import('./pages/People'))
 const Search = lazy(() => import('./pages/Search'))
 const Story = lazy(() => import('./pages/Story'))
+const Convoy = lazy(() => import('./pages/Convoy'))
 
 const Header = lazy(() => import('./components/Header'))
 const MobileHeader = lazy(() => import('./components/MobileHeader'))
@@ -88,6 +89,14 @@ const App = () => {
                   element={
                     <React.Suspense fallback={<>...</>}>
                       <Story />
+                    </React.Suspense>
+                  }
+                />
+                <Route
+                  path="convoy/:storyId"
+                  element={
+                    <React.Suspense fallback={<>...</>}>
+                      <Convoy />
                     </React.Suspense>
                   }
                 />
