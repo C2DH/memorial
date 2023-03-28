@@ -90,14 +90,14 @@ const Biographies = () => {
               <div className="Biographies_summary">
                 {q.length === 0 && (
                   <>
-                    {authorMetadata ? (
+                    {author.length ? (
                       <p>
                         <span
                           dangerouslySetInnerHTML={{
                             __html: t('biographiesCountWithAuthor', {
                               n: count,
                               q,
-                              author: authorMetadata.fullname,
+                              author,
                             }),
                           }}
                         />
@@ -126,7 +126,7 @@ const Biographies = () => {
                             __html: t('biographiesCountWithQueryAndAuthor', {
                               n: count,
                               q,
-                              author: authorMetadata.fullname,
+                              author,
                             }),
                           }}
                         />
