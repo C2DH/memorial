@@ -19,6 +19,7 @@ import {
 } from '../constants'
 import { useStore } from '../store'
 import '../styles/components/Header.css'
+import LanguageSwitch from './LanguageSwitch'
 
 const Header = () => {
   const { t } = useTranslation()
@@ -115,22 +116,7 @@ const Header = () => {
                 </li>
 
                 <li>
-                  <ul className="d-flex">
-                    {LanguageCodes.map((d) => {
-                      const href = isRootPath
-                        ? window.location.pathname.replace(LanguageRootPathRegExp, '/' + d + '/')
-                        : window.location.pathname.replace(LanguagePathRegExp, '/' + d + '/')
-
-                      const isActive = d === activeLanguageCode
-                      return (
-                        <li key={d} className={isActive ? 'active' : null}>
-                          <a className="ms-3" key={d} href={href}>
-                            {t('language' + d.toUpperCase())}
-                          </a>
-                        </li>
-                      )
-                    })}
-                  </ul>
+                  <LanguageSwitch className="d-flex" linkClassName="ms-3" />
                 </li>
               </ul>
             </nav>
