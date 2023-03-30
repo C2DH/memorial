@@ -78,7 +78,7 @@ const Story = () => {
                 return (
                   <section key={i}>
                     <StoryModule
-                      className="Story_StoryModule"
+                      className={`Story_StoryModule ${i === 0 ? 'first' : ''}`}
                       language={availableLanguage}
                       {...d}
                     />

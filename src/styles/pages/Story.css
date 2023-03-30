@@ -38,11 +38,11 @@
   display: none !important;
 }
 
-.Story_StoryModule:first-child p:first-of-type {
+.Story_StoryModule.first p:first-of-type {
   font-size: 1.2em;
 }
 
-.Story_StoryModule:first-child p:first-of-type > em {
+.Story_StoryModule.first p:first-of-type > em {
   font-style: normal;
 }
 
