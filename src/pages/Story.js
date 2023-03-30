@@ -76,8 +76,12 @@ const Story = () => {
             {isValidStory &&
               story.contents.modules.map((d, i) => {
                 return (
-                  <section key={i} className="Story_StoryModule">
-                    <StoryModule language={availableLanguage} {...d} />
+                  <section key={i}>
+                    <StoryModule
+                      className="Story_StoryModule"
+                      language={availableLanguage}
+                      {...d}
+                    />
                     {i === 0 && (
                       <>
                         <StoryAuthors authors={story.authors}></StoryAuthors>
