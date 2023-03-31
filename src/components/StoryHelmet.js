@@ -75,7 +75,7 @@ const StoryHelmet = ({ story, language }) => {
       {cover.length > 0 ? <meta name="twitter:image" content={cover} /> : null}
       {cover.length > 0 ? <meta property="og:image" content={cover} /> : null}
       <meta name="twitter:label1" content={t('publicationDate')} />
-      <meta name="twitter:data1" content={t('dateShort', { date: story.date_created })} />
+      <meta name="twitter:data1" content={t('dateShort', { date: new Date(story.date_created) })} />
       <meta name="twitter:label2" content={t('writtenBy')} />
       <meta name="twitter:data2" content={story.authors.map((a) => a.fullname).join(', ')} />
       <HelmetItem property="og:description" value={description} />
