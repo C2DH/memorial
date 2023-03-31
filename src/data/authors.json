@@ -1,115 +1,56 @@
 {
-  "maja-andert": {
-    "fullname": "Maja geb. Andert",
-    "data": {
-      "fullname": {
-        "de_DE": "Maja geb. Andert"
-      },
-      "bio": {
-        "de_DE": "Maja Andert (*1992). Studierte Geschichte und Politik in Bonn und Paris im Bachelor und absolvierte dann einen deutsch-französischen Geschichts-Masterstudiengang an der Université Aix-Marseille und der Universität Tübingen. Schwerpunkt ihres Studiums war insbesondere die Zeit des Nationalsozialismus, Erinnerungskultur und jüdische Geschichte. Von 2018 bis 2020 war sie wissenschaftliche Volontärin im Johanna-Stahl-Zentrum für jüdische Geschichte und Kultur in Unterfranken (Würzburg). Zur Zeit Referentin für Bildungs- und Öffentlichkeitsarbeit an der Gedenkstätte Münchner Platz Dresden.",
-        "en_GB": "Maja Andert (*1992). Studied history and politics in Bonn and Paris for her Bachelor's degree and then completed a German-French history Master's programme at the Université Aix-Marseille and the University of Tübingen. The focus of her studies was in particular the National Socialist era, remembrance culture and Jewish history. From 2018 to 2020, she was a research volunteer at the Johanna Stahl Centre for Jewish History and Culture in Lower Franconia (Würzburg). Currently an educational and public relations officer at the Münchner Platz Memorial in Dresden.",
-        "fr_FR": "Maja Andert (*1992). Elle a étudié l'histoire et la politique à Bonn et à Paris en licence, puis a suivi un master d'histoire franco-allemand à l'Université d'Aix-Marseille et à l'Université de Tübingen. L'accent de ses études a été mis en particulier sur la période du national-socialisme, la culture de la mémoire et l'histoire juive. De 2018 à 2020, elle a été volontaire scientifique au Centre Johanna Stahl pour l'histoire et la culture juives en Basse-Franconie (Würzburg). Actuellement, elle est chargée de mission pour l'éducation et les relations publiques à la Gedenkstätte Münchner Platz Dresden."
-      }
-    }
+  "emir-ramcilovic": {
+    "fullname": "Emir Ramcilovic"
   },
-  "jerome-courtoy": {
-    "fullname": "Jérôme Courtoy",
-    "data": {
-      "bio": {
-        "de_DE": "Jérôme Courtoy (*1990). Studium der Geschichte an der Universität Luxemburg und der Universität des Saarlandes. Seit 2018 arbeitet er als Historiker und Pädagoge im Musée National de la Résistance et des Droits Humains. Korrespondierendes Mitglied des Institut Grand-Ducal de Luxembourg - Section Historique sowie der Section de Lingustique, d´Ethnologie et d´Onomastique. Veröffentlichungen zur Geschichte Schifflingens, zu Peter Ernst I. von Mansfeld und der Geschichte der Nazi-Besatzung Luxemburgs.",
-        "en_GB": "Jérôme Courtoy (*1990). Studied history at the University of Luxembourg and the University of Saarland. Since 2018, he works as a historian and educator at the Musée National de la Résistance et des Droits Humains in Esch/Alzette. Corresponding member of the Institut Grand-Ducal de Luxembourg - Section Historique and of the Section de Lingustique, d'Ethnologie et d'Onomastique. Publications on the history of Schifflingen, on Peter Ernst I of Mansfeld and on the history of the Nazi occupation of Luxembourg.",
-        "fr_FR": "Jérôme Courtoy (*1990). Études d'histoire à l'Université du Luxembourg et à l'Université de la Sarre. Depuis 2018, il travaille comme historien et pédagogue au Musée National de la Résistance et des Droits Humains. Membre correspondant de l'Institut Grand-Ducal de Luxembourg - Section Historique ainsi que de la Section de Lingustique, d'Ethnologie et d'Onomastique. Publications sur l'histoire de Schifflange, sur Peter Ernst I. von Mansfeld et sur l'histoire de l'occupation nazie du Luxembourg."
-      }
-    }
+  "laurent-moyse": {
+    "fullname": "Laurent Moyse"
   },
-  "inna-ganschow": {
-    "fullname": "Inna Ganschow",
-    "data": {
-      "bio": {
-        "en_GB": "Inna Ganschow (* 1974) studied journalism at Al-Farabi University (Almaty) and Slavic and Media Studies at the University of Trier, PhD in Media and Buddhism in Russian Postmodern Literature. She worked as a journalist in the ZDF Zeitgeschichte editorial department, wrote as a correspondent for Luxemburger Wort and published several books in German, Luxembourgish and Russian. After publishing the monograph on the history of Russian migration to Luxembourg in 2020, she is currently leading the project \"Forced Labor of Soviet Prisoners of War and Eastern Workers in Luxembourg during World War II\" of the Luxembourg Centre for Contemporary and Digital History (C2DH), funded by Luxembourg government. ",
-        "fr_FR": "Inna Ganschow (*1974) a étudié le journalisme à l'université Al-Farabi (Almaty) et la slavistique et les sciences des médias à l'université de Trèves, où elle a obtenu un doctorat en médias et bouddhisme dans la littérature russe postmoderne. Elle a travaillé comme journaliste à la rédaction de ZDF Zeitgeschichte, a écrit en tant que correspondante pour Luxemburger Wort et a publié quelques livres en allemand, luxembourgeois et russe. Après la publication de la monographie sur l'histoire de la migration russe vers le Luxembourg en 2020, elle dirige actuellement le projet \"Travail forcé des prisonniers de guerre soviétiques et des travailleurs de l'Est au Luxembourg pendant la Seconde Guerre mondiale\" Luxembourg Centre for Contemporary and Digital History (C2DH), financé par le gouvernement luxembourgeois. ",
-        "de_DE": "Inna Ganschow (*1974) studierte Journalistik an der Al-Farabi-Universität (Almaty) und Slawistik und Medienwissenschaft an der Universität Trier, wo sie in Medien und Buddhismus in der russischen postmodernen Literatur promovierte. Sie war als Journalistin in der ZDF-Redkation Zeitgeschichte tätig, schrieb als Korrespondentin für Luxemburger Wort und publizierte einige Bücher in Deutsch, Luxemburgisch und Russisch. Nach der Veröffentlichung der Monographie zur Geschichte der russischen Migration nach Luxemburg im Jahr 2020 leitet sie aktuell das von der luxemburgischen Regierung geförderte Projekt „Zwangsarbeit sowjetischer Kriegsgefangener und Ostarbeiter in Luxemburg während des Zweiten Weltkriegs“.  "
-      }
-    }
+  "yann-duarte": {
+    "fullname": "Yann Duarte"
   },
-  "marc-gloden": {
-    "fullname": "Marc Gloden",
-    "data": {
-      "bio": {
-        "en_GB": "Marc Gloden (*1975). Studied history and political science at the Universities of Trier and Bologna, former member of the Commission pour l'étude des spoliations des biens juifs au Luxembourg pendant les années de guerre 1940-1944; researched at the Luxembourg Centre for Contemporary and Digital History (C2DH) on the Luxembourg State Policy Towards Jews (1930s to 1950s) project from 2016 to 2019 ; works for the Fondation luxembourgeoise pour la Mémoire de la Shoah since 2020, publications on Luxembourg refugee policy before WW2.",
-        "fr_FR": " Marc Gloden (*1975). Études d'histoire et de sciences politiques aux universités de Trèves et de Bologne, ancien membre de la Commission pour l'étude des spoliations des biens juifs au Luxembourg pendant les années de guerre 1940-1944 ; a effectué des recherches de 2016 à 2019 au Centre luxembourgeois d'histoire contemporaine et numérique (C2DH) sur le projet Luxembourg State Policy Towards Jews (1930s to 1950s) ; travaille depuis 2020 pour la Fondation luxembourgeoise pour la Mémoire de la Shoah, publications sur la politique luxembourgeoise à l’égard des réfugiés avant la Seconde Guerre mondiale.",
-        "de_DE": "Marc Gloden (*1975). Studium der Geschichte und Politikwissenschaft an den Universitäten Trier und Bologna, ehemaliges Mitglied der Commission pour l’étude des spoliations des biens juifs au Luxembourg pendant les années de guerre 1940-1944; forschte von 2016 bis 2019 am Luxemburger Zentrums für zeitgenössische und digitale Geschichte (C2DH) am Projekt Luxembourg State Policy Towards Jews (1930s to 1950s) ; arbeitet seit 2020 für die Fondation luxembourgeoise pour la Mémoire de la Shoah, Publikationen zur luxemburgischen Flüchtlingspolitik vor dem 2. Weltkrieg."
-      }
-    }
-  },
-  "wolfgang-schmitt-koelzer": {
-    "fullname": "Wolfgang Schmitt-Kölzer",
-    "data": {
-      "bio": {
-        "en_GB": "Wolfgang Schmitt-Kölzer (*1951). Studied political science and English. Teacher in vocational education. Numerous publications on the history of the Eifel. Research on the Nazi period in the Trier-Luxembourg area with a focus on forced labor and Jewish emigration.",
-        "fr_FR": "Wolfgang Schmitt-Kölzer (*1951). Études de sciences politiques et d'anglais. Enseignant dans la formation professionnelle. Nombreuses publications sur l'histoire de l'Eifel. Recherches sur la période nazie dans la région de Trèves-Luxembourg, avec un accent sur le travail forcé et l'émigration juive.",
-        "de_DE": "Wolfgang Schmitt-Kölzer (*1951). Studium der Politologie und Anglistik. Lehrer in der beruflichen Bildung. Zahlreiche Veröffentlichungen zur Geschichte der Eifel. Forschungen zur NS-Zeit im Raum Trier-Luxemburg mit dem Schwerpunkten Zwangsarbeit und jüdische Emigration."
-      }
-    }
-  },
-  "denis-scuto": {
-    "fullname": "Denis Scuto",
-    "data": {
-      "bio": {
-        "en_GB": "Denis Scuto (*1964). Vice director of the Luxembourg Centre for Contemporary and Digital History (C2DH), University of Luxembourg. Research and publications on the history of Luxembourg nation-state as a triple integration process (national, social, transnational), migration and citizenship history, Jewish history in Luxembourg and the Greater Region.",
-        "fr_FR": "Denis Scuto (*1964). Vice-directeur du Centre luxembourgeois d'histoire contemporaine et numérique (C2DH), Université du Luxembourg. Recherches et publications sur l'histoire de l'État-nation luxembourgeois en tant que triple processus d'intégration (national, social, transnational), sur l'histoire de la migration et de la citoyenneté, sur l'histoire juive au Luxembourg et dans la Grande Région.",
-        "de_DE": "Denis Scuto (*1964). Vize-Direktor des Luxemburger Zentrums für zeitgenössische und digitale Geschichte (C2DH), Universität Luxemburg. Forschungen und Veröffentlichungen zur Geschichte des luxemburgischen Nationalstaats als dreifacher Integrationsprozess (national, sozial, transnational), zur Geschichte der Migration und Staatsbürgerschaft, zur jüdischen Geschichte in Luxemburg und der Großregion."
-      }
-    }
-  },
-  "elisabeth-hoffmann": {
-    "fullname": "Elisabeth Hoffmann",
-    "data": {
-      "bio": {
-        "en_GB": "Elisabeth Hoffmann (*1989). Studied history at the Universities of Strasbourg, Lorraine and Luxembourg, PhD on the memory of resistance in Luxembourg, Alsace, Moselle and East Belgium. Since 2018, she works as a historian at the Musée National de la Résistance et des Droits Humains (MNRDH). Corresponding member of the Institut Grand-Ducal de Luxembourg - Section Historique. Publications on the history and memory of Luxembourg during the Second World War.",
-        "fr_FR": "Elisabeth Hoffmann (*1989). Études d'histoire aux universités de Strasbourg, de Lorraine et du Luxembourg, thèse sur la mémoire de la résistance au Luxembourg, en Alsace, en Moselle et dans les Cantons de l'Est. Depuis 2018, elle travaille comme historienne au Musée National de la Résistance et des Droits Humains (MNRDH). Membre correspondant de l'Institut Grand-Ducal de Luxembourg - Section Historique. Publications sur l'histoire et la mémoire du Luxembourg pendant la Seconde Guerre mondiale.",
-        "de_DE": "Elisabeth Hoffmann (*1989). Studium der Geschichte an den Universitäten Straßburg, Lorraine und Luxemburg, Dissertation über die Erinnerung an den Widerstand in Luxemburg, Elsass, Moselle und Ostbelgien. Seit 2018 arbeitet sie als Historikerin am Musée National de la Résistance et des Droits Humains (MNRDH). Korrespondierendes Mitglied des Institut Grand-Ducal de Luxembourg - Section Historique. Publikationen zur Geschichte und Erinnerung Luxemburgs während des Zweiten Weltkriegs."
-      }
-    }
-  },
-  "ben-fayot": {
-    "fullname": "Ben Fayot",
-    "data": {
-      "bio": {
-        "de_DE": "Ben Fayot (*1937). Lehrer, Politiker, Historiker. Veröffentlichte Sozialismus in Luxemburg, 2 Bände 1979 und 1984; Dictionnaire biographique des députés socialistes, 1996 (mit Serge Hoffmann, Jacques Maas, Raymond Steil) und 2020 (mit Alex Bodry); Les quatre référendums du Grand-Duché de Luxembourg, 2006; Toute la vie pour apprendre, 2016. Zahlreiche historische Artikel in Sammelbänden, Zeitschriften und Zeitungen, darunter eine umfangreiche Auswahl mit Bibliografie (1955-2017) in Ben Fayot, Histoire(s) et portraits engagés, 2017, herausgegeben von Franz Fayot und Marc Limpach.",
-        "en_GB": "Ben Fayot (* 1937). Teacher, politician, historian. Published Sozialismus in Luxemburg, 2 volumes 1979 and 1984 ; Dictionnaire biographique des députés socialistes, 1996 (with Serge Hoffmann, Jacques Maas, Raymond Steil) and 2020 (with Alex Bodry); Les quatre référendums du Grand-Duché de Luxembourg, 2006 ; Toute la vie pour apprendre, 2016. Numerous historical articles in collective works, magazines and newspapers, including an important selection with a bibliography (1955-2017) in Ben Fayot, Histoire(s) et portraits engagés, 2017, edited by Franz Fayot and Marc Limpach.",
-        "fr_FR": "Ben Fayot (*1937). Enseignant, homme politique, historien. A publié Sozialismus in Luxemburg, 2 volumes 1979 et 1984 ; Dictionnaire biographique des députés socialistes, 1996 (avec Serge Hoffmann, Jacques Maas, Raymond Steil) et 2020 (avec Alex Bodry) ; Les quatre référendums du Grand-Duché de Luxembourg 2006 ; Toute la vie pour apprendre 2016. Nombreux articles historiques dans des ouvrages collectifs, revues et journaux dont un choix important avec une bibliographie (1955-2017) dans Ben Fayot, Histoire(s) et portraits engagés 2017, édités par Franz Fayot et Marc Limpach."
-      }
-    }
-  },
-  "didier-eisack": {
-    "fullname": "Didier Eisack",
-    "data": {
-      "bio": {
-        "de_DE": "Didier Eisack (*1954) ist französisch-schweizerischer Staatsbürger und stammt über seine Großmutter Anita, Sallys Schwester und Chajes Tochter von den Faktorowitschs ab. Er lebt in der Haute-Savoie, nachdem er Offizier in der französischen Armee und leitender Angestellter im Finanzbereich eines französischen Industriekonzerns im Verteidigungssektor war. Er ist der Autor des Buches über Joachim Eisack, « J’ai arrêté Otto Abetz - histoire de mon grand-père, réfugié allemand… Juif… et résistant français ».",
-        "en_GB": "Didier Eisack (*1954). A Franco-Swiss national, he is a descendant of the Faktorowitsch family, through his grandmother Anita, sister of Sally and daughter of Chaje. He lives in Haute-Savoie after having been an officer in the French army and a finance executive in a French industrial group in the defence sector. He is the author of the book on Joachim Eisack, « J’ai arrêté Otto Abetz - histoire de mon grand-père, réfugié allemand… Juif… et résistant français ».",
-        "fr_FR": "Didier Eisack (*1954). De nationalité franco-suisse, descendant des Faktorowitsch, par sa grand-mère Anita, sœur de Sally et fille de Chaje. Il vit en Haute-Savoie après avoir été officier dans l’armée française et cadre dirigeant dans la finance d’un groupe industriel français du secteur de la Défense. Il est l’auteur du livre sur Joachim Eisack, « J’ai arrêté Otto Abetz - histoire de mon grand-père, réfugié allemand… Juif… et résistant français »."
-      }
-    }
+  "jakub-bronec": {
+    "fullname": "Jakub Bronec"
   },
   "claude-wolf": {
-    "fullname": "Claude Wolf",
-    "data": {
-      "bio": {
-        "de_DE": "Claude Wolf. Sie studierte Journalismus an der Uni Straßburg und arbeitete 12 Jahre lang bei Radio France 3, bevor sie nach Luxemburg kam. Dort arbeitete sie bei RTL, den Agenturen AFP und Belga sowie beim Radiosender RPR, bevor sie zum Team des Magazins REVUE stieß. Dort war sie fast 12 Jahre lang als Chefredakteurin tätig und beendete ihre berufliche Laufbahn als Grande Reporter beim Tageblatt, wo sie für historische Themen mit Bezug zu Luxemburg zuständig war. Claude Wolf ist Vizepräsidentin des Comité pour la mémoire de la Deuxième Guerre mondiale (Komitee für die Erinnerung an den Zweiten Weltkrieg).",
-        "en_GB": "Claude Wolf. She has a degree in journalism from the University of Strasbourg and worked for 12 years at Radio France 3 before moving to Luxembourg. She started working for RTL, the AFP and Belga agencies and RPR radio before joining the REVUE magazine team. She was Editor-in-Chief for almost 12 years and ended her career as a Grand Reporter for Tageblatt, where she was in charge of historical subjects related to Luxembourg. Claude Wolf is Vice-President of the Comité pour la Mémoire de la Deuxième Guerre Mondiale.",
-        "fr_FR": "Claude Wolf. Licenciée en journalisme de la faculté de Strasbourg, a travaillé pendant 12 ans à Radio France 3, avant de venir au Luxembourg. Elle y a débuté auprès de RTL, des Agences AFP et Belga et de la radio RPR avant de rejoindre l’équipe du magazine REVUE. Elle y a assumé la responsabilité de Rédactrice en Chef pendant près de 12 ans et a terminé son parcours professionnel en tant que Grand Reporter auprès du Tageblatt, où elle prenait en charge les sujets historiques liés au Luxembourg. Claude Wolf est Vice-Présidente du Comité pour la mémoire de la Deuxième Guerre mondiale."
-      }
-    }
+    "fullname": "Claude Wolf"
+  },
+  "magnus-chan": {
+    "fullname": "Magnus Chan"
+  },
+  "wolfgang-schmitt-koelzer": {
+    "fullname": "Wolfgang Schmitt-Koelzer"
+  },
+  "maja-veyrat-geb-andert": {
+    "fullname": "Maja Veyrat geb. Andert"
+  },
+  "jerome-courtoy": {
+    "fullname": "Jérôme Courtoy"
+  },
+  "marc-gloden": {
+    "fullname": "Marc Gloden"
+  },
+  "elisabeth-hoffmann": {
+    "fullname": "Elisabeth Hoffmann"
+  },
+  "inna-ganschow": {
+    "fullname": "Inna Ganschow"
+  },
+  "denis-scuto": {
+    "fullname": "Denis Scuto"
+  },
+  "ben-fayot": {
+    "fullname": "Ben Fayot"
+  },
+  "didier-eisack": {
+    "fullname": "Didier Eisack"
   },
   "daniel-thilman": {
-    "fullname": "Daniel Thilman",
-    "data": {
-      "bio": {
-        "de_DE": "Daniel Thilman (*1976). Studierte Geschichte an den Universitäten von Metz, Franche-Comté (Besançon) und Nancy 2 und unterrichtet seit 2009 am Lycée Nic-Biever in Dudelange. Er forscht seit 2004 zur jüdischen Minorität in Luxemburg und der Grenzregion, mit den Schwerpunkten jüdische Gemeinden in Bad-Mondorf und Esch-Alzette, Gemeinschaften der Ostjuden in Luxemburg, Zionismus sowie zur Ansiedlung und Verfolgung der Fahrenden in Luxemburg zur Zeit der NS-Besatzung. In den Jahren 2013-2015 arbeitete er am damaligen Musée national de la Résistance in Esch als wissenschaftlicher Mitarbeiter und seit September 2021 als research assistant am Luxembourg Centre for Contemporary and Digital History (C2DH) der Universität Luxemburg.",
-        "en_GB": "Daniel Thilman (*1976). Studied history at the universities of Metz, Franche-Comté (Besançon) and Nancy 2 and has been teaching since 2009 at the Lycée Nic Biever in Dudelange. Research since 2004 on the Jewish minority in Luxembourg and the border region, focusing on Jewish communities in Bad-Mondorf and Esch/Alzette, communities of Eastern Jews in Luxembourg, Zionism, and the settlement and persecution of Sinti and Roma as well as Jenisch in Luxembourg during the Nazi occupation. In 2013-2015 he worked at the then Musée national de la Résistance in Esch as a research assistant and since September 2021 as a research assistant at the Centre for Contemporary and Digital History (C2DH) at the University of Luxembourg.",
-        "fr_FR": "Daniel Thilman (*1976). A étudié l'histoire aux universités de Metz, Franche-Comté (Besançon) et Nancy 2 et enseigne depuis 2009 au Lycée Nic Biever à Dudelange. Depuis 2004, il mène des recherches sur la minorité juive au Luxembourg et dans la région frontalière, en se concentrant sur les communautés juives de Mondorf-les-Bains et d'Esch-sur-Alzette, les communautés des Juifs de l'Est au Luxembourg, le sionisme ainsi que l'implantation et la persécution des gens du voyage au Luxembourg à l'époque de l'occupation nazie. De 2013 à 2015, il a travaillé à l'ancien Musée national de la Résistance à Esch en tant que collaborateur scientifique et depuis septembre 2021 en tant que research assistant au Luxembourg Centre for Contemporary and Digital History (C2DH) de l'Université du Luxembourg."
-      }
-    }
+    "fullname": "Daniel Thilman"
+  },
+  "sebastien-moreau": {
+    "fullname": "Sébastien Moreau"
+  },
+  "henri-wehenkel": {
+    "fullname": "Henri Wehenkel"
   }
 }
