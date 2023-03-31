@@ -12,6 +12,8 @@ import StoryAuthors from '../components/StoryAuthors'
 import StoryEndnotes from '../components/StoryEndnotes'
 import TopDocuments from '../components/TopDocuments'
 import GetInTouch from '../components/GetInTouch'
+import { Helmet } from 'react-helmet'
+import StoryHelmet from '../components/StoryHelmet'
 
 const Story = () => {
   const { t } = useTranslation()
@@ -44,6 +46,11 @@ const Story = () => {
   const isVeryLongTitle = isLongTitle && story.title.length > 100
 
   const { hash } = useLocation()
+  const htmlTitle = isValidStory ? story.data.title[availableLanguage] : ''
+  // get first paragraph of the first module
+  const firstParagraph = isValidStory
+    ? story.contents.modules[0].text.content[availableLanguage]
+    : ''
   // scrollIntoView when hash is present and the story is fully loaded
   React.useEffect(() => {
     console.debug('[Story@useEffect]\n - status:', status, '\n - hash:', hash)
@@ -70,6 +77,7 @@ const Story = () => {
         isVeryLongTitle ? 'very-long-title' : isLongTitle ? 'long-title' : ''
       }`}
     >
+      {isValidStory && <StoryHelmet story={story} language={availableLanguage}></StoryHelmet>}
       <Container>
         <Row>
           <Col {...BootstrapStartColumnLayout}>
