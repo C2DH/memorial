@@ -49,3 +49,19 @@
 .Story_StoryEndnotes a {
   word-break: break-all;
 }
+
+
+.Story_StoryModule blockquote{
+  margin: var(--size-4);
+  font-size: .9em;
+}
+
+.Story_StoryEndnotes pre {
+  margin: var(--size-4);
+  font-size: .9em;
+  font-family:inherit;
+}
+.Story_StoryEndnotes pre code {
+  font-size: inherit;
+  font-family:inherit;
+}

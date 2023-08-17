@@ -18,7 +18,11 @@ const StoryEndnotes = ({ language = 'en_GB', endnotes = {}, className }) => {
   return (
     <section className={`StoryEndnotes ${className}`}>
       <h3>{t('notes')}</h3>
-      <ModuleText content={content} />
+      <ModuleText content={content// replace > blockquotes
+      .replace(/> /gm, ' ')
+      .replace(/>\n/gm, ' ')
+      .replace(/\\'/g, "'")
+      .replace('\\"', '"')} />
     </section>
   )
 }
