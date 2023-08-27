@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import ReactMapboxGl, { MapContext, ZoomControl, Cluster, Marker } from 'react-mapbox-gl'
 import mapboxgl from 'mapbox-gl'
-import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker' // eslint-disable-line import/no-webpack-loader-syntax
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import MapboxWorker from 'mapbox-gl/dist/mapbox-gl-csp-worker' // eslint-disable-line import/no-webpack-loader-syntax
 import '../styles/components/LinesMap.css'
 import LinesMapLineLayer from './LinesMapLineLayer'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 const Map = ReactMapboxGl({
-  accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
+  accessToken: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN,
   projection: 'naturalEarth',
 })
 
@@ -103,7 +104,7 @@ const LinesMap = ({
   return (
     <div className={`LinesMap ${className}`} style={{ width, height, overflow: 'hidden' }}>
       <Map
-        style={`${process.env.REACT_APP_MAPBOX_STYLE_URL}?optimize=true`}
+        style={`${import.meta.env.VITE_MAPBOX_STYLE_URL}?optimize=true`}
         className="map h-100 w-100"
         center={center}
         zoom={[zoom]}

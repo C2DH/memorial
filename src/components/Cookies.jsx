@@ -4,7 +4,7 @@ import { Button, Form, Container } from 'react-bootstrap'
 import { usePermanentStore } from '../store'
 import { TermsOfUseRoute } from '../constants'
 import LangLink from './LangLink'
-import styles from '../styles/components/Cookie.css'
+import '../styles/components/Cookie.css'
 import { useTimeout } from '../hooks/timeout'
 
 const Cookies = ({ defaultAcceptCookies }) => {
@@ -66,13 +66,13 @@ const Cookies = ({ defaultAcceptCookies }) => {
             onChange={handleChange}
           />
         </Form>
-        <p className={styles.agreement}>
+        <p className="Cookies__agreement">
           By browsing this website you agree to our cookie policy. Visit{' '}
           <LangLink to={TermsOfUseRoute.to}>{t(TermsOfUseRoute.label)}</LangLink> to review your
           options later.
         </p>
         <div className="mx-3 my-0 my-md-3">
-          <Button className={styles.AgreeButton} onClick={handleClickAgree}>
+          <Button className="Cookies__agreeButton" onClick={handleClickAgree}>
             Agree
           </Button>
         </div>

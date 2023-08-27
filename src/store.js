@@ -17,6 +17,6 @@ export const usePermanentStore = create(
       setAcceptCookies: () => set({ acceptCookies: true }),
       setAcceptAnalyticsCookies: (value) => set({ acceptAnalyticsCookies: Boolean(value) }),
     }),
-    { name: process.env.REACT_APP_LOCALSTORAGE_NAME },
+    { name: import.meta.env.VITE_LOCALSTORAGE_NAME },
   ),
 )

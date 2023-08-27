@@ -26,7 +26,6 @@ console.info('initial languageCode', languageCode)
 const Biographies = lazy(() => import('./pages/Biographies'))
 const Document = lazy(() => import('./pages/Document'))
 const Home = lazy(() => import('./pages/Home'))
-const Lines = lazy(() => import('./pages/Lines'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 const Page = lazy(() => import('./pages/Page'))
 const Person = lazy(() => import('./pages/Person'))
@@ -68,14 +67,7 @@ const App = () => {
                     </React.Suspense>
                   }
                 />
-                <Route
-                  path="lines"
-                  element={
-                    <React.Suspense fallback={<>...</>}>
-                      <Lines isMobile={isMobile} />
-                    </React.Suspense>
-                  }
-                ></Route>
+
                 <Route
                   path="people"
                   element={
