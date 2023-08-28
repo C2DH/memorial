@@ -4,26 +4,39 @@ import eslint from 'vite-plugin-eslint'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd())
-  console.log('Proxy', env.VITE_PROXY, 'mode:', mode)
+  if (mode !== 'production') {
+    console.log('Proxy', env.VITE_PROXY, 'mode:', mode, process.cwd())
+    return {
+      optimizeDeps: {
+        include: ['react', 'react-dom'],
+      },
+      build: {
+        outDir: 'build',
+      },
+      plugins: [react(), eslint()],
+      proxy: {
+        '/api': {
+          target: env.VITE_PROXY,
+          changeOrigin: true,
+          secure: false,
+          ws: false,
+        },
+        '/media': {
+          target: env.VITE_PROXY,
+          changeOrigin: true,
+          secure: false,
+          ws: false,
+        },
+      },
+    }
+  }
   return {
+    optimizeDeps: {
+      include: ['react', 'react-dom'],
+    },
     build: {
       outDir: 'build',
     },
     plugins: [react(), eslint()],
-    loader: { '.js': 'jsx' },
-    proxy: {
-      '/api': {
-        target: env.VITE_PROXY || 'http://localhost',
-        changeOrigin: true,
-        secure: false,
-        ws: true,
-      },
-      '/media': {
-        target: env.VITE_PROXY || 'http://localhost',
-        changeOrigin: true,
-        secure: false,
-        ws: true,
-      },
-    },
   }
 })

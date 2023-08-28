@@ -133,7 +133,7 @@ const HomeBiographies = ({ isMobile, speed, availableWidth, availableHeight, cla
           empty
         </li>
         {status === StatusSuccess
-          ? data.results.map((story) => (
+          ? data.results?.map((story) => (
               <li
                 key={story.slug}
                 className={`HomeBiographies_storyListItem ${
