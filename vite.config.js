@@ -14,18 +14,20 @@ export default defineConfig(({ mode }) => {
         outDir: 'build',
       },
       plugins: [react(), eslint()],
-      proxy: {
-        '/api': {
-          target: env.VITE_PROXY,
-          changeOrigin: true,
-          secure: false,
-          ws: false,
-        },
-        '/media': {
-          target: env.VITE_PROXY,
-          changeOrigin: true,
-          secure: false,
-          ws: false,
+      server: {
+        proxy: {
+          '/api': {
+            target: env.VITE_PROXY,
+            changeOrigin: true,
+            secure: false,
+            ws: false,
+          },
+          '/media': {
+            target: env.VITE_PROXY,
+            changeOrigin: true,
+            secure: false,
+            ws: false,
+          },
         },
       },
     }
