@@ -3,9 +3,7 @@ import { createInstance } from '@jonkoops/matomo-tracker-react'
 // Getting non-reactive fresh state on demand
 let persistentState = useStore.getState()
 try {
-  const localStorageState = JSON.parse(
-    localStorage.getItem(process.env.REACT_APP_LOCALSTORAGE_NAME),
-  )
+  const localStorageState = JSON.parse(localStorage.getItem(import.meta.env.VITE_LOCALSTORAGE_NAME))
   if (localStorageState) {
     persistentState = localStorageState
   }
@@ -18,12 +16,12 @@ export const AcceptCookies = Boolean(persistentState.state?.acceptCookies)
 console.info(
   AcceptAnalyticsCookies ? '%cMatomo enabled' : '%cMatomo disabled',
   'font-weight: bold',
-  process.env.REACT_APP_MATOMO_URLBASE,
+  import.meta.env.VITE_MATOMO_URLBASE,
 )
 
 export const matomo = createInstance({
-  urlBase: process.env.REACT_APP_MATOMO_URLBASE,
-  siteId: process.env.REACT_APP_MATOMO_SITEID,
+  urlBase: import.meta.env.VITE_MATOMO_URLBASE,
+  siteId: import.meta.env.VITE_MATOMO_SITEID,
   // userId: 'UIDC2DH', // optional, default value: `undefined`.
   // trackerUrl: 'https://LINK.TO.DOMAIN/tracking.php', // optional, default value: `${urlBase}matomo.php`
   // srcUrl: 'https://LINK.TO.DOMAIN/tracking.js', // optional, default value: `${urlBase}matomo.js`

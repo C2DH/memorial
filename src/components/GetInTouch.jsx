@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 const GetInTouch = ({ emailSubjectTranslationLabel = 'getInTouchSubject' }) => {
   const { t } = useTranslation()
-  const href = `mailto:${process.env.REACT_APP_EMAIL}?subject=${encodeURIComponent(
+  const href = `mailto:${import.meta.env.VITE_EMAIL}?subject=${encodeURIComponent(
     t(emailSubjectTranslationLabel),
   )}`
 

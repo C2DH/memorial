@@ -6,9 +6,6 @@ import Logo from './Logo'
 import {
   BootstrapStartColumnLayoutNoOffset,
   BootstrapEndColumnLayout,
-  DefaultLanguageCode,
-  LanguageCodes,
-  LanguagePathRegExp,
   LanguageRootPathRegExp,
   AboutRoute,
   StoryRoute,
@@ -25,13 +22,8 @@ const Header = () => {
   const { t } = useTranslation()
   const routeLabel = useStore((state) => state.routeLabel)
 
-  const activeLanguage = window.location.pathname.match(LanguagePathRegExp)
+  // const activeLanguage = window.location.pathname.match(LanguagePathRegExp)
   const isRootPath = window.location.pathname.match(LanguageRootPathRegExp)
-  const activeLanguageCode = activeLanguage
-    ? activeLanguage[1]
-    : isRootPath
-    ? isRootPath[1]
-    : DefaultLanguageCode
 
   return (
     <header className="Header">
@@ -116,7 +108,7 @@ const Header = () => {
                 </li>
 
                 <li>
-                  <LanguageSwitch className="d-flex" linkClassName="ms-3" />
+                  <LanguageSwitch isRootPath={isRootPath} className="d-flex" linkClassName="ms-3" />
                 </li>
               </ul>
             </nav>

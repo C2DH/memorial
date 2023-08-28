@@ -14,7 +14,7 @@ import reportWebVitals from './reportWebVitals'
 // replace console.* for disable log debug on production
 if (
   process.env.NODE_ENV === 'production' &&
-  process.env.REACT_APP_BASEURL === window.location.origin
+  import.meta.env.VITE_BASEURL === window.location.origin
 ) {
   console.debug = () => {}
 }
@@ -34,7 +34,7 @@ reportWebVitals()
 // add information on version on startup
 console.info(
   'version',
-  process.env.REACT_APP_GIT_TAG,
-  process.env.REACT_APP_GIT_BRANCH,
-  `\nhttps://github.com/C2DH/memorial/commit/${process.env.REACT_APP_GIT_REVISION}`,
+  import.meta.env.VITE_GIT_TAG,
+  import.meta.env.VITE_GIT_BRANCH,
+  `\nhttps://github.com/C2DH/memorial/commit/${import.meta.env.VITE_GIT_REVISION}`,
 )

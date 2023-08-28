@@ -24,7 +24,7 @@ const StoryHelmet = ({ story, language }) => {
     description = story.contents.modules[0].text.content[language]
     cover =
       story.covers.length > 0
-        ? String(process.env.REACT_APP_ORIGIN + story.covers[0].data?.resolutions?.medium?.url)
+        ? String(import.meta.env.VITE_ORIGIN + story.covers[0].data?.resolutions?.medium?.url)
         : '/screen.png'
   } catch (error) {
     console.warn('[Storyhelmet] error in rendering, skipping. ', error)
@@ -66,7 +66,7 @@ const StoryHelmet = ({ story, language }) => {
       <meta name="dc:title" content={title} />
       <meta name="dc:publisher" content="C2DH - University of Luxembourg" />
       <meta property="og:site_name" content="memorialshoah.lu" />
-      <meta property="og:url" content={process.env.REACT_APP_ORIGIN + window.location.pathname} />
+      <meta property="og:url" content={import.meta.env.VITE_ORIGIN + window.location.pathname} />
       <meta property="og:title" content={title} />
       <meta name="twitter:site" content="@memorialshoahlu" />
       <meta name="twitter:card" content="summary" />
