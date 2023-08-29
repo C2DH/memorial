@@ -7,7 +7,7 @@ import LangLink from '../components/LangLink'
 import HomeBiographies from '../components/HomeBiographies'
 import { BootstrapColumnLayout } from '../constants'
 import '../styles/pages/Home.css'
-import HomeThreeLandscape from '../components/HomeThreeLandscape'
+import Hero from '../components/Hero/Hero'
 import GetInTouch from '../components/GetInTouch'
 import { useCurrentWindowDimensions } from '../hooks/viewport'
 import Logo from '../components/Logo'
@@ -113,7 +113,7 @@ const Home = ({ isMobile }) => {
   return (
     <>
       <React.Suspense fallback={null}>
-        <HomeThreeLandscape pebbles={pebbles} availableWidth={width} availableHeight={height} />
+        <Hero pebbles={pebbles} availableWidth={width} availableHeight={height} />
       </React.Suspense>
       <PeopleCard debug src="/img/lukmanski-carmen.png"></PeopleCard>
       <div className="position-absolute w-100 pointer-events-none" style={{ top: height - 160 }}>

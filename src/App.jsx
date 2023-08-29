@@ -34,7 +34,7 @@ const Search = lazy(() => import('./pages/Search'))
 const Story = lazy(() => import('./pages/Story'))
 const Convoy = lazy(() => import('./pages/Convoy'))
 
-const Header = lazy(() => import('./components/Header'))
+const HeaderTemp = lazy(() => import('./components/HeaderTemp'))
 const MobileHeader = lazy(() => import('./components/MobileHeader'))
 
 const App = () => {
@@ -48,7 +48,7 @@ const App = () => {
           </React.Suspense>
         ) : (
           <React.Suspense fallback={null}>
-            <Header />
+            <HeaderTemp />
           </React.Suspense>
         )}
         <LanguageRouter />

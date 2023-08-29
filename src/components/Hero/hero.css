@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+.hero {
+  padding: 5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  width: 100%;
+  height: calc(90vh - 4rem);
+  position: relative;
+
+  /* Colors */
+  --green-100: #00241b;
+  --green-500: #2f564d;
+  --linen-500: #fcede2;
+
+  /* Fonts */
+  --text-l: 400 italic 16px 'IBM Plex Serif', sans-serif;
+  --text-m: 400 18px 'IBM Plex Serif', sans-serif;
+  --text-s: 400 italic 12px 'IBM Plex Serif', sans-serif;
+  --heading-l: 400 48px 'IBM Plex Serif', sans-serif;
+  --heading-m: 500 24px 'IBM Plex Serif', sans-serif;
+}
+.hero__canvas-wrapper {
+  flex-shrink: 0;
+  position: absolute;
+  right: 0rem;
+  left: 0rem;
+  bottom: 0rem;
+  top: 0rem;
+}
+
+.hero__canvas {
+  position: absolute;
+  right: 0rem;
+  left: 0rem;
+  bottom: 0rem;
+  top: 0rem;
+}
