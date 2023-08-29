@@ -1,4 +1,4 @@
-import './Modal.css'
+import './modal.css'
 import { Divider } from './Divider.jsx'
 import { IconsNext, IconsPrev, IconsClose } from './Icons.jsx'
 
