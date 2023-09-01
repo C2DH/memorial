@@ -25,7 +25,7 @@ void main() {
 
     vec2 texOffset = vec2(vUv.x + offsetX, vUv.y);
     vec4 texColor = texture2D(texBlade, texOffset);
-    vec4 texNoise = texture2D(renderedTexture, vInstanceUv);
+    vec4 texNoise = texture2D(renderedTexture, vec2(vInstanceUv.x, vInstanceUv.y));
 
     if(texColor.g < 0.35)
         discard;

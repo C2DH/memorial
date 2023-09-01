@@ -8,16 +8,23 @@ import { Camera } from './components/Camera'
 import { Overlay } from './ui/Overlay'
 import { ModalDetails } from './ui/ModalDetails'
 import { ModalCreate } from './ui/ModalCreate'
+import { ScrollController } from './components/ScrollController'
+// eslint-disable-next-line no-unused-vars
+import { OrbitControls, StatsGl } from '@react-three/drei'
 
 const Hero = () => {
   return (
     <div className="hero">
-      <div className="hero__canvas-wrapper">
-        <Canvas gl={{ alpha: true, antialias: true }} resize={{ scroll: false }}>
-          <Camera />
-          <Scene />
-        </Canvas>
-      </div>
+      <ScrollController>
+        <div className="hero__canvas-wrapper">
+          <Canvas gl={{ alpha: true, antialias: true }} resize={{ scroll: false }}>
+            {/* <StatsGl /> */}
+            <Camera />
+            {/* <OrbitControls /> */}
+            <Scene />
+          </Canvas>
+        </div>
+      </ScrollController>
       <Overlay />
       <ModalDetails />
       <ModalCreate />

@@ -1,4 +1,4 @@
-import './button.css'
+import './styles/button.css'
 
 export const Button = ({ text = 'Button', variant = 'light', ...props }) => {
   const variantsClassName = 'button--variant-' + variant

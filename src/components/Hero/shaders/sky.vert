@@ -14,13 +14,15 @@ attribute vec2 uv;
 
 varying vec2 vUv;
 
+uniform float zOffset;
+
 void main() {
     vUv = uv;
 
     vec3 offsetPosition = position;
 
     offsetPosition.x += cameraPosition.x;
-    offsetPosition.z += cameraPosition.z;
+    offsetPosition.z += cameraPosition.z + zOffset;
 
     vec4 modelPosition = modelMatrix * vec4(offsetPosition, 1.0);
 

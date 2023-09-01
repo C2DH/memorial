@@ -27,9 +27,9 @@ float smoothNoise(vec2 uv) {
 }
 
 float customGradient(float t) {
-  if(t < 0.4)
+  if(t < 0.5)
     return 0.0;
-  return (t - 0.4) * 2.6;
+  return (t - 0.5) * 2.5;
 }
 
 void main() {
@@ -56,19 +56,19 @@ void main() {
   float fog = 0.0;
 
   // Calculate the distance from the current UV to the center
-  float distFromCenter = length(vUv - vec2(0.5));
+  float distFromCenter = length(vec2(vUv.x * 2.0, vUv.y) - vec2(1.0, 0.0));
 
   // Map this distance to [0,1] range to create a radial gradient
-  float radialGradient = customGradient(distFromCenter * 2.0);
+  float radialGradient = customGradient(distFromCenter);
 
   // Previous noise-based fog calculation
   float noiseFog = smoothNoise((camFactor) * 4.0);
-  noiseFog += smoothNoise((camFactor) * 8.0) * 0.5;
+  noiseFog += smoothNoise((camFactor + timeVec) * 12.0) * 0.5;
   noiseFog += smoothNoise((camFactor) * 16.0) * 0.25;
   noiseFog /= 1.75;
 
   // Multiply the radial gradient with the noise-based fog
-  fog = clamp(radialGradient - noiseFog, 0.0, 1.0);
+  fog = clamp(radialGradient * 1.5 - noiseFog * 1.5, 0.0, 1.0);
 
   gl_FragColor = vec4(displacement * 4.0, wind * 1.2, clouds, fog);
 }

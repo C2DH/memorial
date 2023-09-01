@@ -1,4 +1,4 @@
-export const Logo = ({ ...props }) => {
+export const Logo = () => {
   return (
     <div className="logo">
       <svg

@@ -5,6 +5,8 @@ import { useGLTF, useTexture } from '@react-three/drei'
 import vertex from '../shaders/grass.vert'
 import fragment from '../shaders/grass.frag'
 
+import * as c from '../sceneConfig'
+
 export const Grass = ({ skyColor, groundColor, renderedTexture }) => {
   const { nodes } = useGLTF('/models.glb')
   const texBlade = useTexture('/textures.png')
@@ -13,18 +15,19 @@ export const Grass = ({ skyColor, groundColor, renderedTexture }) => {
 
   const meshRef = useRef()
 
-  const instances = 320 * 320
+  const instances = 256 * 256
 
   const { instData } = useMemo(() => generateInstancesData(instances), [instances])
 
   const uniforms = useMemo(
     () => ({
-      radius: { value: 48.0 },
+      radius: { value: c.sceneRadius },
       instanceCount: { value: instances },
       renderedTexture: { value: renderedTexture },
       texBlade: { value: texBlade },
       skyColor: { value: skyColor.current },
       groundColor: { value: groundColor.current },
+      zOffset: { value: c.sceneOffsetZ },
     }),
     [groundColor, instances, renderedTexture, skyColor, texBlade],
   )

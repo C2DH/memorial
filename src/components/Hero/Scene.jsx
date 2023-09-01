@@ -9,9 +9,11 @@ import * as THREE from 'three'
 
 import { useRenderedTexture } from './hooks/useRenderedTexture'
 
+import * as c from './sceneConfig'
+
 export const Scene = () => {
-  const skyColor = useRef(new THREE.Color('#ecfafc'))
-  const groundColor = useRef(new THREE.Color('#007231'))
+  const skyColor = useRef(new THREE.Color(c.skyColor))
+  const groundColor = useRef(new THREE.Color(c.groundColor))
 
   const { renderedTexture, portal } = useRenderedTexture()
 

@@ -1,0 +1,215 @@
+.modal {
+  background: var(--linen-500, #fcede2);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  width: 20rem;
+  height: auto;
+  position: relative;
+  box-shadow: 0rem 1.5rem 4rem -1rem rgba(47, 86, 77, 0.32);
+}
+
+.modal__top {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-end;
+  align-self: stretch;
+  position: relative;
+}
+
+.modal__top2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  position: relative;
+}
+
+.modal__overline {
+  color: var(--green-500, #2f564d);
+  text-align: justified;
+  font: var(--text-s, 400 italic 0.75rem 'IBM Plex Serif', sans-serif);
+  opacity: 0.6000000238418579;
+  position: relative;
+}
+
+.modal__carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  position: relative;
+}
+
+.modal__wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  position: relative;
+}
+
+.modal__carousel-content {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.modal__carousel-pebble {
+  position: relative;
+  width: 12rem;
+  height: 12rem;
+}
+
+.modal__carousel-img {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.modal__carousel-img img {
+  width: 100%;
+  pointer-events: none;
+}
+
+.modal__carousel-slide {
+  position: absolute;
+  height: 12rem;
+  width: 12rem;
+}
+
+.modal__name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.modal__title {
+  color: var(--green-500, #2f564d);
+  text-align: center;
+  font: var(--heading-m, 500 1.5rem 'IBM Plex Serif', sans-serif);
+  position: relative;
+}
+
+.modal__subtitle {
+  color: var(--green-500, #2f564d);
+  text-align: center;
+  font: var(--text-s, 400 italic 0.75rem 'IBM Plex Serif', sans-serif);
+  opacity: 0.6;
+  position: relative;
+}
+
+.modal__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  position: relative;
+}
+
+.modal__body-text {
+  color: var(--green-500, #2f564d);
+  text-align: center;
+  font: var(--text-l, 400 italic 1rem 'IBM Plex Serif', sans-serif);
+  opacity: 0.800000011920929;
+  position: relative;
+  align-self: stretch;
+}
+
+.modal__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  position: relative;
+}
+
+.modal__names {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  position: relative;
+}
+
+.modal__biography-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  position: relative;
+}
+
+.modal__in-memory-of {
+  color: var(--green-500, #2f564d);
+  text-align: justified;
+  font: var(--text-s, 400 italic 0.75rem 'IBM Plex Serif', sans-serif);
+  opacity: 0.6000000238418579;
+  position: relative;
+}
+
+.modal__selector {
+  border-radius: 0.5rem;
+  border-style: dashed;
+  border-color: var(--green-500, #2f564d);
+  border-width: 0.0625rem;
+  padding: 0.5rem 0rem 0.5rem 0rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  position: relative;
+}
+
+.modal__select-biography {
+  color: var(--green-500, #2f564d);
+  text-align: justified;
+  font: var(--text-l, 400 italic 1rem 'IBM Plex Serif', sans-serif);
+  position: relative;
+}
+
+.modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.modal__read-more {
+  color: var(--green-500, #2f564d);
+  text-align: justified;
+  font: var(--text-s, 400 italic 0.75rem 'IBM Plex Serif', sans-serif);
+  opacity: 0.6000000238418579;
+  position: relative;
+}

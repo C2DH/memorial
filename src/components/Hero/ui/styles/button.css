@@ -1,0 +1,30 @@
+.button {
+  border-radius: 3.875rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  text-align: justified;
+  font: var(--text-m, 400 1.125rem 'IBM Plex Serif', sans-serif);
+  position: relative;
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 0.5rem 1rem hsla(165, 100%, 7%, 0.25);
+}
+
+.button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.button--variant-dark {
+  background: var(--green-100, #00241b);
+  color: var(--linen-500, #fcede2);
+}
+
+.button--variant-light {
+  background: var(--linen-500, #00241b);
+  color: var(--green-500, #fcede2);
+}

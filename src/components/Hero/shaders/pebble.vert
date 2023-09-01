@@ -4,6 +4,7 @@ precision highp float;
 uniform mat4 modelMatrix;
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
+
 attribute vec3 position;
 attribute vec3 normal;
 attribute vec2 uv;
@@ -16,6 +17,8 @@ varying vec4 vWorldPosition;
 varying vec3 vNormal;
 varying vec3 vColor;
 
+uniform float zOffset;
+
 vec3 transformNormal(vec3 v, mat3 m) {
     return m * (v / vec3(dot(m[0], m[0]), dot(m[1], m[1]), dot(m[2], m[2])));
 }
@@ -23,7 +26,8 @@ vec3 transformNormal(vec3 v, mat3 m) {
 void main() {
     vUv = uv;
     vColor = instanceColor;
-    vec4 modelPosition = modelMatrix * instanceMatrix * vec4(position, 1.0);
+    vec3 offestPosition = vec3(position.x, position.y, position.z);
+    vec4 modelPosition = modelMatrix * instanceMatrix * vec4(offestPosition, 1.0);
 
     vWorldPosition = modelPosition;
     vNormal = transformNormal(vec3(normal), mat3(instanceMatrix));

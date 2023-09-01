@@ -11,7 +11,7 @@ export const useRenderedTexture = () => {
   const mainCamera = useRef(new THREE.Vector3(0, 0, 0))
 
   const renderTarget = useRef(
-    useFBO(512, 512, {
+    useFBO(256, 256, {
       format: THREE.RGBAFormat,
       stencilBuffer: false,
       type: THREE.FloatType,

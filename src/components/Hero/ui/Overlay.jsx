@@ -1,5 +1,5 @@
+import './styles/overlay.css'
 import { Logo } from './Logo'
-import './overlay.css'
 import { usePebblesStore } from '../store'
 import { Button } from './Button'
 
@@ -27,6 +27,7 @@ export const Overlay = () => {
 
   return (
     <div className={`overlay ${hasStarted && 'experience-start'}`}>
+      <div className="overlay__border"></div>
       <AnimatePresence>
         {!hasStarted && (
           <motion.div
@@ -62,7 +63,6 @@ export const Overlay = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="overlay__border"></div>
       <div className={`overlay__logo ${hasStarted && 'overlay__logo_collapsed'}`}>
         <Logo />
       </div>

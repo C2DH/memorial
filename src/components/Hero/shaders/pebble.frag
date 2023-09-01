@@ -14,20 +14,20 @@ varying vec3 vNormal;
 varying vec2 vUv;
 varying vec3 vColor;
 
-void main() {
-    // Calculate distance from the fragment to the camera
-    float distanceToCamera = length(vWorldPosition.xyz - cameraPosition);
+uniform float zOffset;
 
-    // Discard if distance is greater than 12 units
-    if(distanceToCamera > 48.0) {
+void main() {
+    float distanceToCamera = length(vWorldPosition.xyz - cameraPosition);
+    float radius = 48.0;
+
+    if(distanceToCamera > radius + zOffset) {
         discard;
     }
 
-    float radius = 48.0;
     float loopLength = radius * 2.0;
 
     float x = vWorldPosition.x;
-    float z = vWorldPosition.z;
+    float z = vWorldPosition.z - zOffset;
 
     x = mod(x - cameraPosition.x + radius, loopLength) + cameraPosition.x - radius;
     z = mod(z - cameraPosition.z + radius, loopLength) + cameraPosition.z - radius;

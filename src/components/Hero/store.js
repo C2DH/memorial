@@ -32,28 +32,40 @@ const ghibliPalette = [
   new THREE.Color(0x908170), // Earthy Brown
 ]
 
+const chunkSize = 200
+
 let pos = 0
 let data = []
+let currentChunk = []
+let chunkIndex = 0
 
-for (let i = 0; i < 512; i++) {
-  let xPos = randomChoice([-18, -12, -6, 6, 12, 18])
+for (let i = 0; i < 128; i++) {
   let zPos = pos
+
+  if (zPos > chunkIndex * chunkSize) {
+    data.push(currentChunk)
+    currentChunk = []
+    chunkIndex++
+  }
+
+  let xPos = randomChoice([-18, -12, -6, 6, 12, 18])
 
   let yPosVec = { x: ((xPos + 48) / 96) * 4, y: ((zPos + 48) / 96) * 4 }
   let yPos = getGpuNoise(yPosVec)
 
   let item = {
-    position: [xPos, yPos * 6, zPos],
+    position: [xPos, yPos * 4, zPos],
     rotation: randomEuler(),
     scale: randomScale(),
     color: randomChoice(ghibliPalette),
     uid: pos,
     created: randomDate(new Date(2023, 0, 1), new Date(2023, 11, 31)),
   }
-  data.push(item)
-
-  pos += randomChoice([12, 6])
+  currentChunk.push(item)
+  pos += randomChoice([12, 12])
 }
+
+data.push(currentChunk)
 
 export const usePebblesStore = create((set) => ({
   hasStarted: false,
@@ -66,4 +78,9 @@ export const usePebblesStore = create((set) => ({
   setHasStarted: (value) => set({ hasStarted: value }),
   setHasDetails: (value) => set({ hasDetails: value }),
   setHasCreate: (value) => set({ hasCreate: value }),
+}))
+
+export const useScrollStore = create((set) => ({
+  scroll: 0,
+  setScroll: (value) => set({ scroll: value }),
 }))

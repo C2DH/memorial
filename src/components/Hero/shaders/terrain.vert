@@ -15,6 +15,7 @@ attribute vec2 uv;
 varying vec2 vUv;
 
 uniform sampler2D renderedTexture;
+uniform float zOffset;
 
 void main() {
     vUv = uv;
@@ -23,7 +24,7 @@ void main() {
     vec4 noiseTexture = texture2D(renderedTexture, uv);
 
     offsetPosition.x += cameraPosition.x;
-    offsetPosition.z += cameraPosition.z;
+    offsetPosition.z += cameraPosition.z + zOffset;
 
     offsetPosition.y += noiseTexture.r;
 

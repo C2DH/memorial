@@ -5,6 +5,8 @@ import { useGLTF, useTexture } from '@react-three/drei'
 import vertex from '../shaders/sky.vert'
 import fragment from '../shaders/sky.frag'
 
+import * as c from '../sceneConfig'
+
 export const Sky = ({ skyColor, groundColor }) => {
   const { nodes } = useGLTF('/models.glb')
   const texture = useTexture('/skyTexture.png')
@@ -16,6 +18,7 @@ export const Sky = ({ skyColor, groundColor }) => {
       skyColor: { value: skyColor.current },
       groundColor: { value: groundColor.current },
       skyMap: { value: texture },
+      zOffset: { value: c.sceneOffsetZ },
     }),
     [groundColor, skyColor, texture],
   )

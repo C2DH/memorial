@@ -4,6 +4,7 @@ import * as THREE from 'three'
 import useSafeFrame from '../hooks/useSafeFrame'
 
 import { usePebblesStore } from '../store'
+import { useScrollStore } from '../store'
 
 export const Camera = () => {
   const cameraRef = useRef()
@@ -21,12 +22,9 @@ export const Camera = () => {
   const CAMERA_OFFSET = [-12, 8, -12]
   const TARGET_OFFSET = [-2, 0, 4]
 
-  const moveCameraOnScroll = (event) => {
-    if (selectedPos === null) {
-      event.preventDefault()
-      const delta = Math.sign(event.deltaY)
-      forwardPositionRef.current.z += delta * 2
-    }
+  const moveCameraOnScroll = () => {
+    const scrollProgress = useScrollStore.getState().scroll
+    forwardPositionRef.current.z = scrollProgress * 2
   }
 
   const setCameraPosZ = () => {
@@ -51,9 +49,9 @@ export const Camera = () => {
     )
   }
 
-  const updateCamera = () => {
-    currentPositionRef.current.lerp(targetPositionRef.current, 0.1)
-    currentLookAtRef.current.lerp(targetLookAtRef.current, 0.1)
+  const updateCamera = (delta) => {
+    currentPositionRef.current.lerp(targetPositionRef.current, 1.6 * delta)
+    currentLookAtRef.current.lerp(targetLookAtRef.current, 1.6 * delta)
 
     if (cameraRef.current) {
       cameraRef.current.position.set(...currentPositionRef.current)
@@ -62,6 +60,7 @@ export const Camera = () => {
     }
   }
 
+  // eslint-disable-next-line no-unused-vars
   const spinCamera = () => {
     const time = Date.now() * 0.001
     const radius = 32
@@ -73,14 +72,25 @@ export const Camera = () => {
     targetLookAtRef.current.set(0, 16, 0)
   }
 
-  useSafeFrame((state) => {
+  const oscilateCamera = () => {
+    const time = Date.now() * 0.001
+    const y = Math.sin(time * 0.5) * 4 + 12
+    targetPositionRef.current.set(0, y, -12)
+    targetLookAtRef.current.set(0, 4, 48)
+  }
+
+  useSafeFrame((_, delta) => {
     if (!hasStarted) {
-      spinCamera()
-    } else {
-      selectedPos ? setCameraToTarget() : setCameraForward()
+      oscilateCamera()
+    } else if (hasStarted && selectedPos) {
+      setCameraToTarget()
+      setCameraPosZ()
+    } else if (hasStarted && !selectedPos) {
+      moveCameraOnScroll()
+      setCameraForward()
       setCameraPosZ()
     }
-    updateCamera()
+    updateCamera(delta)
   })
 
   useEffect(() => {
@@ -91,12 +101,6 @@ export const Camera = () => {
     currentCamera.lookAt(...forwardLookAtRef.current.toArray())
     currentCamera.zoom = 0.75
     currentCamera.updateProjectionMatrix()
-
-    window.addEventListener('wheel', moveCameraOnScroll, { passive: false })
-
-    return () => {
-      window.removeEventListener('wheel', moveCameraOnScroll)
-    }
   }, [])
 
   return <PerspectiveCamera ref={cameraRef} makeDefault />

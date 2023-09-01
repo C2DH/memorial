@@ -1,6 +1,6 @@
 import { useRef, useMemo, memo, useCallback } from 'react'
-import { Instances, Instance, useGLTF, useTexture } from '@react-three/drei'
-import useSafeFrame from '../hooks/useSafeFrame'
+import { useGLTF, useTexture } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
 
 import * as THREE from 'three'
 
@@ -9,111 +9,104 @@ import { usePebblesStore } from '../store'
 import vertex from '../shaders/pebble.vert'
 import fragment from '../shaders/pebble.frag'
 
+import * as c from '../sceneConfig'
+
 export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
   const { nodes } = useGLTF('/models.glb')
+
   const diffuseMap = useTexture('/bakedRock.png')
   diffuseMap.flipY = false
 
-  const pebblesData = usePebblesStore((state) => state.pebblesData)
+  const instancedMeshRef = useRef()
+
+  const _tempPebblePostionRef = useRef(new THREE.Vector3(0, 0, 0))
+  const _tempPebbleMat4 = useRef(new THREE.Matrix4())
+
+  const lightDirection = useMemo(() => new THREE.Vector3(-4, 8, -2), [])
 
   const uniforms = useMemo(
     () => ({
-      lightDirection: { value: new THREE.Vector3(-4, 8, -2) },
+      lightDirection: { value: lightDirection },
       renderedTexture: { value: renderedTexture },
       diffuseMap: { value: diffuseMap },
       skyColor: { value: skyColor.current },
       groundColor: { value: groundColor.current },
+      zOffset: { value: c.sceneOffsetZ },
     }),
-    [diffuseMap, groundColor, renderedTexture, skyColor],
+    [diffuseMap, groundColor, renderedTexture, skyColor, lightDirection],
   )
 
+  const { setSelected, setHasCreate, setHasDetails, setHasStarted, pebblesData } =
+    usePebblesStore.getState()
+
+  const handleOnClick = useCallback(
+    (event) => {
+      const position = [
+        pebblesData[event.instanceId].position[0],
+        pebblesData[event.instanceId].position[1],
+        pebblesData[event.instanceId].position[2],
+      ]
+      setSelected(event.instanceId, position)
+      setHasCreate(false)
+      setHasDetails(true)
+      setHasStarted(true)
+      event.stopPropagation()
+    },
+    [pebblesData, setSelected, setHasCreate, setHasDetails, setHasStarted],
+  )
+
+  const handlePointerMiss = useCallback(() => {
+    setHasCreate(false)
+    setSelected(null)
+    setHasDetails(false)
+  }, [setHasCreate, setSelected, setHasDetails])
+
+  useFrame(({ camera }) => {
+    let count = 0
+    const cameraPosition = camera.position.clone().z
+    const currentChunkIndex = Math.floor(cameraPosition / c.chunkSize)
+    const startChunk = Math.max(0, currentChunkIndex - 1)
+    const endChunk = Math.min(pebblesData.length - 1, currentChunkIndex + 1)
+    const relevantData = [].concat(...pebblesData.slice(startChunk, endChunk + 1))
+
+    relevantData.forEach((pebble, i) => {
+      _tempPebblePostionRef.current.set(
+        pebble.position[0],
+        pebble.position[1],
+        pebble.position[2] + c.sceneOffsetZ,
+      )
+
+      const isInView =
+        cameraPosition - _tempPebblePostionRef.current.z > -c.sceneRadius - c.sceneOffsetZ
+
+      if (isInView) {
+        _tempPebbleMat4.current.setPosition(_tempPebblePostionRef.current)
+        instancedMeshRef.current.setMatrixAt(count, _tempPebbleMat4.current)
+        instancedMeshRef.current.setColorAt(count, new THREE.Color(pebble.color))
+      }
+
+      count++
+    })
+
+    instancedMeshRef.current.instanceMatrix.needsUpdate = true
+    instancedMeshRef.current.instanceColor.needsUpdate = true
+    instancedMeshRef.current.computeBoundingSphere()
+  })
+
   return (
-    <Instances range={24} geometry={nodes.rock.geometry} bufferAttribute>
+    <instancedMesh
+      ref={instancedMeshRef}
+      args={[nodes.rock.geometry, null, 64]}
+      frustumCulled={false}
+      onClick={handleOnClick}
+      onPointerMissed={handlePointerMiss}
+    >
       <rawShaderMaterial
         vertexShader={vertex}
         fragmentShader={fragment}
         uniforms={uniforms}
-        vertexColors
-        toneMapped={false}
+        attach="material"
       />
-      {pebblesData.map((props, i) => (
-        <PebbleInstance key={i} idd={i} {...props} />
-      ))}
-    </Instances>
+    </instancedMesh>
   )
 })
-
-const PebbleInstance = ({ idd, ...props }) => {
-  const groupRef = useRef()
-  const instanceRef = useRef()
-  const targetRotation = useRef(0)
-  const targetPositionY = useRef(0)
-
-  const isHovered = useRef(false)
-
-  useSafeFrame((state, delta) => {
-    if (idd === usePebblesStore.getState().selected) {
-      targetRotation.current += delta * 2
-      targetPositionY.current = usePebblesStore.getState().pebblesData[idd].position[1] + 4
-    } else {
-      targetRotation.current += 0
-      targetPositionY.current = usePebblesStore.getState().pebblesData[idd].position[1]
-    }
-    groupRef.current.rotation.y = THREE.MathUtils.lerp(
-      groupRef.current.rotation.y,
-      targetRotation.current,
-      0.015,
-    )
-    groupRef.current.position.y = THREE.MathUtils.lerp(
-      groupRef.current.position.y,
-      targetPositionY.current,
-      0.035,
-    )
-    if (isHovered.current) {
-      groupRef.current.rotation.x += THREE.MathUtils.randFloatSpread(0.1)
-      groupRef.current.rotation.z += THREE.MathUtils.randFloatSpread(0.1)
-    }
-  })
-
-  const handleOnClick = useCallback(
-    (event) => {
-      usePebblesStore.getState().setSelected(idd, props.position)
-      usePebblesStore.getState().setHasCreate(false)
-      usePebblesStore.getState().setHasDetails(true)
-      usePebblesStore.getState().setHasStarted(true)
-      event.stopPropagation()
-    },
-    [idd, props.position],
-  )
-
-  const handleClickMiss = useCallback(() => {
-    usePebblesStore.getState().setHasCreate(false)
-    usePebblesStore.getState().setSelected(null)
-    usePebblesStore.getState().setHasDetails(false)
-  }, [])
-
-  const handleOnPointerOver = useCallback((event) => {
-    event.stopPropagation()
-    isHovered.current = true
-  }, [])
-
-  const handleOnPointerOut = useCallback((event) => {
-    event.stopPropagation()
-    isHovered.current = false
-  }, [])
-
-  return (
-    <group
-      {...props}
-      ref={groupRef}
-      onClick={() => {
-        handleOnClick()
-      }}
-      onPointerOver={(event) => handleOnPointerOver(event)}
-      onPointerOut={(event) => handleOnPointerOut(event)}
-      onPointerMissed={(event) => handleClickMiss(event)}
-    >
-      <Instance scale={[2, 2, 2]} ref={instanceRef} color={props.color} />
-    </group>
-  )
-}

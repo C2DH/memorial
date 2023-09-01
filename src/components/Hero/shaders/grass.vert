@@ -29,6 +29,8 @@ uniform float radius;
 uniform sampler2D renderedTexture;
 uniform sampler2D texBlade;
 
+uniform float zOffset;
+
 mat3 rotationMatrix(vec3 angles) {
     float s1 = sin(angles.x);
     float s2 = sin(angles.y);
@@ -38,20 +40,18 @@ mat3 rotationMatrix(vec3 angles) {
     float c3 = cos(angles.z);
 
     mat3 rx = mat3(1, 0, 0, 0, c1, -s1, 0, s1, c1);
-
     mat3 ry = mat3(c2, 0, s2, 0, 1, 0, -s2, 0, c2);
-
     mat3 rz = mat3(c3, -s3, 0, s3, c3, 0, 0, 0, 1);
 
     return rz * rx * ry;
 }
 
 void main() {
-    // Varying early proxy
-    vUv = uv;
-
     // Constants
     float PI = 3.14159265;
+
+    // Varying early proxy
+    vUv = uv;
 
     // Attribute data deconstruction
     float instID = floor(instaceData);
@@ -102,7 +102,7 @@ void main() {
 
     float distCorrection = pow(length(instanceUv - vec2(0.5)), 2.5);
 
-    scaledPosition.x *= 0.5 + randIDa * 0.5;
+    scaledPosition.x *= 0.95 + randIDa * 0.5;
     scaledPosition.x *= 1.0 + 10.0 * distCorrection;
     scaledPosition.y -= 1.0 * distCorrection;
     scaledPosition.y *= 1.0 + distCorrection + randIDb * 0.75;
@@ -120,6 +120,7 @@ void main() {
     bendPosition.z += flexFactor * windForce;
 
     vec3 positionNew = bendPosition + positionGrid + positionHeight;
+    positionNew.z += zOffset;
 
     vNewPos = positionNew;
     vNormal = normalize(rotationMatrix(rotationAngles) * normal);

@@ -1,0 +1,96 @@
+.overlay {
+  background: linear-gradient(180deg, rgba(0, 106, 215, 1) 0%, rgba(102, 167, 224, 0) 75%);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.experience-start {
+  background: linear-gradient(180deg, rgba(0, 106, 215, 0) 0%, rgba(102, 167, 224, 0) 75%);
+}
+
+.overlay__intro-wrapper {
+  padding: 0rem 0rem 8rem 0rem;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.overlay__experience-wrapper {
+  padding: 0rem 0rem 8rem 0rem;
+  position: absolute;
+  bottom: -7rem;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.overlay__intro {
+  color: var(--green-100, #00241b);
+  text-align: center;
+  font: var(--heading-l, 400 3rem 'IBM Plex Serif', sans-serif);
+  position: relative;
+  width: 48rem;
+}
+
+.overlay__actions {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  pointer-events: all;
+}
+
+.overlay__border {
+  border-style: solid;
+  border-color: var(--linen-500, #fcede2);
+  border-width: 2rem;
+  flex-shrink: 0;
+  position: absolute;
+  right: 0rem;
+  left: 0rem;
+  bottom: 0rem;
+  top: 0rem;
+  overflow: hidden;
+}
+
+.overlay__logo {
+  position: absolute;
+  left: 0;
+  top: 6rem;
+  transform-origin: left center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.overlay__logo_collapsed {
+  transform: scale(0.75);
+}
+
+.scroll-controller {
+  /* pointer-events: none; */
+}
+
+/* Hiding scrollbar for Chrome, Safari and Opera */
+.scroll-controller::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hiding scrollbar for IE, Edge and Firefox */
+.scroll-controller {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
