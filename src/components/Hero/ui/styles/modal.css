@@ -33,7 +33,7 @@
 }
 
 .modal__overline {
-  color: var(--green-500, #2f564d);
+  color: var(--green-500);
   text-align: justified;
   font: var(--text-s, 400 italic 0.75rem 'IBM Plex Serif', sans-serif);
   opacity: 0.6000000238418579;
@@ -78,6 +78,7 @@
 .modal__carousel-img {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -104,14 +105,14 @@
 }
 
 .modal__title {
-  color: var(--green-500, #2f564d);
+  color: var(--green-500);
   text-align: center;
   font: var(--heading-m, 500 1.5rem 'IBM Plex Serif', sans-serif);
   position: relative;
 }
 
 .modal__subtitle {
-  color: var(--green-500, #2f564d);
+  color: var(--green-500);
   text-align: center;
   font: var(--text-s, 400 italic 0.75rem 'IBM Plex Serif', sans-serif);
   opacity: 0.6;
@@ -129,7 +130,7 @@
 }
 
 .modal__body-text {
-  color: var(--green-500, #2f564d);
+  color: var(--green-500);
   text-align: center;
   font: var(--text-l, 400 italic 1rem 'IBM Plex Serif', sans-serif);
   opacity: 0.800000011920929;
@@ -168,7 +169,7 @@
 }
 
 .modal__in-memory-of {
-  color: var(--green-500, #2f564d);
+  color: var(--green-500);
   text-align: justified;
   font: var(--text-s, 400 italic 0.75rem 'IBM Plex Serif', sans-serif);
   opacity: 0.6000000238418579;
@@ -178,7 +179,7 @@
 .modal__selector {
   border-radius: 0.5rem;
   border-style: dashed;
-  border-color: var(--green-500, #2f564d);
+  border-color: var(--green-500);
   border-width: 0.0625rem;
   padding: 0.5rem 0rem 0.5rem 0rem;
   display: flex;
@@ -191,7 +192,7 @@
 }
 
 .modal__select-biography {
-  color: var(--green-500, #2f564d);
+  color: var(--green-500);
   text-align: justified;
   font: var(--text-l, 400 italic 1rem 'IBM Plex Serif', sans-serif);
   position: relative;
@@ -207,9 +208,34 @@
 }
 
 .modal__read-more {
-  color: var(--green-500, #2f564d);
-  text-align: justified;
+  color: var(--green-500);
   font: var(--text-s, 400 italic 0.75rem 'IBM Plex Serif', sans-serif);
-  opacity: 0.6000000238418579;
+  opacity: 0.6;
   position: relative;
+}
+
+.modal__nickname {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  width: 75%;
+}
+
+.modal__nickname-input {
+  border-radius: 5rem;
+  border: dashed 1px var(--green-500);
+  border-width: 0.0625rem;
+  padding: 0.5rem 0.5rem;
+  color: var(--green-500);
+  font: var(--text-s, 400 italic 0.75rem 'IBM Plex Serif', sans-serif);
+  background: var(--green-500-a05);
+  width: 100%;
+}
+.modal__nickname-input:hover {
+  outline: 2px solid var(--green-500-a25);
+}
+
+.modal__nickname-input:focus {
+  outline: 2px solid var(--green-500-a25);
 }

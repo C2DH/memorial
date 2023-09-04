@@ -1,83 +1,122 @@
 import { create } from 'zustand'
-import * as THREE from 'three'
 import { getGpuNoise } from './helpers/gpuNoise'
+import {
+  randomChoice,
+  randomChoiceExcluding,
+  randomEuler,
+  randomScale,
+  randomDate,
+} from './helpers/utils'
+import * as c from './sceneConfig'
 
-function randomChoice(array) {
-  return array[Math.floor(Math.random() * array.length)]
-}
+const generateInitialData = (lastPosZ, lastXPos, count) => {
+  let initialData = []
 
-function randomDate(start, end) {
-  return new Date(
-    start.getTime() + Math.random() * (end.getTime() - start.getTime()),
-  ).toLocaleString('en-us', {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-  })
-}
+  for (let i = 0; i < count; i++) {
+    let currentChunkIndex = Math.floor(lastPosZ / c.chunkSize)
 
-function randomEuler() {
-  return [Math.random() * 2 * Math.PI, Math.random() * 2 * Math.PI, Math.random() * 2 * Math.PI]
-}
+    if (!initialData[currentChunkIndex]) {
+      initialData[currentChunkIndex] = []
+    }
 
-function randomScale() {
-  return [0.5 + Math.random() * 0.5, 0.5 + Math.random() * 0.5, 0.5 + Math.random() * 0.5]
-}
+    let xPos = randomChoiceExcluding([-18, -12, -6, 6, 0, 12, 18], lastXPos)
+    lastXPos = xPos
 
-const ghibliPalette = [
-  new THREE.Color(0x87c0a5), // Soft Green
-  new THREE.Color(0xffdac1), // Soft Peach
-  new THREE.Color(0x55cbcd), // Turquoise
-  new THREE.Color(0xff9b85), // Coral Pink
-  new THREE.Color(0x908170), // Earthy Brown
-]
+    let zPos = lastPosZ
+    let yPosVec = {
+      x: ((xPos + c.sceneRadius) / c.sceneLoopLength) * c.terrainFrequency,
+      y: ((zPos + c.sceneRadius) / c.sceneLoopLength) * c.terrainFrequency,
+    }
+    let yPos = getGpuNoise(yPosVec) * c.terrainAmplitude
 
-const chunkSize = 200
+    let item = {
+      position: [xPos, yPos, zPos],
+      rotation: randomEuler(),
+      scale: randomScale(),
+      color: randomChoice(c.ghibliPalette),
+      uid: lastPosZ,
+      created: randomDate(new Date(2023, 0, 1), new Date(2023, 11, 31)),
+      by: 'nickname',
+      linkedBioId: randomChoice([0, 1, 2, 3, 4, 5, 6]),
+    }
 
-let pos = 0
-let data = []
-let currentChunk = []
-let chunkIndex = 0
-
-for (let i = 0; i < 128; i++) {
-  let zPos = pos
-
-  if (zPos > chunkIndex * chunkSize) {
-    data.push(currentChunk)
-    currentChunk = []
-    chunkIndex++
+    initialData[currentChunkIndex].push(item)
+    lastPosZ += c.pebblesOffsetZ
   }
 
-  let xPos = randomChoice([-18, -12, -6, 6, 12, 18])
+  return initialData
+}
 
-  let yPosVec = { x: ((xPos + 48) / 96) * 4, y: ((zPos + 48) / 96) * 4 }
-  let yPos = getGpuNoise(yPosVec)
+const createNewPebble = (nickname, color, lastPosZ, lastXPos) => {
+  let xPos = randomChoiceExcluding([-18, -12, -6, 6, 0, 12, 18], lastXPos)
+  let zPos = lastPosZ
+  let yPosVec = {
+    x: ((xPos + c.sceneRadius) / c.sceneLoopLength) * c.terrainFrequency,
+    y: ((zPos + c.sceneRadius) / c.sceneLoopLength) * c.terrainFrequency,
+  }
+  let yPos = getGpuNoise(yPosVec) * c.terrainAmplitude
 
-  let item = {
-    position: [xPos, yPos * 4, zPos],
+  return {
+    position: [xPos, yPos, zPos],
     rotation: randomEuler(),
     scale: randomScale(),
-    color: randomChoice(ghibliPalette),
-    uid: pos,
-    created: randomDate(new Date(2023, 0, 1), new Date(2023, 11, 31)),
+    color: c.ghibliPalette[color],
+    uid: lastPosZ,
+    created: new Date(),
+    by: nickname,
+    linkedBioId: randomChoice([0, 1, 2, 3, 4, 5, 6]),
   }
-  currentChunk.push(item)
-  pos += randomChoice([12, 12])
 }
 
-data.push(currentChunk)
-
-export const usePebblesStore = create((set) => ({
+export const usePebblesStore = create((set, get) => ({
   hasStarted: false,
   hasCreate: false,
-  selected: null,
-  pebblesData: data,
   hasDetails: false,
+  pebblesData: [],
+  selected: null,
   selectedPos: null,
+  pebbleLastPosZ: 0,
+  pebbleLastXPos: null,
+  pebblesCount: 0,
+  /* setters */
   setSelected: (uid, position) => set({ selected: uid, selectedPos: position }),
   setHasStarted: (value) => set({ hasStarted: value }),
   setHasDetails: (value) => set({ hasDetails: value }),
   setHasCreate: (value) => set({ hasCreate: value }),
+  setInitialData: () => {
+    const currentState = get()
+    const initialData = generateInitialData(
+      currentState.pebbleLastPosZ,
+      currentState.pebbleLastXPos,
+      2048,
+    )
+    set((state) => ({
+      pebblesData: initialData,
+    }))
+  },
+  createPebble: (nickname, color) => {
+    const currentState = get()
+    const newPebble = createNewPebble(
+      nickname,
+      color,
+      currentState.pebbleLastPosZ,
+      currentState.pebbleLastXPos,
+    )
+    const currentChunkIndex = Math.floor(currentState.pebbleLastPosZ / c.chunkSize)
+    if (!currentState.pebblesData[currentChunkIndex]) {
+      currentState.pebblesData[currentChunkIndex] = []
+    }
+    currentState.pebblesData[currentChunkIndex].push(newPebble)
+    set((state) => ({
+      pebblesData: currentState.pebblesData,
+      pebbleLastPosZ: state.pebbleLastPosZ + c.pebblesOffsetZ,
+      pebblesCount: state.pebblesCount + 1,
+      hasCreate: false,
+      selected: 0,
+      selectedPos: newPebble.position,
+      hasDetails: true,
+    }))
+  },
 }))
 
 export const useScrollStore = create((set) => ({

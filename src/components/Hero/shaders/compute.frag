@@ -2,6 +2,9 @@ precision highp float;
 
 uniform vec3 cam;
 uniform float time;
+uniform float terrainAmplitude;
+uniform float terrainFrequency;
+uniform float sceneLoopLength;
 
 varying vec2 vUv;
 
@@ -36,9 +39,9 @@ void main() {
   vec2 camVec = vec2(cam.x, cam.z);
   vec2 timeVec = vec2(time * -0.125 * 0.5);
 
-  vec2 camFactor = vUv + (camVec / 96.0);
+  vec2 camFactor = vUv + (camVec / sceneLoopLength);
 
-  float displacement = smoothNoise(camFactor * 6.0);
+  float displacement = smoothNoise(camFactor * terrainFrequency);
 
   float wind = smoothNoise((camFactor + timeVec * 0.25) * 48.0);
   wind += smoothNoise((camFactor - timeVec * 0.5) * 128.0) * 0.5;
@@ -70,5 +73,5 @@ void main() {
   // Multiply the radial gradient with the noise-based fog
   fog = clamp(radialGradient * 1.5 - noiseFog * 1.5, 0.0, 1.0);
 
-  gl_FragColor = vec4(displacement * 4.0, wind * 1.2, clouds, fog);
+  gl_FragColor = vec4(displacement * terrainAmplitude, wind * 1.2, clouds, fog);
 }

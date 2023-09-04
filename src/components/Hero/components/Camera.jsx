@@ -3,6 +3,8 @@ import { PerspectiveCamera } from '@react-three/drei'
 import * as THREE from 'three'
 import useSafeFrame from '../hooks/useSafeFrame'
 
+import * as c from '../sceneConfig'
+
 import { usePebblesStore } from '../store'
 import { useScrollStore } from '../store'
 
@@ -24,11 +26,11 @@ export const Camera = () => {
 
   const moveCameraOnScroll = () => {
     const scrollProgress = useScrollStore.getState().scroll
-    forwardPositionRef.current.z = scrollProgress * 2
+    forwardPositionRef.current.z = scrollProgress * 20
   }
 
   const setCameraPosZ = () => {
-    forwardLookAtRef.current.z = targetPositionRef.current.z + 48
+    forwardLookAtRef.current.z = targetPositionRef.current.z + c.sceneRadius
   }
 
   const setCameraForward = () => {
@@ -40,12 +42,12 @@ export const Camera = () => {
     targetPositionRef.current.set(
       selectedPos[0] + CAMERA_OFFSET[0],
       selectedPos[1] + CAMERA_OFFSET[1],
-      selectedPos[2] + CAMERA_OFFSET[2],
+      selectedPos[2] + CAMERA_OFFSET[2] + c.sceneOffsetZ,
     )
     targetLookAtRef.current.set(
       selectedPos[0] + TARGET_OFFSET[0],
       selectedPos[1] + TARGET_OFFSET[1],
-      selectedPos[2] + TARGET_OFFSET[2],
+      selectedPos[2] + TARGET_OFFSET[2] + c.sceneOffsetZ,
     )
   }
 

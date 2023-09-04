@@ -1,5 +1,5 @@
 import { useRenderedTexture } from '../hooks/useRenderedTexture'
-import * as THREE from 'three'
+import * as c from '../sceneConfig'
 
 export const TextureTest = () => {
   const { renderedTexture, portal } = useRenderedTexture()
@@ -7,8 +7,12 @@ export const TextureTest = () => {
   return (
     <>
       {portal}
-      <mesh position={[0, 0, 48]} rotation={[Math.PI / 2, Math.PI, 0]} frustumCulled={false}>
-        <planeGeometry args={[96, 96]} />
+      <mesh
+        position={[0, 0, c.sceneRadius]}
+        rotation={[Math.PI / 2, Math.PI, 0]}
+        frustumCulled={false}
+      >
+        <planeGeometry args={[c.sceneLoopLength, c.sceneLoopLength]} />
         <meshBasicMaterial map={renderedTexture} />
       </mesh>
     </>

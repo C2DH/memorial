@@ -18,22 +18,20 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
   diffuseMap.flipY = false
 
   const instancedMeshRef = useRef()
-
-  const _tempPebblePostionRef = useRef(new THREE.Vector3(0, 0, 0))
-  const _tempPebbleMat4 = useRef(new THREE.Matrix4())
-
-  const lightDirection = useMemo(() => new THREE.Vector3(-4, 8, -2), [])
+  const tempPebblePostionRef = useRef(new THREE.Vector3(0, 0, 0))
+  const tempPebbleMat4 = useRef(new THREE.Matrix4())
+  const tempColorRef = useRef(new THREE.Color())
 
   const uniforms = useMemo(
     () => ({
-      lightDirection: { value: lightDirection },
+      lightDirection: { value: new THREE.Vector3(-4, 8, -2) },
       renderedTexture: { value: renderedTexture },
       diffuseMap: { value: diffuseMap },
       skyColor: { value: skyColor.current },
       groundColor: { value: groundColor.current },
       zOffset: { value: c.sceneOffsetZ },
     }),
-    [diffuseMap, groundColor, renderedTexture, skyColor, lightDirection],
+    [diffuseMap, groundColor, renderedTexture, skyColor],
   )
 
   const { setSelected, setHasCreate, setHasDetails, setHasStarted, pebblesData } =
@@ -41,18 +39,15 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
 
   const handleOnClick = useCallback(
     (event) => {
-      const position = [
-        pebblesData[event.instanceId].position[0],
-        pebblesData[event.instanceId].position[1],
-        pebblesData[event.instanceId].position[2],
-      ]
-      setSelected(event.instanceId, position)
+      const { instanceId } = event
+      const { position } = relevantDataRef.current[instanceId]
+      setSelected(instanceId, position)
       setHasCreate(false)
       setHasDetails(true)
       setHasStarted(true)
       event.stopPropagation()
     },
-    [pebblesData, setSelected, setHasCreate, setHasDetails, setHasStarted],
+    [setSelected, setHasCreate, setHasDetails, setHasStarted],
   )
 
   const handlePointerMiss = useCallback(() => {
@@ -61,30 +56,58 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
     setHasDetails(false)
   }, [setHasCreate, setSelected, setHasDetails])
 
-  useFrame(({ camera }) => {
-    let count = 0
-    const cameraPosition = camera.position.clone().z
-    const currentChunkIndex = Math.floor(cameraPosition / c.chunkSize)
+  const lastChunkIndex = useRef(null)
+  const relevantDataRef = useRef([])
+  const previousPebblesCount = useRef(0)
+
+  const updateRelevantData = (currentChunkIndex) => {
+    lastChunkIndex.current = currentChunkIndex
     const startChunk = Math.max(0, currentChunkIndex - 1)
-    const endChunk = Math.min(pebblesData.length - 1, currentChunkIndex + 1)
-    const relevantData = [].concat(...pebblesData.slice(startChunk, endChunk + 1))
+    const nextChunk = Math.min(pebblesData.length - 1, startChunk + 1)
+    const endChunk = Math.min(pebblesData.length - 1, startChunk + 2)
+    console.info(`CURRENT CHUNKS: ${startChunk} - ${nextChunk} - ${endChunk}`)
+    relevantDataRef.current = [
+      ...pebblesData[startChunk],
+      ...pebblesData[nextChunk],
+      ...pebblesData[endChunk],
+    ]
+  }
 
-    relevantData.forEach((pebble, i) => {
-      _tempPebblePostionRef.current.set(
-        pebble.position[0],
-        pebble.position[1],
-        pebble.position[2] + c.sceneOffsetZ,
-      )
+  const updateInstancedMesh = (cameraPositionZ, pebble, count) => {
+    tempPebblePostionRef.current.set(
+      pebble.position[0],
+      pebble.position[1],
+      pebble.position[2] + c.sceneOffsetZ,
+    )
 
-      const isInView =
-        cameraPosition - _tempPebblePostionRef.current.z > -c.sceneRadius - c.sceneOffsetZ
+    const isInView =
+      cameraPositionZ - tempPebblePostionRef.current.z > -c.sceneRadius - c.sceneOffsetZ
 
-      if (isInView) {
-        _tempPebbleMat4.current.setPosition(_tempPebblePostionRef.current)
-        instancedMeshRef.current.setMatrixAt(count, _tempPebbleMat4.current)
-        instancedMeshRef.current.setColorAt(count, new THREE.Color(pebble.color))
-      }
+    if (isInView) {
+      tempPebbleMat4.current.setPosition(tempPebblePostionRef.current)
+      instancedMeshRef.current.setMatrixAt(count, tempPebbleMat4.current)
+      tempColorRef.current.set(pebble.color)
+      instancedMeshRef.current.setColorAt(count, tempColorRef.current)
+    }
+  }
 
+  useFrame(({ camera }) => {
+    if (pebblesData.length === 0) return
+    let count = 0
+    const cameraPositionZ = camera.position.clone().z
+    const currentChunkIndex = Math.floor(cameraPositionZ / c.chunkSize)
+
+    if (lastChunkIndex.current !== currentChunkIndex) {
+      updateRelevantData(currentChunkIndex)
+    }
+
+    if (previousPebblesCount.current !== usePebblesStore.getState().pebblesCount) {
+      previousPebblesCount.current = usePebblesStore.getState().pebblesCount
+      updateRelevantData(currentChunkIndex)
+    }
+
+    relevantDataRef.current.forEach((pebble, i) => {
+      updateInstancedMesh(cameraPositionZ, pebble, count)
       count++
     })
 
@@ -96,7 +119,7 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
   return (
     <instancedMesh
       ref={instancedMeshRef}
-      args={[nodes.rock.geometry, null, 64]}
+      args={[nodes.rock.geometry, null, 24]}
       frustumCulled={false}
       onClick={handleOnClick}
       onPointerMissed={handlePointerMiss}

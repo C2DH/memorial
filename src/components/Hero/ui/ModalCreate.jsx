@@ -46,19 +46,24 @@ const wrap = (min, max, value) => {
 
 export const ModalCreate = ({ ...props }) => {
   const pebbles = [
-    { title: 'Pebble 1' },
-    { title: 'Pebble 2' },
-    { title: 'Pebble 3' },
-    { title: 'Pebble 4' },
-    { title: 'Pebble 5' },
+    { title: 'Color Option 1', id: 0 },
+    { title: 'Color Option 2', id: 1 },
+    { title: 'Color Option 3', id: 2 },
+    { title: 'Color Option 4', id: 3 },
+    { title: 'Color Option 5', id: 4 },
   ]
 
-  const { hasCreate } = usePebblesStore()
+  const { hasCreate, setHasCreate, setSelected, createPebble } = usePebblesStore()
+
   const [[page, direction], setPage] = useState([0, 0])
 
+  const handleCreatePebble = () => {
+    createPebble(nickname, color)
+  }
+
   const handleClose = () => {
-    usePebblesStore.getState().setHasCreate(false)
-    usePebblesStore.getState().setSelected(null)
+    setHasCreate(false)
+    setSelected(null)
   }
 
   const paginate = (newDirection) => {
@@ -66,6 +71,10 @@ export const ModalCreate = ({ ...props }) => {
   }
 
   const pebbleIndex = wrap(0, pebbles.length, page)
+
+  const [nickname, setNickname] = useState('')
+  // eslint-disable-next-line no-unused-vars
+  const [color, setColor] = useState(pebbles[0].id)
 
   return (
     <AnimatePresence>
@@ -80,13 +89,14 @@ export const ModalCreate = ({ ...props }) => {
             <IconsClose />
           </div>
           <div className="modal__top2">
-            <div className="modal__overline">Select Pebble</div>
+            <div className="modal__overline">Choose a Pebble Color:</div>
             <div className="modal__carousel">
               <Divider />
               <div className="modal__wrapper">
                 <IconsPrev onClick={() => paginate(-1)} />
                 <div className="modal__carousel-pebble">
                   <AnimatePresence initial={false} custom={direction}>
+                    {/* each slide is a different color selector */}
                     <motion.div
                       key={page}
                       className="modal__carousel-slide"
@@ -114,6 +124,7 @@ export const ModalCreate = ({ ...props }) => {
                     >
                       <div className="modal__carousel-img">
                         <img src="/pebbleTest.png" alt={pebbles[pebbleIndex].title} />
+                        <p className="modal__overline">{pebbles[pebbleIndex].title}</p>
                       </div>
                     </motion.div>
                   </AnimatePresence>
@@ -125,17 +136,22 @@ export const ModalCreate = ({ ...props }) => {
           </div>
           <div className="modal__bottom">
             <div className="modal__names">
-              <div className="modal__biography-selector">
-                <div className="modal__in-memory-of">in memory of </div>
-                <div className="modal__selector">
-                  <div className="modal__select-biography">select biography </div>
-                </div>
-                <Divider />
+              <div className="modal__nickname">
+                <label htmlFor="nickname" className="modal__overline">
+                  Nickname
+                </label>
+                <input
+                  type="text"
+                  id="nickname"
+                  className="modal__nickname-input"
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
+                />
               </div>
             </div>
           </div>
           <div className="modal__actions">
-            <Button text="Create" variant="dark" />
+            <Button text="Create" variant="dark" onClick={handleCreatePebble} />
           </div>
         </motion.div>
       )}

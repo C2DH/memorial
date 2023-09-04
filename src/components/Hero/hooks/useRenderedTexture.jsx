@@ -6,6 +6,8 @@ import { useFBO } from '@react-three/drei'
 import vertex from '../shaders/compute.vert'
 import fragment from '../shaders/compute.frag'
 
+import * as c from '../sceneConfig'
+
 export const useRenderedTexture = () => {
   const otherScene = useRef(new THREE.Scene())
   const mainCamera = useRef(new THREE.Vector3(0, 0, 0))
@@ -47,6 +49,9 @@ function Container({ renderTarget, otherScene, cameraPosition }) {
     () => ({
       time: { value: 0.0 },
       cam: { value: new THREE.Vector3(0, 0, 0) },
+      terrainAmplitude: { value: c.terrainAmplitude },
+      terrainFrequency: { value: c.terrainFrequency },
+      sceneLoopLength: { value: c.sceneLoopLength },
     }),
     [],
   )
