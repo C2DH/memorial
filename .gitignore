@@ -24,8 +24,8 @@ yarn-debug.log*
 yarn-error.log*
 
 setupProxy.log
-.env.development
-
+.env.development*
+.env.production*
 # Local Netlify folder
 .netlify
 netlify.toml
