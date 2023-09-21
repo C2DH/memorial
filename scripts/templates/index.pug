@@ -1,0 +1,14 @@
+extends layout.pug
+
+block content
+  h1= site.title
+  h2= site.description
+  
+  // list all the Themes
+  if data
+    ul
+      each theme in data.themes
+        li
+          - url = theme.path + '?lang=' + language.value
+          a(href=url) !{theme.contents.title}
+          blockquote !{theme.contents.abstract}

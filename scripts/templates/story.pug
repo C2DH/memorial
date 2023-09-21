@@ -1,0 +1,28 @@
+//- page-a.pug
+extends layout.pug
+
+block content
+  h1 !{contents.title}
+  h2 !{contents.abstract}
+  
+  //- chapters for this theme, if any
+  if data.chapters
+    ul
+      each chapter in data.chapters
+        li
+          - url = chapter.path + '?lang=' + language.value
+          a(href=url) !{chapter.title}
+  
+  if data.documents
+    ul
+      each doc in data.documents
+        li
+          h3
+            if doc.url
+              - href = doc.url + '?lang=' + language.value
+              a(href=href)!= doc.title
+            else
+              p!= doc.title
+          p!= doc.type
+          
+          

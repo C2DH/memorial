@@ -1,0 +1,53 @@
+//- layout.pug
+html(lang=language.value)
+  head
+    - url = contents.og.url
+    - title = contents.og.title
+    - description = contents.og.description
+    - image = contents.og.image
+    - sitename = site.title
+    meta(charset="UTF-8")
+    //- twitter
+    meta(name="twitter:card",content="summary")
+    meta(name="twitter:creator",content="@C2DH_LU")
+    //- open graph 
+    meta(property="og:site_name",content=sitename)
+    meta(property="og:type",content="website")
+    meta(property="og:url",content=url)
+    meta(property="og:title",content=title)
+    meta(property="og:description",content=description)
+    meta(name="description",content=description)
+    meta(property="og:image",content=image)
+  body
+    block header
+      header#header
+        - url = basepath + '?lang=' + language.value
+        a(href=url)= site.title
+        nav
+          ul.nav
+            each item in links.primary
+              - url = item.url + '?lang=' + language.value
+              li.nav-item
+                a.nav-link(href=url)= item.title
+
+    block content
+
+    footer#footer
+      nav
+        if languages.length
+          each l in languages
+            unless l.value === language.value
+              - url = path + '?lang=' + l.value
+              a.nav-link.language(href=url)= l.text
+              
+      block foot
+        
+      nav
+        each item in links.secondary
+          - url = item.url + '?lang=' + language.value
+          a.nav-link(href=url)= item.title
+      
+      for link in links.others
+        - l = language.value
+        - text = link.text[l]
+        a(href=link.url)= link.text[l]
