@@ -22,28 +22,44 @@ varying float vWindForce;
 varying vec3 vNormal;
 varying vec3 vNewPos;
 varying vec2 vInstanceUv;
+varying mat4 vRotMat;
+varying mat4 vRotMat2;
+varying float vScale;
 
 uniform float instanceCount;
 uniform float radius;
 
 uniform sampler2D renderedTexture;
+uniform sampler2D grassDisplacement;
 uniform sampler2D texBlade;
 
 uniform float zOffset;
 
-mat3 rotationMatrix(vec3 angles) {
-    float s1 = sin(angles.x);
-    float s2 = sin(angles.y);
-    float s3 = sin(angles.z);
-    float c1 = cos(angles.x);
-    float c2 = cos(angles.y);
-    float c3 = cos(angles.z);
+float noise(vec2 uv) {
+    return fract(sin(dot(uv, vec2(12.9898, 73.233))) * 43758.5453);
+}
 
-    mat3 rx = mat3(1, 0, 0, 0, c1, -s1, 0, s1, c1);
-    mat3 ry = mat3(c2, 0, s2, 0, 1, 0, -s2, 0, c2);
-    mat3 rz = mat3(c3, -s3, 0, s3, c3, 0, 0, 0, 1);
+float smoothNoise(vec2 uv) {
+    vec2 lv = fract(uv);
+    vec2 id = floor(uv);
 
-    return rz * rx * ry;
+    lv = lv * lv * (3.0 - 2.0 * lv);
+
+    float bl = noise(id);
+    float br = noise(id + vec2(1, 0));
+    float tl = noise(id + vec2(0, 1));
+    float tr = noise(id + vec2(1, 1));
+
+    float b = mix(bl, br, lv.x);
+    float t = mix(tl, tr, lv.x);
+
+    return mix(b, t, lv.y);
+}
+
+mat4 rotationY(float angle) {
+    float s = sin(angle);
+    float c = cos(angle);
+    return mat4(c, 0.0, s, 0.0, 0.0, 1.0, 0.0, 0.0, -s, 0.0, c, 0.0, 0.0, 0.0, 0.0, 1.0);
 }
 
 void main() {
@@ -62,8 +78,8 @@ void main() {
     vRandIDa = randIDa;
     vRandIDb = randIDb;
 
-    float randomOffsetX = (randIDa - 0.5) * 0.35;
-    float randomOffsetY = (randIDb - 0.5) * 0.35;
+    float randomOffsetX = (randIDa - 0.5) * 0.5;
+    float randomOffsetY = (randIDb - 0.5) * 0.5;
 
     // Square distribution
     float n = sqrt(instanceCount);
@@ -84,46 +100,45 @@ void main() {
 
     vInstanceUv = instanceUv;
 
+    float scaleNoise = smoothNoise(vec2(x, z) * 0.25);
+    scaleNoise += smoothNoise(vec2(x, z) * 1.0) * 0.75;
+    scaleNoise /= 1.75;
+
+    float scaleValue = mix(0.8, 1.8, scaleNoise);
+
+    vScale = scaleValue;
+
     // Textures data
     vec4 noiseTexture = texture2D(renderedTexture, instanceUv);
-    vec4 bladeTexture = texture2D(texBlade, uv);
+    vec4 bend = texture2D(grassDisplacement, uv);
+
+    vec3 bendVec = vec3(position.x, bend.z, bend.y);
 
     float heighMap = noiseTexture.r;
-    float windForce = (noiseTexture.g - 0.2) * 2.0;
-    float windForceNormal = abs(windForce);
-    float flexFactor = bladeTexture.r;
+    float windForce = (noiseTexture.g);
 
     vWindForce = windForce;
 
     vec3 positionGrid = vec3(x + randomOffsetX, 0.0, z + randomOffsetY);
     vec3 positionHeight = vec3(0.0, heighMap, 0.0);
 
-    vec3 scaledPosition = position;
+    mat4 rotMat = rotationY(-PI * (0.5 - randIDa * 0.15));
+    mat4 rotMat2 = rotationY(PI * (0.1 - randIDb * 0.8));
 
-    float distCorrection = pow(length(instanceUv - vec2(0.5)), 2.5);
+    vRotMat = rotMat;
+    vRotMat2 = rotMat;
 
-    scaledPosition.x *= 0.95 + randIDa * 0.5;
-    scaledPosition.x *= 1.0 + 10.0 * distCorrection;
-    scaledPosition.y -= 1.0 * distCorrection;
-    scaledPosition.y *= 1.0 + distCorrection + randIDb * 0.75;
+    bendVec = (rotMat * vec4(bendVec, 1.0)).xyz;
+    vec3 rotPos = (rotMat2 * vec4(position, 1.0)).xyz;
 
-    float thetaY = mix(-PI, PI, randIDa);
-    float thetaX = mix(-PI * 0.15, PI * 0.15, randIDa);
+    vec3 bendPosition = mix(rotPos, bendVec, windForce);
 
-    vec3 rotationAngles = vec3(thetaX, thetaY, 0.0);
-    vec3 rotatedPosition = rotationMatrix(rotationAngles) * scaledPosition;
-
-    vec3 bendPosition = rotatedPosition;
-
-    bendPosition.x += flexFactor * windForce + 0.95;
-    bendPosition.y -= pow(flexFactor, 2.0) * windForceNormal * 2.0;
-    bendPosition.z += flexFactor * windForce;
+    bendPosition *= scaleValue;
 
     vec3 positionNew = bendPosition + positionGrid + positionHeight;
     positionNew.z += zOffset;
 
     vNewPos = positionNew;
-    vNormal = normalize(rotationMatrix(rotationAngles) * normal);
 
     gl_Position = projectionMatrix * modelViewMatrix * modelMatrix * vec4(positionNew, 1.0);
 }

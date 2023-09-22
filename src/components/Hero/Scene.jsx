@@ -20,6 +20,7 @@ export const Scene = () => {
   return (
     <>
       {portal}
+
       <Sky renderedTexture={renderedTexture} skyColor={skyColor} groundColor={groundColor} />
       <Grass renderedTexture={renderedTexture} skyColor={skyColor} groundColor={groundColor} />
       <Terrain renderedTexture={renderedTexture} skyColor={skyColor} groundColor={groundColor} />

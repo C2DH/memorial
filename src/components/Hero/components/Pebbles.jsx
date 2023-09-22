@@ -11,27 +11,30 @@ import fragment from '../shaders/pebble.frag'
 
 import * as c from '../sceneConfig'
 
-export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
-  const { nodes } = useGLTF('/models.glb')
+const tempObject = new THREE.Object3D()
 
-  const diffuseMap = useTexture('/bakedRock.png')
+export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
+  const { nodes } = useGLTF('/models/models.glb')
+
+  const diffuseMap = useTexture('/texture/pebbleColor.png')
+  const normalMap = useTexture('/texture/pebbleBakedNormalsOBJ.png')
   diffuseMap.flipY = false
+  normalMap.flipY = false
 
   const instancedMeshRef = useRef()
-  const tempPebblePostionRef = useRef(new THREE.Vector3(0, 0, 0))
-  const tempPebbleMat4 = useRef(new THREE.Matrix4())
   const tempColorRef = useRef(new THREE.Color())
 
   const uniforms = useMemo(
     () => ({
-      lightDirection: { value: new THREE.Vector3(-4, 8, -2) },
+      lightDirection: { value: new THREE.Vector3(-48, 48 * 2, 0) },
       renderedTexture: { value: renderedTexture },
       diffuseMap: { value: diffuseMap },
+      normalMap: { value: normalMap },
       skyColor: { value: skyColor.current },
       groundColor: { value: groundColor.current },
       zOffset: { value: c.sceneOffsetZ },
     }),
-    [diffuseMap, groundColor, renderedTexture, skyColor],
+    [diffuseMap, normalMap, groundColor, renderedTexture, skyColor],
   )
 
   const { setSelected, setHasCreate, setHasDetails, setHasStarted, pebblesData } =
@@ -40,8 +43,8 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
   const handleOnClick = useCallback(
     (event) => {
       const { instanceId } = event
-      const { position } = relevantDataRef.current[instanceId]
-      setSelected(instanceId, position)
+      const data = relevantDataRef.current[instanceId]
+      setSelected(data)
       setHasCreate(false)
       setHasDetails(true)
       setHasStarted(true)
@@ -62,7 +65,7 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
 
   const updateRelevantData = (currentChunkIndex) => {
     lastChunkIndex.current = currentChunkIndex
-    const startChunk = Math.max(0, currentChunkIndex - 1)
+    const startChunk = Math.min(Math.max(0, currentChunkIndex - 1), pebblesData.length - 1)
     const nextChunk = Math.min(pebblesData.length - 1, startChunk + 1)
     const endChunk = Math.min(pebblesData.length - 1, startChunk + 2)
     console.info(`CURRENT CHUNKS: ${startChunk} - ${nextChunk} - ${endChunk}`)
@@ -74,20 +77,27 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
   }
 
   const updateInstancedMesh = (cameraPositionZ, pebble, count) => {
-    tempPebblePostionRef.current.set(
+    tempObject.position.set(
       pebble.position[0],
       pebble.position[1],
       pebble.position[2] + c.sceneOffsetZ,
     )
+    tempObject.rotation.x = pebble.rotation[0]
+    tempObject.rotation.y = pebble.rotation[1]
+    tempObject.rotation.z = pebble.rotation[2]
 
-    const isInView =
-      cameraPositionZ - tempPebblePostionRef.current.z > -c.sceneRadius - c.sceneOffsetZ
+    tempObject.updateMatrix()
+
+    const isInView = cameraPositionZ - tempObject.position.z > -c.sceneRadius - c.sceneOffsetZ
 
     if (isInView) {
-      tempPebbleMat4.current.setPosition(tempPebblePostionRef.current)
-      instancedMeshRef.current.setMatrixAt(count, tempPebbleMat4.current)
+      instancedMeshRef.current.setMatrixAt(count, tempObject.matrix)
+
       tempColorRef.current.set(pebble.color)
       instancedMeshRef.current.setColorAt(count, tempColorRef.current)
+
+      instancedMeshRef.current.instanceMatrix.needsUpdate = true
+      instancedMeshRef.current.instanceColor.needsUpdate = true
     }
   }
 
@@ -111,15 +121,13 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
       count++
     })
 
-    instancedMeshRef.current.instanceMatrix.needsUpdate = true
-    instancedMeshRef.current.instanceColor.needsUpdate = true
     instancedMeshRef.current.computeBoundingSphere()
   })
 
   return (
     <instancedMesh
       ref={instancedMeshRef}
-      args={[nodes.rock.geometry, null, 24]}
+      args={[nodes.pebble.geometry, null, 24]}
       frustumCulled={false}
       onClick={handleOnClick}
       onPointerMissed={handlePointerMiss}

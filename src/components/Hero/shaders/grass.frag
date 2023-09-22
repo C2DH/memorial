@@ -1,55 +1,60 @@
 precision highp float;
 
 uniform sampler2D texBlade;
+uniform sampler2D grassNormals;
+uniform sampler2D grassBendNormals;
 uniform sampler2D renderedTexture;
 uniform vec3 skyColor;
 uniform vec3 groundColor;
+uniform vec3 lightDirection;
+uniform float terrainAmplitude;
 
 varying vec2 vUv;
 varying float vRandIDa;
 varying float vRandIDb;
 varying vec2 vInstanceUv;
 varying float vWindForce;
+varying vec3 vNewPos;
+varying mat4 vRotMat;
+varying mat4 vRotMat2;
 
-vec3 hsv2rgb(vec3 c) {
-    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
-    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
-    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
-}
+varying float vScale;
 
 void main() {
-    float segments = 8.0;
-    float segmentWidth = 1.0 / segments;
+    vec4 computeTexture = texture2D(renderedTexture, vInstanceUv);
 
-    float offsetX = mod(floor(vRandIDa * segments), segments) * segmentWidth;
+    float height = computeTexture.r;
+    float heightFactor = mix(0.5 - vRandIDa * 0.15, 3.5 - vScale, height / terrainAmplitude);
 
-    vec2 texOffset = vec2(vUv.x + offsetX, vUv.y);
-    vec4 texColor = texture2D(texBlade, texOffset);
-    vec4 texNoise = texture2D(renderedTexture, vec2(vInstanceUv.x, vInstanceUv.y));
+    vec3 yellows = vec3(1.0, 0.75, 0.25) * .65;
+    vec3 greens = vec3(0.5, 1.0, 0.25) * .45;
 
-    if(texColor.g < 0.35)
-        discard;
+    vec3 color = mix(yellows, greens, (vScale + vRandIDb * 0.5) / 1.5);
+    color = (color - 0.25 * vRandIDb) * heightFactor + skyColor * 0.25;
 
-    float stiffness = texColor.r;
-    float detail = texColor.g;
-    float light = texColor.b;
+    vec3 light = normalize(lightDirection);
 
-    float depth = mix(0.1, 0.4, texNoise.r / 6.0);
-    float clouds = mix(0.1, -0.1, texNoise.b);
+    vec3 normals = 2.0 * texture2D(grassNormals, vUv).rgb - 1.0;
+    vec3 normalsBend = 2.0 * texture2D(grassBendNormals, vUv).rgb - 1.0;
 
-    float hueRange = mix(0.1, 0.25, texNoise.b);
-    float satRange = mix(0.75, 0.5, texNoise.b);
-    float yelloRange = mix(1.25, 0.85, texNoise.b);
+    vec3 c_normals = vec3(normals.x, normals.z, -normals.y);
+    vec3 c_normalsBend = vec3(normalsBend.x, normalsBend.z, -normalsBend.y);
 
-    float brightness = clamp(detail * yelloRange + depth + clouds, 0.2, 0.8);
+    c_normals = (vRotMat2 * vec4(c_normals, 1.0)).xyz;
+    c_normalsBend = (vRotMat * vec4(c_normalsBend, 1.0)).xyz;
 
-    float bb = mix(brightness + (light * 0.5 - 0.25), brightness, vWindForce);
+    vec3 computedNormals = mix(c_normals, c_normalsBend, vWindForce);
 
-    vec3 hsvColor = vec3(hueRange, satRange, bb);
-    vec3 rgbColor = hsv2rgb(hsvColor);
+    float diffuse = max(dot(computedNormals, light), 0.25);
+    vec3 diffuseColor = diffuse * color;
 
-    vec3 gradientColor = mix(groundColor, rgbColor, pow(stiffness, 1.5));
-    vec3 finalColor = mix(gradientColor, skyColor, texNoise.a);
+    float blendFactor = smoothstep(computeTexture.r + 0.0, computeTexture.r + 0.35, vNewPos.y);
+    vec3 blendColor = mix(groundColor, diffuseColor, blendFactor);
+
+    float fog = computeTexture.a;
+    vec3 fogColor = mix(blendColor, skyColor, fog);
+
+    vec3 finalColor = fogColor;
 
     gl_FragColor = vec4(finalColor, 1.0);
 }

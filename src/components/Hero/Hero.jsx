@@ -33,8 +33,10 @@ const Hero = () => {
         </div>
       </ScrollController>
       <Overlay />
-      <ModalDetails />
-      <ModalCreate />
+      <div className="hero__modals">
+        <ModalDetails />
+        <ModalCreate />
+      </div>
     </div>
   )
 }

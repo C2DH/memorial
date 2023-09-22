@@ -9,6 +9,8 @@ import { usePebblesStore } from '../store'
 
 import { motion, AnimatePresence } from 'framer-motion'
 
+import * as c from '../sceneConfig'
+
 const variants = {
   enter: (direction) => {
     return {
@@ -45,20 +47,14 @@ const wrap = (min, max, value) => {
 }
 
 export const ModalCreate = ({ ...props }) => {
-  const pebbles = [
-    { title: 'Color Option 1', id: 0 },
-    { title: 'Color Option 2', id: 1 },
-    { title: 'Color Option 3', id: 2 },
-    { title: 'Color Option 4', id: 3 },
-    { title: 'Color Option 5', id: 4 },
-  ]
+  const pebbleOptions = [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }]
 
   const { hasCreate, setHasCreate, setSelected, createPebble } = usePebblesStore()
 
   const [[page, direction], setPage] = useState([0, 0])
 
   const handleCreatePebble = () => {
-    createPebble(nickname, color)
+    createPebble(nickname, selectedColor)
   }
 
   const handleClose = () => {
@@ -66,40 +62,39 @@ export const ModalCreate = ({ ...props }) => {
     setSelected(null)
   }
 
+  const pebbleIndex = wrap(0, pebbleOptions.length, page)
+
   const paginate = (newDirection) => {
     setPage([page + newDirection, newDirection])
+    setColor(wrap(0, pebbleOptions.length, page + newDirection))
   }
 
-  const pebbleIndex = wrap(0, pebbles.length, page)
-
   const [nickname, setNickname] = useState('')
-  // eslint-disable-next-line no-unused-vars
-  const [color, setColor] = useState(pebbles[0].id)
+  const [selectedColor, setColor] = useState(0)
 
   return (
     <AnimatePresence>
       {hasCreate && (
         <motion.div
-          className="modal"
+          className="hero__modal"
           initial={{ opacity: 0, translateY: '8rem', scale: 0.85 }}
           animate={{ opacity: 1, translateY: '0rem', scale: 1 }}
           exit={{ opacity: 0, translateY: '8rem', scale: 0.85 }}
         >
-          <div className="modal__top" onClick={handleClose}>
+          <div className="hero__modal__top" onClick={handleClose}>
             <IconsClose />
           </div>
-          <div className="modal__top2">
-            <div className="modal__overline">Choose a Pebble Color:</div>
-            <div className="modal__carousel">
+          <div className="hero__modal__header">
+            <div className="hero__modal__overline">Choose a Pebble Color:</div>
+            <div className="hero__modal__carousel">
               <Divider />
-              <div className="modal__wrapper">
+              <div className="hero__modal__wrapper">
                 <IconsPrev onClick={() => paginate(-1)} />
-                <div className="modal__carousel-pebble">
+                <div className="hero__modal__carousel-pebble">
                   <AnimatePresence initial={false} custom={direction}>
-                    {/* each slide is a different color selector */}
                     <motion.div
                       key={page}
-                      className="modal__carousel-slide"
+                      className="hero__modal__carousel-slide"
                       custom={direction}
                       variants={variants}
                       initial="enter"
@@ -122,35 +117,56 @@ export const ModalCreate = ({ ...props }) => {
                         }
                       }}
                     >
-                      <div className="modal__carousel-img">
-                        <img src="/pebbleTest.png" alt={pebbles[pebbleIndex].title} />
-                        <p className="modal__overline">{pebbles[pebbleIndex].title}</p>
+                      <div className="hero__modal__carousel-img">
+                        <img
+                          src={`/pebbles/pebbleImage${[pebbleIndex + 1]}.png`}
+                          alt={pebbleOptions[pebbleIndex].title}
+                        />
                       </div>
                     </motion.div>
                   </AnimatePresence>
                 </div>
                 <IconsNext onClick={() => paginate(1)} />
               </div>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                {c.ghibliPalette.map((color, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      width: '1.5rem',
+                      height: '1.5rem',
+                      backgroundColor: color,
+                      borderRadius: '1rem',
+                      cursor: 'pointer',
+                      border: selectedColor === i ? '2px solid hsla(0,0%,0%, 0.3)' : 'none',
+                    }}
+                    onClick={() => {
+                      setColor(i)
+                      setPage([i, 0])
+                    }}
+                  ></div>
+                ))}
+              </div>
               <Divider />
             </div>
           </div>
-          <div className="modal__bottom">
-            <div className="modal__names">
-              <div className="modal__nickname">
-                <label htmlFor="nickname" className="modal__overline">
+          <div className="hero__modal__bottom">
+            <div className="hero__modal__names">
+              <div className="hero__modal__nickname">
+                <label htmlFor="nickname" className="hero__modal__overline">
                   Nickname
                 </label>
                 <input
                   type="text"
                   id="nickname"
-                  className="modal__nickname-input"
+                  className="hero__modal__nickname-input"
                   value={nickname}
                   onChange={(e) => setNickname(e.target.value)}
                 />
               </div>
             </div>
           </div>
-          <div className="modal__actions">
+          <div className="hero__modal__actions">
             <Button text="Create" variant="dark" onClick={handleCreatePebble} />
           </div>
         </motion.div>

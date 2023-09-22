@@ -18,7 +18,7 @@ export const Camera = () => {
   const currentPositionRef = useRef(new THREE.Vector3(0, 8, 0))
   const currentLookAtRef = useRef(new THREE.Vector3(0, 8, 48))
 
-  const selectedPos = usePebblesStore((state) => state.selectedPos)
+  const selectedTarget = usePebblesStore((state) => state.selectedPebble)
   const hasStarted = usePebblesStore((state) => state.hasStarted)
 
   const CAMERA_OFFSET = [-12, 8, -12]
@@ -40,14 +40,14 @@ export const Camera = () => {
 
   const setCameraToTarget = () => {
     targetPositionRef.current.set(
-      selectedPos[0] + CAMERA_OFFSET[0],
-      selectedPos[1] + CAMERA_OFFSET[1],
-      selectedPos[2] + CAMERA_OFFSET[2] + c.sceneOffsetZ,
+      selectedTarget.position[0] + CAMERA_OFFSET[0],
+      selectedTarget.position[1] + CAMERA_OFFSET[1],
+      selectedTarget.position[2] + CAMERA_OFFSET[2] + c.sceneOffsetZ,
     )
     targetLookAtRef.current.set(
-      selectedPos[0] + TARGET_OFFSET[0],
-      selectedPos[1] + TARGET_OFFSET[1],
-      selectedPos[2] + TARGET_OFFSET[2] + c.sceneOffsetZ,
+      selectedTarget.position[0] + TARGET_OFFSET[0],
+      selectedTarget.position[1] + TARGET_OFFSET[1],
+      selectedTarget.position[2] + TARGET_OFFSET[2] + c.sceneOffsetZ,
     )
   }
 
@@ -84,10 +84,10 @@ export const Camera = () => {
   useSafeFrame((_, delta) => {
     if (!hasStarted) {
       oscilateCamera()
-    } else if (hasStarted && selectedPos) {
+    } else if (hasStarted && selectedTarget) {
       setCameraToTarget()
       setCameraPosZ()
-    } else if (hasStarted && !selectedPos) {
+    } else if (hasStarted && !selectedTarget) {
       moveCameraOnScroll()
       setCameraForward()
       setCameraPosZ()

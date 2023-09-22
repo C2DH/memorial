@@ -32,7 +32,7 @@ export const Overlay = () => {
         {!hasStarted && (
           <motion.div
             className="overlay__intro-wrapper"
-            initial={{ opacity: 0, x: '-50%', y: '-4rem', scale: 0.85 }}
+            initial={{ opacity: 1, x: '-50%', y: '-4rem', scale: 0.85 }}
             animate={{ opacity: 1, x: '-50%', y: '0rem', scale: 1 }}
             exit={{ opacity: 0, x: '-50%', y: '-4rem', scale: 0.85 }}
             transition={{ type: 'spring', duration: 0.8 }}
@@ -57,7 +57,7 @@ export const Overlay = () => {
             transition={{ type: 'spring', duration: 0.8 }}
           >
             <div className="overlay__actions">
-              <Button text="Read Biographies" variant="dark" onClick={handleEnd} />
+              <Button text="About" variant="dark" onClick={handleEnd} />
               <Button text="Create Pebble" variant="light" onClick={handleCreate} />
             </div>
           </motion.div>

@@ -8,10 +8,16 @@ import fragment from '../shaders/grass.frag'
 import * as c from '../sceneConfig'
 
 export const Grass = ({ skyColor, groundColor, renderedTexture }) => {
-  const { nodes } = useGLTF('/models.glb')
-  const texBlade = useTexture('/textures.png')
+  const { nodes } = useGLTF('/models/models2.glb')
+  const texBlade = useTexture('/texture/textures.png')
+  const grassNormals = useTexture('/texture/grassNormals.png')
+  const grassBendNormals = useTexture('/texture/grassBendNormals.png')
+  const grassDisplacement = useTexture('/texture/grassDisplacement.png')
 
   texBlade.flipY = false
+  grassNormals.flipY = false
+  grassBendNormals.flipY = false
+  grassDisplacement.flipY = false
 
   const meshRef = useRef()
 
@@ -25,11 +31,25 @@ export const Grass = ({ skyColor, groundColor, renderedTexture }) => {
       instanceCount: { value: instances },
       renderedTexture: { value: renderedTexture },
       texBlade: { value: texBlade },
+      grassNormals: { value: grassNormals },
+      grassBendNormals: { value: grassBendNormals },
+      grassDisplacement: { value: grassDisplacement },
       skyColor: { value: skyColor.current },
       groundColor: { value: groundColor.current },
       zOffset: { value: c.sceneOffsetZ },
+      lightDirection: { value: new THREE.Vector3(-48, 48 * 2, 0) },
+      terrainAmplitude: { value: c.terrainAmplitude },
     }),
-    [groundColor, instances, renderedTexture, skyColor, texBlade],
+    [
+      grassBendNormals,
+      grassDisplacement,
+      grassNormals,
+      groundColor,
+      instances,
+      renderedTexture,
+      skyColor,
+      texBlade,
+    ],
   )
 
   return (

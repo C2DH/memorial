@@ -43,18 +43,12 @@ void main() {
 
   float displacement = smoothNoise(camFactor * terrainFrequency);
 
-  float wind = smoothNoise((camFactor + timeVec * 0.25) * 48.0);
-  wind += smoothNoise((camFactor - timeVec * 0.5) * 128.0) * 0.5;
-  wind += smoothNoise((camFactor - timeVec * 0.5) * 8.0) * 0.35;
-  wind += smoothNoise((camFactor - timeVec * 0.5) * 6.0) * 0.25;
+  float wind = smoothNoise((camFactor + timeVec * 8.0) * 4.0);
+  wind += smoothNoise((camFactor + timeVec * 2.0) * 48.0) * 0.5;
 
-  wind /= 2.15;
+  wind /= 1.5;
 
   float clouds = smoothNoise((camFactor) * 42.0);
-  clouds += smoothNoise((camFactor) * 120.0) * 0.5;
-  clouds += smoothNoise((camFactor) * 8.0) * 0.5;
-
-  wind /= 2.0;
 
   float fog = 0.0;
 
@@ -66,12 +60,11 @@ void main() {
 
   // Previous noise-based fog calculation
   float noiseFog = smoothNoise((camFactor) * 4.0);
-  noiseFog += smoothNoise((camFactor + timeVec) * 12.0) * 0.5;
   noiseFog += smoothNoise((camFactor) * 16.0) * 0.25;
-  noiseFog /= 1.75;
+  noiseFog /= 1.25;
 
   // Multiply the radial gradient with the noise-based fog
   fog = clamp(radialGradient * 1.5 - noiseFog * 1.5, 0.0, 1.0);
 
-  gl_FragColor = vec4(displacement * terrainAmplitude, wind * 1.2, clouds, fog);
+  gl_FragColor = vec4(displacement * terrainAmplitude, wind, clouds, fog);
 }

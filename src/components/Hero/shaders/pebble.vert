@@ -4,33 +4,39 @@ precision highp float;
 uniform mat4 modelMatrix;
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
+uniform mat3 normalMatrix;
 
+// three.js attributes
 attribute vec3 position;
 attribute vec3 normal;
 attribute vec2 uv;
 attribute mat4 instanceMatrix;
 attribute vec3 instanceColor;
-// end of three.js uniforms
 
+// Varyings to send data to the fragment shader
 varying vec2 vUv;
 varying vec4 vWorldPosition;
 varying vec3 vNormal;
 varying vec3 vColor;
-
-uniform float zOffset;
-
-vec3 transformNormal(vec3 v, mat3 m) {
-    return m * (v / vec3(dot(m[0], m[0]), dot(m[1], m[1]), dot(m[2], m[2])));
-}
+varying mat4 vInstanceMatrix;
+varying mat3 vNormalMatrix;
+varying mat3 vTest;
 
 void main() {
     vUv = uv;
     vColor = instanceColor;
-    vec3 offestPosition = vec3(position.x, position.y, position.z);
-    vec4 modelPosition = modelMatrix * instanceMatrix * vec4(offestPosition, 1.0);
 
+    vNormal = normal;
+    vInstanceMatrix = instanceMatrix;
+    vNormalMatrix = normalMatrix;
+
+    vTest = mat3(instanceMatrix);
+
+    vec3 scaledPosition = position;
+    scaledPosition *= 1.5;
+
+    vec4 modelPosition = modelMatrix * instanceMatrix * vec4(scaledPosition, 1.0);
     vWorldPosition = modelPosition;
-    vNormal = transformNormal(vec3(normal), mat3(instanceMatrix));
 
     gl_Position = projectionMatrix * viewMatrix * modelPosition;
 }

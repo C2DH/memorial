@@ -6,7 +6,7 @@ import fragment from '../shaders/terrain.frag'
 import * as c from '../sceneConfig'
 
 export const Terrain = ({ skyColor, groundColor, renderedTexture }) => {
-  const { nodes } = useGLTF('/models.glb')
+  const { nodes } = useGLTF('/models/models.glb')
 
   const uniforms = useMemo(
     () => ({

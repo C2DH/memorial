@@ -1,3 +1,5 @@
+import * as c from '../sceneConfig'
+
 export const randomChoice = (array) => {
   return array[Math.floor(Math.random() * array.length)]
 }
@@ -22,5 +24,9 @@ export const randomEuler = () => {
 }
 
 export const randomScale = () => {
-  return [0.5 + Math.random() * 0.5, 0.5 + Math.random() * 0.5, 0.5 + Math.random() * 0.5]
+  return [1.0 + Math.random() * 0.25, 1.0 + Math.random() * 0.25, 1.0 + Math.random() * 0.25]
+}
+
+export const getCurrentChunkIndex = (positionZ) => {
+  return Math.floor(positionZ / c.chunkSize)
 }

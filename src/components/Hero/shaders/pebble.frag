@@ -1,29 +1,49 @@
 precision highp float;
 
-uniform vec3 lightDirection;
+varying vec2 vUv;
+varying vec4 vWorldPosition;
+varying vec3 vNormal;
+varying vec3 vColor;
+varying mat4 vInstanceMatrix;
+varying mat3 vNormalMatrix;
+varying mat3 vTest;
 
+uniform sampler2D normalMap;
+uniform sampler2D diffuseMap;
+uniform sampler2D renderedTexture;
+uniform vec3 lightDirection;
 uniform vec3 skyColor;
 uniform vec3 groundColor;
 uniform vec3 cameraPosition;
-
-uniform sampler2D diffuseMap;
-uniform sampler2D renderedTexture;
-
-varying vec4 vWorldPosition;
-varying vec3 vNormal;
-varying vec2 vUv;
-varying vec3 vColor;
-
 uniform float zOffset;
 
+// Convert RGB to HSV
+vec3 rgb2hsv(vec3 c) {
+    vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+    vec4 p = mix(vec4(c.bg, K.wz), vec4(c.gb, K.xy), step(c.b, c.g));
+    vec4 q = mix(vec4(p.xyw, c.r), vec4(c.r, p.yzx), step(p.x, c.r));
+
+    float d = q.x - min(q.w, q.y);
+    float e = 1.0e-10;
+    return vec3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
+}
+
+// Convert HSV to RGB
+vec3 hsv2rgb(vec3 c) {
+    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+}
+
+// Shift the hue of a color
+vec3 shiftHue(vec3 colorRGB, float hueShift) {
+    vec3 colorHSV = rgb2hsv(colorRGB);
+    colorHSV.x = mod(colorHSV.x + hueShift, 1.0);
+    return hsv2rgb(colorHSV);
+}
+
 void main() {
-    float distanceToCamera = length(vWorldPosition.xyz - cameraPosition);
     float radius = 48.0;
-
-    if(distanceToCamera > radius + zOffset) {
-        discard;
-    }
-
     float loopLength = radius * 2.0;
 
     float x = vWorldPosition.x;
@@ -32,26 +52,35 @@ void main() {
     x = mod(x - cameraPosition.x + radius, loopLength) + cameraPosition.x - radius;
     z = mod(z - cameraPosition.z + radius, loopLength) + cameraPosition.z - radius;
 
-    // Normalized texture coordinates
     vec2 instanceUv = vec2((x - (cameraPosition.x - radius)) / loopLength, (z - (cameraPosition.z - radius)) / loopLength);
 
-    vec4 texNoise = texture2D(renderedTexture, instanceUv);
+    vec4 computeTexture = texture2D(renderedTexture, instanceUv);
+
+    vec3 color = 2.0 * texture2D(diffuseMap, vUv).xyz - 1.0;
 
     vec3 light = normalize(lightDirection);
-    float diffuse = max(dot(vNormal, light), 0.0);
 
-    vec3 textureColor = texture2D(diffuseMap, vUv).rgb;
+    vec3 normals = 2.0 * texture2D(normalMap, vUv).xyz - 1.0;
 
-    vec3 colorAbove = (0.1 + diffuse) * skyColor * textureColor + 0.1;
-    vec3 colorBelow = groundColor;
+    vec3 c_normals = vec3(normals.x, normals.z, -normals.y);
 
-    float blendFactor = smoothstep(texNoise.r + 0.2, texNoise.r + 1.4, vWorldPosition.y - (textureColor.r - textureColor.g));
+    vec3 transformedNormals = normalize(mat3(vInstanceMatrix) * c_normals);
 
-    vec3 color = mix(colorBelow, colorAbove, blendFactor);
+        // Shift hue of color
+    vec3 hsvCol = rgb2hsv(vColor);
+    float hueShiftAmount = -0.66 + hsvCol.x;
+    color = shiftHue(color, hueShiftAmount);
 
-    vec3 colorClamp = clamp(vColor * color * 1.5, vec3(0.0), vec3(1.0));
+    float diffuse = max(dot(transformedNormals, light), 0.25);
+    vec3 diffuseColor = diffuse * color;
 
-    color = mix(colorClamp, skyColor, texNoise.a);
+    float blendFactor = smoothstep(computeTexture.r + 0.0, computeTexture.r + 1.2, vWorldPosition.y);
+    vec3 blendColor = mix(groundColor, diffuseColor, blendFactor);
 
-    gl_FragColor = vec4(color, 1.0);
+    float fog = computeTexture.a;
+    vec3 fogColor = mix(blendColor, skyColor, fog);
+
+    vec3 finalColor = fogColor;
+
+    gl_FragColor = vec4(finalColor, 1.0);
 }
