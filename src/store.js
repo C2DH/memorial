@@ -6,6 +6,16 @@ export const useStore = create((set) => ({
   setRouteLabel: (routeLabel) => set({ routeLabel }),
   selectedPebble: null,
   setSelectedPebble: (selectedPebble) => set({ selectedPebble }),
+  authors: [],
+  authorsIndex: {},
+  setAuthors: (authors) =>
+    set({
+      authors,
+      authorsIndex: authors.reduce((acc, author) => {
+        acc[author.slug] = author
+        return acc
+      }),
+    }),
 }))
 
 export const usePermanentStore = create(
