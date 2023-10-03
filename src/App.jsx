@@ -6,7 +6,6 @@ import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import LanguageRouter from './components/LanguageRouter'
 import RouteAdapter from './components/RouteAdapter'
-import { WithMiller } from './logic/miller'
 import { initializeI18next } from './logic/language'
 import { AcceptAnalyticsCookies, AcceptCookies, matomo } from './logic/tracking'
 import { MatomoProvider } from '@jonkoops/matomo-tracker-react'
@@ -14,7 +13,7 @@ import MatomoTracker from './components/MatomoTracker'
 import Cookies from './components/Cookies'
 import TermsOfUseCookies from './components/TermsOfuseCookies'
 import PrefetchAuthors from './components/PrefetchAuthors'
-
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 console.info('\n ◊ \n\n')
 
 // console.info('initial saved state', persistentState)
@@ -38,6 +37,8 @@ const Convoy = lazy(() => import('./pages/Convoy'))
 const Header = lazy(() => import('./components/Header'))
 const MobileHeader = lazy(() => import('./components/MobileHeader'))
 
+// Create a client
+const queryClient = new QueryClient()
 const App = () => {
   console.debug('[App] rendered')
   return (
@@ -55,7 +56,7 @@ const App = () => {
         <LanguageRouter />
         <MatomoTracker />
         <ScrollToTop />
-        <WithMiller>
+        <QueryClientProvider client={queryClient}>
           <QueryParamProvider ReactRouterRoute={RouteAdapter}>
             <PrefetchAuthors />
             <Routes>
@@ -167,7 +168,7 @@ const App = () => {
               </Route>
             </Routes>
           </QueryParamProvider>
-        </WithMiller>
+        </QueryClientProvider>
         <Footer isMobile={isMobile} />
         <Cookies defaultAcceptCookies={AcceptCookies} />
       </BrowserRouter>

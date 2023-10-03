@@ -18,10 +18,11 @@ import OrderByDropdown from '../components/OrderByDropdown'
 import StoryAuthors from '../components/StoryAuthors'
 import SearchSummary from '../components/SearchSummary'
 import { useStore } from '../store'
-import { useInfiniteQuery } from 'react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import StoryItem from '../components/StoryItem'
 import Author from '../components/Author'
+import GenericIntersectionObserver from '../components/GenericIntersectionObserver'
 
 const Search = ({ limit = 5 }) => {
   const { t, i18n } = useTranslation()
@@ -47,9 +48,9 @@ const Search = ({ limit = 5 }) => {
     }
   }
   const {
-    // fetchNextPage,
+    fetchNextPage,
     // fetchPreviousPage,
-    // hasNextPage,
+    hasNextPage,
     // hasPreviousPage,
     // isFetchingNextPage,
     // isFetchingPreviousPage,
@@ -57,7 +58,7 @@ const Search = ({ limit = 5 }) => {
     status: queryStatus,
     // ...result
   } = useInfiniteQuery({
-    queryKey: ['biographies'],
+    queryKey: ['biographies', author, activeLanguageCode, orderBy],
     queryFn: ({ pageParam = 1 }) =>
       axios
         .get('/api/story', {
@@ -65,21 +66,39 @@ const Search = ({ limit = 5 }) => {
           // onDownloadProgress,
           params: {
             limit,
+            orderby: orderBy,
             exclude: {
               tags__slug: 'static',
             },
             ...queryParams,
-            page: pageParam,
+            offset: limit * (pageParam - 1),
           },
         })
-        .then(({ data }) => data),
+        .then((res) => {
+          const response = {
+            results: res.data.results,
+            count: res.data.count,
+            nextCursor: pageParam + 1,
+          }
+          console.debug(
+            '[Search] useInfiniteQuery \n - response:',
+            response,
+            '\n - params:',
+            res.config.params,
+          )
+          return response
+        }),
     // ...options,
-    getNextPageParam: (lastPage, allPages) => lastPage.nextCursor,
-    getPreviousPageParam: (firstPage, allPages) => firstPage.prevCursor,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
     enabled: q.length === 0,
   })
   const count = isSearchEnabled ? pagefindResult.matches.length : data?.pages[0].count
 
+  const onIntersectHandler = () => {
+    console.debug('[Search] onIntersectHandler \n - hasNextPage:', hasNextPage)
+    console.info('onIntersectHandler', hasNextPage)
+    fetchNextPage()
+  }
   useEffect(() => {
     window.scrollTo(0, 0)
     if (!isSearchEnabled) {
@@ -220,6 +239,7 @@ const Search = ({ limit = 5 }) => {
                     </li>
                   )),
                 )}
+                <GenericIntersectionObserver onIntersect={onIntersectHandler} />
               </ol>
             )}
           </Col>
