@@ -28,6 +28,12 @@ export default defineConfig(({ mode }) => {
             secure: false,
             ws: false,
           },
+          '/pagefind': {
+            target: env.VITE_PROXY,
+            changeOrigin: true,
+            secure: false,
+            ws: false,
+          },
         },
       },
     }

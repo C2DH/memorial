@@ -257,3 +257,13 @@ a:hover {
 .form-check-input:focus {
   box-shadow: 0 0 0 0.17rem var(--bs-primary-alpha);
 }
+
+mark {
+  background-color: var(--bs-primary-alpha);
+  font-style: italic;
+}
+
+blockquote {
+  border-left: 1px solid var(--bs-primary);
+  padding: var(--size-3);
+}

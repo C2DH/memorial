@@ -13,6 +13,7 @@ import { MatomoProvider } from '@jonkoops/matomo-tracker-react'
 import MatomoTracker from './components/MatomoTracker'
 import Cookies from './components/Cookies'
 import TermsOfUseCookies from './components/TermsOfuseCookies'
+import PrefetchAuthors from './components/PrefetchAuthors'
 
 console.info('\n ◊ \n\n')
 
@@ -56,6 +57,7 @@ const App = () => {
         <ScrollToTop />
         <WithMiller>
           <QueryParamProvider ReactRouterRoute={RouteAdapter}>
+            <PrefetchAuthors />
             <Routes>
               <Route path="/" element={<Navigate to={languageCode} replace />} />
               <Route path={languageCode}>
@@ -147,7 +149,7 @@ const App = () => {
                   }
                 />
                 <Route
-                  path="search/:what"
+                  path="search"
                   element={
                     <React.Suspense fallback={<>...</>}>
                       <Search />
