@@ -36,6 +36,7 @@ const Convoy = lazy(() => import('./pages/Convoy'))
 
 const Header = lazy(() => import('./components/Header'))
 const MobileHeader = lazy(() => import('./components/MobileHeader'))
+const Slides = lazy(() => import('./pages/Slides'))
 
 // Create a client
 const queryClient = new QueryClient({
@@ -85,7 +86,14 @@ const App = () => {
                     </React.Suspense>
                   }
                 />
-
+                <Route
+                  path="slides/:pageId"
+                  element={
+                    <React.Suspense fallback={<>...</>}>
+                      <Slides isMobile={isMobile} />
+                    </React.Suspense>
+                  }
+                ></Route>
                 <Route
                   path="people"
                   element={

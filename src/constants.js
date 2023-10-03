@@ -32,6 +32,10 @@ export const DocumentRoute = {
   label: 'navigationDoc',
   parentRoute: SearchDocRoute,
 }
+export const SlidesRoute = {
+  to: '/slides/:pageId',
+  label: 'navigationSlides',
+}
 export const AboutRoute = { to: '/pages/about', label: 'navigationAbout' }
 export const FaqRoute = { to: '/pages/faq', label: 'navigationFaq' }
 export const TermsOfUseRoute = { to: '/pages/terms-of-use', label: 'navigationTermsOfUse' }
@@ -50,6 +54,7 @@ export const AllRoutes = [
   DocumentRoute,
   BiographiesRoute,
   LinesMapRoute,
+  SlidesRoute,
 ]
 
 export const Languages = (import.meta.env.VITE_LANGUAGES ?? 'en-GB,fr-FR,de-DE').split(',')

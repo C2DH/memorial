@@ -24,7 +24,7 @@ const Header = () => {
 
   // const activeLanguage = window.location.pathname.match(LanguagePathRegExp)
   const isRootPath = window.location.pathname.match(LanguageRootPathRegExp)
-
+  console.debug('[Header] isRootPath:', isRootPath, '\n - routeLabel:', routeLabel)
   return (
     <header className="Header">
       <Container>

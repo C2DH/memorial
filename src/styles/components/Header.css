@@ -24,3 +24,11 @@
 .Header nav li.active a {
   text-decoration: none;
 }
+
+body.navigationSlides .Header {
+  display: none;
+}
+
+body.navigationSlides .Footer {
+  display: none;
+}
