@@ -23,6 +23,7 @@ import axios from 'axios'
 import StoryItem from '../components/StoryItem'
 import Author from '../components/Author'
 import GenericIntersectionObserver from '../components/GenericIntersectionObserver'
+import './Search.css'
 
 const Search = ({ limit = 5 }) => {
   const { t, i18n } = useTranslation()
@@ -199,7 +200,7 @@ const Search = ({ limit = 5 }) => {
             {isSearchEnabled ? (
               <ol>
                 {pagefindResult.matches.map((result, i) => (
-                  <li key={result.id}>
+                  <li key={result.id} className="mt-4">
                     <PagefindMatch id={result.id} getData={result.data}>
                       {(result) => (
                         <>
@@ -231,10 +232,10 @@ const Search = ({ limit = 5 }) => {
               <ol>
                 {data?.pages.map((page, i) =>
                   page.results.map((story) => (
-                    <li key={story.slug} className="mt-5 ">
-                      <label className="small text-muted">
+                    <li key={story.slug} className="mt-4">
+                      {/* <label className="small text-muted">
                         {i + 1} / {count}
-                      </label>
+                      </label> */}
                       <StoryItem story={story} />
                     </li>
                   )),

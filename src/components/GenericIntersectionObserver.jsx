@@ -1,18 +1,20 @@
 import { useRef, useEffect } from 'react'
 
-const GenericIntersectionObserver = ({ onIntersect }) => {
+const GenericIntersectionObserver = ({ onIntersect, delay = 500 }) => {
   const ref = useRef(null)
 
   useEffect(() => {
     const obj = ref.current
+    let debounceTimer = null
     const observer = new IntersectionObserver(
       ([entry]) => {
+        clearTimeout(debounceTimer)
         if (entry.isIntersecting) {
-          console.log('Element is visible')
-          obj.classList.add('bg-primary')
-          onIntersect()
+          debounceTimer = setTimeout(() => {
+            onIntersect()
+          }, 500)
         } else {
-          obj.classList.add('bg-transparent')
+          clearTimeout(debounceTimer)
         }
       },
       {
@@ -27,6 +29,7 @@ const GenericIntersectionObserver = ({ onIntersect }) => {
     }
 
     return () => {
+      clearTimeout(debounceTimer)
       if (obj) {
         observer.unobserve(obj)
       }
@@ -35,8 +38,8 @@ const GenericIntersectionObserver = ({ onIntersect }) => {
   }, [])
 
   return (
-    <div ref={ref} class="py-5 border-top border-dark text-center mt-5">
-      Load More...
+    <div ref={ref} class="py-5 text-center mt-5">
+      &nbsp;
     </div>
   )
 }

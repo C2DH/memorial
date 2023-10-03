@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import './PagefindMatch.css'
 
 const PagefindMatch = ({ id, getData, children }) => {
   const [result, setResult] = useState(null)
@@ -14,7 +15,9 @@ const PagefindMatch = ({ id, getData, children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
-  return <div>{result ? <>{children(result)}</> : <div>Loading...</div>}</div>
+  return (
+    <div className="PagefindMatch">{result ? <>{children(result)}</> : <div>Loading...</div>}</div>
+  )
 }
 
 export default PagefindMatch

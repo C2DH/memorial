@@ -38,7 +38,22 @@ const Header = lazy(() => import('./components/Header'))
 const MobileHeader = lazy(() => import('./components/MobileHeader'))
 
 // Create a client
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: Infinity,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      refetchInterval: false,
+      refetchIntervalInBackground: false,
+      refetchOnMount: false,
+      staleTime: Infinity,
+      retry: false,
+      suspense: false,
+      keepPreviousData: true,
+    },
+  },
+})
 const App = () => {
   console.debug('[App] rendered')
   return (
@@ -99,7 +114,7 @@ const App = () => {
                   path="biographies"
                   element={
                     <React.Suspense fallback={<>...</>}>
-                      <Biographies />
+                      <Search />
                     </React.Suspense>
                   }
                 />
@@ -107,7 +122,7 @@ const App = () => {
                   path="author/:authorId"
                   element={
                     <React.Suspense fallback={<>...</>}>
-                      <Biographies />
+                      <Search />
                     </React.Suspense>
                   }
                 />
