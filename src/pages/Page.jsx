@@ -1,4 +1,3 @@
-import React from 'react'
 import { useParams } from 'react-router'
 import { useStory } from '@c2dh/react-miller'
 import ReactMarkdown from 'react-markdown'

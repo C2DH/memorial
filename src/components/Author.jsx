@@ -1,4 +1,3 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useGetJSON } from '../hooks/data'
 import { useAvailableLanguage } from '../hooks/language'

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useSpring, a, config } from 'react-spring'
 import Vimeo from '@u-wave/react-vimeo'
 

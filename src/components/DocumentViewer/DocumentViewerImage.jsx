@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import { useRef, useEffect, Fragment } from 'react'
 import { Plus, Minus } from 'react-feather'
 import { TransformWrapper, TransformComponent } from '@kokarn/react-zoom-pan-pinch'
 
@@ -63,7 +63,7 @@ const DocumentViewerImage = ({
         center
       >
         {({ zoomIn, zoomOut, centerView }) => (
-          <React.Fragment>
+          <Fragment>
             {!isMobile && (
               <div className="DocumentViewerImage_tools position-absolute">
                 <button className="zoomIn" onClick={() => zoomIn()}>
@@ -76,9 +76,9 @@ const DocumentViewerImage = ({
             )}
 
             <TransformComponent wrapperStyle={{ width: availableWidth, height: availableHeight }}>
-              <img src={url} alt={caption} onLoad={(_) => centerView(perfectZoom)} />
+              <img src={url} alt={caption} onLoad={() => centerView(perfectZoom)} />
             </TransformComponent>
-          </React.Fragment>
+          </Fragment>
         )}
       </TransformWrapper>
     </div>

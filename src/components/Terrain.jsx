@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { Plane, useTexture } from '@react-three/drei'
 import { BufferAttribute } from 'three'
 import * as THREE from 'three'

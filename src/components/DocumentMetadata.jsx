@@ -1,10 +1,10 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import DocumentReference from './DocumentReference'
 import DocumentDate from './DocumentDate'
 import AvailableLanguages from './AvailableLanguages'
 import { useAvailableLanguage } from '../hooks/language'
 import '../styles/components/DocumentMetadata.css'
+import { Fragment } from 'react'
 
 const DocumentMetadataField = ({ label, children }) => {
   if (typeof children === 'string' && children.length === 0) {
@@ -19,7 +19,7 @@ const DocumentMetadataField = ({ label, children }) => {
   )
 }
 
-const DocumentMetadata = ({ doc, memoid }) => {
+const DocumentMetadata = ({ doc }) => {
   const { t } = useTranslation()
   const { requestedLanguage, availableLanguage, availableLanguages } = useAvailableLanguage({
     translatable: doc.data.title,
@@ -68,7 +68,9 @@ const DocumentMetadata = ({ doc, memoid }) => {
         {t('unkownDate')}
       </DocumentDate>
       {typeof doc.data.creator === 'string' && (
-        <DocumentMetadataField label={t('creator')} children={doc.data.creator || t('nd')} />
+        <DocumentMetadataField label={t('creator')}>
+          {doc.data.creator || t('nd')}
+        </DocumentMetadataField>
       )}
       {typeof doc.data.author === 'string' && (
         <DocumentMetadataField label={t('author')}>{doc.data.author}</DocumentMetadataField>
@@ -79,12 +81,12 @@ const DocumentMetadata = ({ doc, memoid }) => {
         </DocumentMetadataField>
       )}
       {typeof doc.data.copyright === 'string' && (
-        <DocumentMetadataField label={t('copyright')} children={doc.data.copyright} />
+        <DocumentMetadataField label={t('copyright')}>{doc.data.copyright}</DocumentMetadataField>
       )}
       <section className="mt-3">
         {references !== null &&
           references.map((d) => (
-            <React.Fragment key={d.id}>
+            <Fragment key={d.id}>
               <label>{t('citeAs')}</label>
               <DocumentReference className="" key={d.id} doc={d} />
 
@@ -95,7 +97,7 @@ const DocumentMetadata = ({ doc, memoid }) => {
               <DocumentMetadataField label={t('moreInfo')}>
                 {d.data?.csljson?.abstract}
               </DocumentMetadataField>
-            </React.Fragment>
+            </Fragment>
           ))}
       </section>
     </div>

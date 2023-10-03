@@ -9,7 +9,7 @@ import Pebble, {
   Dodecaedron,
 } from './Pebble'
 import '../styles/components/CreatePebbleMenu.css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { PebbleColors } from '../constants'
 import { useTranslation } from 'react-i18next'
 import { PlusCircle, ChevronLeft, ChevronRight } from 'react-feather'

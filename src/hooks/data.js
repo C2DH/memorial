@@ -42,7 +42,7 @@ export const useGetJSON = ({
       setEnabled(true)
     }
   }, delay)
-  if (enabled && process.env.NODE_ENV === 'development') {
+  if (enabled && import.meta.env.NODE_ENV === 'development') {
     console.debug('[useGetJSON] url:', url, 'status', response.status, memoparams)
   }
   return response

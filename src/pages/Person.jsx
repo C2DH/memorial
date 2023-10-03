@@ -1,4 +1,3 @@
-import React from 'react'
 import { Container, Col, Row } from 'react-bootstrap'
 import { useParams } from 'react-router'
 import { useBoundingClientRect } from '../hooks/viewport'
@@ -10,6 +9,7 @@ import TopStories from '../components/TopStories'
 import TopDocuments from '../components/TopDocuments'
 import { useTranslation } from 'react-i18next'
 import DocumentImage from '../components/DocumentImage'
+import { Fragment } from 'react'
 
 const Person = () => {
   const { t } = useTranslation()
@@ -63,7 +63,7 @@ const Person = () => {
             {status === StatusSuccess &&
               Array.isArray(person.data.households) &&
               person.data.households.map((d) => (
-                <React.Fragment key={d}>
+                <Fragment key={d}>
                   <label className="text-uppercase small fw-bold mt-5">
                     {t('actionReadBiography')}&nbsp;
                   </label>
@@ -95,7 +95,7 @@ const Person = () => {
                   >
                     <label className="text-uppercase small fw-bold mb-3">{t('people')}&nbsp;</label>
                   </TopDocuments>
-                </React.Fragment>
+                </Fragment>
               ))}
           </Col>
         </Row>

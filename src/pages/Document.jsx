@@ -1,4 +1,3 @@
-import React from 'react'
 import { Container, Col, Row } from 'react-bootstrap'
 import { useParams } from 'react-router'
 import { useBoundingClientRect } from '../hooks/viewport'

@@ -1,5 +1,3 @@
-import React from 'react'
-
 const FootnoteDefinition = ({ identifier = '', label = '', children }) => {
   return (
     <div

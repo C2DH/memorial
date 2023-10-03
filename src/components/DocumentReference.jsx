@@ -1,4 +1,3 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import Cite from 'citation-js'
 import '../styles/components/DocumentReference.css'

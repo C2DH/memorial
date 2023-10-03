@@ -18,7 +18,7 @@ const MatomoTracker = ({ disabled }) => {
         href: url,
       })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [disabled, pathname, search])
 
   return null

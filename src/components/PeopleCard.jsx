@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import downsize from 'downsize'
 import { useStore } from '../store'
@@ -8,7 +8,7 @@ import '../styles/components/PeopleCard.css'
 import { ArrowRightCircle } from 'react-feather'
 import LangLink from './LangLink'
 
-const PeopleCard = ({ debug, alt, src, ...props }) => {
+const PeopleCard = ({ debug, ...props }) => {
   const { t, i18n } = useTranslation()
   const { parseDate } = useDate({ language: i18n.language.split('_').join('-') })
   const selectedPebble = useStore((state) => state.selectedPebble)
@@ -54,7 +54,6 @@ const PeopleCard = ({ debug, alt, src, ...props }) => {
       clearTimeout(t1)
       clearTimeout(t2)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPebble])
 
   if (!selectedPebble || !newValue) {

@@ -1,4 +1,3 @@
-import React from 'react'
 import CoverItems from './CoverItems'
 import LangLink from './LangLink'
 import AvailableLanguages from './AvailableLanguages'

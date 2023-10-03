@@ -1,5 +1,3 @@
-import React from 'react'
-
 const LogoC2dhUnilu = ({ color = '#fff', height = 50, ...rest }) => {
   return (
     <div {...rest}>

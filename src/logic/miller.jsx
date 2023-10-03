@@ -1,4 +1,3 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Miller } from '@c2dh/react-miller'
 import { QueryClient } from 'react-query'

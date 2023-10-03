@@ -1,4 +1,3 @@
-import React from 'react'
 import DocumentItem from './DocumentItem'
 import { useDocuments } from '@c2dh/react-miller'
 import '../styles/components/StoryTimeline.css'

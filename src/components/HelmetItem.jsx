@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 
 const HelmetItem = ({ asName = false, property = '', value = '', key = '' }) => {
   if (!value.length) {
@@ -7,11 +7,11 @@ const HelmetItem = ({ asName = false, property = '', value = '', key = '' }) => 
   // e.g; we can have multiple values for "article:tag"
   if (Array.isArray(value)) {
     return (
-      <React.Fragment>
+      <Fragment>
         {value.map((v, j) => (
           <HelmetItem key={[property, j].join('-')} property={property} value={v} asName={asName} />
         ))}
-      </React.Fragment>
+      </Fragment>
     )
   }
 

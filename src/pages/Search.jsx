@@ -74,8 +74,8 @@ const Search = ({ limit = 5 }) => {
         })
         .then(({ data }) => data),
     // ...options,
-    getNextPageParam: (lastPage, allPages) => lastPage.nextCursor,
-    getPreviousPageParam: (firstPage, allPages) => firstPage.prevCursor,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    getPreviousPageParam: (firstPage) => firstPage.prevCursor,
     enabled: q.length === 0,
   })
   const count = isSearchEnabled ? pagefindResult.matches.length : data?.pages[0].count
@@ -179,7 +179,7 @@ const Search = ({ limit = 5 }) => {
           <Col {...BootstrapStartColumnLayout}>
             {isSearchEnabled ? (
               <ol>
-                {pagefindResult.matches.map((result, i) => (
+                {pagefindResult.matches.map((result) => (
                   <li key={result.id}>
                     <PagefindMatch id={result.id} getData={result.data}>
                       {(result) => (

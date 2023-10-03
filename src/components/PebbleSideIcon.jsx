@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import CreatePebbleMenu from './CreatePebbleMenu'
 import '../styles/components/PebbleSideIcon.css'
 import { useTranslation } from 'react-i18next'

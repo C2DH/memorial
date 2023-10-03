@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSprings, useSpring, a, config } from 'react-spring'
 import { Container, Row, Col } from 'react-bootstrap'
@@ -112,9 +112,9 @@ const Home = ({ isMobile }) => {
 
   return (
     <>
-      <React.Suspense fallback={null}>
+      <Suspense fallback={null}>
         <HomeThreeLandscape pebbles={pebbles} availableWidth={width} availableHeight={height} />
-      </React.Suspense>
+      </Suspense>
       <PeopleCard debug src="/img/lukmanski-carmen.png"></PeopleCard>
       <div className="position-absolute w-100 pointer-events-none" style={{ top: height - 160 }}>
         <a.div

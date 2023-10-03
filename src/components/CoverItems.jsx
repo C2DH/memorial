@@ -1,4 +1,3 @@
-import React from 'react'
 import '../styles/components/CoverItems.css'
 
 const CoverItems = ({ covers = [], size = 120, style, ...rest }) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { BootstrapColumnLayout } from '../constants'
 import StoryItem from './StoryItem'

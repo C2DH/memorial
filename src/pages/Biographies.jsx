@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { useQueryParams, withDefault } from 'use-query-params'
 import { QParam, SlugParam, createEnumParam } from '../logic/params'
@@ -169,7 +169,7 @@ const Biographies = () => {
             <ol>
               {status === StatusSuccess &&
                 count > 0 &&
-                stories.map((story, i) => (
+                stories.map((story) => (
                   <li key={story.slug} className="mt-5 ">
                     {/* <label className="small text-muted">
               {i + 1} / {count}

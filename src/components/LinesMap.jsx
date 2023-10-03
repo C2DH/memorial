@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import ReactMapboxGl, { MapContext, ZoomControl, Cluster, Marker } from 'react-mapbox-gl'
+import { useEffect, useRef, useState } from 'react'
+import ReactMapboxGl, { MapContext, ZoomControl, Marker, Cluster } from 'react-mapbox-gl'
 import mapboxgl from 'mapbox-gl'
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import MapboxWorker from 'mapbox-gl/dist/mapbox-gl-csp-worker' // eslint-disable-line import/no-webpack-loader-syntax
+
+import MapboxWorker from 'mapbox-gl/dist/mapbox-gl-csp-worker'
 import '../styles/components/LinesMap.css'
 import LinesMapLineLayer from './LinesMapLineLayer'
 
@@ -44,7 +44,6 @@ const LinesMap = ({
   people = [],
   places = [],
   className,
-  showLines = false,
   fitBoundsOnLoad = true,
 }) => {
   const mapRef = useRef()
@@ -115,7 +114,7 @@ const LinesMap = ({
         onZoomEnd={(map) => setZoom(map.transform._zoom)}
       >
         <ZoomControl position="bottomRight" className="zoomControl" />
-        {/* <Cluster
+        <Cluster
           ClusterMarkerFactory={ClusterMarkerFactory}
           className="position-absolute top-0"
           maxZoom={20}
@@ -127,7 +126,7 @@ const LinesMap = ({
               </div>
             </Marker>
           ))}
-        </Cluster> */}
+        </Cluster>
         {people.map(({ data }, i) => (
           <LinesMapLineLayer key={i} points={data.events.map((e) => e.coords)} />
         ))}

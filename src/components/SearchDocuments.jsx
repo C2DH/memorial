@@ -1,8 +1,8 @@
-import React from 'react'
 import { useInfiniteDocuments } from '@c2dh/react-miller'
 import { useOnScreen } from '../hooks/viewport'
 import DocumentItem from './DocumentItem'
 import '../styles/components/SearchDocuments.css'
+import { useEffect } from 'react'
 
 const SearchDocuments = ({ q = '', filters = {}, limit = 20, orderby = '-id' }) => {
   const params = {
@@ -21,7 +21,7 @@ const SearchDocuments = ({ q = '', filters = {}, limit = 20, orderby = '-id' }) 
   const count = parseInt(data?.pages[0]?.count || 0, 10)
   const [{ isIntersecting }, ref] = useOnScreen()
   console.info('isIntersecting', isIntersecting)
-  React.useEffect(() => {
+  useEffect(() => {
     let timeoutId = null
     const delayed = () => {
       clearTimeout(timeoutId)

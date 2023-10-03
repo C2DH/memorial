@@ -1,4 +1,3 @@
-import React from 'react'
 import { LanguagePathRegExp } from '../../constants'
 import LangLink from '../LangLink'
 import { Link } from 'react-router-dom'
@@ -9,7 +8,7 @@ export const FootnoteDefinitionPrefix = 'fndef'
 /**
  * Component to integrate ReactMarkdown specs
  */
-const ModuleTextAnchor = ({ node, children, href, ...props }) => {
+const ModuleTextAnchor = ({ children, href, ...props }) => {
   const textNode = children
     .map((child) => String(child))
     .join('')
