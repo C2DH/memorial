@@ -26,7 +26,7 @@ const PrefetchAuthors = () => {
     }
     console.info('[PrefetchAuthors] authorMetadata:', authorMetadata)
     setAuthors(authorMetadata.results)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [status])
 }
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useDate } from '../hooks/date'
 
 const DocumentDate = ({

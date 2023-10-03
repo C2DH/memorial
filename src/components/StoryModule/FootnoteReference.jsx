@@ -1,5 +1,3 @@
-import React from 'react'
-
 const FootnoteReference = (props) => {
   // console.debug('[FootnoteReference]', props)
   return (

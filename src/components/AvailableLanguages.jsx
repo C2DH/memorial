@@ -1,4 +1,3 @@
-import React from 'react'
 import { LanguageCodes, MillerLanguages } from '../constants'
 import { useTranslation } from 'react-i18next'
 

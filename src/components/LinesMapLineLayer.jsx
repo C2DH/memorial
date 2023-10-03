@@ -1,4 +1,3 @@
-import React from 'react'
 import { Layer, Feature } from 'react-mapbox-gl'
 
 const LinesMapLineLayer = ({ points, coordsA, coordsB, w = 1 }) => {

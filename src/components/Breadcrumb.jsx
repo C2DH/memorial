@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, matchPath } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { LanguagePathRegExp, LanguageRootPathRegExp, HomeRoute, AllRoutes } from '../constants'

@@ -1,4 +1,3 @@
-import React from 'react'
 import LangLink from './LangLink'
 
 const AuthorItem = ({ author, className, to = '/biographies?author=:author' }) => (

@@ -1,7 +1,5 @@
-import React from 'react'
-
-const DocumentViewerImage = ({ doc, width, height }) => {
-  return <div></div>
+const DocumentViewerAudio = () => {
+  return <div className="unsupported"></div>
 }
 
-export default DocumentViewerImage
+export default DocumentViewerAudio

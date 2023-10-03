@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import HelmetItem from './HelmetItem'
 import { Helmet } from 'react-helmet'
 import { useTranslation } from 'react-i18next'

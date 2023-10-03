@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import { Suspense, lazy } from 'react'
 import { QueryParamProvider } from 'use-query-params'
 import { isMobile } from 'react-device-detect'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
@@ -44,13 +44,13 @@ const App = () => {
     <MatomoProvider value={matomo}>
       <BrowserRouter>
         {isMobile ? (
-          <React.Suspense fallback={null}>
+          <Suspense fallback={null}>
             <MobileHeader />{' '}
-          </React.Suspense>
+          </Suspense>
         ) : (
-          <React.Suspense fallback={null}>
+          <Suspense fallback={null}>
             <Header />
-          </React.Suspense>
+          </Suspense>
         )}
         <LanguageRouter />
         <MatomoTracker />
@@ -64,104 +64,104 @@ const App = () => {
                 <Route
                   path=""
                   element={
-                    <React.Suspense fallback={<div className="h-75" />}>
+                    <Suspense fallback={<div className="h-75" />}>
                       <Home isMobile={isMobile} />
-                    </React.Suspense>
+                    </Suspense>
                   }
                 />
 
                 <Route
                   path="people"
                   element={
-                    <React.Suspense fallback={<>...</>}>
+                    <Suspense fallback={<>...</>}>
                       <People isMobile={isMobile} />
-                    </React.Suspense>
+                    </Suspense>
                   }
                 ></Route>
                 <Route
                   path="story/:storyId"
                   element={
-                    <React.Suspense fallback={<>...</>}>
+                    <Suspense fallback={<>...</>}>
                       <Story />
-                    </React.Suspense>
+                    </Suspense>
                   }
                 />
                 <Route
                   path="convoy/:storyId"
                   element={
-                    <React.Suspense fallback={<>...</>}>
+                    <Suspense fallback={<>...</>}>
                       <Convoy />
-                    </React.Suspense>
+                    </Suspense>
                   }
                 />
                 <Route
                   path="biographies"
                   element={
-                    <React.Suspense fallback={<>...</>}>
+                    <Suspense fallback={<>...</>}>
                       <Biographies />
-                    </React.Suspense>
+                    </Suspense>
                   }
                 />
                 <Route
                   path="author/:authorId"
                   element={
-                    <React.Suspense fallback={<>...</>}>
+                    <Suspense fallback={<>...</>}>
                       <Biographies />
-                    </React.Suspense>
+                    </Suspense>
                   }
                 />
                 <Route
                   path="doc/:docId"
                   element={
-                    <React.Suspense fallback={<>...</>}>
+                    <Suspense fallback={<>...</>}>
                       <Document />
-                    </React.Suspense>
+                    </Suspense>
                   }
                 />
                 <Route
                   path="person/:personId"
                   element={
-                    <React.Suspense fallback={<>...</>}>
+                    <Suspense fallback={<>...</>}>
                       <Person />
-                    </React.Suspense>
+                    </Suspense>
                   }
                 />
                 <Route
                   path="pages/:pageId"
                   element={
-                    <React.Suspense fallback={<>...</>}>
-                      <Page
-                        children={({ pageId }) =>
+                    <Suspense fallback={<>...</>}>
+                      <Page>
+                        {({ pageId }) =>
                           pageId === 'terms-of-use' ? (
                             <TermsOfUseCookies defaultAcceptCookies={AcceptCookies} />
                           ) : null
                         }
-                      ></Page>
-                    </React.Suspense>
+                      </Page>
+                    </Suspense>
                   }
                 />
                 <Route
                   path="pages/:pageId"
                   element={
-                    <React.Suspense fallback={<>...</>}>
+                    <Suspense fallback={<>...</>}>
                       <Page />
-                    </React.Suspense>
+                    </Suspense>
                   }
                 />
                 <Route
                   path="search"
                   element={
-                    <React.Suspense fallback={<>...</>}>
+                    <Suspense fallback={<>...</>}>
                       <Search />
-                    </React.Suspense>
+                    </Suspense>
                   }
                 />
                 <Route
                   path="*"
                   element={
-                    <React.Suspense fallback={<>...</>}>
+                    <Suspense fallback={<>...</>}>
                       <NotFound />
-                    </React.Suspense>
+                    </Suspense>
                   }
                 />
               </Route>

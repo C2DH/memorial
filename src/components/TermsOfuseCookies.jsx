@@ -2,7 +2,7 @@ import { Col, Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { usePermanentStore } from '../store'
 
-const TermsOfUseCookies = ({ defaultAcceptCookies }) => {
+const TermsOfUseCookies = () => {
   const { t } = useTranslation()
   const acceptAnalyticsCookies = usePermanentStore((state) => state.acceptAnalyticsCookies)
   const setAcceptAnalyticsCookies = usePermanentStore((state) => state.setAcceptAnalyticsCookies)

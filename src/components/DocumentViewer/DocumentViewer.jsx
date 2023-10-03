@@ -1,4 +1,4 @@
-import React, { useRef, lazy } from 'react'
+import { useRef, lazy } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Maximize } from 'react-feather'
 import { useFullScreen } from '../../hooks/viewport'

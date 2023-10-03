@@ -11,7 +11,7 @@ const PagefindMatch = ({ id, getData, children }) => {
       setResult(result)
     }
     fetchData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [id])
 
   return <div>{result ? <>{children(result)}</> : <div>Loading...</div>}</div>

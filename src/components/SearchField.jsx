@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Form, InputGroup } from 'react-bootstrap'
 import { StatusIdle, StatusFetching } from '../hooks/data'

@@ -7,7 +7,6 @@ const TopDocuments = ({
   params = {},
   children,
   label,
-  allStories = false,
   hideIfEmpty = false,
   onClick,
   className = '',

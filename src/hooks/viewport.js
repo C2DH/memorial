@@ -162,7 +162,7 @@ export function useOnScreen({ threshold = [0, 1], rootMargin = '0% 0% 0% 0%' } =
     return () => {
       observer.disconnect()
     }
-    // eslint-disable-next-line
+     
   }, [])
   return [entry, ref]
 }

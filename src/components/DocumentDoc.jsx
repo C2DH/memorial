@@ -1,9 +1,8 @@
-import React from 'react'
 import DocumentReference from './DocumentReference'
 import DocumentDate from './DocumentDate'
 import { useTranslation } from 'react-i18next'
 
-const DocumentDoc = ({ doc = { data: {} }, language = 'en', onClick }) => {
+const DocumentDoc = ({ doc = { data: {} }, language = 'en' }) => {
   const { t } = useTranslation()
   const caption = doc.data.title || doc.title || doc.slug
   const references = Array.isArray(doc.documents)

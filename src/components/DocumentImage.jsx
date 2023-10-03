@@ -1,4 +1,3 @@
-import React from 'react'
 import DocumentReference from './DocumentReference'
 import DocumentDate from './DocumentDate'
 import '../styles/components/DocumentImage.css'

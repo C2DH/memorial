@@ -1,6 +1,4 @@
-import React from 'react'
-
-const DocumentViewerImage = ({ doc, width, height }) => {
+const DocumentViewerImage = () => {
   return <div></div>
 }
 

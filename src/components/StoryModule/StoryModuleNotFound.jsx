@@ -1,5 +1,3 @@
-import React from 'react'
-
 const StoryModuleNotFound = ({ type }) => {
   return <div>Visual Module not found: {type}</div>
 }

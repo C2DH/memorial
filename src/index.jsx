@@ -13,7 +13,7 @@ import reportWebVitals from './reportWebVitals'
 
 // replace console.* for disable log debug on production
 if (
-  process.env.NODE_ENV === 'production' &&
+  import.meta.env.NODE_ENV === 'production' &&
   import.meta.env.VITE_BASEURL === window.location.origin
 ) {
   console.debug = () => {}

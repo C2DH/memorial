@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { all } from 'mdast-util-to-hast'
@@ -9,7 +8,7 @@ import ModuleTextAnchor, {
   FootnoteDefinitionPrefix,
 } from './ModuleTextAnchor'
 
-const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = true }) => {
+const ModuleText = ({ content = '', footnotes = [] }) => {
   // console.debug('[ModuleText]', content, footnotes)
   // remove {width=} image
   // and correct badly retrieved markdown errors
