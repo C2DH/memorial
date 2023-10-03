@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { useTimeout } from './timeout'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 export const orderedKeys = (key, value) => {
   if (value instanceof Object && !(value instanceof Array)) {
