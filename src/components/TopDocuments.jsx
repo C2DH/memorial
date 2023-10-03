@@ -1,4 +1,3 @@
-import React from 'react'
 import DocumentItem from './DocumentItem'
 import { StatusError, StatusSuccess, useGetJSON } from '../hooks/data'
 import { shuffle } from '../logic/array'
