@@ -36,7 +36,7 @@ const Slides = () => {
         />
         <div className="Slides__title">
           <LogoLePremierConvoi size={'600'} />
-          <h2>Journée d'études</h2>
+          <h2>{subtitle}</h2>
         </div>
 
         <h5>
