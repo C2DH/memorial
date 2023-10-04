@@ -1,27 +1,21 @@
 @font-face {
-  font-family: 'Inter';
+  font-family: 'ClashDisplay-Variable';
+  src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2'),
+    url('/fonts/ClashDisplay-Variable.woff') format('woff'),
+    url('/fonts/ClashDisplay-Variable.ttf') format('truetype');
+  font-weight: 200 700;
+  font-display: swap;
   font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Inter-Regular'), url('./fonts/Inter-Regular.woff2?v=3.19') format('woff2'),
-    url('./fonts/Inter-Regular.woff?v=3.19') format('woff');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Inter-Italic'), url('./fonts/Inter-Italic.woff2?v=3.19') format('woff2'),
-    url('./fonts/Inter-Italic.woff?v=3.19') format('woff');
 }
 
 @font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
+  font-family: 'ClashGrotesk-Variable';
+  src: url('/fonts/ClashGrotesk-Variable.woff2') format('woff2'),
+    url('/fonts/ClashGrotesk-Variable.woff') format('woff'),
+    url('/fonts/ClashGrotesk-Variable.ttf') format('truetype');
+  font-weight: 200 700;
   font-display: swap;
-  src: local('Inter-Bold'), url('./fonts/Inter-Bold.woff2?v=3.19') format('woff2'),
-    url('./fonts/Inter-Bold.woff?v=3.19') format('woff');
+  font-style: normal;
 }
 
 :root {
@@ -46,8 +40,10 @@
   --pebble-color-4: #b392e9;
   --pebble-color-5: #dd71c5;
   --pebble-color-6: #dcbf87;
-  --bs-font-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --bs-font-sans-serif: 'ClashGrotesk-Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  --bs-font-serif: 'ClashDisplay-Variable', 'Georgia', 'Times New Roman', serif;
   --bs-body-color-transparent: #21252999;
 }
 body {
@@ -265,5 +261,5 @@ mark {
 
 blockquote {
   border-left: 1px solid var(--bs-primary);
-  padding: var(--size-3);
+  paddingheader: var(--size-3);
 }
