@@ -3,7 +3,10 @@ import { persist } from 'zustand/middleware'
 
 export const useStore = create((set) => ({
   routeLabel: '',
-  setRouteLabel: (routeLabel) => set({ routeLabel }),
+  setRouteLabel: (routeLabel) => {
+    document.body.className = routeLabel
+    return set({ routeLabel })
+  },
   selectedPebble: null,
   setSelectedPebble: (selectedPebble) => set({ selectedPebble }),
   authors: [],

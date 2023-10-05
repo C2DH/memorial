@@ -1,12 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './fonts/Inter-Regular.woff'
-import './fonts/Inter-Regular.woff2'
-import './fonts/Inter-Italic.woff'
-import './fonts/Inter-Italic.woff2'
-import './fonts/Inter-Bold.woff'
-import './fonts/Inter-Bold.woff2'
+
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'

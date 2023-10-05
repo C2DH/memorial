@@ -1,31 +1,56 @@
 @font-face {
-  font-family: 'Inter';
+  font-family: 'ClashDisplay-Variable';
+  src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2'),
+    url('/fonts/ClashDisplay-Variable.woff') format('woff'),
+    url('/fonts/ClashDisplay-Variable.ttf') format('truetype');
+  font-weight: 200 700;
+  font-display: swap;
   font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Inter-Regular'), url('./fonts/Inter-Regular.woff2?v=3.19') format('woff2'),
-    url('./fonts/Inter-Regular.woff?v=3.19') format('woff');
 }
-@font-face {
-  font-family: 'Inter';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Inter-Italic'), url('./fonts/Inter-Italic.woff2?v=3.19') format('woff2'),
-    url('./fonts/Inter-Italic.woff?v=3.19') format('woff');
-}
+/**
+* This is a variable font
+* You can controll variable axes as shown below:
+* font-variation-settings: 'wght' 900.0;
+*
+* available axes:
+
+* 'wght' (range from 300.0 to 900.0)
+
+*/
 
 @font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
+  font-family: 'Satoshi-Variable';
+  src: url('/fonts/Satoshi-Variable.woff2') format('woff2'),
+    url('/fonts/Satoshi-Variable.woff') format('woff'),
+    url('/fonts/Satoshi-Variable.ttf') format('truetype');
+  font-weight: 300 900;
   font-display: swap;
-  src: local('Inter-Bold'), url('./fonts/Inter-Bold.woff2?v=3.19') format('woff2'),
-    url('./fonts/Inter-Bold.woff?v=3.19') format('woff');
+  font-style: normal;
+}
+
+/**
+* This is a variable font
+* You can controll variable axes as shown below:
+* font-variation-settings: 'wght' 900.0;
+*
+* available axes:
+
+* 'wght' (range from 300.0 to 900.0)
+
+*/
+
+@font-face {
+  font-family: 'Satoshi-VariableItalic';
+  src: url('/fonts/Satoshi-VariableItalic.woff2') format('woff2'),
+    url('/fonts/Satoshi-VariableItalic.woff') format('woff'),
+    url('/fonts/Satoshi-VariableItalic.ttf') format('truetype');
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: italic;
 }
 
 :root {
-  --bs-primary: #61bfad;
+  --bs-primary: #3caf9a;
   --bs-dark: #212529;
   --bs-primary-text: #3d776c;
   --bs-primary-alpha: #61bfaebc;
@@ -46,9 +71,18 @@
   --pebble-color-4: #b392e9;
   --pebble-color-5: #dd71c5;
   --pebble-color-6: #dcbf87;
-  --bs-font-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --bs-font-sans-serif: 'Satoshi-Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --bs-font-serif: 'ClashDisplay-Variable', 'Georgia', 'Times New Roman', serif;
   --bs-body-color-transparent: #21252999;
+}
+
+i,
+em {
+  font-family: 'Satoshi-VariableItalic', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-style: normal;
+  font-weight: 450;
 }
 body {
   margin: 0;
@@ -63,19 +97,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+h1,
+h2,
+h3,
+h3,
+h5 {
+  font-family: var(--bs-font-serif);
+}
 .page {
   margin-top: 100px;
 }
 .page h1 {
   color: transparent; /* var(--bs-primary); */
-  font-weight: normal;
+  /* font-weight: normal; */
+  font-weight: 500;
   font-size: 3.4rem;
   line-height: 1.2em;
   margin-top: var(--size-5);
   margin-bottom: var(--size-3);
-  -webkit-text-stroke-width: 2px;
+  /* -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: var(--bs-primary-text);
-  color: transparent;
+  color: transparent; */
+  color: var(--bs-primary-text);
   /* var(--bs-primary-text); */
 }
 .page.very-long-title h1 {
@@ -265,5 +308,5 @@ mark {
 
 blockquote {
   border-left: 1px solid var(--bs-primary);
-  padding: var(--size-3);
+  paddingheader: var(--size-3);
 }
