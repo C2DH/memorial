@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react'
 // import StoryItem from './StoryItem'
-import { useSprings, animated, to } from 'react-spring'
+import { useSprings, animated } from 'react-spring'
 import { Col, Container, Row } from 'react-bootstrap'
 import StoryAuthors from './StoryAuthors'
+
+import './GalleryOfStories.css'
+import DocumentDate from './DocumentDate'
+import { ArrowLeft } from 'react-feather'
 
 const toConfig = (i, delay = 0) => ({
   x: 0,
@@ -21,6 +25,11 @@ const GalleryOfStories = ({
 }) => {
   const [selectedStoryIdx, setSelectedStoryIdx] = useState(-1)
   const numberOfStories = stories.length || 0
+  const storyCovers = stories.map((story) => {
+    const cover = story.covers?.find((d) => d.data.type === 'image')
+    return cover || null
+  })
+
   const [props, api] = useSprings(numberOfStories, (i) => ({
     to: toConfig(i, i === 0 ? initialDelay : 0),
     from: fromConfig(i),
@@ -50,6 +59,7 @@ const GalleryOfStories = ({
     const interval = setInterval(() => {
       setSelectedStoryIdx((i) => (i + 1) % numberOfStories)
     }, 5000)
+    setSelectedStoryIdx(0)
     return () => {
       clearInterval(interval)
     }
@@ -62,13 +72,14 @@ const GalleryOfStories = ({
       // style={{ height: 500, marginTop: -250, overflow: 'hidden' }}
     >
       <Row className="h-100">
-        <Col md={{ span: 5 }} className="h-100 position-relative" style={{ overflow: 'hidden' }}>
+        <Col
+          md={{ span: 4, offset: 1 }}
+          className="h-100 position-relative"
+          style={{ overflow: 'hidden' }}
+        >
           {props.map(({ opacity }, i) => {
-            const covers = stories[i].covers.filter((d) => d.data.type === 'image')
-            const hasCovers = covers.length > 0
-            if (!hasCovers) return null
-            const cover = stories[i].covers[0].data
-            const coverSrc = cover.resolutions?.preview?.url
+            if (!storyCovers[i]) return null
+            const coverSrc = storyCovers[i].data.resolutions?.preview?.url
             return (
               <animated.div
                 key={i}
@@ -77,7 +88,9 @@ const GalleryOfStories = ({
                   opacity,
                 }}
               >
-                <img src={coverSrc} style={{ width: '80%' }}></img>
+                <figure style={{ width: '90%' }}>
+                  <img src={coverSrc}></img>
+                </figure>
               </animated.div>
             )
           })}
@@ -111,6 +124,18 @@ const GalleryOfStories = ({
                     }}
                   ></h2>
                   <StoryAuthors authors={stories[i].authors} />
+                  {storyCovers[i] ? (
+                    <figcaption className="mt-3 p-2 d-inline-flex align-items-center">
+                      <div className="m-2 h-100">
+                        <ArrowLeft size={12} />
+                      </div>
+                      <div className="m-2 h-100">
+                        <em>{storyCovers[i].title}</em>
+                        <br />
+                        <DocumentDate doc={storyCovers[i]} language={language.split('_').shift()} />
+                      </div>
+                    </figcaption>
+                  ) : null}
                 </div>
               </animated.div>
             )

@@ -21,7 +21,7 @@ const Slides = () => {
   const { data: stories, status: storiesStatus } = useGetJSON({
     url: `/api/story/`,
     params: {
-      limit: 50,
+      limit: 5,
       exclude: { tags__name: 'static' },
     },
     enabled: pageStatus === StatusSuccess,
