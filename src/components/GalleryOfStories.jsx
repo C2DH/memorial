@@ -100,7 +100,16 @@ const GalleryOfStories = ({
                 }}
               >
                 <div>
-                  <h2 className="me-3">{title}</h2>
+                  <h2
+                    className="me-3"
+                    dangerouslySetInnerHTML={{
+                      __html: title
+                        .split(/[[\]]/)
+                        .join('')
+                        .split(/\{[^}]+\}/)
+                        .join(''),
+                    }}
+                  ></h2>
                   <StoryAuthors authors={stories[i].authors} />
                 </div>
               </animated.div>
