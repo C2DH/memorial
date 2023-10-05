@@ -1,4 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@font-face {
+  font-family: 'ClashDisplay';
+  src: local('ClashDisplay'), url('/fonts/ClashDisplay-Variable.woff') format('woff');
+  src: local('ClashDisplay'), url('/fonts/ClashDisplay-Variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: local('ClashGrotesk'), url('/fonts/ClashGrotesk-Variable.woff') format('woff');
+  src: local('ClashGrotesk'), url('/fonts/ClashGrotesk-Variable.woff2') format('woff2');
+}
 
 * {
   box-sizing: border-box;
@@ -7,7 +17,7 @@
 .hero {
   padding: 5rem;
   width: 100%;
-  height: calc(100vh - 6rem);
+  height: calc(100vh - 5rem);
   position: relative;
 
   /* Colors */
@@ -19,11 +29,11 @@
   --linen-500: hsl(25, 81%, 94%);
 
   /* Fonts */
-  --text-l: 400 italic 16px 'IBM Plex Serif', sans-serif;
-  --text-m: 400 18px 'IBM Plex Serif', sans-serif;
-  --text-s: 400 italic 12px 'IBM Plex Serif', sans-serif;
-  --heading-l: 400 48px 'IBM Plex Serif', sans-serif;
-  --heading-m: 500 24px 'IBM Plex Serif', sans-serif;
+  --text-l: 400 16px ClashGrotesk, sans-serif;
+  --text-m: 400 18px ClashGrotesk, sans-serif;
+  --text-s: 400 italic 12px ClashGrotesk, sans-serif;
+  --heading-l: 400 48px ClashDisplay, sans-serif;
+  --heading-m: 500 24px ClashDisplay, sans-serif;
 }
 
 .hero__canvas-wrapper {
@@ -34,6 +44,11 @@
   width: calc(100% - 4rem);
   height: calc(100vh - 10rem);
   pointer-events: all;
+  overflow: hidden;
+}
+.hero__canvas-wrapper > div {
+  border-radius: 1rem;
+  overflow: hidden;
 }
 
 .hero__modals {
@@ -42,4 +57,5 @@
   height: 100%;
   inset: 0;
   pointer-events: none;
+  overflow: hidden;
 }

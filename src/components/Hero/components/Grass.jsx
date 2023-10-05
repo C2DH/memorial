@@ -21,7 +21,7 @@ export const Grass = ({ skyColor, groundColor, renderedTexture }) => {
 
   const meshRef = useRef()
 
-  const instances = 256 * 256
+  const instances = 164 * 164
 
   const { instData } = useMemo(() => generateInstancesData(instances), [instances])
 

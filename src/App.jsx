@@ -2,7 +2,7 @@ import React, { lazy } from 'react'
 import { QueryParamProvider } from 'use-query-params'
 import { isMobile } from 'react-device-detect'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import Footer from './components/Footer'
+// import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import LanguageRouter from './components/LanguageRouter'
 import RouteAdapter from './components/RouteAdapter'
@@ -166,7 +166,7 @@ const App = () => {
             </Routes>
           </QueryParamProvider>
         </WithMiller>
-        <Footer isMobile={isMobile} />
+        {/* <Footer isMobile={isMobile} /> */}
         <Cookies defaultAcceptCookies={AcceptCookies} />
       </BrowserRouter>
     </MatomoProvider>

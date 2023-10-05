@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { PerspectiveCamera } from '@react-three/drei'
 import * as THREE from 'three'
 import useSafeFrame from '../hooks/useSafeFrame'
@@ -21,8 +21,14 @@ export const Camera = () => {
   const selectedTarget = usePebblesStore((state) => state.selectedPebble)
   const hasStarted = usePebblesStore((state) => state.hasStarted)
 
-  const CAMERA_OFFSET = [-12, 8, -12]
-  const TARGET_OFFSET = [-2, 0, 4]
+  const CAMERA_OFFSET = [-12, 10, -12]
+  const TARGET_OFFSET = [-2, 6, 4]
+
+  const [signedPosition, setSignedPosition] = useState(1)
+
+  useEffect(() => {
+    selectedTarget && setSignedPosition((prev) => -prev)
+  }, [selectedTarget])
 
   const moveCameraOnScroll = () => {
     const scrollProgress = useScrollStore.getState().scroll
@@ -40,20 +46,39 @@ export const Camera = () => {
 
   const setCameraToTarget = () => {
     targetPositionRef.current.set(
-      selectedTarget.position[0] + CAMERA_OFFSET[0],
+      selectedTarget.position[0] + CAMERA_OFFSET[0] * signedPosition,
       selectedTarget.position[1] + CAMERA_OFFSET[1],
       selectedTarget.position[2] + CAMERA_OFFSET[2] + c.sceneOffsetZ,
     )
     targetLookAtRef.current.set(
-      selectedTarget.position[0] + TARGET_OFFSET[0],
+      selectedTarget.position[0] + TARGET_OFFSET[0] * signedPosition,
       selectedTarget.position[1] + TARGET_OFFSET[1],
       selectedTarget.position[2] + TARGET_OFFSET[2] + c.sceneOffsetZ,
     )
   }
 
+  const mousePosition = useRef({ x: 0, y: 0 })
+
+  const handleMouseMove = (event) => {
+    mousePosition.current = {
+      x: (event.clientX / window.innerWidth) * 2 - 1,
+      y: -(event.clientY / window.innerHeight) * 2 + 1,
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [])
+
   const updateCamera = (delta) => {
-    currentPositionRef.current.lerp(targetPositionRef.current, 1.6 * delta)
-    currentLookAtRef.current.lerp(targetLookAtRef.current, 1.6 * delta)
+    currentPositionRef.current.lerp(targetPositionRef.current, 1.25 * delta)
+    currentLookAtRef.current.lerp(targetLookAtRef.current, 1.25 * delta)
+
+    currentLookAtRef.current.x += !selectedTarget ? mousePosition.current.x * -0.15 : 0
+    currentLookAtRef.current.y += hasStarted ? mousePosition.current.y * 0.05 : 0
 
     if (cameraRef.current) {
       cameraRef.current.position.set(...currentPositionRef.current)
@@ -62,23 +87,22 @@ export const Camera = () => {
     }
   }
 
-  // eslint-disable-next-line no-unused-vars
-  const spinCamera = () => {
-    const time = Date.now() * 0.001
-    const radius = 32
-    const angle = time * 0.1
-    const x = Math.cos(Math.PI / 2 + angle) * radius
-    const z = -Math.sin(Math.PI / 2 + angle) * radius
-
-    targetPositionRef.current.set(x, 16, z)
-    targetLookAtRef.current.set(0, 16, 0)
-  }
+  // const oscilateCamera = () => {
+  //   targetPositionRef.current.y = 48
+  //   targetLookAtRef.current.x = 0
+  //   targetLookAtRef.current.y = 40
+  //   targetLookAtRef.current.z = targetPositionRef.current.z + 48
+  // }
 
   const oscilateCamera = () => {
-    const time = Date.now() * 0.001
-    const y = Math.sin(time * 0.5) * 4 + 12
-    targetPositionRef.current.set(0, y, -12)
-    targetLookAtRef.current.set(0, 4, 48)
+    const lastTarget = usePebblesStore.getState().lastSelectedPebble
+
+    targetPositionRef.current.x = lastTarget ? lastTarget.position[0] + 0 : 0
+    targetPositionRef.current.y = lastTarget ? lastTarget.position[1] + 48 : 48
+    targetPositionRef.current.z = lastTarget ? lastTarget.position[2] - 128 : -128
+    targetLookAtRef.current.x = 0
+    targetLookAtRef.current.y = 32
+    targetLookAtRef.current.z = targetPositionRef.current.z + 48
   }
 
   useSafeFrame((_, delta) => {
@@ -101,7 +125,7 @@ export const Camera = () => {
 
     currentCamera.position.set(...forwardPositionRef.current.toArray())
     currentCamera.lookAt(...forwardLookAtRef.current.toArray())
-    currentCamera.zoom = 0.75
+    currentCamera.zoom = 1
     currentCamera.updateProjectionMatrix()
   }, [])
 

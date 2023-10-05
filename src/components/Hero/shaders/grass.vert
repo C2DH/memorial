@@ -78,8 +78,8 @@ void main() {
     vRandIDa = randIDa;
     vRandIDb = randIDb;
 
-    float randomOffsetX = (randIDa - 0.5) * 0.5;
-    float randomOffsetY = (randIDb - 0.5) * 0.5;
+    float randomOffsetX = (randIDa - 0.5) * 1.5;
+    float randomOffsetY = (randIDb - 0.5) * 1.5;
 
     // Square distribution
     float n = sqrt(instanceCount);
@@ -100,13 +100,17 @@ void main() {
 
     vInstanceUv = instanceUv;
 
-    float scaleNoise = smoothNoise(vec2(x, z) * 0.25);
-    scaleNoise += smoothNoise(vec2(x, z) * 1.0) * 0.75;
+    float scaleNoise = smoothNoise(vec2(x, z) * 0.2);
+    scaleNoise += smoothNoise(vec2(x, z) * 0.4) * 0.5;
+    scaleNoise += smoothNoise(vec2(x, z) * 0.8) * 0.25;
     scaleNoise /= 1.75;
 
-    float scaleValue = mix(0.8, 1.8, scaleNoise);
+    float colorNoise = smoothNoise(vec2(x, z) * 0.25);
+    colorNoise += smoothNoise(vec2(x, z) * 0.5) * 0.5;
+    colorNoise += smoothNoise(vec2(x, z) * 0.75) * 0.25;
+    colorNoise /= 1.75;
 
-    vScale = scaleValue;
+    vScale = colorNoise;
 
     // Textures data
     vec4 noiseTexture = texture2D(renderedTexture, instanceUv);
@@ -122,8 +126,8 @@ void main() {
     vec3 positionGrid = vec3(x + randomOffsetX, 0.0, z + randomOffsetY);
     vec3 positionHeight = vec3(0.0, heighMap, 0.0);
 
-    mat4 rotMat = rotationY(-PI * (0.5 - randIDa * 0.15));
-    mat4 rotMat2 = rotationY(PI * (0.1 - randIDb * 0.8));
+    mat4 rotMat = rotationY(-PI * (scaleNoise - randIDa) * 0.75);
+    mat4 rotMat2 = rotationY(PI * (scaleNoise - randIDb) * 0.75);
 
     vRotMat = rotMat;
     vRotMat2 = rotMat;
@@ -131,7 +135,11 @@ void main() {
     bendVec = (rotMat * vec4(bendVec, 1.0)).xyz;
     vec3 rotPos = (rotMat2 * vec4(position, 1.0)).xyz;
 
-    vec3 bendPosition = mix(rotPos, bendVec, windForce);
+    float weakWind = mix(0.2 - 0.2 * scaleNoise, 0.5 + scaleNoise * 0.5, windForce);
+
+    vec3 bendPosition = mix(rotPos, bendVec, weakWind);
+
+    float scaleValue = mix(0.8 + randIDa * .5, 2.5 - randIDb * .5, scaleNoise);
 
     bendPosition *= scaleValue;
 

@@ -2,7 +2,7 @@ import './styles/modal.css'
 import React, { useState } from 'react'
 
 import { Divider } from './Divider.jsx'
-import { IconsNext, IconsPrev, IconsClose } from './Icons.jsx'
+import { IconsNext, IconsPrev } from './Icons.jsx'
 import { Button } from './Button.jsx'
 
 import { usePebblesStore } from '../store'
@@ -49,17 +49,12 @@ const wrap = (min, max, value) => {
 export const ModalCreate = ({ ...props }) => {
   const pebbleOptions = [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }]
 
-  const { hasCreate, setHasCreate, setSelected, createPebble } = usePebblesStore()
+  const { hasCreate, createPebble } = usePebblesStore()
 
   const [[page, direction], setPage] = useState([0, 0])
 
   const handleCreatePebble = () => {
     createPebble(nickname, selectedColor)
-  }
-
-  const handleClose = () => {
-    setHasCreate(false)
-    setSelected(null)
   }
 
   const pebbleIndex = wrap(0, pebbleOptions.length, page)
@@ -81,9 +76,6 @@ export const ModalCreate = ({ ...props }) => {
           animate={{ opacity: 1, translateY: '0rem', scale: 1 }}
           exit={{ opacity: 0, translateY: '8rem', scale: 0.85 }}
         >
-          <div className="hero__modal__top" onClick={handleClose}>
-            <IconsClose />
-          </div>
           <div className="hero__modal__header">
             <div className="hero__modal__overline">Choose a Pebble Color:</div>
             <div className="hero__modal__carousel">

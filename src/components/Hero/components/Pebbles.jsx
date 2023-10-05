@@ -24,6 +24,11 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
   const instancedMeshRef = useRef()
   const tempColorRef = useRef(new THREE.Color())
 
+  const highlights = useRef(new Float32Array(24))
+  const highlightAttribute = new THREE.InstancedBufferAttribute(highlights.current, 1)
+
+  nodes.pebble.geometry.setAttribute('highlight', highlightAttribute)
+
   const uniforms = useMemo(
     () => ({
       lightDirection: { value: new THREE.Vector3(-48, 48 * 2, 0) },
@@ -37,7 +42,7 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
     [diffuseMap, normalMap, groundColor, renderedTexture, skyColor],
   )
 
-  const { setSelected, setHasCreate, setHasDetails, setHasStarted, pebblesData } =
+  const { setSelected, resetSelected, setHasCreate, setHasDetails, setHasStarted, pebblesData } =
     usePebblesStore.getState()
 
   const handleOnClick = useCallback(
@@ -55,9 +60,9 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
 
   const handlePointerMiss = useCallback(() => {
     setHasCreate(false)
-    setSelected(null)
+    resetSelected()
     setHasDetails(false)
-  }, [setHasCreate, setSelected, setHasDetails])
+  }, [setHasCreate, setHasDetails, resetSelected])
 
   const lastChunkIndex = useRef(null)
   const relevantDataRef = useRef([])
@@ -76,7 +81,7 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
     ]
   }
 
-  const updateInstancedMesh = (cameraPositionZ, pebble, count) => {
+  const updateInstancedMesh = (cameraPositionZ, pebble, count, delta) => {
     tempObject.position.set(
       pebble.position[0],
       pebble.position[1],
@@ -89,6 +94,7 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
     tempObject.updateMatrix()
 
     const isInView = cameraPositionZ - tempObject.position.z > -c.sceneRadius - c.sceneOffsetZ
+    const isSelected = pebble.uid === usePebblesStore.getState().selectedPebble?.uid
 
     if (isInView) {
       instancedMeshRef.current.setMatrixAt(count, tempObject.matrix)
@@ -96,12 +102,20 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
       tempColorRef.current.set(pebble.color)
       instancedMeshRef.current.setColorAt(count, tempColorRef.current)
 
+      highlights.current[count] = THREE.MathUtils.lerp(
+        highlights.current[count],
+        isSelected ? 1 : 0,
+        delta,
+      )
+
+      instancedMeshRef.current.geometry.attributes.highlight.needsUpdate = true
+
       instancedMeshRef.current.instanceMatrix.needsUpdate = true
       instancedMeshRef.current.instanceColor.needsUpdate = true
     }
   }
 
-  useFrame(({ camera }) => {
+  useFrame(({ camera }, delta) => {
     if (pebblesData.length === 0) return
     let count = 0
     const cameraPositionZ = camera.position.clone().z
@@ -117,27 +131,46 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
     }
 
     relevantDataRef.current.forEach((pebble, i) => {
-      updateInstancedMesh(cameraPositionZ, pebble, count)
+      updateInstancedMesh(cameraPositionZ, pebble, count, delta)
       count++
     })
 
     instancedMeshRef.current.computeBoundingSphere()
+
+    // infoRef.current.position.x = infoPosRef.current.x
+    // infoRef.current.position.y = infoPosRef.current.y
+    // infoRef.current.position.z = infoPosRef.current.z
   })
 
+  // const infoRef = useRef()
+  // const infoPosRef = useRef(new THREE.Vector3())
+
   return (
-    <instancedMesh
-      ref={instancedMeshRef}
-      args={[nodes.pebble.geometry, null, 24]}
-      frustumCulled={false}
-      onClick={handleOnClick}
-      onPointerMissed={handlePointerMiss}
-    >
-      <rawShaderMaterial
-        vertexShader={vertex}
-        fragmentShader={fragment}
-        uniforms={uniforms}
-        attach="material"
-      />
-    </instancedMesh>
+    <>
+      {/* <group ref={infoRef}>
+        <Html as="div">
+          <h1>hello</h1>
+          <p>world</p>
+        </Html>
+      </group> */}
+      <instancedMesh
+        ref={instancedMeshRef}
+        args={[nodes.pebble.geometry, null, 24]}
+        frustumCulled={false}
+        onClick={handleOnClick}
+        onPointerMissed={handlePointerMiss}
+        // onPointerOver={(e) => {
+        //   console.log(e)
+        //   infoPosRef.current.copy(e.point)
+        // }}
+      >
+        <rawShaderMaterial
+          vertexShader={vertex}
+          fragmentShader={fragment}
+          uniforms={uniforms}
+          attach="material"
+        />
+      </instancedMesh>
+    </>
   )
 })

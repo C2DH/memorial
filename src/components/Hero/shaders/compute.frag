@@ -37,13 +37,13 @@ float customGradient(float t) {
 
 void main() {
   vec2 camVec = vec2(cam.x, cam.z);
-  vec2 timeVec = vec2(time * -0.125 * 0.5);
+  vec2 timeVec = vec2(time * -0.125 * 0.025);
 
   vec2 camFactor = vUv + (camVec / sceneLoopLength);
 
   float displacement = smoothNoise(camFactor * terrainFrequency);
 
-  float wind = smoothNoise((camFactor + timeVec * 8.0) * 4.0);
+  float wind = smoothNoise((camFactor + timeVec * 8.0) * 64.0);
   wind += smoothNoise((camFactor + timeVec * 2.0) * 48.0) * 0.5;
 
   wind /= 1.5;

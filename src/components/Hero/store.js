@@ -47,17 +47,74 @@ export const usePebblesStore = create((set, get) => ({
   hasStarted: false,
   hasCreate: false,
   hasDetails: false,
+  userInteracted: false,
   // PEBBLE STATES:
   selectedPebble: null,
+  lastSelectedPebble: null,
   pebblesCount: 0,
   lastPebbleData: {
     positionX: 0,
     positionZ: 0,
   },
   // ACTIONS:
-  setSelected: (data) => {
-    set({ selectedPebble: data })
+  selectAdjacentPebble: (step) => {
+    const pebblesData = get().pebblesData
+    const selectedPebble = get().selectedPebble
+
+    let newPebble = null
+
+    if (selectedPebble) {
+      const currentChunkIndex = pebblesData.findIndex((chunk) =>
+        chunk.some((pebble) => pebble.uid === selectedPebble.uid),
+      )
+      const currentPebbleIndex = pebblesData[currentChunkIndex].findIndex(
+        (pebble) => pebble.uid === selectedPebble.uid,
+      )
+
+      let totalPebbles = 0
+      pebblesData.forEach((chunk) => (totalPebbles += chunk.length))
+
+      let flatIndex =
+        pebblesData.slice(0, currentChunkIndex).reduce((acc, chunk) => acc + chunk.length, 0) +
+        currentPebbleIndex
+      let newFlatIndex = (flatIndex + step + totalPebbles) % totalPebbles // Ensure the index is within bounds
+
+      let cumPebbles = 0
+      for (let i = 0; i < pebblesData.length; i++) {
+        cumPebbles += pebblesData[i].length
+        if (cumPebbles > newFlatIndex) {
+          newPebble = pebblesData[i][newFlatIndex - (cumPebbles - pebblesData[i].length)]
+          break
+        }
+      }
+    } else if (pebblesData.length > 0 && pebblesData[0].length > 0) {
+      newPebble =
+        step >= 0
+          ? pebblesData[0][0]
+          : pebblesData[pebblesData.length - 1][pebblesData[pebblesData.length - 1].length - 1]
+    }
+
+    if (newPebble) {
+      set({
+        selectedPebble: newPebble,
+        lastSelectedPebble: newPebble,
+      })
+    }
   },
+  setSelected: (data) => {
+    set({
+      selectedPebble: data,
+      lastSelectedPebble: data,
+      userInteracted: true,
+    })
+  },
+  resetSelected: () => {
+    set({
+      selectedPebble: null,
+      userInteracted: true,
+    })
+  },
+  setUserInteracted: (value) => set({ userInteracted: value }),
   setHasStarted: (value) => set({ hasStarted: value }),
   setHasDetails: (value) => set({ hasDetails: value }),
   setHasCreate: (value) => set({ hasCreate: value }),
@@ -89,7 +146,7 @@ export const usePebblesStore = create((set, get) => ({
   },
   setInitialData: () => {
     console.log('setInitialData')
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 12; i++) {
       const randomColor = randomChoice([0, 1, 2, 3])
       const randomNickname = 'username' + randomChoice([0, 1, 2, 3, 4])
       get().createPebble(randomNickname, randomColor, false)

@@ -10,10 +10,14 @@ import { ModalDetails } from './ui/ModalDetails'
 import { ModalCreate } from './ui/ModalCreate'
 import { ScrollController } from './components/ScrollController'
 // eslint-disable-next-line no-unused-vars
-import { OrbitControls, StatsGl } from '@react-three/drei'
+import { StatsGl, Stats } from '@react-three/drei'
 
 import { useEffect } from 'react'
 import { usePebblesStore } from './store'
+
+import * as THREE from 'three'
+
+const color = new THREE.Color('#DCF3F7').convertSRGBToLinear()
 
 const Hero = () => {
   useEffect(() => {
@@ -24,10 +28,11 @@ const Hero = () => {
     <div className="hero">
       <ScrollController>
         <div className="hero__canvas-wrapper">
-          <Canvas gl={{ alpha: true, antialias: true }} resize={{ scroll: false }}>
-            <StatsGl />
+          <Canvas gl={{ alpha: false, antialias: false, shadows: false }} dpr={2}>
+            {/* <StatsGl /> */}
+            {/* <Stats showPanel={0} /> */}
+            <color attach="background" args={[color]} />
             <Camera />
-            {/* <OrbitControls /> */}
             <Scene />
           </Canvas>
         </div>

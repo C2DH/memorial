@@ -7,6 +7,7 @@ varying vec3 vColor;
 varying mat4 vInstanceMatrix;
 varying mat3 vNormalMatrix;
 varying mat3 vTest;
+varying float vHighlight;
 
 uniform sampler2D normalMap;
 uniform sampler2D diffuseMap;
@@ -42,9 +43,21 @@ vec3 shiftHue(vec3 colorRGB, float hueShift) {
     return hsv2rgb(colorHSV);
 }
 
+// Saturation
+vec3 desaturate(vec3 color, float amount) {
+    float gray = 0.299 * color.r + 0.587 * color.g + 0.114 * color.b;
+    return mix(color, vec3(gray), amount);
+}
+
 void main() {
+    float distanceToCamera = length(vWorldPosition.xyz - cameraPosition);
+
     float radius = 48.0;
     float loopLength = radius * 2.0;
+
+    if(distanceToCamera > radius + zOffset) {
+        discard;
+    }
 
     float x = vWorldPosition.x;
     float z = vWorldPosition.z - zOffset;
@@ -66,16 +79,18 @@ void main() {
 
     vec3 transformedNormals = normalize(mat3(vInstanceMatrix) * c_normals);
 
-        // Shift hue of color
-    vec3 hsvCol = rgb2hsv(vColor);
+    // Shift hue of color
+    vec3 hsvCol = rgb2hsv(vColor + vHighlight);
     float hueShiftAmount = -0.66 + hsvCol.x;
+
+    color = desaturate(color, 0.5);
     color = shiftHue(color, hueShiftAmount);
 
-    float diffuse = max(dot(transformedNormals, light), 0.25);
-    vec3 diffuseColor = diffuse * color;
+    float diffuse = max(dot(transformedNormals, light), 0.15);
+    vec3 diffuseColor = mix(diffuse * skyColor, diffuse * color * 1.5, vHighlight);
 
     float blendFactor = smoothstep(computeTexture.r + 0.0, computeTexture.r + 1.2, vWorldPosition.y);
-    vec3 blendColor = mix(groundColor, diffuseColor, blendFactor);
+    vec3 blendColor = mix(groundColor * vec3(0.35, 1.0, 0.5), diffuseColor, blendFactor);
 
     float fog = computeTexture.a;
     vec3 fogColor = mix(blendColor, skyColor, fog);

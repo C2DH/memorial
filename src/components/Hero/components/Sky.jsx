@@ -1,18 +1,19 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useRef } from 'react'
 import * as THREE from 'three'
+import { Clouds, Cloud } from '@react-three/drei'
 import { useGLTF, useTexture } from '@react-three/drei'
 
 import vertex from '../shaders/sky.vert'
 import fragment from '../shaders/sky.frag'
 
-import vertexB from '../shaders/bg.vert'
-import fragmentB from '../shaders/bg.frag'
-
 import * as c from '../sceneConfig'
+import { useFrame } from '@react-three/fiber'
 
-/* TODO: ZOOM IN ON SCROLL */
+import { usePebblesStore } from '../store'
 
 export const Sky = ({ skyColor, groundColor }) => {
+  const cloudsRef = useRef()
+
   const { nodes } = useGLTF('/models/models.glb')
   const texture = useTexture('/texture/skyTexture.png')
 
@@ -28,17 +29,19 @@ export const Sky = ({ skyColor, groundColor }) => {
     [groundColor, skyColor, texture],
   )
 
+  useFrame(({ camera }) => {
+    const targetY = usePebblesStore.getState().hasStarted ? 0 : -16
+    const targetScaleY = usePebblesStore.getState().hasStarted ? 1 : 1.5
+    const targetScaleX = usePebblesStore.getState().hasStarted ? 1 : 1.25
+    cloudsRef.current.position.z = camera.position.z + 8
+
+    cloudsRef.current.position.y = THREE.MathUtils.lerp(cloudsRef.current.position.y, targetY, 0.05)
+    cloudsRef.current.scale.y = THREE.MathUtils.lerp(cloudsRef.current.scale.y, targetScaleY, 0.05)
+    cloudsRef.current.scale.x = THREE.MathUtils.lerp(cloudsRef.current.scale.y, targetScaleX, 0.05)
+  })
+
   return (
     <>
-      <mesh scale={1} frustumCulled={false}>
-        <sphereGeometry args={[256, 32, 32]} />
-        <rawShaderMaterial
-          vertexShader={vertexB}
-          fragmentShader={fragmentB}
-          uniforms={uniforms}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
       <mesh frustumCulled={false} geometry={nodes.sky.geometry}>
         <rawShaderMaterial
           vertexShader={vertex}
@@ -47,6 +50,30 @@ export const Sky = ({ skyColor, groundColor }) => {
           side={THREE.DoubleSide}
         />
       </mesh>
+      <group ref={cloudsRef}>
+        <Clouds limit={400} material={THREE.MeshBasicMaterial}>
+          <Cloud
+            color={[2, 3, 3]}
+            seed={24}
+            fade={50}
+            position={[0, 48, 64]}
+            speed={0.15}
+            growth={16}
+            volume={32}
+            bounds={[48, 8, 12]}
+          />
+          <Cloud
+            color={[2, 3, 3]}
+            seed={2}
+            fade={50}
+            position={[0, 32, 64]}
+            speed={0.5}
+            growth={16}
+            volume={8}
+            bounds={[48, 8, 12]}
+          />
+        </Clouds>
+      </group>
     </>
   )
 }

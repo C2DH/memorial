@@ -12,6 +12,7 @@ attribute vec3 normal;
 attribute vec2 uv;
 attribute mat4 instanceMatrix;
 attribute vec3 instanceColor;
+attribute float highlight;
 
 // Varyings to send data to the fragment shader
 varying vec2 vUv;
@@ -21,10 +22,12 @@ varying vec3 vColor;
 varying mat4 vInstanceMatrix;
 varying mat3 vNormalMatrix;
 varying mat3 vTest;
+varying float vHighlight;
 
 void main() {
     vUv = uv;
     vColor = instanceColor;
+    vHighlight = highlight;
 
     vNormal = normal;
     vInstanceMatrix = instanceMatrix;

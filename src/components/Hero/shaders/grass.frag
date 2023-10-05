@@ -21,16 +21,17 @@ varying mat4 vRotMat2;
 varying float vScale;
 
 void main() {
+
     vec4 computeTexture = texture2D(renderedTexture, vInstanceUv);
 
     float height = computeTexture.r;
-    float heightFactor = mix(0.5 - vRandIDa * 0.15, 3.5 - vScale, height / terrainAmplitude);
+    float heightFactor = mix(0.25, 1.0, height / terrainAmplitude);
 
-    vec3 yellows = vec3(1.0, 0.75, 0.25) * .65;
-    vec3 greens = vec3(0.5, 1.0, 0.25) * .45;
+    vec3 yellows = vec3(0.85, 0.65, 0.25) * 1.5;
+    vec3 greens = vec3(0.35, 1.0, 0.5) * 1.5;
 
     vec3 color = mix(yellows, greens, (vScale + vRandIDb * 0.5) / 1.5);
-    color = (color - 0.25 * vRandIDb) * heightFactor + skyColor * 0.25;
+    color = mix(groundColor, color, heightFactor);
 
     vec3 light = normalize(lightDirection);
 
