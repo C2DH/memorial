@@ -19,7 +19,13 @@
 }
 
 .Page h3 {
-  font-weight: bold;
+  font-weight: 600;
+  letter-spacing: 0.055em;
+}
+
+.Page h3 em {
+  font-weight: 750;
+  font-style: normal;
 }
 
 .Page table td {
