@@ -11,6 +11,8 @@ import { useFrame } from '@react-three/fiber'
 
 import { usePebblesStore } from '../store'
 
+const color = new THREE.Color('#DCF3F7').convertSRGBToLinear()
+
 export const Sky = ({ skyColor, groundColor }) => {
   const cloudsRef = useRef()
 
@@ -30,8 +32,8 @@ export const Sky = ({ skyColor, groundColor }) => {
   )
 
   useFrame(({ camera }) => {
-    const targetY = usePebblesStore.getState().hasStarted ? 0 : -16
-    const targetScaleY = usePebblesStore.getState().hasStarted ? 1 : 1.5
+    const targetY = usePebblesStore.getState().hasStarted ? 0 : -8
+    const targetScaleY = usePebblesStore.getState().hasStarted ? 1 : 1.25
     const targetScaleX = usePebblesStore.getState().hasStarted ? 1 : 1.25
     cloudsRef.current.position.z = camera.position.z + 8
 
@@ -42,6 +44,7 @@ export const Sky = ({ skyColor, groundColor }) => {
 
   return (
     <>
+      <color attach="background" args={[color]} />
       <mesh frustumCulled={false} geometry={nodes.sky.geometry}>
         <rawShaderMaterial
           vertexShader={vertex}
@@ -56,11 +59,11 @@ export const Sky = ({ skyColor, groundColor }) => {
             color={[2, 3, 3]}
             seed={24}
             fade={50}
-            position={[0, 48, 64]}
+            position={[0, 48, 48]}
             speed={0.15}
             growth={16}
             volume={32}
-            bounds={[48, 8, 12]}
+            bounds={[40, 8, 12]}
           />
           <Cloud
             color={[2, 3, 3]}
@@ -70,7 +73,7 @@ export const Sky = ({ skyColor, groundColor }) => {
             speed={0.5}
             growth={16}
             volume={8}
-            bounds={[48, 8, 12]}
+            bounds={[40, 8, 12]}
           />
         </Clouds>
       </group>

@@ -44,7 +44,7 @@ const App = () => {
       <BrowserRouter>
         {isMobile ? (
           <React.Suspense fallback={null}>
-            <MobileHeader />{' '}
+            <MobileHeader />
           </React.Suspense>
         ) : (
           <React.Suspense fallback={null}>

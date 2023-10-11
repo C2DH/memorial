@@ -24,7 +24,6 @@ const createNewPebble = (userName, color, lastPositionX, lastPositionZ) => {
     position: [positionX, positionY, positionZ],
     rotation: randomEuler(),
     scale: [1, 1, 1],
-
     color: c.ghibliPalette[color],
     uid: lastPositionZ,
     createdAt: new Date(),
@@ -60,15 +59,18 @@ export const usePebblesStore = create((set, get) => ({
   selectAdjacentPebble: (step) => {
     const pebblesData = get().pebblesData
     const selectedPebble = get().selectedPebble
+    const lastSelectedPebble = get().lastSelectedPebble
 
     let newPebble = null
 
-    if (selectedPebble) {
+    if (selectedPebble || lastSelectedPebble) {
+      const thisSelectedPebble = selectedPebble || lastSelectedPebble
+
       const currentChunkIndex = pebblesData.findIndex((chunk) =>
-        chunk.some((pebble) => pebble.uid === selectedPebble.uid),
+        chunk.some((pebble) => pebble.uid === thisSelectedPebble.uid),
       )
       const currentPebbleIndex = pebblesData[currentChunkIndex].findIndex(
-        (pebble) => pebble.uid === selectedPebble.uid,
+        (pebble) => pebble.uid === thisSelectedPebble.uid,
       )
 
       let totalPebbles = 0
@@ -119,6 +121,7 @@ export const usePebblesStore = create((set, get) => ({
   setHasDetails: (value) => set({ hasDetails: value }),
   setHasCreate: (value) => set({ hasCreate: value }),
   createPebble: (userName, color, isNew = true) => {
+    console.log('createPebble')
     const newPebbles = get().pebblesData
     const lastPebbleData = get().lastPebbleData
     const currentChunkIndex = getChunkIndex(lastPebbleData.positionZ)
@@ -146,7 +149,7 @@ export const usePebblesStore = create((set, get) => ({
   },
   setInitialData: () => {
     console.log('setInitialData')
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 128; i++) {
       const randomColor = randomChoice([0, 1, 2, 3])
       const randomNickname = 'username' + randomChoice([0, 1, 2, 3, 4])
       get().createPebble(randomNickname, randomColor, false)

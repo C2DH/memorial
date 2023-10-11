@@ -5,9 +5,7 @@
   flex-direction: row;
   gap: 0.5rem;
   align-items: center;
-  justify-content: flex-start;
-  position: relative;
-  text-align: justified;
+  flex-shrink: 0;
   font: var(--text-m);
   font-weight: 500;
   position: relative;

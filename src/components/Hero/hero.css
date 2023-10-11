@@ -15,9 +15,9 @@
 }
 
 .hero {
-  padding: 5rem;
+  padding: 0;
   width: 100%;
-  height: calc(100vh - 5rem);
+  height: calc(100vh - 4rem);
   position: relative;
 
   /* Colors */
@@ -37,17 +37,12 @@
 }
 
 .hero__canvas-wrapper {
-  flex-shrink: 0;
-  position: sticky;
-  top: 2rem;
-  left: 2rem;
-  width: calc(100% - 4rem);
-  height: calc(100vh - 10rem);
-  pointer-events: all;
-  overflow: hidden;
-}
-.hero__canvas-wrapper > div {
-  border-radius: 1rem;
+  position: absolute;
+  top: 0;
+  left: 3rem;
+  right: 3rem;
+  bottom: 3rem;
+  border-radius: 32px;
   overflow: hidden;
 }
 

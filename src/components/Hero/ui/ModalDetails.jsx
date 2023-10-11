@@ -53,7 +53,7 @@ export const ModalDetails = ({ ...props }) => {
     }
   }
 
-  const animValue = usePeriodicAnimation(3000, handleNextAuto)
+  const animValue = usePeriodicAnimation(4500, handleNextAuto)
 
   useEffect(() => {
     const tickerBox = document.getElementById('tickerDiv')

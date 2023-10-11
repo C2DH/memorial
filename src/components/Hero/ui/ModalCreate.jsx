@@ -49,12 +49,13 @@ const wrap = (min, max, value) => {
 export const ModalCreate = ({ ...props }) => {
   const pebbleOptions = [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }]
 
-  const { hasCreate, createPebble } = usePebblesStore()
+  const { hasCreate } = usePebblesStore()
 
   const [[page, direction], setPage] = useState([0, 0])
 
   const handleCreatePebble = () => {
-    createPebble(nickname, selectedColor)
+    usePebblesStore.getState().createPebble(nickname, selectedColor)
+    usePebblesStore.getState().setUserInteracted(true)
   }
 
   const pebbleIndex = wrap(0, pebbleOptions.length, page)

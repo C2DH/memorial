@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { PerspectiveCamera } from '@react-three/drei'
 import * as THREE from 'three'
-import useSafeFrame from '../hooks/useSafeFrame'
+import { useFrame } from '@react-three/fiber'
+
+import { usePebblesStore } from '../store'
 
 import * as c from '../sceneConfig'
 
-import { usePebblesStore } from '../store'
-import { useScrollStore } from '../store'
+const CAMERA_OFFSET = [-12, 10, -12]
+const TARGET_OFFSET = [-2, 6, 4]
 
 export const Camera = () => {
   const cameraRef = useRef()
@@ -18,11 +20,16 @@ export const Camera = () => {
   const currentPositionRef = useRef(new THREE.Vector3(0, 8, 0))
   const currentLookAtRef = useRef(new THREE.Vector3(0, 8, 48))
 
+  const mousePosition = useRef({ x: 0, y: 0 })
+
+  const scrollSpeedRef = useRef(0)
+
+  let lastScrollTime = useRef(Date.now()).current
+  let accumulatedDelta = useRef(0).current
+  let lastTouchY = useRef(0).current
+
   const selectedTarget = usePebblesStore((state) => state.selectedPebble)
   const hasStarted = usePebblesStore((state) => state.hasStarted)
-
-  const CAMERA_OFFSET = [-12, 10, -12]
-  const TARGET_OFFSET = [-2, 6, 4]
 
   const [signedPosition, setSignedPosition] = useState(1)
 
@@ -30,21 +37,78 @@ export const Camera = () => {
     selectedTarget && setSignedPosition((prev) => -prev)
   }, [selectedTarget])
 
-  const moveCameraOnScroll = () => {
-    const scrollProgress = useScrollStore.getState().scroll
-    forwardPositionRef.current.z = scrollProgress * 20
+  const handleScroll = (e) => {
+    const currentTime = Date.now()
+    const elapsedTime = currentTime - lastScrollTime
+    lastScrollTime = currentTime
+
+    const normalized = Math.sign(e.wheelDelta ? e.wheelDelta : -e.deltaY)
+
+    accumulatedDelta += normalized
+
+    if (Math.abs(accumulatedDelta) > 2 || elapsedTime > 200) {
+      scrollSpeedRef.current = calculateSpeed(accumulatedDelta, elapsedTime)
+      accumulatedDelta = 0
+    }
   }
 
-  const setCameraPosZ = () => {
-    forwardLookAtRef.current.z = targetPositionRef.current.z + c.sceneRadius
+  const handleTouchStart = (e) => {
+    console.log('touch start')
+    lastTouchY = e.touches[0].clientY
   }
 
-  const setCameraForward = () => {
-    targetPositionRef.current.set(...forwardPositionRef.current)
-    targetLookAtRef.current.set(...forwardLookAtRef.current)
+  const handleTouchMove = (e) => {
+    e.preventDefault()
+
+    const deltaY = lastTouchY - e.touches[0].clientY
+    lastTouchY = e.touches[0].clientY
+    accumulatedDelta += deltaY
+
+    const currentTime = Date.now()
+    const elapsedTime = currentTime - lastScrollTime
+    lastScrollTime = currentTime
+
+    if (Math.abs(accumulatedDelta) > 2 || elapsedTime > 200) {
+      scrollSpeedRef.current = calculateSpeed(accumulatedDelta, elapsedTime)
+      accumulatedDelta = 0
+    }
   }
 
-  const setCameraToTarget = () => {
+  const handleMouseMove = (event) => {
+    mousePosition.current = {
+      x: (event.clientX / window.innerWidth) * 2 - 1,
+      y: -(event.clientY / window.innerHeight) * 2 + 1,
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('wheel', handleScroll)
+    window.addEventListener('touchstart', handleTouchStart)
+    window.addEventListener('touchmove', handleTouchMove, { passive: false })
+    window.addEventListener('mousemove', handleMouseMove)
+
+    return () => {
+      window.removeEventListener('wheel', handleScroll)
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchmove', handleTouchMove)
+      window.removeEventListener('mousemove', handleMouseMove)
+    }
+  })
+
+  const calculateSpeed = (delta, time) => {
+    return THREE.MathUtils.clamp((delta / time) * 1000, -2, 2)
+  }
+
+  const cameraScroll = (delta) => {
+    targetPositionRef.current.z += scrollSpeedRef.current * delta * -50
+    targetLookAtRef.current.z += scrollSpeedRef.current * delta * -50
+    scrollSpeedRef.current *= 1 - delta * 5
+    if (Math.abs(scrollSpeedRef.current) < 0.01) {
+      scrollSpeedRef.current = 0
+    }
+  }
+
+  const cameraToTarget = () => {
     targetPositionRef.current.set(
       selectedTarget.position[0] + CAMERA_OFFSET[0] * signedPosition,
       selectedTarget.position[1] + CAMERA_OFFSET[1],
@@ -57,21 +121,15 @@ export const Camera = () => {
     )
   }
 
-  const mousePosition = useRef({ x: 0, y: 0 })
+  const oscilateCamera = () => {
+    const lastTarget = usePebblesStore.getState().lastSelectedPebble
 
-  const handleMouseMove = (event) => {
-    mousePosition.current = {
-      x: (event.clientX / window.innerWidth) * 2 - 1,
-      y: -(event.clientY / window.innerHeight) * 2 + 1,
-    }
+    targetPositionRef.current.y = lastTarget ? lastTarget.position[1] + 48 : 48
+
+    targetLookAtRef.current.x = 0
+    targetLookAtRef.current.y = 40
+    targetLookAtRef.current.z = targetPositionRef.current.z + 48
   }
-
-  useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-    }
-  }, [])
 
   const updateCamera = (delta) => {
     currentPositionRef.current.lerp(targetPositionRef.current, 1.25 * delta)
@@ -80,44 +138,18 @@ export const Camera = () => {
     currentLookAtRef.current.x += !selectedTarget ? mousePosition.current.x * -0.15 : 0
     currentLookAtRef.current.y += hasStarted ? mousePosition.current.y * 0.05 : 0
 
-    if (cameraRef.current) {
-      cameraRef.current.position.set(...currentPositionRef.current)
-      cameraRef.current.lookAt(currentLookAtRef.current)
-      cameraRef.current.updateProjectionMatrix()
-    }
+    cameraRef.current.position.set(...currentPositionRef.current)
+    cameraRef.current.lookAt(currentLookAtRef.current)
+    cameraRef.current.updateProjectionMatrix()
   }
 
-  // const oscilateCamera = () => {
-  //   targetPositionRef.current.y = 48
-  //   targetLookAtRef.current.x = 0
-  //   targetLookAtRef.current.y = 40
-  //   targetLookAtRef.current.z = targetPositionRef.current.z + 48
-  // }
+  const cameraForward = () => {
+    targetPositionRef.current.x = 0
 
-  const oscilateCamera = () => {
-    const lastTarget = usePebblesStore.getState().lastSelectedPebble
-
-    targetPositionRef.current.x = lastTarget ? lastTarget.position[0] + 0 : 0
-    targetPositionRef.current.y = lastTarget ? lastTarget.position[1] + 48 : 48
-    targetPositionRef.current.z = lastTarget ? lastTarget.position[2] - 128 : -128
     targetLookAtRef.current.x = 0
-    targetLookAtRef.current.y = 32
+    targetLookAtRef.current.y = 8
     targetLookAtRef.current.z = targetPositionRef.current.z + 48
   }
-
-  useSafeFrame((_, delta) => {
-    if (!hasStarted) {
-      oscilateCamera()
-    } else if (hasStarted && selectedTarget) {
-      setCameraToTarget()
-      setCameraPosZ()
-    } else if (hasStarted && !selectedTarget) {
-      moveCameraOnScroll()
-      setCameraForward()
-      setCameraPosZ()
-    }
-    updateCamera(delta)
-  })
 
   useEffect(() => {
     const currentCamera = cameraRef.current
@@ -128,6 +160,23 @@ export const Camera = () => {
     currentCamera.zoom = 1
     currentCamera.updateProjectionMatrix()
   }, [])
+
+  useFrame((_, delta) => {
+    if (!cameraRef.current) return
+
+    if (hasStarted) {
+      if (selectedTarget) {
+        cameraToTarget()
+      } else {
+        cameraForward()
+      }
+      cameraScroll(delta)
+    } else {
+      oscilateCamera()
+    }
+
+    updateCamera(delta)
+  })
 
   return <PerspectiveCamera ref={cameraRef} makeDefault />
 }
