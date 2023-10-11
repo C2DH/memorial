@@ -69,7 +69,7 @@ const Search = ({ limit = 5 }) => {
             limit,
             orderby: orderBy,
             exclude: {
-              tags__slug: 'static',
+              tags__slug__in: ['static', 'convoy'],
             },
             ...queryParams,
             offset: limit * (pageParam - 1),
@@ -232,7 +232,7 @@ const Search = ({ limit = 5 }) => {
               <ol>
                 {data?.pages.map((page, i) =>
                   page.results.map((story) => (
-                    <li key={story.slug} className="mt-4">
+                    <li key={i + '-' + story.slug} className="mt-4">
                       {/* <label className="small text-muted">
                         {i + 1} / {count}
                       </label> */}
