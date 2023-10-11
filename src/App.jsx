@@ -111,7 +111,7 @@ const App = () => {
                   }
                 />
                 <Route
-                  path="convoy/:storyId"
+                  path="convoy/:convoyId"
                   element={
                     <React.Suspense fallback={<>...</>}>
                       <Convoy />
