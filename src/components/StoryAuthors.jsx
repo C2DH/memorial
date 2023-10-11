@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import AuthorItem from './AuthorItem'
 
-const StoryAuthors = ({ authors = [] }) => {
+const StoryAuthors = ({ authors = [], to }) => {
   const { t } = useTranslation()
   if (!authors.length) {
     return null
@@ -11,7 +11,7 @@ const StoryAuthors = ({ authors = [] }) => {
     <div className="StoryAuthors">
       <label className="text-uppercase small fw-bold">{t('writtenBy')}</label>
       {authors.map((author) => (
-        <AuthorItem key={author.id} author={author} className="ms-3" />
+        <AuthorItem key={author.id} author={author} className="ms-3" to={to} />
       ))}
     </div>
   )

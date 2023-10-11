@@ -1,16 +1,20 @@
 import React from 'react'
 import DocumentItem from './DocumentItem'
-import { useDocuments } from '@c2dh/react-miller'
 import '../styles/components/StoryTimeline.css'
-const StoryTimeline = ({ storyId }) => {
-  // load all documents starting with storyId
-  const [data, { isSuccess }] = useDocuments({
-    params: {
-      filters: { slug__istartswith: storyId },
+import { StatusSuccess, useGetJSON } from '../hooks/data'
 
-      limit: 100,
+const StoryTimeline = ({ storyId }) => {
+  const { data, status, error } = useGetJSON({
+    url: `/api/document/`,
+    params: {
+      limit: 1000,
+      filters: { slug__istartswith: storyId },
     },
+    delay: 1000,
   })
+  if (error) {
+    console.warn('[StoryTimeline] error:', error)
+  }
 
   let dates = [
     { t: 1915, label: '' },
@@ -21,7 +25,7 @@ const StoryTimeline = ({ storyId }) => {
 
   let documentWithoutDates = []
   let allDates = []
-  if (isSuccess) {
+  if (status === StatusSuccess) {
     // add timeline values
     data.results
       .filter((d) => typeof d.data.start_date === 'string')
@@ -55,8 +59,6 @@ const StoryTimeline = ({ storyId }) => {
     // fill list with uncertain dates
     documentWithoutDates = data.results.filter((d) => typeof d.data.start_date !== 'string')
   }
-
-  console.debug('[StoryTimeline]', '\n- storyId:', storyId, '\n - data:', data, dates, allDates)
   return (
     <aside className="StoryTimeline">
       <ol className="mb-4">

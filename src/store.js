@@ -3,9 +3,22 @@ import { persist } from 'zustand/middleware'
 
 export const useStore = create((set) => ({
   routeLabel: '',
-  setRouteLabel: (routeLabel) => set({ routeLabel }),
+  setRouteLabel: (routeLabel) => {
+    document.body.className = routeLabel
+    return set({ routeLabel })
+  },
   selectedPebble: null,
   setSelectedPebble: (selectedPebble) => set({ selectedPebble }),
+  authors: [],
+  authorsIndex: {},
+  setAuthors: (authors) =>
+    set({
+      authors,
+      authorsIndex: authors.reduce((acc, author) => {
+        acc[author.slug] = author
+        return acc
+      }),
+    }),
 }))
 
 export const usePermanentStore = create(
