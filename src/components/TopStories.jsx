@@ -4,13 +4,7 @@ import { StatusError, StatusSuccess, useGetJSON } from '../hooks/data'
 import { shuffle } from '../logic/array'
 import '../styles/components/TopStories.css'
 
-const TopStories = ({
-  className = '',
-  params = {},
-  reduced = false,
-  children,
-  allStories = false,
-}) => {
+const TopStories = ({ className = '', params = {}, reduced = false, children }) => {
   const { data, status, error } = useGetJSON({
     url: '/api/story',
     params,

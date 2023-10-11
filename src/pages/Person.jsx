@@ -10,6 +10,9 @@ import TopStories from '../components/TopStories'
 import TopDocuments from '../components/TopDocuments'
 import { useTranslation } from 'react-i18next'
 import DocumentImage from '../components/DocumentImage'
+import MetadataField from '../components/MetadataField'
+
+const LocationMetadataFields = ['address_before_19411016']
 
 const Person = () => {
   const { t } = useTranslation()
@@ -33,6 +36,7 @@ const Person = () => {
     console.error('[Person]', '\n - docId:', safePersonId, '\n - api error:', error, person)
   }
   console.debug('[Person]', '\n - docId:', safePersonId, '\n - data:', person)
+
   return (
     <div className="Person page">
       <Container>
@@ -46,8 +50,17 @@ const Person = () => {
               {status === StatusSuccess && (
                 <>
                   <PersonSummary person={person} className="mt-3" />
-                  {/* <pre>{JSON.stringify(person, null, 2)}</pre> */}
-                  {/* <DocumentMetadata memoid={bbox.memo + ',' + person.id} doc={person} /> */}
+                  <section>
+                    <MetadataField value={person.data['nationality']} label={'nationality'} />
+                    <MetadataField value={person.data['enter_date']} label={'enter_date'} />
+                  </section>
+                  <section>
+                    <h3>{t('birth')}</h3>
+                    {[('birth_date', 'birth_date_org')].map((field) => (
+                      <MetadataField key={field} value={person.data[field]} label={field} />
+                    ))}
+                  </section>
+                  <pre>{JSON.stringify(person?.data, null, 2)}</pre>
                 </>
               )}
             </div>

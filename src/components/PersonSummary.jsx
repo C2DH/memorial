@@ -2,10 +2,11 @@ import { useTranslation } from 'react-i18next'
 
 const PersonSummary = ({ person, className = '' }) => {
   const { t } = useTranslation()
-  const indexOfPlaces = person.data?.places?.reduce((acc, place) => {
-    acc[place.label] = place
-    return acc
-  }, {})
+  const indexOfPlaces =
+    person.data?.places?.reduce((acc, place) => {
+      acc[place.label] = place
+      return acc
+    }, {}) || {}
 
   const firstName = person.data.first_name
   const lastName = person.data.last_name
