@@ -12,7 +12,7 @@ const GenericIntersectionObserver = ({ onIntersect, delay = 500 }) => {
         if (entry.isIntersecting) {
           debounceTimer = setTimeout(() => {
             onIntersect()
-          }, 500)
+          }, 250)
         } else {
           clearTimeout(debounceTimer)
         }
