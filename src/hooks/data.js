@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { useTimeout } from './timeout'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 export const orderedKeys = (key, value) => {
   if (value instanceof Object && !(value instanceof Array)) {
@@ -28,22 +28,33 @@ export const useGetJSON = ({
   timeout = import.meta.env.VITE_API_TIMEOUT || 0,
   onDownloadProgress,
   params,
+  enabled = true,
 }) => {
-  const [enabled, setEnabled] = useState(false)
+  const [isTimeoutComplete, setIsTimeoutComplete] = useState(delay === 0)
   const memoparams = params ? JSON.stringify(params).split('').sort().join('') : ''
 
   const response = useQuery({
     queryKey: [url, memoparams, memoid],
     queryFn: () => axios.get(url, { timeout, onDownloadProgress, params }).then(({ data }) => data),
-    enabled,
+    enabled: enabled && isTimeoutComplete,
   })
+
   useTimeout(() => {
-    if (!enabled) {
-      setEnabled(true)
+    if (!isTimeoutComplete) {
+      setIsTimeoutComplete(true)
     }
   }, delay)
-  if (enabled && process.env.NODE_ENV === 'development') {
-    console.debug('[useGetJSON] url:', url, 'status', response.status, memoparams)
+
+  if (import.meta.env.NODE_ENV === 'development') {
+    console.debug(
+      '[useGetJSON] url:',
+      url,
+      params,
+      '\n - enabled:',
+      enabled,
+      '\n - status:',
+      response.status,
+    )
   }
   return response
 }

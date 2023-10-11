@@ -32,6 +32,10 @@ export const DocumentRoute = {
   label: 'navigationDoc',
   parentRoute: SearchDocRoute,
 }
+export const SlidesRoute = {
+  to: '/slides/:pageId',
+  label: 'navigationSlides',
+}
 export const AboutRoute = { to: '/pages/about', label: 'navigationAbout' }
 export const FaqRoute = { to: '/pages/faq', label: 'navigationFaq' }
 export const TermsOfUseRoute = { to: '/pages/terms-of-use', label: 'navigationTermsOfUse' }
@@ -50,6 +54,7 @@ export const AllRoutes = [
   DocumentRoute,
   BiographiesRoute,
   LinesMapRoute,
+  SlidesRoute,
 ]
 
 export const Languages = (import.meta.env.VITE_LANGUAGES ?? 'en-GB,fr-FR,de-DE').split(',')
@@ -83,3 +88,33 @@ export const BootstrapEndExtendedColumnLayout = Object.freeze({
 })
 
 export const PebbleColors = ['#7dc0ff', '#ae96ff', '#e592e9', '#d6dd71', '#dcbf87', '#dcdec3']
+
+export const OrderByLatestModifiedFirst = '-date_last_modified'
+export const OrderByOldestModifiedFirst = 'date_last_modified'
+export const OrderByLatestCreatedFirst = '-date_created'
+export const OrderByOldestCreatedFirst = 'date_created'
+
+export const BiographiesAvailableOrderBy = [
+  {
+    value: OrderByLatestModifiedFirst,
+    label: 'orderByLatestModifiedFirst',
+    sort: { date_last_modified: 'desc' },
+  },
+  {
+    value: OrderByOldestModifiedFirst,
+    label: 'orderByOldestModifiedFirst',
+    sort: { date_last_modified: 'asc' },
+  },
+  {
+    value: OrderByLatestCreatedFirst,
+    label: 'orderByLatestCreatedFirst',
+    sort: { date_created: 'desc' },
+  },
+  {
+    value: OrderByOldestCreatedFirst,
+    label: 'orderByOldestCreatedFirst',
+    sort: { date_created: 'asc' },
+  },
+]
+
+export const BiographiesAvailableOrderByValues = BiographiesAvailableOrderBy.map((d) => d.value)

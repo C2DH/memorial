@@ -1,0 +1,11 @@
+.GalleryOfStories img {
+  border-radius: 4px;
+  box-shadow: #0000003d 0 3px 8px;
+  max-height: 70%;
+  max-width: 100%;
+}
+.GalleryOfStories figcaption {
+  border-radius: 4px;
+  background: #f7dfd1;
+  font-size: smaller;
+}

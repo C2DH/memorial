@@ -1,0 +1,7 @@
+.Search ol {
+  list-style-type: none;
+}
+
+.Search ol li {
+  margin-bottom: var(--size-4);
+}

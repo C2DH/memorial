@@ -28,13 +28,15 @@
 
 .Home h2.outlined {
   pointer-events: none;
-
   font-weight: bold;
   font-size: 40px;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: var(--bs-dark);
-  color: transparent;
+  /* -webkit-text-stroke-width: 2px; */
+  /* -webkit-text-stroke-color: var(--bs-dark); */
+  /* color: transparent; */
+  color: var(--bs-primary-text);
+  text-shadow: 0 0 5px var(--primary);
 }
+
 .Home h2.outlined::selection {
   background-color: transparent;
 }
