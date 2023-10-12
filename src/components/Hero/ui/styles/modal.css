@@ -62,8 +62,8 @@
   justify-content: flex-start;
   align-self: stretch;
   position: relative;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
 }
 
 .hero__modal__wrapper {

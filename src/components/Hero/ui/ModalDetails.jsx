@@ -1,13 +1,15 @@
 import './styles/modal.css'
 import { Divider } from './Divider.jsx'
 import { IconsNext, IconsPrev } from './Icons.jsx'
-import { DateTime } from 'luxon'
 
 import { usePebblesStore } from '../store'
 
 import { motion, AnimatePresence, animate } from 'framer-motion'
-
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useAvailableLanguage } from '../../../hooks/language'
+import downsize from 'downsize'
+import LangLink from '../../LangLink'
 
 const usePeriodicAnimation = (interval, callback) => {
   const [animValue, setAnimValue] = useState(0)
@@ -24,9 +26,14 @@ const usePeriodicAnimation = (interval, callback) => {
   return animValue
 }
 
-export const ModalDetails = ({ stories, ...props }) => {
+export const ModalDetails = ({ stories = [], ...props }) => {
+  const { t } = useTranslation()
   const { selectedPebble, hasDetails } = usePebblesStore()
-
+  const selectedStory =
+    stories.length > 0 && selectedPebble ? stories[selectedPebble.linkedBioId] || stories[0] : null
+  const { availableLanguage } = useAvailableLanguage({
+    translatable: selectedStory?.data?.title,
+  })
   const handleNext = () => {
     usePebblesStore.getState().selectAdjacentPebble(1)
     usePebblesStore.getState().setUserInteracted(true)
@@ -35,11 +42,6 @@ export const ModalDetails = ({ stories, ...props }) => {
   const handlePrev = () => {
     usePebblesStore.getState().selectAdjacentPebble(-1)
     usePebblesStore.getState().setUserInteracted(true)
-  }
-
-  const formatDate = (dateStr) => {
-    const dt = DateTime.fromJSDate(dateStr)
-    return dt.toFormat('ccc, DD')
   }
 
   const variants = {
@@ -81,7 +83,7 @@ export const ModalDetails = ({ stories, ...props }) => {
           <div id="tickerDiv" className="hero__modal__carousel-ticker"></div>
 
           <div className="hero__modal__header">
-            <p>
+            {/* <p>
               <span className="hero__modal__overline"> This pebble was created on &nbsp;</span>
               <AnimatePresence mode="wait">
                 <motion.span
@@ -95,7 +97,7 @@ export const ModalDetails = ({ stories, ...props }) => {
                   {formatDate(selectedPebble.createdAt)}
                 </motion.span>
               </AnimatePresence>
-            </p>
+            </p> 
             <p>
               <span className="hero__modal__overline">by&nbsp;</span>
               <AnimatePresence mode="wait">
@@ -110,9 +112,9 @@ export const ModalDetails = ({ stories, ...props }) => {
                   {selectedPebble.createdBy}
                 </motion.span>
               </AnimatePresence>
-            </p>
+            </p>*/}
             <div className="hero__modal__carousel">
-              <Divider />
+              {/* <Divider /> */}
               <div className="hero__modal__wrapper">
                 <IconsPrev onClick={handlePrev} />
                 <div className="hero__modal__carousel-content">
@@ -126,10 +128,20 @@ export const ModalDetails = ({ stories, ...props }) => {
                         exit="hidden"
                         key={selectedPebble.createdBy}
                       >
-                        Elisabeth ROTHSCHILD
+                        {selectedStory ? (
+                          <b
+                            className="small"
+                            dangerouslySetInnerHTML={{
+                              __html: downsize(selectedStory.data.title[availableLanguage], {
+                                characters: 80,
+                                append: '&hellip;',
+                              }),
+                            }}
+                          />
+                        ) : null}
                       </motion.div>
                     </AnimatePresence>
-                    <div className="hero__modal__subtitle">1920 – 1945</div>
+                    {/* <div className="hero__modal__subtitle">1920 – 1945</div> */}
                   </div>
                 </div>
                 <IconsNext onClick={handleNext} />
@@ -147,16 +159,21 @@ export const ModalDetails = ({ stories, ...props }) => {
                 key={selectedPebble.createdBy}
                 className="hero__modal__body-text"
               >
+                This pebble was left by <b>{selectedPebble.createdBy}</b> on
+                <br />
+                {t('dateShort', { date: new Date(selectedPebble.createdAt) })}
+                {/*                 
+
                 Body text Chaim David Borenstein and Nacha Leschinsky, who came from near Lodz,
                 emigrated to Darmstadt in Germany shortly after the birth of their son Isaak in
-                1910...
+                1910... */}
               </motion.div>
             </AnimatePresence>
             <Divider />
           </div>
-          <div className="hero__modal__actions">
-            <div className="hero__modal__inline-link">Read more </div>
-          </div>
+          {selectedStory ? (
+            <LangLink to={`/story/${selectedStory.slug}`}>{t('actionReadBiography')}</LangLink>
+          ) : null}
         </motion.div>
       )}
     </AnimatePresence>
