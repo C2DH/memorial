@@ -8,8 +8,13 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Logotypes } from './Logotypes'
 
 import LogoFondLuxShoah from '../../../assets/images/fondluxshoah-logo.png'
+import { useTranslation } from 'react-i18next'
+import LangLink from '../../LangLink'
+import { BiographiesRoute } from '../../../constants'
 
 export const Overlay = ({ isMobile }) => {
+  const { t } = useTranslation()
+
   const handleStart = () => {
     usePebblesStore.getState().setHasStarted(true)
     usePebblesStore.getState().selectAdjacentPebble(0)
@@ -42,18 +47,23 @@ export const Overlay = ({ isMobile }) => {
             exit={{ opacity: 0, x: '-50%', y: '-4rem', scale: 0.85 }}
             transition={{ type: 'spring', duration: 0.8 }}
           >
-            <div className="overlay__intro">
-              This memorial is bridging stories and memories of victims and survivors of the Shoah.
-            </div>
+            <div className="overlay__intro">{t('pagesHomeSubheading')}</div>
             <div className="overlay__text">
-              The Memorial defines itself as a participatory work in progress, with the aim of
-              writing together the biographies of the families of some 5,000 people who lived in
-              Luxembourg before the war and who were persecuted for racial reasons before and during
-              Second World War.
+              <p dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphA') }}></p>
+              {/* <p dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphB') }}></p> */}
             </div>
             <div className="overlay__actions">
-              <Button text="Explore Landscape" variant="dark" onClick={handleStart} />
-              <Button text="Explore Biographies" variant="light" onClick={handleStart} />
+              <button
+                className="GetInTouch btn btn-white btn-lg"
+                text="Explore Landscape"
+                variant="dark"
+                onClick={handleStart}
+              >
+                {t('Explore the Landscape')}
+              </button>
+              <LangLink className="GetInTouch btn btn-white btn-lg" to={BiographiesRoute.to}>
+                {t('allAvailableStories')}
+              </LangLink>
             </div>
           </motion.div>
         )}
@@ -67,9 +77,7 @@ export const Overlay = ({ isMobile }) => {
             exit={{ opacity: 0, x: '-50%', y: '2rem', scale: 0.85 }}
             transition={{ type: 'spring', duration: 0.8 }}
           >
-            <div className="overlay__intro_exp">
-              This memorial is bridging stories and memories of victims and survivors of the Shoah.
-            </div>
+            <div className="overlay__intro_exp">{t('pagesHomeSubheading')}</div>
             <div className="overlay__actions">
               <Button text="About" variant="dark" onClick={handleEnd} />
               <Button text="Create Pebble" variant="light" onClick={handleCreate} />
