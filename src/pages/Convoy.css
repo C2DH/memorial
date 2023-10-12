@@ -1,0 +1,22 @@
+.Convoy label {
+  display: block;
+  margin: 0.5rem 0;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.Convoy__StoryModule.no-footnotes .FootnoteDefinition {
+  display: none !important;
+}
+
+.Convoy__StoryModule.first p:first-of-type {
+  font-size: 1.2em;
+}
+
+.Convoy__StoryModule.first p:first-of-type > em {
+  font-style: normal;
+}
+
+.Convoy__StoryEndnotes a {
+  word-break: break-all;
+}

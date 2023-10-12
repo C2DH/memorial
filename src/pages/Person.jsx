@@ -10,6 +10,9 @@ import TopStories from '../components/TopStories'
 import TopDocuments from '../components/TopDocuments'
 import { useTranslation } from 'react-i18next'
 import DocumentImage from '../components/DocumentImage'
+import MetadataField from '../components/MetadataField'
+
+const LocationMetadataFields = ['address_before_19411016']
 
 const Person = () => {
   const { t } = useTranslation()
@@ -29,10 +32,17 @@ const Person = () => {
     person && Array.isArray(person.documents) && person.documents.length > 0
       ? person.documents[0]
       : null
+  const indexOfPlaces = person
+    ? person.data?.places?.reduce((acc, place) => {
+        acc[place.label] = place
+        return acc
+      }, {}) || {}
+    : {}
   if (error) {
     console.error('[Person]', '\n - docId:', safePersonId, '\n - api error:', error, person)
   }
   console.debug('[Person]', '\n - docId:', safePersonId, '\n - data:', person)
+
   return (
     <div className="Person page">
       <Container>
@@ -45,9 +55,90 @@ const Person = () => {
             >
               {status === StatusSuccess && (
                 <>
-                  <PersonSummary person={person} className="mt-3" />
-                  {/* <pre>{JSON.stringify(person, null, 2)}</pre> */}
-                  {/* <DocumentMetadata memoid={bbox.memo + ',' + person.id} doc={person} /> */}
+                  <PersonSummary person={person} indexOfPlaces={indexOfPlaces} className="mt-3" />
+                  <section className="mt-3">
+                    {['first_name', 'last_name'].map((label) => (
+                      <MetadataField
+                        key={label}
+                        value={person.data[label]}
+                        hideIfEmpty
+                        label={label}
+                      />
+                    ))}
+                    <MetadataField
+                      value={person.data['last_name_changed']}
+                      hideIfEmpty
+                      label={'last_name_changed'}
+                    />
+                  </section>
+                  <section className="mt-3">
+                    <MetadataField value={person.data['birth_date']} label={'birth_date'} />
+                    {[
+                      'birth_date_org',
+                      'birth_place',
+                      'birth_place_alt',
+                      'birth_country',
+                      'birth_country_alt',
+                    ].map((field) => (
+                      <MetadataField
+                        key={field}
+                        value={person.data[field]}
+                        label={field}
+                        hideIfEmpty
+                      />
+                    ))}
+                  </section>
+                  <section className="mt-3">
+                    <MetadataField value={person.data['death_date']} label={'death_date'} />
+                    {[
+                      'death_date_org',
+                      'death_place',
+                      'death_place_alt',
+                      'death_country',
+                      'death_country_alt',
+                    ].map((label) => (
+                      <MetadataField
+                        key={label}
+                        value={person.data[label]}
+                        label={label}
+                        hideIfEmpty
+                      />
+                    ))}
+                  </section>
+                  <section className="mt-3">
+                    <MetadataField value={person.data['nationality']} label={'nationality'} />
+                    <MetadataField
+                      value={person.data['nationality_notes']}
+                      hideIfEmpty
+                      label={'nationality_notes'}
+                    />
+
+                    <MetadataField value={person.data['enter_date']} label={'enter_date'} />
+                    <MetadataField value={person.data['enter_place']} label={'enter_place'} />
+                  </section>
+                  <section className="mt-3">
+                    {[
+                      'exit_19400510_to_19411015_date',
+                      'exit_19400510_to_19411015_place',
+                      'exit_before_19411015_date',
+                      'exit_before_19411015_place',
+                      'exit_19411016_TO_19440910_date',
+                      'exit_19411016_TO_19440910_place',
+                    ].map((label) => (
+                      <MetadataField
+                        key={label}
+                        hideIfEmpty
+                        value={person.data[label]}
+                        label={label}
+                        className="mb-1"
+                      />
+                    ))}
+                  </section>
+                  <details className="mt-3">
+                    <summary>{t('Technical details')}</summary>
+
+                    <pre>{JSON.stringify(person?.data, null, 2)}</pre>
+                  </details>
                 </>
               )}
             </div>

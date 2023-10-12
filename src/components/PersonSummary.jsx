@@ -1,11 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
-const PersonSummary = ({ person, className = '' }) => {
+const PersonSummary = ({ person, indexOfPlaces = {}, className = '' }) => {
   const { t } = useTranslation()
-  const indexOfPlaces = person.data?.places?.reduce((acc, place) => {
-    acc[place.label] = place
-    return acc
-  }, {})
 
   const firstName = person.data.first_name
   const lastName = person.data.last_name
@@ -14,26 +10,26 @@ const PersonSummary = ({ person, className = '' }) => {
   const deathDate = new Date(person.data.death_date)
   let birth = null
   let death = null
-
+  let gender = person.data.gender || ''
   if (!isNaN(birthDate)) {
     if (indexOfPlaces.birth_place) {
-      birth = t('summaryBirth', {
+      birth = t('summaryBirth' + gender, {
         birthDate: birthDate,
         birthPlace: indexOfPlaces.birth_place.toponymName,
       })
     } else {
-      birth = t('summaryBirthNoPlace', { birthDate: birthDate })
+      birth = t('summaryBirthNoPlace' + gender, { birthDate: birthDate })
     }
   }
 
   if (!isNaN(deathDate)) {
-    if (indexOfPlaces.birth_place) {
-      death = t('summaryDeath', {
+    if (indexOfPlaces.death_place) {
+      death = t('summaryDeath' + gender, {
         deathDate: deathDate,
         deathPlace: indexOfPlaces.death_place.toponymName,
       })
     } else {
-      death = t('summaryDeathNoPlace', { deathDate: deathDate })
+      death = t('summaryDeathNoPlace' + gender, { deathDate: deathDate })
     }
   }
 

@@ -179,7 +179,6 @@ const Search = ({ limit = 5 }) => {
             />
 
             <OrderByDropdown
-              id="cicio"
               values={BiographiesAvailableOrderBy}
               selectedValue={orderBy}
               onChange={(item) => {
@@ -200,7 +199,7 @@ const Search = ({ limit = 5 }) => {
             {isSearchEnabled ? (
               <ol>
                 {pagefindResult.matches.map((result, i) => (
-                  <li key={result.id} className="mt-4">
+                  <li key={result.id} className="mt-5">
                     <PagefindMatch id={result.id} getData={result.data}>
                       {(result) => (
                         <>
@@ -232,7 +231,7 @@ const Search = ({ limit = 5 }) => {
               <ol>
                 {data?.pages.map((page, i) =>
                   page.results.map((story) => (
-                    <li key={i + '-' + story.slug} className="mt-4">
+                    <li key={i + '-' + story.slug} className="mt-5">
                       {/* <label className="small text-muted">
                         {i + 1} / {count}
                       </label> */}

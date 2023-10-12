@@ -21,7 +21,7 @@ const StoryItem = ({ story, reduced = false, className = '' }) => {
   console.info('[StoryItem]', '\n - title:', title, '\n - availableLanguages:', availableLanguages)
   return (
     <div className={`StoryItem d-flex align-items-center ${className}`}>
-      {story.covers.length ? <CoverItems covers={story.covers} /> : null}
+      {story.covers.length && !reduced ? <CoverItems covers={story.covers} /> : null}
       <div className="ms-3">
         <LangLink className="StoryItem_title" to={`/story/${story.slug}`}>
           <h4
