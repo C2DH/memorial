@@ -2,7 +2,7 @@ import React, { lazy } from 'react'
 import { QueryParamProvider } from 'use-query-params'
 import { isMobile } from 'react-device-detect'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-// import Footer from './components/Footer'
+import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import LanguageRouter from './components/LanguageRouter'
 import RouteAdapter from './components/RouteAdapter'
@@ -32,8 +32,8 @@ const People = lazy(() => import('./pages/People'))
 const Search = lazy(() => import('./pages/Search'))
 const Story = lazy(() => import('./pages/Story'))
 const Convoy = lazy(() => import('./pages/Convoy'))
-
-const HeaderTemp = lazy(() => import('./components/HeaderTemp'))
+const Header = lazy(() => import('./components/Header'))
+// const HeaderTemp = lazy(() => import('./components/HeaderTemp'))
 const MobileHeader = lazy(() => import('./components/MobileHeader'))
 const Slides = lazy(() => import('./pages/Slides'))
 
@@ -65,7 +65,7 @@ const App = () => {
           </React.Suspense>
         ) : (
           <React.Suspense fallback={null}>
-            <HeaderTemp />
+            <Header />
           </React.Suspense>
         )}
         <LanguageRouter />
@@ -191,7 +191,7 @@ const App = () => {
             </Routes>
           </QueryParamProvider>
         </QueryClientProvider>
-        {/* <Footer isMobile={isMobile} /> */}
+        <Footer isMobile={isMobile} />
         <Cookies defaultAcceptCookies={AcceptCookies} />
       </BrowserRouter>
     </MatomoProvider>
