@@ -24,7 +24,7 @@ const usePeriodicAnimation = (interval, callback) => {
   return animValue
 }
 
-export const ModalDetails = ({ ...props }) => {
+export const ModalDetails = ({ stories, ...props }) => {
   const { selectedPebble, hasDetails } = usePebblesStore()
 
   const handleNext = () => {

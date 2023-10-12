@@ -10,6 +10,7 @@ import { usePebblesStore } from '../store'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import * as c from '../sceneConfig'
+import SelectStory from '../components/SelectStory'
 
 const variants = {
   enter: (direction) => {
@@ -46,7 +47,7 @@ const wrap = (min, max, value) => {
   return ((((value - min) % range) + range) % range) + min
 }
 
-export const ModalCreate = ({ ...props }) => {
+export const ModalCreate = ({ stories = [], ...props }) => {
   const pebbleOptions = [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }]
 
   const { hasCreate } = usePebblesStore()
@@ -78,6 +79,9 @@ export const ModalCreate = ({ ...props }) => {
           exit={{ opacity: 0, translateY: '8rem', scale: 0.85 }}
         >
           <div className="hero__modal__header">
+            <div className="hero__modal__overline pb-3">
+              <SelectStory stories={stories} />
+            </div>
             <div className="hero__modal__overline">Choose a Pebble Color:</div>
             <div className="hero__modal__carousel">
               <Divider />
