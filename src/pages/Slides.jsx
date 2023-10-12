@@ -18,18 +18,21 @@ const Slides = () => {
     translatable: page?.data?.title,
   })
 
+  const params =
+    page && page.data.households
+      ? { filters: JSON.stringify({ slug__in: page.data.households }), limit: 100 }
+      : {}
+
+  console.debug('[Slides]', '\n - pageStatus:', pageStatus, '\n - params:', params)
   const { data: stories, status: storiesStatus } = useGetJSON({
     url: `/api/story/`,
-    params: {
-      limit: 5,
-      exclude: { tags__name: 'static' },
-    },
+    params,
     enabled: pageStatus === StatusSuccess,
   })
 
   if (!page) return null
 
-  const title = page.data.title[availableLanguage]
+  // const title = page.data.title[availableLanguage]
   const subtitle = page.data.subtitle[availableLanguage]
   const abstract = page.data.abstract[availableLanguage]
 
@@ -55,7 +58,7 @@ const Slides = () => {
         </h5>
 
         <h5>
-          Salle Edmond Dune
+          Salle José Ensch
           <br />
           <span>9.00-17.00</span>
         </h5>
@@ -83,10 +86,7 @@ const Slides = () => {
               </div>
             </Col>
             <Col md={{ span: 8 }} sm={{ span: 12 }}>
-              <span>
-                Les biographies des familles déportées le 16 octobre 1941 de Luxembourg au ghetto de
-                Litzmannstadt (Lodz) sur memorialshoah.lu
-              </span>
+              <h3 dangerouslySetInnerHTML={{ __html: abstract }} />
             </Col>
           </Row>
         </Container>
