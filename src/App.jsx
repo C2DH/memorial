@@ -23,7 +23,6 @@ console.info('%cacceptCookies', 'font-weight: bold', AcceptCookies)
 const { languageCode } = initializeI18next()
 console.info('initial languageCode', languageCode)
 
-const Biographies = lazy(() => import('./pages/Biographies'))
 const Document = lazy(() => import('./pages/Document'))
 const Home = lazy(() => import('./pages/Home'))
 const NotFound = lazy(() => import('./pages/NotFound'))
@@ -81,7 +80,7 @@ const App = () => {
                 <Route
                   path=""
                   element={
-                    <React.Suspense fallback={<div className="h-75" />}>
+                    <React.Suspense fallback={<div className="h-100" />}>
                       <Home isMobile={isMobile} />
                     </React.Suspense>
                   }
@@ -192,7 +191,7 @@ const App = () => {
             </Routes>
           </QueryParamProvider>
         </QueryClientProvider>
-        <Footer isMobile={isMobile} />
+        {/* <Footer isMobile={isMobile} /> */}
         <Cookies defaultAcceptCookies={AcceptCookies} />
       </BrowserRouter>
     </MatomoProvider>

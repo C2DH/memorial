@@ -1,5 +1,5 @@
-import { useRef, useMemo, memo, useCallback } from 'react'
-import { useGLTF, useTexture } from '@react-three/drei'
+import { useRef, useMemo, memo, useCallback, useState, useEffect } from 'react'
+import { useGLTF, useTexture, Instances, Instance } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 
 import * as THREE from 'three'
@@ -11,8 +11,6 @@ import fragment from '../shaders/pebble.frag'
 
 import * as c from '../sceneConfig'
 
-const tempObject = new THREE.Object3D()
-
 export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
   const { nodes } = useGLTF('/models/models.glb')
 
@@ -21,11 +19,7 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
   diffuseMap.flipY = false
   normalMap.flipY = false
 
-  const instancedMeshRef = useRef()
-  const tempColorRef = useRef(new THREE.Color())
-
-  const highlights = useRef(new Float32Array(24))
-  // const spin = useRef(new Float32Array(24))
+  const highlights = useRef(new Float32Array(32).fill(0))
   const highlightAttribute = new THREE.InstancedBufferAttribute(highlights.current, 1)
 
   nodes.pebble.geometry.setAttribute('highlight', highlightAttribute)
@@ -43,15 +37,78 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
     [diffuseMap, normalMap, groundColor, renderedTexture, skyColor],
   )
 
-  const handleOnClick = useCallback((event) => {
-    const { instanceId } = event
-    const data = relevantDataRef.current[instanceId]
-    usePebblesStore.getState().setSelected(data)
-    usePebblesStore.getState().setHasCreate(false)
-    usePebblesStore.getState().setHasDetails(true)
-    usePebblesStore.getState().setHasStarted(true)
-    event.stopPropagation()
-  }, [])
+  return (
+    <>
+      <Instances limit={32} range={32} geometry={nodes.pebble.geometry} frustumCulled={false}>
+        <rawShaderMaterial
+          vertexShader={vertex}
+          fragmentShader={fragment}
+          uniforms={uniforms}
+          attach="material"
+        />
+        <InstancedPebbles highlights={highlights} />
+      </Instances>
+    </>
+  )
+})
+
+const InstancedPebbles = ({ highlights }) => {
+  const pebbles = usePebblesStore((state) => state.pebblesData)
+
+  const [filteredPebbles, setFilteredPebbles] = useState([])
+  const lastCameraPosZ = useRef(null)
+  const lastPebbleLength = useRef(null)
+
+  function roundToNearestTen(num) {
+    return Math.round(num / 40) * 40
+  }
+
+  useFrame(({ camera }) => {
+    const currentCameraPosZ = roundToNearestTen(camera.position.z)
+
+    if (
+      currentCameraPosZ !== lastCameraPosZ.current ||
+      pebbles.length !== lastPebbleLength.current
+    ) {
+      lastCameraPosZ.current = roundToNearestTen(camera.position.z)
+      lastPebbleLength.current = pebbles.length
+      setFilteredPebbles(
+        pebbles.filter((pebble) => {
+          const zDistance = Math.abs(camera.position.z - pebble.position[2])
+          return zDistance < 120
+        }),
+      )
+      console.info('chunk updated')
+    }
+  })
+
+  return (
+    <>
+      {filteredPebbles.map((pebble, i) => (
+        <SingleInstance
+          pebble={pebble}
+          filteredPebbles={filteredPebbles}
+          key={pebble.uid}
+          highlights={highlights}
+          i={i}
+        />
+      ))}
+    </>
+  )
+}
+
+const SingleInstance = ({ pebble, filteredPebbles, highlights, i }) => {
+  const handleOnClick = useCallback(
+    (event) => {
+      const data = filteredPebbles[i]
+      usePebblesStore.getState().setSelected(data)
+      usePebblesStore.getState().setHasCreate(false)
+      usePebblesStore.getState().setHasDetails(true)
+      usePebblesStore.getState().setHasStarted(true)
+      event.stopPropagation()
+    },
+    [filteredPebbles, i],
+  )
 
   const handlePointerMiss = useCallback(() => {
     usePebblesStore.getState().setHasCreate(false)
@@ -59,96 +116,55 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
     usePebblesStore.getState().setHasDetails(false)
   }, [])
 
-  const lastChunkIndex = useRef(null)
-  const relevantDataRef = useRef([])
-  const previousPebblesCount = useRef(0)
+  const instanceRef = useRef()
 
-  const updateRelevantData = (currentChunkIndex) => {
-    lastChunkIndex.current = currentChunkIndex
-    const startChunk = Math.min(
-      Math.max(0, currentChunkIndex - 1),
-      usePebblesStore.getState().pebblesData.length - 1,
-    )
-    const nextChunk = Math.min(usePebblesStore.getState().pebblesData.length - 1, startChunk + 1)
-    const endChunk = Math.min(usePebblesStore.getState().pebblesData.length - 1, startChunk + 2)
-    console.info(`CURRENT CHUNKS: ${startChunk} - ${nextChunk} - ${endChunk}`)
-    relevantDataRef.current = [
-      ...usePebblesStore.getState().pebblesData[startChunk],
-      ...usePebblesStore.getState().pebblesData[nextChunk],
-      ...usePebblesStore.getState().pebblesData[endChunk],
-    ]
-    console.log(relevantDataRef.current.length)
-  }
+  const targetPosY = useRef(0)
+  const targetRotation = useRef(0)
 
-  const updateInstancedMesh = (pebble, count, delta) => {
-    const isSelected = pebble.uid === usePebblesStore.getState().selectedPebble?.uid
+  useFrame((_, delta) => {
+    const hasSelected = usePebblesStore.getState().selectedPebble
+    if (hasSelected) {
+      const isSelected =
+        pebble.position[2] === usePebblesStore.getState().selectedPebble.position[2]
+      if (isSelected) {
+        targetPosY.current = pebble.position[1] + 4
+        targetRotation.current = pebble.rotation[2] + Math.PI
+      } else {
+        targetPosY.current = pebble.position[1]
+        targetRotation.current = pebble.rotation[2]
+      }
 
-    tempObject.position.set(
-      pebble.position[0],
-      pebble.position[1] + highlights.current[count] * 4,
-      pebble.position[2] + c.sceneOffsetZ,
-    )
-    // tempObject.rotation.x = pebble.rotation[0] + spin.current[count]
-    tempObject.rotation.x = pebble.rotation[0]
-    tempObject.rotation.y = pebble.rotation[1] + highlights.current[count] * 4
-    tempObject.rotation.z = pebble.rotation[2]
-
-    tempObject.updateMatrix()
-
-    instancedMeshRef.current.setMatrixAt(count, tempObject.matrix)
-
-    tempColorRef.current.set(pebble.color)
-    instancedMeshRef.current.setColorAt(count, tempColorRef.current)
-
-    highlights.current[count] = THREE.MathUtils.lerp(
-      highlights.current[count],
-      isSelected ? 1 : 0,
-      delta,
-    )
-    // spin.current[count] += highlights.current[count] * delta
-
-    instancedMeshRef.current.geometry.attributes.highlight.needsUpdate = true
-    instancedMeshRef.current.instanceMatrix.needsUpdate = true
-    instancedMeshRef.current.instanceColor.needsUpdate = true
-  }
-
-  useFrame(({ camera }, delta) => {
-    if (usePebblesStore.getState().pebblesData.length === 0) return
-    const cameraPositionZ = camera.position.clone().z
-    const currentChunkIndex = Math.floor(cameraPositionZ / c.chunkSize)
-
-    if (lastChunkIndex.current !== currentChunkIndex) {
-      updateRelevantData(currentChunkIndex)
+      highlights.current[i] = THREE.MathUtils.lerp(highlights.current[i], isSelected ? 1 : 0, delta)
+    } else {
+      highlights.current[i] = THREE.MathUtils.lerp(highlights.current[i], 0, delta)
+      targetPosY.current = pebble.position[1]
+      targetRotation.current = pebble.rotation[2]
     }
 
-    if (previousPebblesCount.current !== usePebblesStore.getState().pebblesCount) {
-      previousPebblesCount.current = usePebblesStore.getState().pebblesCount
-      updateRelevantData(currentChunkIndex)
-    }
+    instanceRef.current.geometry.attributes.highlight.needsUpdate = true
 
-    relevantDataRef.current.forEach((pebble, i) => {
-      updateInstancedMesh(pebble, i, delta)
-    })
-
-    instancedMeshRef.current.computeBoundingSphere()
+    instanceRef.current.position.y = THREE.MathUtils.lerp(
+      instanceRef.current.position.y,
+      targetPosY.current,
+      1 * delta,
+    )
+    instanceRef.current.rotation.z = THREE.MathUtils.lerp(
+      instanceRef.current.rotation.z,
+      targetRotation.current,
+      0.5 * delta,
+    )
   })
 
   return (
-    <>
-      <instancedMesh
-        ref={instancedMeshRef}
-        args={[nodes.pebble.geometry, null, 24]}
-        frustumCulled={false}
+    <group>
+      <Instance
+        ref={instanceRef}
+        position={pebble.position}
+        rotation={pebble.rotation}
+        color={pebble.color}
         onClick={handleOnClick}
         onPointerMissed={handlePointerMiss}
-      >
-        <rawShaderMaterial
-          vertexShader={vertex}
-          fragmentShader={fragment}
-          uniforms={uniforms}
-          attach="material"
-        />
-      </instancedMesh>
-    </>
+      ></Instance>
+    </group>
   )
-})
+}

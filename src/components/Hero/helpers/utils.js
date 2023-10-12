@@ -30,3 +30,16 @@ export const randomScale = () => {
 export const getCurrentChunkIndex = (positionZ) => {
   return Math.floor(positionZ / c.chunkSize)
 }
+
+export const lastPebble = (pebblesData) => {
+  if (pebblesData.length === 0) {
+    return 0
+  }
+
+  const pebbleWithLowestZ = pebblesData.sort((a, b) => a.position[2] - b.position[2])[0]
+
+  return {
+    x: pebbleWithLowestZ.position[0],
+    z: pebbleWithLowestZ.position[2],
+  }
+}

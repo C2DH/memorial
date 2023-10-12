@@ -2,12 +2,7 @@ import { create } from 'zustand'
 import { getGpuNoise } from './helpers/gpuNoise'
 import * as c from './sceneConfig'
 
-import {
-  randomChoice,
-  randomChoiceExcluding,
-  randomEuler,
-  getCurrentChunkIndex as getChunkIndex,
-} from './helpers/utils'
+import { randomChoice, randomChoiceExcluding, randomEuler, lastPebble } from './helpers/utils'
 
 const createNewPebble = (userName, color, lastPositionX, lastPositionZ) => {
   let positionX = randomChoiceExcluding([-18, -12, -6, 6, 0, 12, 18], lastPositionX)
@@ -32,14 +27,6 @@ const createNewPebble = (userName, color, lastPositionX, lastPositionZ) => {
   }
 }
 
-const insertNewPebble = (pebble, pebbles, chunkIndex) => {
-  if (!pebbles[chunkIndex]) {
-    pebbles[chunkIndex] = []
-  }
-
-  pebbles[chunkIndex].push(pebble)
-}
-
 export const usePebblesStore = create((set, get) => ({
   pebblesData: [],
   // UI STATES:
@@ -50,59 +37,47 @@ export const usePebblesStore = create((set, get) => ({
   // PEBBLE STATES:
   selectedPebble: null,
   lastSelectedPebble: null,
-  pebblesCount: 0,
   lastPebbleData: {
     positionX: 0,
     positionZ: 0,
   },
   // ACTIONS:
   selectAdjacentPebble: (step) => {
-    const pebblesData = get().pebblesData
-    const selectedPebble = get().selectedPebble
-    const lastSelectedPebble = get().lastSelectedPebble
+    const currentPebbles = get().pebblesData
+    const currentSelectedPebble = get().selectedPebble
 
-    let newPebble = null
-
-    if (selectedPebble || lastSelectedPebble) {
-      const thisSelectedPebble = selectedPebble || lastSelectedPebble
-
-      const currentChunkIndex = pebblesData.findIndex((chunk) =>
-        chunk.some((pebble) => pebble.uid === thisSelectedPebble.uid),
-      )
-      const currentPebbleIndex = pebblesData[currentChunkIndex].findIndex(
-        (pebble) => pebble.uid === thisSelectedPebble.uid,
-      )
-
-      let totalPebbles = 0
-      pebblesData.forEach((chunk) => (totalPebbles += chunk.length))
-
-      let flatIndex =
-        pebblesData.slice(0, currentChunkIndex).reduce((acc, chunk) => acc + chunk.length, 0) +
-        currentPebbleIndex
-      let newFlatIndex = (flatIndex + step + totalPebbles) % totalPebbles // Ensure the index is within bounds
-
-      let cumPebbles = 0
-      for (let i = 0; i < pebblesData.length; i++) {
-        cumPebbles += pebblesData[i].length
-        if (cumPebbles > newFlatIndex) {
-          newPebble = pebblesData[i][newFlatIndex - (cumPebbles - pebblesData[i].length)]
-          break
-        }
-      }
-    } else if (pebblesData.length > 0 && pebblesData[0].length > 0) {
-      newPebble =
-        step >= 0
-          ? pebblesData[0][0]
-          : pebblesData[pebblesData.length - 1][pebblesData[pebblesData.length - 1].length - 1]
-    }
-
-    if (newPebble) {
+    if (!currentSelectedPebble) {
       set({
-        selectedPebble: newPebble,
-        lastSelectedPebble: newPebble,
+        selectedPebble: currentPebbles[0],
+        userInteracted: true,
       })
+      return
     }
+
+    const currentIndex = currentPebbles.findIndex(
+      (pebble) => pebble.uid === currentSelectedPebble.uid,
+    )
+
+    if (currentIndex === -1) {
+      console.error('Selected pebble not found in pebblesData.')
+      return
+    }
+
+    const nextIndex = currentIndex + step
+
+    // Ensure the next index is within the bounds of the pebbles array
+    if (nextIndex < 0 || nextIndex >= currentPebbles.length) {
+      console.warn('No adjacent pebble in the desired direction.')
+      return
+    }
+
+    const nextPebble = currentPebbles[nextIndex]
+    set({
+      selectedPebble: nextPebble,
+      userInteracted: true,
+    })
   },
+
   setSelected: (data) => {
     set({
       selectedPebble: data,
@@ -121,43 +96,32 @@ export const usePebblesStore = create((set, get) => ({
   setHasDetails: (value) => set({ hasDetails: value }),
   setHasCreate: (value) => set({ hasCreate: value }),
   createPebble: (userName, color, isNew = true) => {
-    console.log('createPebble')
     const newPebbles = get().pebblesData
-    const lastPebbleData = get().lastPebbleData
-    const currentChunkIndex = getChunkIndex(lastPebbleData.positionZ)
 
-    const newPebbleData = createNewPebble(
-      userName,
-      color,
-      lastPebbleData.positionX,
-      lastPebbleData.positionZ,
-    )
+    const { x, z } = lastPebble(newPebbles)
 
-    insertNewPebble(newPebbleData, newPebbles, currentChunkIndex)
+    const newPebbleData = createNewPebble(userName, color, x, z - c.pebblesOffsetZ)
 
-    set((state) => ({
+    newPebbles.push(newPebbleData)
+
+    set(() => ({
       pebblesData: newPebbles,
-      pebblesCount: state.pebblesCount + 1,
-      lastPebbleData: {
-        positionX: newPebbleData.position[0],
-        positionZ: state.lastPebbleData.positionZ + c.pebblesOffsetZ,
-      },
       selectedPebble: isNew ? newPebbleData : null,
       hasCreate: false,
       hasDetails: isNew ? true : false,
     }))
   },
   setInitialData: () => {
-    console.log('setInitialData')
+    const newPebbles = []
     for (let i = 0; i < 128; i++) {
       const randomColor = randomChoice([0, 1, 2, 3])
-      const randomNickname = 'username' + randomChoice([0, 1, 2, 3, 4])
-      get().createPebble(randomNickname, randomColor, false)
+      const randomNickname =
+        randomChoice(['Visitor', '', 'Anna', 'John', 'Annonymous', 'Kate', 'Alex']) +
+        ' ' +
+        randomChoice(['Viena', 'El', '', 'Uni'])
+      const newPebble = createNewPebble(randomNickname, randomColor, 0, i * 10)
+      newPebbles.push(newPebble)
     }
+    set({ pebblesData: newPebbles })
   },
-}))
-
-export const useScrollStore = create((set) => ({
-  scroll: 0,
-  setScroll: (value) => set({ scroll: value }),
 }))

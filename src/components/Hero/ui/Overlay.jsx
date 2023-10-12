@@ -52,8 +52,8 @@ export const Overlay = ({ isMobile }) => {
               Second World War.
             </div>
             <div className="overlay__actions">
-              <Button text="Explore" variant="dark" onClick={handleStart} />
-              <Button text="Create Pebble" variant="light" onClick={handleCreate} />
+              <Button text="Explore Landscape" variant="dark" onClick={handleStart} />
+              <Button text="Explore Biographies" variant="light" onClick={handleStart} />
             </div>
           </motion.div>
         )}

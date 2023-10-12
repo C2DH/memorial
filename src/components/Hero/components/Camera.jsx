@@ -112,12 +112,12 @@ export const Camera = () => {
     targetPositionRef.current.set(
       selectedTarget.position[0] + CAMERA_OFFSET[0] * signedPosition,
       selectedTarget.position[1] + CAMERA_OFFSET[1],
-      selectedTarget.position[2] + CAMERA_OFFSET[2] + c.sceneOffsetZ,
+      selectedTarget.position[2] + CAMERA_OFFSET[2] - 8,
     )
     targetLookAtRef.current.set(
       selectedTarget.position[0] + TARGET_OFFSET[0] * signedPosition,
       selectedTarget.position[1] + TARGET_OFFSET[1],
-      selectedTarget.position[2] + TARGET_OFFSET[2] + c.sceneOffsetZ,
+      selectedTarget.position[2] + TARGET_OFFSET[2],
     )
   }
 
