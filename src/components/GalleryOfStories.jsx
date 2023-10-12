@@ -73,7 +73,7 @@ const GalleryOfStories = ({
     >
       <Row className="h-100">
         <Col
-          md={{ span: 4, offset: 1 }}
+          md={{ span: 4, offset: 0 }}
           className="h-100 position-relative"
           style={{ overflow: 'hidden' }}
         >
@@ -88,7 +88,7 @@ const GalleryOfStories = ({
                   opacity,
                 }}
               >
-                <figure style={{ width: '90%' }}>
+                <figure style={{ width: '90%', height: '90%' }}>
                   <img src={coverSrc}></img>
                 </figure>
               </animated.div>
