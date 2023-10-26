@@ -11,9 +11,4 @@ export const terrainFrequency = 6
 export const chunkSize = 100
 export const pebblesOffsetZ = 10
 
-export const ghibliPalette = [
-  `hsl(${Math.floor(0.56 * 360)}, 100%, 50%)`,
-  `hsl(${Math.floor(0.0 * 360)}, 80%, 35%)`,
-  `hsl(${Math.floor(0.66 * 360)}, 100%, 50%)`,
-  `hsl(${Math.floor(0.48 * 360)}, 100%, 50%)`,
-]
+export const ghibliPalette = ['#F85874', '#B7ABFF', '#96DFEF', '#D0E169', '#FFA654']

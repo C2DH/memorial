@@ -6,6 +6,7 @@
   padding: 0.25rem;
   z-index: 2;
   transition: all 0.2s ease-in-out;
+  background: var(--green-500);
 }
 
 .button__icon svg {
@@ -17,9 +18,8 @@
 .button__icon:hover {
   cursor: pointer;
   transform: scale(1.1);
-  background: var(--green-100-a25);
 }
 
-.button__icon:hover svg path {
-  fill: var(--green-100);
+.button__icon svg path {
+  fill: white;
 }

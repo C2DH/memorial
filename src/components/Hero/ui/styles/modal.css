@@ -9,11 +9,12 @@
   flex-direction: column;
   gap: 1rem;
   align-items: center;
-  width: 20rem;
+  width: 24rem;
   height: auto;
   box-shadow: 0rem 1.5rem 4rem -1rem rgba(47, 86, 77, 0.32);
   pointer-events: all;
   overflow: hidden;
+  z-index: 120;
 }
 
 .hero__modal p {
@@ -48,17 +49,17 @@
 
 .hero__modal__overline {
   color: var(--green-500);
-  text-align: justified;
-  font: var(--text-s);
+  font: var(--text-xl);
+  font-family: var(--bs-body-font-family);
+  font-weight: 500;
   opacity: 0.6;
-  position: relative;
+  text-align: center;
 }
 
 .hero__modal__carousel {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  align-items: center;
   justify-content: flex-start;
   align-self: stretch;
   position: relative;
@@ -85,12 +86,6 @@
   flex: 1;
 }
 
-.hero__modal__carousel-pebble {
-  position: relative;
-  width: 12rem;
-  height: 12rem;
-}
-
 .hero__modal__carousel-img {
   position: relative;
   display: flex;
@@ -102,14 +97,8 @@
 }
 
 .hero__modal__carousel-img img {
-  width: 100%;
+  width: 75%;
   pointer-events: none;
-}
-
-.hero__modal__carousel-slide {
-  position: absolute;
-  height: 12rem;
-  width: 12rem;
 }
 
 .hero__modal__name {
@@ -261,7 +250,6 @@
   flex-direction: column;
   gap: 0.5rem;
   align-items: center;
-  width: 75%;
 }
 
 .hero__modal__nickname-input {

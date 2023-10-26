@@ -178,9 +178,24 @@ a {
   font-weight: bold;
   background: #ffffff25;
 }
+
 .btn-white:hover {
   background-color: var(--bs-secondary) !important;
   /* color: var(--white) !important; */
+}
+
+.btn-green {
+  font-weight: bold;
+  background: #ffffff25;
+  background-color: var(--green-500) !important;
+  color: var(--linen-500);
+}
+
+.btn-green:hover {
+  font-weight: bold;
+  background: #ffffff25;
+  background-color: var(--green-100) !important;
+  color: var(--linen-500) !important;
 }
 
 .btn-primary {
@@ -318,5 +333,29 @@ mark {
 
 blockquote {
   border-left: 1px solid var(--bs-primary);
-  paddingheader: var(--size-3);
+}
+
+.SignatureField {
+  border-radius: 0;
+
+  border: 0px transparent;
+  border-bottom: 2px solid;
+  text-align: center;
+  background-color: var(--linen-500);
+  color: var(--green-500);
+  text-align: center;
+  font: var(--heading-m);
+}
+.SignatureField:focus {
+  color: #212529;
+  background-color: var(--linen-500);
+  border-color: var(--bs-primary-text);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem var(--bs-primary-alpha);
+}
+
+.SignatureField_inputSubmit:focus {
+  border-color: var(--bs-primary-text);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem var(--bs-primary-alpha);
 }

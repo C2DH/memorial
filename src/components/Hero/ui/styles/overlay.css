@@ -82,7 +82,7 @@
   position: absolute;
   left: 3rem;
   right: 0;
-  bottom: 0;
+  bottom: 0.25rem;
   display: flex;
   align-items: center;
   justify-content: start;

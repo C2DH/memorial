@@ -79,18 +79,14 @@ void main() {
 
     vec3 transformedNormals = normalize(mat3(vInstanceMatrix) * c_normals);
 
-    // Shift hue of color
-    vec3 hsvCol = rgb2hsv(vColor + vHighlight);
-    float hueShiftAmount = -0.66 + hsvCol.x;
-
-    color = desaturate(color, 0.5);
-    color = shiftHue(color, hueShiftAmount);
-
-    float diffuse = max(dot(transformedNormals, light), 0.15);
-    vec3 diffuseColor = mix(diffuse * skyColor, diffuse * color * 1.5, vHighlight);
+    vec3 mask = 1.0 - desaturate(color, 1.0);
+    color = mask * vColor;
+    color = clamp(color * 1.5, 1.5 - mask.x, 1.0);
+    float diffuse = max(dot(transformedNormals, light), 0.2);
+    vec3 diffuseColor = ((diffuse + skyColor * 0.5 - 0.5)) * color;
 
     float blendFactor = smoothstep(computeTexture.r + 0.0, computeTexture.r + 1.2, vWorldPosition.y);
-    vec3 blendColor = mix(groundColor * vec3(0.35, 1.0, 0.5), diffuseColor, blendFactor);
+    vec3 blendColor = mix(groundColor, diffuseColor, blendFactor);
 
     float fog = computeTexture.a;
     vec3 fogColor = mix(blendColor, skyColor, fog);
