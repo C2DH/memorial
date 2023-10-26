@@ -1,23 +1,18 @@
-import './styles/modal.css'
 import React, { useState, useRef } from 'react'
-
-import { Divider } from './Divider.jsx'
-import { Form, InputGroup } from 'react-bootstrap'
-
+import { Form } from 'react-bootstrap'
 import { usePebblesStore } from '../store'
-
 import { motion, AnimatePresence } from 'framer-motion'
-
 import { ModalCarousel } from './ModalCarousel'
-
-import SearchField from '../../SearchField'
 import { useGetJSON } from '../../../hooks/data'
 import StoryItemSmall from '../../StoryItemSmall'
-
 import { useTranslation } from 'react-i18next'
+import { StringParam, useQueryParam } from 'use-query-params'
+import { BiographyIdQueryParamName } from '../../../constants.js'
+import './styles/modal.css'
 
 export const ModalCreate = ({ ...props }) => {
   const { t } = useTranslation()
+  const [biographyId] = useQueryParam(BiographyIdQueryParamName, StringParam)
   const nickNameRef = useRef()
 
   const { hasCreate } = usePebblesStore()
@@ -34,8 +29,6 @@ export const ModalCreate = ({ ...props }) => {
 
   const pebbleOptions = [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }]
 
-  const [q, setQ] = useState('')
-
   const params = {
     limit: 10,
     exclude: {
@@ -44,19 +37,16 @@ export const ModalCreate = ({ ...props }) => {
     orderby: '-date_last_modified',
   }
 
-  if (q.length > 1) {
-    params.q = q + '*'
+  if (biographyId) {
+    params.filters = {
+      slug: biographyId,
+    }
   }
 
   const { data, status, error } = useGetJSON({
     url: '/api/story',
     params,
   })
-
-  const handleSearchFieldSubmit = (e, value) => {
-    console.debug('[SelectStory] handleSearchFieldSubmit', value)
-    value && setQ(value)
-  }
 
   console.debug('[SelectStory] data:', data, '\n - status:', status, '\n - error:', error, params)
 
@@ -72,12 +62,17 @@ export const ModalCreate = ({ ...props }) => {
           <div className="hero__modal__header">
             <div className="hero__modal__title">Create Pebble</div>
             <div className="hero__modal__carousel">
-              <SearchField
-                className="mb-2"
-                onSubmit={handleSearchFieldSubmit}
-                status={status}
-              ></SearchField>
-              {data.results?.length > 0 ? (
+              {data?.results?.length === 1 ? (
+                <div
+                  style={{
+                    padding: '1rem',
+                    height: '10rem',
+                  }}
+                >
+                  <StoryItemSmall story={data?.results[selectedBio]} />
+                </div>
+              ) : null}
+              {data.results?.length > 1 ? (
                 <ModalCarousel
                   uid={data?.results[selectedBio]?.id}
                   options={data?.results}
@@ -93,27 +88,7 @@ export const ModalCreate = ({ ...props }) => {
                     <StoryItemSmall story={data?.results[selectedBio]} />
                   </div>
                 </ModalCarousel>
-              ) : (
-                <div
-                  style={{
-                    padding: '1rem',
-                    height: '10rem',
-                  }}
-                >
-                  <div
-                    className="flex space-x-0"
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-around',
-                      height: '100%',
-                      width: '100%',
-                    }}
-                  >
-                    <p>No results</p>
-                  </div>
-                </div>
-              )}
+              ) : null}
             </div>
             <div className="hero__modal__carousel">
               <ModalCarousel options={pebbleOptions} setOption={setColor}>

@@ -62,7 +62,7 @@
     "start": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "lint": "eslint -c .eslintrc.js --ext .js,.jsx,.ts,.tsx .",
+    "lint": "eslint -c .eslintrc --ext .js,.jsx,.ts,.tsx .",
     "lint:fix": "npm run lint -- --fix"
   },
   "eslintConfig": {

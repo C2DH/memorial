@@ -118,3 +118,5 @@ export const BiographiesAvailableOrderBy = [
 ]
 
 export const BiographiesAvailableOrderByValues = BiographiesAvailableOrderBy.map((d) => d.value)
+
+export const BiographyIdQueryParamName = 'story'
