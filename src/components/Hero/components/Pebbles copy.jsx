@@ -20,6 +20,11 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
   diffuseMap.flipY = false
   normalMap.flipY = false
 
+  const highlights = useRef(new Float32Array(32).fill(0))
+  const highlightAttribute = new THREE.InstancedBufferAttribute(highlights.current, 1)
+
+  nodes.pebble.geometry.setAttribute('highlight', highlightAttribute)
+
   const uniforms = useMemo(
     () => ({
       lightDirection: { value: new THREE.Vector3(-48, 48 * 2, 0) },
@@ -42,13 +47,13 @@ export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
           uniforms={uniforms}
           attach="material"
         />
-        <InstancedPebbles />
+        <InstancedPebbles highlights={highlights} />
       </Instances>
     </>
   )
 })
 
-const InstancedPebbles = () => {
+const InstancedPebbles = ({ highlights }) => {
   const pebbles = usePebblesStore((state) => state.pebblesData)
 
   const [filteredPebbles, setFilteredPebbles] = useState([])
@@ -74,20 +79,26 @@ const InstancedPebbles = () => {
           return zDistance < 120
         }),
       )
-      console.info('Chunk updated')
+      console.info('chunk updated')
     }
   })
 
   return (
     <>
       {filteredPebbles.map((pebble, i) => (
-        <SingleInstance pebble={pebble} filteredPebbles={filteredPebbles} key={pebble.uid} i={i} />
+        <SingleInstance
+          pebble={pebble}
+          filteredPebbles={filteredPebbles}
+          key={pebble.uid}
+          highlights={highlights}
+          i={i}
+        />
       ))}
     </>
   )
 }
 
-const SingleInstance = ({ pebble, filteredPebbles, i }) => {
+const SingleInstance = ({ pebble, filteredPebbles, highlights, i }) => {
   const { t } = useTranslation()
 
   const handleOnClick = useCallback(
@@ -130,13 +141,10 @@ const SingleInstance = ({ pebble, filteredPebbles, i }) => {
   const myPebbles = JSON.parse(localStorage.getItem('myPebbles')) || []
   const isMyPebble = myPebbles.includes(pebble.uid)
 
-  const color = new THREE.Color()
-
   useFrame(({ camera }, delta) => {
     const hasSelected = usePebblesStore.getState().selectedPebble
     if (hasSelected) {
       const isSelected = pebble.uid === usePebblesStore.getState().selectedPebble.uid
-
       if (isSelected) {
         targetPosY.current = pebble.position[1] + 4
         targetRotation.current = pebble.rotation[2] + Math.PI
@@ -144,42 +152,27 @@ const SingleInstance = ({ pebble, filteredPebbles, i }) => {
         targetPosY.current = pebble.position[1]
         targetRotation.current = pebble.rotation[2]
       }
-      instanceRef.current.color.lerp(
-        color.set(isSelected || isMyPebble ? pebble.color : 'white'),
-        delta * 2,
-      )
+
+      highlights.current[i] = THREE.MathUtils.lerp(highlights.current[i], isSelected ? 1 : 0, delta)
     } else {
-      instanceRef.current.color.lerp(color.set(isMyPebble ? pebble.color : 'white'), delta * 2)
+      highlights.current[i] = THREE.MathUtils.lerp(highlights.current[i], isMyPebble ? 1 : 0, delta)
       targetPosY.current = pebble.position[1]
       targetRotation.current = pebble.rotation[2]
     }
 
-    if (
-      mouseOver.current === true ||
-      (hasSelected && pebble.uid === usePebblesStore.getState().selectedPebble.uid)
-    ) {
-      labelRef.current.style.opacity = THREE.MathUtils.lerp(
-        labelRef.current.style.opacity,
-        1,
-        delta * 6,
-      )
-      textRef.current.style.opacity = THREE.MathUtils.lerp(
-        textRef.current.style.opacity,
-        1,
-        delta * 6,
-      )
+    if (mouseOver.current === true) {
+      labelRef.current.style.opacity = THREE.MathUtils.lerp(labelRef.current.style.opacity, 1, 0.05)
+      textRef.current.style.opacity = THREE.MathUtils.lerp(textRef.current.style.opacity, 1, 0.05)
     } else {
       labelRef.current.style.opacity = THREE.MathUtils.lerp(
         labelRef.current.style.opacity,
-        0,
-        delta * 6,
+        0.25,
+        0.05,
       )
-      textRef.current.style.opacity = THREE.MathUtils.lerp(
-        textRef.current.style.opacity,
-        0,
-        delta * 6,
-      )
+      textRef.current.style.opacity = THREE.MathUtils.lerp(textRef.current.style.opacity, 0, 0.05)
     }
+
+    instanceRef.current.geometry.attributes.highlight.needsUpdate = true
 
     instanceRef.current.position.y = THREE.MathUtils.lerp(
       instanceRef.current.position.y,
@@ -199,6 +192,7 @@ const SingleInstance = ({ pebble, filteredPebbles, i }) => {
         ref={instanceRef}
         position={pebble.position}
         rotation={pebble.rotation}
+        color={pebble.color}
         onClick={handleOnClick}
         onPointerMissed={handlePointerMiss}
         onPointerOver={handleMouseOver}
@@ -222,10 +216,9 @@ const SingleInstance = ({ pebble, filteredPebbles, i }) => {
             style={{
               background: 'var(--linen-500, #fcede2)',
               padding: '0.75rem 2rem',
-              borderRadius: '1rem',
+              borderRadius: '4rem',
               color: 'var(--bs-primary-text)',
               font: 'var(--heading-m)',
-              boxShadow: '0 1rem 2rem -0.5rem rgba(0, 0, 0, 0.35)',
             }}
           >
             <div

@@ -30,7 +30,9 @@ export const ModalDetails = ({ stories = [], ...props }) => {
   const { t } = useTranslation()
   const { selectedPebble, hasDetails } = usePebblesStore()
   const selectedStory =
-    stories.length > 0 && selectedPebble ? stories[selectedPebble.linkedBioId] || stories[0] : null
+    selectedPebble && selectedPebble.linkedBioId && stories.length > 0
+      ? stories.find((story) => story.id === selectedPebble.linkedBioId)
+      : null
   const { availableLanguage } = useAvailableLanguage({
     translatable: selectedStory?.data?.title,
   })
@@ -81,46 +83,14 @@ export const ModalDetails = ({ stories = [], ...props }) => {
           exit={{ opacity: 0, translateY: '8rem', scale: 0.85 }}
         >
           <div id="tickerDiv" className="hero__modal__carousel-ticker"></div>
-
           <div className="hero__modal__header">
-            {/* <p>
-              <span className="hero__modal__overline"> This pebble was created on &nbsp;</span>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  variants={variants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="hidden"
-                  key={selectedPebble.createdBy}
-                  className="hero__modal__overline hero__modal__accent"
-                >
-                  {formatDate(selectedPebble.createdAt)}
-                </motion.span>
-              </AnimatePresence>
-            </p> 
-            <p>
-              <span className="hero__modal__overline">by&nbsp;</span>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  variants={variants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="hidden"
-                  key={selectedPebble.createdBy}
-                  className="hero__modal__overline hero__modal__accent"
-                >
-                  {selectedPebble.createdBy}
-                </motion.span>
-              </AnimatePresence>
-            </p>*/}
             <div className="hero__modal__carousel">
-              {/* <Divider /> */}
               <div className="hero__modal__wrapper">
                 <IconsPrev onClick={handlePrev} />
                 <div className="hero__modal__carousel-content">
                   <div className="hero__modal__name">
                     <AnimatePresence mode="wait">
-                      <motion.div
+                      <motion.h4
                         className="hero__modal__title"
                         variants={variants}
                         initial="hidden"
@@ -139,9 +109,8 @@ export const ModalDetails = ({ stories = [], ...props }) => {
                             }}
                           />
                         ) : null}
-                      </motion.div>
+                      </motion.h4>
                     </AnimatePresence>
-                    {/* <div className="hero__modal__subtitle">1920 – 1945</div> */}
                   </div>
                 </div>
                 <IconsNext onClick={handleNext} />
@@ -162,11 +131,6 @@ export const ModalDetails = ({ stories = [], ...props }) => {
                 This pebble was left by <b>{selectedPebble.createdBy}</b> on
                 <br />
                 {t('dateShort', { date: new Date(selectedPebble.createdAt) })}
-                {/*                 
-
-                Body text Chaim David Borenstein and Nacha Leschinsky, who came from near Lodz,
-                emigrated to Darmstadt in Germany shortly after the birth of their son Isaak in
-                1910... */}
               </motion.div>
             </AnimatePresence>
             <Divider />

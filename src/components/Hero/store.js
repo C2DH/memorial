@@ -4,7 +4,7 @@ import * as c from './sceneConfig'
 
 import { randomChoice, randomChoiceExcluding, randomEuler, lastPebble } from './helpers/utils'
 
-const createNewPebble = (userName, color, lastPositionX, lastPositionZ) => {
+const createNewPebble = (userName, color, bioId, lastPositionX, lastPositionZ) => {
   let positionX = randomChoiceExcluding([-18, -12, -6, 6, 0, 12, 18], lastPositionX)
   let positionZ = lastPositionZ
 
@@ -23,7 +23,7 @@ const createNewPebble = (userName, color, lastPositionX, lastPositionZ) => {
     uid: lastPositionZ,
     createdAt: new Date(),
     createdBy: userName,
-    linkedBioId: randomChoice([0, 1, 2, 3, 4, 5, 6]),
+    linkedBioId: bioId,
   }
 }
 
@@ -58,6 +58,8 @@ export const usePebblesStore = create((set, get) => ({
       (pebble) => pebble.uid === currentSelectedPebble.uid,
     )
 
+    console.warn(currentIndex)
+
     if (currentIndex === -1) {
       console.error('Selected pebble not found in pebblesData.')
       return
@@ -65,8 +67,8 @@ export const usePebblesStore = create((set, get) => ({
 
     const nextIndex = currentIndex + step
 
-    // Ensure the next index is within the bounds of the pebbles array
     if (nextIndex < 0 || nextIndex >= currentPebbles.length) {
+      console.warn(currentIndex)
       console.warn('No adjacent pebble in the desired direction.')
       return
     }
@@ -95,14 +97,18 @@ export const usePebblesStore = create((set, get) => ({
   setHasStarted: (value) => set({ hasStarted: value }),
   setHasDetails: (value) => set({ hasDetails: value }),
   setHasCreate: (value) => set({ hasCreate: value }),
-  createPebble: (userName, color, isNew = true) => {
+  createPebble: (userName, color, bioId, isNew = true) => {
     const newPebbles = get().pebblesData
 
     const { x, z } = lastPebble(newPebbles)
 
-    const newPebbleData = createNewPebble(userName, color, x, z - c.pebblesOffsetZ)
+    const newPebbleData = createNewPebble(userName, color, bioId, x, z - c.pebblesOffsetZ)
 
-    newPebbles.push(newPebbleData)
+    newPebbles.unshift(newPebbleData)
+
+    const myPebbles = JSON.parse(localStorage.getItem('myPebbles')) || []
+    myPebbles.push(newPebbleData.uid)
+    localStorage.setItem('myPebbles', JSON.stringify(myPebbles))
 
     set(() => ({
       pebblesData: newPebbles,
@@ -114,12 +120,13 @@ export const usePebblesStore = create((set, get) => ({
   setInitialData: () => {
     const newPebbles = []
     for (let i = 0; i < 128; i++) {
-      const randomColor = randomChoice([0, 1, 2, 3])
+      const randomColor = randomChoice([0, 1, 2, 3, 4])
+      const randomBio = randomChoice([64, 71, 73, 75])
       const randomNickname =
         randomChoice(['Visitor', '', 'Anna', 'John', 'Annonymous', 'Kate', 'Alex']) +
         ' ' +
         randomChoice(['Viena', 'El', '', 'Uni'])
-      const newPebble = createNewPebble(randomNickname, randomColor, 0, i * 10)
+      const newPebble = createNewPebble(randomNickname, randomColor, randomBio, 0, i * 10)
       newPebbles.push(newPebble)
     }
     set({ pebblesData: newPebbles })

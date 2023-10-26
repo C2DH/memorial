@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { PerspectiveCamera } from '@react-three/drei'
 import * as THREE from 'three'
-import { useFrame } from '@react-three/fiber'
 
 import { usePebblesStore } from '../store'
 
-import * as c from '../sceneConfig'
+import useSafeFrame from '../hooks/useSafeFrame'
 
 const CAMERA_OFFSET = [-12, 10, -12]
 const TARGET_OFFSET = [-2, 6, 4]
@@ -135,7 +134,7 @@ export const Camera = () => {
     currentPositionRef.current.lerp(targetPositionRef.current, 1.25 * delta)
     currentLookAtRef.current.lerp(targetLookAtRef.current, 1.25 * delta)
 
-    currentLookAtRef.current.x += !selectedTarget ? mousePosition.current.x * -0.15 : 0
+    currentLookAtRef.current.x += !selectedTarget ? mousePosition.current.x * -0.25 : 0
     currentLookAtRef.current.y += hasStarted ? mousePosition.current.y * 0.05 : 0
 
     cameraRef.current.position.set(...currentPositionRef.current)
@@ -161,7 +160,7 @@ export const Camera = () => {
     currentCamera.updateProjectionMatrix()
   }, [])
 
-  useFrame((_, delta) => {
+  useSafeFrame((_, delta) => {
     if (!cameraRef.current) return
 
     if (hasStarted) {

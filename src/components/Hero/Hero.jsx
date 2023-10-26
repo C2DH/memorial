@@ -20,7 +20,7 @@ const Hero = ({ isMobile, n = 100 }) => {
   const { data, status, error } = useGetJSON({
     url: '/api/story',
     params: {
-      limit: 100,
+      limit: 200,
       exclude: {
         tags__slug__in: ['static', 'convoy'],
       },

@@ -29,6 +29,7 @@ export const Overlay = ({ isMobile }) => {
   }
 
   const handleCreate = () => {
+    usePebblesStore.getState().resetSelected()
     usePebblesStore.getState().setHasDetails(false)
     usePebblesStore.getState().setHasStarted(true)
     usePebblesStore.getState().setHasCreate(true)
@@ -50,7 +51,6 @@ export const Overlay = ({ isMobile }) => {
             <div className="overlay__intro">{t('pagesHomeSubheading')}</div>
             <div className="overlay__text">
               <p dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphA') }}></p>
-              {/* <p dangerouslySetInnerHTML={{ __html: t('pagesHomeParagraphB') }}></p> */}
             </div>
             <div className="overlay__actions">
               <button
@@ -79,8 +79,8 @@ export const Overlay = ({ isMobile }) => {
           >
             <div className="overlay__intro_exp">{t('pagesHomeSubheading')}</div>
             <div className="overlay__actions">
-              <Button text="About" variant="dark" onClick={handleEnd} />
-              <Button text="Create Pebble" variant="light" onClick={handleCreate} />
+              <Button text="About" variant="light" onClick={handleEnd} />
+              <Button text="+ Create Pebble" variant="dark" onClick={handleCreate} />
             </div>
           </motion.div>
         )}

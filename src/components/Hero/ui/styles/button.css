@@ -1,5 +1,5 @@
 .button {
-  border-radius: 3.875rem;
+  border-radius: 0.35rem;
   padding: 0.5rem 1rem;
   display: flex;
   flex-direction: row;
@@ -7,6 +7,8 @@
   align-items: center;
   flex-shrink: 0;
   font: var(--text-m);
+  font-family: var(--bs-btn-font-family);
+  font-size: 1.25rem;
   font-weight: 500;
   position: relative;
   transition: transform 0.2s ease-in-out;
