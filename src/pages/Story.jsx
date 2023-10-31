@@ -104,11 +104,6 @@ const Story = () => {
                     {i === 0 && (
                       <>
                         <StoryAuthors authors={story.authors}></StoryAuthors>
-                        <LangLink className="StoryItem_title" to={`/`} onClick={handleCreate}>
-                          <h4 className="m-0 " onClick={handleCreate}>
-                            Create Pebble
-                          </h4>
-                        </LangLink>
                         <TopDocuments
                           className="Story_TopDocuments mt-3"
                           params={{
@@ -148,12 +143,16 @@ const Story = () => {
               <b>{t('pagesStoryAdditionalInfo')}</b>
             </div>
 
-            <div className="mb-5" style={{ textAlign: 'left' }}>
+            <div className="mb-4" style={{ textAlign: 'left' }}>
               <GetInTouch />
             </div>
-            {/* <div className="mb-3" style={{ textAlign: 'right' }}>
-              <Button>{t('actionAddAPebble')}</Button>
-            </div> */}
+            <div className="mb-5">
+              <LangLink to={`/`} onClick={handleCreate}>
+                <button className="btn btn-white btn-lg" onClick={handleCreate}>
+                  {t('actionAddAPebble')}
+                </button>
+              </LangLink>
+            </div>
             <StoryTimeline storyId={safeStoryId} />
             <div className="position-sticky top-page"></div>
           </Col>
