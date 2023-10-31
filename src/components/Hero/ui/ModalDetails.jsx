@@ -7,7 +7,6 @@ import { usePebblesStore } from '../store'
 import { motion, AnimatePresence, animate } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useAvailableLanguage } from '../../../hooks/language'
 import downsize from 'downsize'
 import LangLink from '../../LangLink'
 
@@ -33,9 +32,7 @@ export const ModalDetails = ({ stories = [], ...props }) => {
     selectedPebble && selectedPebble.linkedBioId && stories.length > 0
       ? stories.find((story) => story.id === selectedPebble.linkedBioId)
       : null
-  const { availableLanguage } = useAvailableLanguage({
-    translatable: selectedStory?.data?.title,
-  })
+
   const handleNext = () => {
     usePebblesStore.getState().selectAdjacentPebble(1)
     usePebblesStore.getState().setUserInteracted(true)
@@ -102,7 +99,7 @@ export const ModalDetails = ({ stories = [], ...props }) => {
                           <b
                             className="small"
                             dangerouslySetInnerHTML={{
-                              __html: downsize(selectedStory.data.title[availableLanguage], {
+                              __html: downsize(selectedStory.data.title, {
                                 characters: 80,
                                 append: '&hellip;',
                               }),

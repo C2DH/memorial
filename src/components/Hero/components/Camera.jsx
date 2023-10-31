@@ -12,8 +12,6 @@ const TARGET_OFFSET = [-2, 6, 4]
 export const Camera = () => {
   const cameraRef = useRef()
 
-  const forwardPositionRef = useRef(new THREE.Vector3(0, 8, 0))
-  const forwardLookAtRef = useRef(new THREE.Vector3(0, 8, 48))
   const targetPositionRef = useRef(new THREE.Vector3(0, 8, 0))
   const targetLookAtRef = useRef(new THREE.Vector3(0, 8, 48))
   const currentPositionRef = useRef(new THREE.Vector3(0, 8, 0))
@@ -29,7 +27,6 @@ export const Camera = () => {
 
   const selectedTarget = usePebblesStore((state) => state.selectedPebble)
   const hasStarted = usePebblesStore((state) => state.hasStarted)
-  const hasCreate = usePebblesStore((state) => state.hasCreate)
 
   const [signedPosition, setSignedPosition] = useState(1)
 

@@ -15,8 +15,7 @@ import { useEffect } from 'react'
 import { usePebblesStore } from './store'
 import { StatusSuccess, useGetJSON } from '../../hooks/data'
 
-const Hero = ({ isMobile, n = 100 }) => {
-  // preload initial dataset
+const Hero = ({ isMobile }) => {
   const { data, status, error } = useGetJSON({
     url: '/api/story',
     params: {

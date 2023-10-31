@@ -28,13 +28,6 @@ export const Overlay = ({ isMobile }) => {
     usePebblesStore.getState().setHasCreate(false)
   }
 
-  const handleCreate = () => {
-    usePebblesStore.getState().resetSelected()
-    usePebblesStore.getState().setHasDetails(false)
-    usePebblesStore.getState().setHasStarted(true)
-    usePebblesStore.getState().setHasCreate(true)
-  }
-
   const hasStarted = usePebblesStore((state) => state.hasStarted)
 
   return (
