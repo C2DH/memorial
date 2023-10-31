@@ -17,7 +17,7 @@ import { StatusSuccess, useGetJSON } from '../../hooks/data'
 
 const Hero = ({ isMobile }) => {
   const { data, status, error } = useGetJSON({
-    url: '/api/story',
+    url: 'https://memorialshoah.lu/api/story',
     params: {
       limit: 200,
       exclude: {
