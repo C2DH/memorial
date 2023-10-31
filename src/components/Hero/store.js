@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { getGpuNoise } from './helpers/gpuNoise'
 import * as c from './sceneConfig'
+import * as THREE from 'three'
 
 import { randomChoice, randomChoiceExcluding, randomEuler, lastPebble } from './helpers/utils'
 
@@ -34,6 +35,7 @@ export const usePebblesStore = create((set, get) => ({
   hasCreate: false,
   hasDetails: false,
   userInteracted: false,
+  currentStory: null,
   // PEBBLE STATES:
   selectedPebble: null,
   lastSelectedPebble: null,
@@ -41,6 +43,9 @@ export const usePebblesStore = create((set, get) => ({
     positionX: 0,
     positionZ: 0,
   },
+  // CAMERA STATES:
+  cameraPosition: new THREE.Vector3(0, 8, 0),
+  cameraLookAt: new THREE.Vector3(0, 8, 48),
   // ACTIONS:
   selectAdjacentPebble: (step) => {
     const currentPebbles = get().pebblesData
@@ -79,7 +84,39 @@ export const usePebblesStore = create((set, get) => ({
       userInteracted: true,
     })
   },
+  setCameraState: (position, lookAt) => {
+    set({
+      cameraPosition: position,
+      cameraLookAt: lookAt,
+    })
+  },
+  moveCameraToLastPebble: () => {
+    const pebbles = get().pebblesData
+    if (pebbles.length === 0) {
+      console.warn('No pebbles available to move the camera to.')
+      return
+    }
 
+    const sortedPebbles = [...pebbles].sort((a, b) => a.position[2] - b.position[2])
+    const pebbleWithSmallestZ = sortedPebbles[0]
+
+    const newPosition = new THREE.Vector3(
+      get().cameraPosition.x,
+      get().cameraPosition.y,
+      pebbleWithSmallestZ.position[2],
+    )
+
+    set({
+      cameraPosition: newPosition,
+    })
+  },
+  getCameraState: () => {
+    const state = get()
+    return {
+      position: state.cameraPosition,
+      lookAt: state.cameraLookAt,
+    }
+  },
   setSelected: (data) => {
     set({
       selectedPebble: data,
@@ -93,6 +130,28 @@ export const usePebblesStore = create((set, get) => ({
       userInteracted: true,
     })
   },
+  setCurrentStory: (data) => {
+    set({
+      currentStory: data,
+    })
+  },
+  selectLastPebble: () => {
+    const pebbles = get().pebblesData
+    if (pebbles.length === 0) {
+      console.warn('No pebbles available to select.')
+      return
+    }
+
+    const sortedPebbles = [...pebbles].sort((a, b) => a.position[2] - b.position[2])
+
+    const pebbleWithSmallestZ = sortedPebbles[0]
+
+    set({
+      selectedPebble: pebbleWithSmallestZ,
+      userInteracted: true,
+    })
+  },
+
   setUserInteracted: (value) => set({ userInteracted: value }),
   setHasStarted: (value) => set({ hasStarted: value }),
   setHasDetails: (value) => set({ hasDetails: value }),
@@ -123,9 +182,9 @@ export const usePebblesStore = create((set, get) => ({
       const randomColor = randomChoice([0, 1, 2, 3, 4])
       const randomBio = randomChoice([64, 71, 73, 75])
       const randomNickname =
-        randomChoice(['Visitor', '', 'Anna', 'John', 'Annonymous', 'Kate', 'Alex']) +
+        randomChoice(['Visitor', 'Anna', 'John', 'Annonymous', 'Kate', 'Alex']) +
         ' ' +
-        randomChoice(['Viena', 'El', '', 'Uni'])
+        randomChoice(['Viena', 'El', 'Uni'])
       const newPebble = createNewPebble(randomNickname, randomColor, randomBio, 0, i * 10)
       newPebbles.push(newPebble)
     }

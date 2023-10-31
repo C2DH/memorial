@@ -29,6 +29,7 @@ export const Camera = () => {
 
   const selectedTarget = usePebblesStore((state) => state.selectedPebble)
   const hasStarted = usePebblesStore((state) => state.hasStarted)
+  const hasCreate = usePebblesStore((state) => state.hasCreate)
 
   const [signedPosition, setSignedPosition] = useState(1)
 
@@ -121,9 +122,7 @@ export const Camera = () => {
   }
 
   const oscilateCamera = () => {
-    const lastTarget = usePebblesStore.getState().lastSelectedPebble
-
-    targetPositionRef.current.y = lastTarget ? lastTarget.position[1] + 48 : 48
+    targetPositionRef.current.y = 48
 
     targetLookAtRef.current.x = 0
     targetLookAtRef.current.y = 40
@@ -131,6 +130,8 @@ export const Camera = () => {
   }
 
   const updateCamera = (delta) => {
+    usePebblesStore.getState().setCameraState(currentPositionRef.current, currentLookAtRef.current)
+
     currentPositionRef.current.lerp(targetPositionRef.current, 1.25 * delta)
     currentLookAtRef.current.lerp(targetLookAtRef.current, 1.25 * delta)
 
@@ -154,10 +155,15 @@ export const Camera = () => {
     const currentCamera = cameraRef.current
     if (!currentCamera) return
 
-    currentCamera.position.set(...forwardPositionRef.current.toArray())
-    currentCamera.lookAt(...forwardLookAtRef.current.toArray())
     currentCamera.zoom = 1
     currentCamera.updateProjectionMatrix()
+    console.log('camera reset')
+  }, [])
+
+  useEffect(() => {
+    const { position, lookAt } = usePebblesStore.getState().getCameraState()
+    currentPositionRef.current.copy(position)
+    currentLookAtRef.current.copy(lookAt)
   }, [])
 
   useSafeFrame((_, delta) => {
@@ -169,7 +175,9 @@ export const Camera = () => {
       } else {
         cameraForward()
       }
-      cameraScroll(delta)
+      if (!selectedTarget) {
+        cameraScroll(delta)
+      }
     } else {
       oscilateCamera()
     }

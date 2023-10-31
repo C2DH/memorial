@@ -80,7 +80,7 @@ const App = () => {
                 <Route
                   path=""
                   element={
-                    <React.Suspense fallback={<div className="h-100" />}>
+                    <React.Suspense fallback={<LandscapeLoader />}>
                       <Home isMobile={isMobile} />
                     </React.Suspense>
                   }
@@ -196,6 +196,10 @@ const App = () => {
       </BrowserRouter>
     </MatomoProvider>
   )
+}
+
+const LandscapeLoader = () => {
+  return <div style={{ height: 'calc(100vh - 4rem)' }}></div>
 }
 
 export default App

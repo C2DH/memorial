@@ -24,16 +24,6 @@ const Hero = ({ isMobile, n = 100 }) => {
       exclude: {
         tags__slug__in: ['static', 'convoy'],
       },
-      // filters: {
-      //   slug__in: [
-      //     '0076-grossvogel-macharowska',
-      //     '0109-abraham-fredy',
-      //     '0127-dorflaufer',
-      //     '0010-adler-wolf-ermann',
-      //     '0014-esther-meyer',
-      //   ],
-      // },
-      // orderby: '-date_last_modified',
     },
   })
 
@@ -47,8 +37,14 @@ const Hero = ({ isMobile, n = 100 }) => {
   }
   return (
     <div className="hero">
-      <div className="hero__canvas-wrapper">
-        <Canvas gl={{ alpha: false, antialias: false, shadows: false }} dpr={2}>
+      <div
+        className="hero__canvas-wrapper"
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ type: 'spring', duration: 2.0, delay: 0.2 }}
+      >
+        <Canvas gl={{ alpha: true, antialias: false, shadows: false }} dpr={2}>
           {/* <StatsGl /> */}
           {/* <Stats showPanel={0} /> */}
           <Camera />

@@ -11,6 +11,7 @@ import vertex from '../shaders/pebble.vert'
 import fragment from '../shaders/pebble.frag'
 
 import * as c from '../sceneConfig'
+import './Pebbles.css'
 
 export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
   const { nodes } = useGLTF('/models/models.glb')
@@ -132,7 +133,7 @@ const SingleInstance = ({ pebble, filteredPebbles, i }) => {
 
   const color = new THREE.Color()
 
-  useFrame(({ camera }, delta) => {
+  useFrame((_, delta) => {
     const hasSelected = usePebblesStore.getState().selectedPebble
     if (hasSelected) {
       const isSelected = pebble.uid === usePebblesStore.getState().selectedPebble.uid
@@ -158,27 +159,11 @@ const SingleInstance = ({ pebble, filteredPebbles, i }) => {
       mouseOver.current === true ||
       (hasSelected && pebble.uid === usePebblesStore.getState().selectedPebble.uid)
     ) {
-      labelRef.current.style.opacity = THREE.MathUtils.lerp(
-        labelRef.current.style.opacity,
-        1,
-        delta * 6,
-      )
-      textRef.current.style.opacity = THREE.MathUtils.lerp(
-        textRef.current.style.opacity,
-        1,
-        delta * 6,
-      )
+      labelRef.current.className = 'Pebble__Overlay-label Pebble__Overlay-opacityVisible'
+      textRef.current.className = 'Pebble__Overlay-text Pebble__Overlay-opacityVisible'
     } else {
-      labelRef.current.style.opacity = THREE.MathUtils.lerp(
-        labelRef.current.style.opacity,
-        0,
-        delta * 6,
-      )
-      textRef.current.style.opacity = THREE.MathUtils.lerp(
-        textRef.current.style.opacity,
-        0,
-        delta * 6,
-      )
+      labelRef.current.className = 'Pebble__Overlay-label Pebble__Overlay-opacityHidden'
+      textRef.current.className = 'Pebble__Overlay-text Pebble__Overlay-opacityHidden'
     }
 
     instanceRef.current.position.y = THREE.MathUtils.lerp(
@@ -217,33 +202,11 @@ const SingleInstance = ({ pebble, filteredPebbles, i }) => {
           sprite
           pointerEvents="none"
         >
-          <div
-            ref={labelRef}
-            style={{
-              background: 'var(--linen-500, #fcede2)',
-              padding: '0.75rem 2rem',
-              borderRadius: '1rem',
-              color: 'var(--bs-primary-text)',
-              font: 'var(--heading-m)',
-              boxShadow: '0 1rem 2rem -0.5rem rgba(0, 0, 0, 0.35)',
-            }}
-          >
-            <div
-              ref={textRef}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '0.15rem',
-              }}
-            >
-              {isMyPebble && <p>THIS IS MY PEBBLE</p>}
+          <div ref={labelRef} className="Pebble__Overlay-label">
+            <div ref={textRef} className="Pebble__Overlay-text">
+              {isMyPebble && <p className="Pebble__Overlay-mine">This is your pebble</p>}
               <div>by {pebble.createdBy}</div>
-              <div
-                style={{
-                  font: 'var(--text-m)',
-                }}
-              >
+              <div className="Pebble__Overlay-dateText">
                 on {t('dateShort', { date: new Date(pebble.createdAt) })}
               </div>
             </div>

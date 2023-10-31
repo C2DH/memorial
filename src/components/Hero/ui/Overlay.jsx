@@ -43,9 +43,9 @@ export const Overlay = ({ isMobile }) => {
         {!hasStarted && (
           <motion.div
             className="overlay__intro-wrapper"
-            initial={{ opacity: 1, x: '-50%', y: '-4rem', scale: 0.85 }}
-            animate={{ opacity: 1, x: '-50%', y: '0rem', scale: 1 }}
-            exit={{ opacity: 0, x: '-50%', y: '-4rem', scale: 0.85 }}
+            initial={{ opacity: 1, x: '-50%' }}
+            animate={{ opacity: 1, x: '-50%' }}
+            exit={{ opacity: 0, x: '-50%' }}
             transition={{ type: 'spring', duration: 0.8 }}
           >
             <div className="overlay__intro">{t('pagesHomeSubheading')}</div>
@@ -79,8 +79,7 @@ export const Overlay = ({ isMobile }) => {
           >
             <div className="overlay__intro_exp">{t('pagesHomeSubheading')}</div>
             <div className="overlay__actions">
-              <Button text="About" variant="light" onClick={handleEnd} />
-              <Button text="+ Create Pebble" variant="dark" onClick={handleCreate} />
+              <Button text="Read more" variant="light" onClick={handleEnd} />
             </div>
           </motion.div>
         )}

@@ -14,6 +14,8 @@ import TopDocuments from '../components/TopDocuments'
 import GetInTouch from '../components/GetInTouch'
 import { Helmet } from 'react-helmet'
 import StoryHelmet from '../components/StoryHelmet'
+import LangLink from '../components/LangLink'
+import { usePebblesStore } from '../components/Hero/store'
 
 const Story = () => {
   const { t } = useTranslation()
@@ -71,6 +73,15 @@ const Story = () => {
     return null
   }
 
+  const handleCreate = () => {
+    usePebblesStore.getState().setCurrentStory(story)
+    usePebblesStore.getState().moveCameraToLastPebble()
+    usePebblesStore.getState().resetSelected()
+    usePebblesStore.getState().setHasDetails(false)
+    usePebblesStore.getState().setHasStarted(true)
+    usePebblesStore.getState().setHasCreate(true)
+  }
+
   return (
     <div
       className={`Story page ${
@@ -93,7 +104,11 @@ const Story = () => {
                     {i === 0 && (
                       <>
                         <StoryAuthors authors={story.authors}></StoryAuthors>
-
+                        <LangLink className="StoryItem_title" to={`/`} onClick={handleCreate}>
+                          <h4 className="m-0 " onClick={handleCreate}>
+                            Create Pebble
+                          </h4>
+                        </LangLink>
                         <TopDocuments
                           className="Story_TopDocuments mt-3"
                           params={{
