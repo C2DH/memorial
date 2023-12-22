@@ -1,4 +1,4 @@
-import { useRef, useMemo, memo, useCallback, useState, useEffect } from 'react'
+import { useRef, useMemo, memo, useCallback, useState } from 'react'
 import { useGLTF, useTexture, Instances, Instance, Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useTranslation } from 'react-i18next'
@@ -78,6 +78,8 @@ const InstancedPebbles = () => {
       console.info('Chunk updated')
     }
   })
+
+  console.log(filteredPebbles)
 
   return (
     <>

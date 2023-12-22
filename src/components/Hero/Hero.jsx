@@ -7,13 +7,15 @@ import { Scene } from './Scene'
 import { Camera } from './components/Camera'
 import { Overlay } from './ui/Overlay'
 import { ModalDetails } from './ui/ModalDetails'
-import { ModalCreate } from './ui/ModalCreate'
+import { ModalCreate } from './ui/ModalCreateNew'
 // eslint-disable-next-line no-unused-vars
 import { StatsGl, Stats } from '@react-three/drei'
 
 import { useEffect } from 'react'
 import { usePebblesStore } from './store'
 import { StatusSuccess, useGetJSON } from '../../hooks/data'
+
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 const Hero = ({ isMobile }) => {
   const { data, status, error } = useGetJSON({
@@ -31,31 +33,37 @@ const Hero = ({ isMobile }) => {
     if (usePebblesStore.getState().pebblesData.length > 0) return
     usePebblesStore.getState().setInitialData()
   }, [status])
+
   if (error) {
     console.error('[Hero] useGetJSON', error)
   }
+
+  const queryClient = new QueryClient()
+
   return (
-    <div className="hero">
-      <div
-        className="hero__canvas-wrapper"
-        initial={{ opacity: 1 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ type: 'spring', duration: 2.0, delay: 0.2 }}
-      >
-        <Canvas gl={{ alpha: true, antialias: false, shadows: false }} dpr={2}>
-          {/* <StatsGl /> */}
-          {/* <Stats showPanel={0} /> */}
-          <Camera />
-          <Scene />
-        </Canvas>
+    <QueryClientProvider client={queryClient}>
+      <div className="hero">
+        <div
+          className="hero__canvas-wrapper"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ type: 'spring', duration: 2.0, delay: 0.2 }}
+        >
+          <Canvas gl={{ alpha: true, antialias: false, shadows: false }} dpr={2}>
+            {/* <StatsGl /> */}
+            {/* <Stats showPanel={0} /> */}
+            <Camera />
+            <Scene />
+          </Canvas>
+        </div>
+        <Overlay isMobile={isMobile} />
+        <div className="hero__modals">
+          <ModalDetails stories={data?.results} />
+          <ModalCreate stories={data?.results} />
+        </div>
       </div>
-      <Overlay isMobile={isMobile} />
-      <div className="hero__modals">
-        <ModalDetails stories={data?.results} />
-        <ModalCreate stories={data?.results} />
-      </div>
-    </div>
+    </QueryClientProvider>
   )
 }
 

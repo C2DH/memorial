@@ -17,6 +17,12 @@ export default defineConfig(({ mode }) => {
       plugins: [react(), eslint(), vitePluginString()],
       server: {
         proxy: {
+          '/api/pebbles': {
+            target: env.VITE_PEBBLE_API_PROXY,
+            changeOrigin: true,
+            secure: false,
+            ws: false,
+          },
           '/api': {
             target: env.VITE_PROXY,
             changeOrigin: true,

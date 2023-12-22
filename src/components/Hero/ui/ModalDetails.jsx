@@ -4,71 +4,42 @@ import { IconsNext, IconsPrev } from './Icons.jsx'
 
 import { usePebblesStore } from '../store'
 
-import { motion, AnimatePresence, animate } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import downsize from 'downsize'
 import LangLink from '../../LangLink'
 
-const usePeriodicAnimation = (interval, callback) => {
-  const [animValue, setAnimValue] = useState(0)
-
-  useEffect(() => {
-    const handle = setInterval(() => {
-      setAnimValue((prev) => 1 - prev)
-      callback()
-    }, interval)
-
-    return () => clearInterval(handle)
-  }, [interval, callback])
-
-  return animValue
-}
-
-export const ModalDetails = ({ stories = [], ...props }) => {
+export const ModalDetails = ({ stories = [] }) => {
   const { t } = useTranslation()
-  const { selectedPebble, hasDetails } = usePebblesStore()
+  const selectedPebble = usePebblesStore((state) => state.selectedPebble)
+  const hasDetails = usePebblesStore((state) => state.hasDetails)
+
   const selectedStory =
     selectedPebble && selectedPebble.linkedBioId && stories.length > 0
-      ? stories.find((story) => story.id === selectedPebble.linkedBioId)
+      ? stories.find((story) => story.slug === selectedPebble.linkedBioId)
       : null
 
+  const isAtStart = usePebblesStore((state) => state.isFirstPebble())
+  const isAtEnd = usePebblesStore((state) => state.isLastPebble())
+
   const handleNext = () => {
-    usePebblesStore.getState().selectAdjacentPebble(1)
-    usePebblesStore.getState().setUserInteracted(true)
+    if (!isAtEnd) {
+      usePebblesStore.getState().selectAdjacentPebble(1)
+      usePebblesStore.getState().setUserInteracted(true)
+    }
   }
 
   const handlePrev = () => {
-    usePebblesStore.getState().selectAdjacentPebble(-1)
-    usePebblesStore.getState().setUserInteracted(true)
+    if (!isAtStart) {
+      usePebblesStore.getState().selectAdjacentPebble(-1)
+      usePebblesStore.getState().setUserInteracted(true)
+    }
   }
 
   const variants = {
     hidden: { opacity: 0, scale: 0.5 },
     visible: { opacity: 1, scale: 1 },
   }
-
-  const handleNextAuto = () => {
-    if (usePebblesStore.getState().hasStarted && !usePebblesStore.getState().userInteracted) {
-      usePebblesStore.getState().selectAdjacentPebble(1)
-    }
-  }
-
-  const animValue = usePeriodicAnimation(4500, handleNextAuto)
-
-  useEffect(() => {
-    const tickerBox = document.getElementById('tickerDiv')
-    if (usePebblesStore.getState().hasStarted && !usePebblesStore.getState().userInteracted) {
-      tickerBox &&
-        animate(
-          tickerBox,
-          {
-            scaleX: [0, 1],
-          },
-          { duration: 3 },
-        )
-    }
-  }, [animValue])
 
   return (
     <AnimatePresence>
@@ -83,7 +54,7 @@ export const ModalDetails = ({ stories = [], ...props }) => {
           <div className="hero__modal__header">
             <div className="hero__modal__carousel">
               <div className="hero__modal__wrapper">
-                <IconsPrev onClick={handlePrev} />
+                <IconsPrev onClick={handlePrev} disabled={isAtStart} />
                 <div className="hero__modal__carousel-content">
                   <div className="hero__modal__name">
                     <AnimatePresence mode="wait">
@@ -99,7 +70,7 @@ export const ModalDetails = ({ stories = [], ...props }) => {
                           <b
                             className="small"
                             dangerouslySetInnerHTML={{
-                              __html: downsize(selectedStory.data.title, {
+                              __html: downsize(selectedStory.data.title.en_GB, {
                                 characters: 80,
                                 append: '&hellip;',
                               }),
@@ -110,7 +81,7 @@ export const ModalDetails = ({ stories = [], ...props }) => {
                     </AnimatePresence>
                   </div>
                 </div>
-                <IconsNext onClick={handleNext} />
+                <IconsNext onClick={handleNext} disabled={isAtEnd} />
               </div>
               <Divider />
             </div>
@@ -123,11 +94,12 @@ export const ModalDetails = ({ stories = [], ...props }) => {
                 animate="visible"
                 exit="hidden"
                 key={selectedPebble.createdBy}
-                className="hero__modal__body-text"
               >
-                This pebble was left by <b>{selectedPebble.createdBy}</b> on
-                <br />
-                {t('dateShort', { date: new Date(selectedPebble.createdAt) })}
+                <p className="hero__modal__body-text-l">{selectedPebble.message}</p>
+                <p className="hero__modal__body-text">
+                  By <b>{selectedPebble.createdBy}</b> on&nbsp;
+                  {t('dateShort', { date: new Date(selectedPebble.createdAt) })}
+                </p>
               </motion.div>
             </AnimatePresence>
             <Divider />

@@ -18,8 +18,10 @@ export const Overlay = ({ isMobile }) => {
   const handleStart = () => {
     usePebblesStore.getState().setHasStarted(true)
     usePebblesStore.getState().selectAdjacentPebble(0)
-    usePebblesStore.getState().setHasDetails(true)
-    usePebblesStore.getState().setUserInteracted(false)
+    if (usePebblesStore.getState().selectedPebble) {
+      usePebblesStore.getState().setHasDetails(true)
+      usePebblesStore.getState().setUserInteracted(false)
+    }
   }
 
   const handleEnd = () => {

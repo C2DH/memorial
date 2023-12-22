@@ -1,5 +1,5 @@
 import './styles/divider.css'
 
-export const Divider = ({ ...props }) => {
+export const Divider = () => {
   return <div className="divider__line" />
 }

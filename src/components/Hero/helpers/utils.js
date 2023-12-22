@@ -33,13 +33,17 @@ export const getCurrentChunkIndex = (positionZ) => {
 
 export const lastPebble = (pebblesData) => {
   if (pebblesData.length === 0) {
-    return 0
+    console.log('no pebbles')
+    return {
+      positionX: 0,
+      positionZ: 0,
+    }
   }
 
   const pebbleWithLowestZ = pebblesData.sort((a, b) => a.position[2] - b.position[2])[0]
 
   return {
-    x: pebbleWithLowestZ.position[0],
-    z: pebbleWithLowestZ.position[2],
+    positionX: pebbleWithLowestZ.position[0],
+    positionZ: pebbleWithLowestZ.position[2],
   }
 }

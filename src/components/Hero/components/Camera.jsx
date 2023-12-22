@@ -50,7 +50,6 @@ export const Camera = () => {
   }
 
   const handleTouchStart = (e) => {
-    console.log('touch start')
     lastTouchY = e.touches[0].clientY
   }
 
@@ -129,11 +128,11 @@ export const Camera = () => {
   const updateCamera = (delta) => {
     usePebblesStore.getState().setCameraState(currentPositionRef.current, currentLookAtRef.current)
 
-    currentPositionRef.current.lerp(targetPositionRef.current, 1.25 * delta)
-    currentLookAtRef.current.lerp(targetLookAtRef.current, 1.25 * delta)
-
     currentLookAtRef.current.x += !selectedTarget ? mousePosition.current.x * -0.25 : 0
     currentLookAtRef.current.y += hasStarted ? mousePosition.current.y * 0.05 : 0
+
+    currentPositionRef.current.lerp(targetPositionRef.current, 1.25 * delta)
+    currentLookAtRef.current.lerp(targetLookAtRef.current, 1.25 * delta)
 
     cameraRef.current.position.set(...currentPositionRef.current)
     cameraRef.current.lookAt(currentLookAtRef.current)
@@ -154,7 +153,6 @@ export const Camera = () => {
 
     currentCamera.zoom = 1
     currentCamera.updateProjectionMatrix()
-    console.log('camera reset')
   }, [])
 
   useEffect(() => {

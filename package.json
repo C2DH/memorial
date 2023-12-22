@@ -45,6 +45,7 @@
     "react-markdown": "^8.0.3",
     "react-router-dom": "^6.3.0",
     "react-spring": "^9.4.5",
+    "react-turnstile": "^1.1.2",
     "remark-footnotes": "^4.0.1",
     "remark-gfm": "^3.0.1",
     "simplex-noise": "^3.0.1",

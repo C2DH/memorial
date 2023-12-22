@@ -44,7 +44,6 @@ function initializeWebGL() {
       }
     `
 
-  // Compile shaders and link them into a program
   const vertexShader = gl.createShader(gl.VERTEX_SHADER)
   gl.shaderSource(vertexShader, vertexSource)
   gl.compileShader(vertexShader)
@@ -60,7 +59,6 @@ function initializeWebGL() {
 
   uvLocation = gl.getUniformLocation(program, 'u_uv')
 
-  // Setup a fullscreen quad
   const quad = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1])
   buffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
@@ -76,14 +74,12 @@ export function getGpuNoise(uv) {
 
   gl.useProgram(program)
 
-  // Send uv as a uniform
   gl.uniform2f(uvLocation, uv.x, uv.y)
 
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
   gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0)
   gl.enableVertexAttribArray(positionLoc)
 
-  // Render and read the value
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
   const pixel = new Uint8Array(4)
   gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel)

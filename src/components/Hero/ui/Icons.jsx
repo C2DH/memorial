@@ -1,8 +1,12 @@
 import './styles/icons.css'
 
-export const IconsNext = ({ onClick }) => {
+export const IconsNext = ({ onClick, disabled = false }) => {
   return (
-    <div className="button__icon" onClick={onClick}>
+    <div
+      className="button__icon"
+      onClick={onClick}
+      style={{ opacity: disabled ? 0.5 : 1, cursor: disabled ? 'not-allowed' : 'pointer' }}
+    >
       <svg
         className="icons-next"
         width="24"
@@ -20,9 +24,13 @@ export const IconsNext = ({ onClick }) => {
   )
 }
 
-export const IconsPrev = ({ onClick }) => {
+export const IconsPrev = ({ onClick, disabled = false }) => {
   return (
-    <div className="button__icon" onClick={onClick}>
+    <div
+      className="button__icon"
+      onClick={onClick}
+      style={{ opacity: disabled ? 0.5 : 1, cursor: disabled ? 'not-allowed' : 'pointer' }}
+    >
       <svg
         className="icons-prev"
         width="24"

@@ -2,12 +2,13 @@ import { create } from 'zustand'
 import { getGpuNoise } from './helpers/gpuNoise'
 import * as c from './sceneConfig'
 import * as THREE from 'three'
+import axios from 'axios'
 
-import { randomChoice, randomChoiceExcluding, randomEuler, lastPebble } from './helpers/utils'
+import { randomChoiceExcluding, randomEuler, lastPebble } from './helpers/utils'
 
-const createNewPebble = (userName, color, bioId, lastPositionX, lastPositionZ) => {
+export const createNewPebble = (userName, message, color, bioId, lastPositionX, lastPositionZ) => {
   let positionX = randomChoiceExcluding([-18, -12, -6, 6, 0, 12, 18], lastPositionX)
-  let positionZ = lastPositionZ
+  let positionZ = lastPositionZ - c.pebblesOffsetZ
 
   let vectorXZ = {
     x: ((positionX + c.sceneRadius) / c.sceneLoopLength) * c.terrainFrequency,
@@ -20,10 +21,11 @@ const createNewPebble = (userName, color, bioId, lastPositionX, lastPositionZ) =
     position: [positionX, positionY, positionZ],
     rotation: randomEuler(),
     scale: [1, 1, 1],
-    color: c.ghibliPalette[color],
+    color: color,
     uid: lastPositionZ,
     createdAt: new Date(),
     createdBy: userName,
+    message: message,
     linkedBioId: bioId,
   }
 }
@@ -37,7 +39,7 @@ export const usePebblesStore = create((set, get) => ({
   userInteracted: false,
   currentStory: null,
   // PEBBLE STATES:
-  selectedPebble: null,
+  z: null,
   lastSelectedPebble: null,
   lastPebbleData: {
     positionX: 0,
@@ -47,9 +49,24 @@ export const usePebblesStore = create((set, get) => ({
   cameraPosition: new THREE.Vector3(0, 8, 0),
   cameraLookAt: new THREE.Vector3(0, 8, 48),
   // ACTIONS:
+  isFirstPebble: () => {
+    const pebbles = get().pebblesData
+    const selectedPebble = get().selectedPebble
+    return pebbles.indexOf(selectedPebble) === 0
+  },
+  isLastPebble: () => {
+    const pebbles = get().pebblesData
+    const selectedPebble = get().selectedPebble
+    return pebbles.indexOf(selectedPebble) === pebbles.length - 1
+  },
   selectAdjacentPebble: (step) => {
     const currentPebbles = get().pebblesData
     const currentSelectedPebble = get().selectedPebble
+
+    if (currentPebbles.length === 0) {
+      console.warn('No pebbles available to select.')
+      return
+    }
 
     if (!currentSelectedPebble) {
       set({
@@ -156,12 +173,8 @@ export const usePebblesStore = create((set, get) => ({
   setHasStarted: (value) => set({ hasStarted: value }),
   setHasDetails: (value) => set({ hasDetails: value }),
   setHasCreate: (value) => set({ hasCreate: value }),
-  createPebble: (userName, color, bioId, isNew = true) => {
+  createPebble: (newPebbleData, isNew = true) => {
     const newPebbles = get().pebblesData
-
-    const { x, z } = lastPebble(newPebbles)
-
-    const newPebbleData = createNewPebble(userName, color, bioId, x, z - c.pebblesOffsetZ)
 
     newPebbles.unshift(newPebbleData)
 
@@ -172,22 +185,32 @@ export const usePebblesStore = create((set, get) => ({
     set(() => ({
       pebblesData: newPebbles,
       selectedPebble: isNew ? newPebbleData : null,
+      lastPebbleData: lastPebble(newPebbles),
       hasCreate: false,
       hasDetails: isNew ? true : false,
     }))
   },
-  setInitialData: () => {
-    const newPebbles = []
-    for (let i = 0; i < 128; i++) {
-      const randomColor = randomChoice([0, 1, 2, 3, 4])
-      const randomBio = randomChoice([64, 71, 73, 75])
-      const randomNickname =
-        randomChoice(['Visitor', 'Anna', 'John', 'Annonymous', 'Kate', 'Alex']) +
-        ' ' +
-        randomChoice(['Viena', 'El', 'Uni'])
-      const newPebble = createNewPebble(randomNickname, randomColor, randomBio, 0, i * 10)
-      newPebbles.push(newPebble)
+  setInitialData: async () => {
+    try {
+      const response = await axios.get('/api/pebbles/')
+      const apiPebbles = response.data.results
+
+      const newPebbles = apiPebbles.map((apiPebble) => {
+        return {
+          position: apiPebble.position,
+          rotation: apiPebble.rotation,
+          scale: apiPebble.scale,
+          uid: apiPebble.shortUrl,
+          createdAt: new Date(apiPebble.createdAt),
+          createdBy: apiPebble.createdBy,
+          linkedBioId: apiPebble.linkedBioId,
+          message: apiPebble.message,
+          color: apiPebble.color,
+        }
+      })
+      set({ pebblesData: newPebbles, lastPebbleData: lastPebble(newPebbles) })
+    } catch (error) {
+      console.error('Error fetching pebbles data:', error)
     }
-    set({ pebblesData: newPebbles })
   },
 }))
