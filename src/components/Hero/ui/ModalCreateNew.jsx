@@ -13,7 +13,7 @@ import { usePebblesStore, createNewPebble } from '../store'
 
 import * as c from '../sceneConfig'
 
-const SITE_KEY = '0x4AAAAAAANc-pcojgasdnzO'
+const SITE_KEY = import.meta.env.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY
 
 const readCookie = (name) => {
   const nameEQ = `${name}=`
@@ -36,9 +36,9 @@ export const ModalCreate = () => {
   const setHasDetails = usePebblesStore((state) => state.setHasDetails)
 
   const [token, setToken] = useState(null)
-  const [createdBy, setCreatedBy] = useState('Your name...')
-  const [message, setMessage] = useState('Leave a meaningful message...')
-  const [selectedColor, setColor] = useState(0)
+  const [createdBy, setCreatedBy] = useState('')
+  const [message, setMessage] = useState('')
+  const [selectedColor, setSelectedColor] = useState(0)
   const [newPebbleData, setNewPebbleData] = useState(null)
 
   const csrftoken = readCookie('csrftoken')
@@ -123,7 +123,7 @@ export const ModalCreate = () => {
               <StoryItemSmall story={currentStory} />
             </div>
             <div className="hero__modal__carousel mt-4">
-              <ModalCarousel options={[0, 1, 2, 3, 4]} setOption={setColor}>
+              <ModalCarousel options={[0, 1, 2, 3, 4]} setOption={setSelectedColor}>
                 <div className="hero__modal__carousel-img">
                   <img src={`/pebbles/pebbleImage${[selectedColor + 1]}.png`} alt="decoration" />
                 </div>
@@ -132,6 +132,7 @@ export const ModalCreate = () => {
             <InputField
               label="Created By"
               id="createdBy"
+              placeholder="Anonymous"
               value={createdBy}
               onChange={setCreatedBy}
             />
@@ -153,13 +154,14 @@ export const ModalCreate = () => {
   )
 }
 
-const InputField = ({ label, id, value, onChange }) => (
+const InputField = ({ label, id, value, placeholder, onChange }) => (
   <div className="mb-3">
     <label htmlFor={id} className="form-label">
       {label}
     </label>
     <input
       type="text"
+      placeholder={placeholder}
       className="form-control"
       id={id}
       value={value}
