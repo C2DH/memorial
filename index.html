@@ -31,14 +31,187 @@
     href=”/fonts/Satoshi-VariableItalic.ttf” as=”font” type="font/ttf">
     <title>Memorial Shoah</title>
     <style>
+      @font-face {
+        font-family: 'ClashDisplay-Variable';
+        src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2'),
+          url('/fonts/ClashDisplay-Variable.woff') format('woff'),
+          url('/fonts/ClashDisplay-Variable.ttf') format('truetype');
+        font-weight: 200 700;
+        font-display: swap;
+        font-style: normal;
+      }
+      /**
+      * This is a variable font
+      * You can controll variable axes as shown below:
+      * font-variation-settings: 'wght' 900.0;
+      *
+      * available axes:
+
+      * 'wght' (range from 300.0 to 900.0)
+
+      */
+
+      @font-face {
+        font-family: 'Satoshi-Variable';
+        src: url('/fonts/Satoshi-Variable.woff2') format('woff2'),
+          url('/fonts/Satoshi-Variable.woff') format('woff'),
+          url('/fonts/Satoshi-Variable.ttf') format('truetype');
+        font-weight: 300 900;
+        font-display: swap;
+        font-style: normal;
+      }
+
+      /**
+      * This is a variable font
+      * You can controll variable axes as shown below:
+      * font-variation-settings: 'wght' 900.0;
+      *
+      * available axes:
+
+      * 'wght' (range from 300.0 to 900.0)
+
+      */
+
+      @font-face {
+        font-family: 'Satoshi-VariableItalic';
+        src: url('/fonts/Satoshi-VariableItalic.woff2') format('woff2'),
+          url('/fonts/Satoshi-VariableItalic.woff') format('woff'),
+          url('/fonts/Satoshi-VariableItalic.ttf') format('truetype');
+        font-weight: 300 900;
+        font-display: swap;
+        font-style: italic;
+      }
+
+      :root {
+        --bs-primary: #3caf9a;
+        --bs-dark: #212529;
+        --bs-primary-text: #3d776c;
+        --bs-primary-alpha: #61bfaebc;
+        --bs-link-color: #3d776c;
+        --bs-link-hover-color: #212529;
+        --bs-secondary: #ffefe5 !important;
+        --bs-btn-focus-shadow-rgb: #61bfad;
+        --small-font-size: 0.8rem;
+        --white: white;
+        --size-1: 0.25rem;
+        --size-2: 0.5rem;
+        --size-3: 1rem;
+        --size-4: 1.5rem;
+        --size-5: 3rem;
+        --pebble-color-1: #87dcdc;
+        --pebble-color-2: #4e97da;
+        --pebble-color-3: #66b5a9;
+        --pebble-color-4: #b392e9;
+        --pebble-color-5: #dd71c5;
+        --pebble-color-6: #dcbf87;
+        --bs-font-sans-serif: 'Satoshi-Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+          sans-serif;
+        --bs-font-serif: 'ClashDisplay-Variable', 'Georgia', 'Times New Roman', serif;
+        --bs-body-color-transparent: #21252999;
+        --bs-font-sans-serif-italic: 'Satoshi-VariableItalic', -apple-system, BlinkMacSystemFont,
+          'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+          'Helvetica Neue', sans-serif;
+      }
       body {
-        background-color: #ffefe5;
+        background-color: var(--bs-secondary);
+      }
+      #loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 100;
+        background-color: var(--bs-secondary);
+        color: var(--bs-dark);
+        font-family: 'RocknRoll One', system-ui, Avenir, Helvetica, Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition-delay: 1000ms;
+        transition-property: opacity;
+        transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+        transition-duration: 2s;
+        pointer-events: none;
+        opacity: 1;
+      }
+
+      #loading p {
+        opacity: 0.2;
+        transition: opacity 1s ease-in-out;
+        text-align: center;
+      }
+      #loading.hide {
+        opacity: 0;
+      }
+      @media screen and (min-width: 768px) {
+        #loading p {
+          opacity: 0.2;
+          transition: opacity 1s ease-in-out;
+          text-align: center;
+          max-width: 600px;
+        }
       }
     </style>
   </head>
   <body>
+    <div id="loading">
+      <p>This memorial is bridging stories and memories of victims and survivors of the Shoah.</p>
+      <p>
+        Ce mémorial construit un pont entre les histoires et la mémoire des victimes et des
+        survivants de la Shoah.
+      </p>
+      <p>
+        Das Memorial baut eine Brücke zwischen den Geschichten und den Erinnerungen der Opfer und
+        der Überlebenden der Shoah.
+      </p>
+      <!-- <div>
+        <a
+          href="https://fondluxshoah.lu/"
+          target="_blank"
+          title="Fondation luxembourgeoise pour la Mémoire de la Shoah"
+          rel="noreferrer"
+          className="ms-3"
+        >
+          <img
+            src="/assets/images/fondluxshoah-logo.png"
+            style="height: 75px"
+            alt="Logo Fondation luxembourgeoise pour la Mémoire de la Shoah"
+          />
+        </a>
+      </div> -->
+      <div>loading ...</div>
+    </div>
+    <script>
+      const loadingDiv = document.getElementById('loading')
+
+      const paragraphs = loadingDiv.querySelectorAll('p')
+      let paragraphIn = -1
+
+      function paragraphLooper() {
+        paragraphIn++
+        if (paragraphIn >= paragraphs.length) {
+          paragraphIn = 0
+        }
+
+        for (let i = 0; i < paragraphs.length; i++) {
+          if (i === paragraphIn) {
+            paragraphs[i].style.opacity = 1
+          } else {
+            paragraphs[i].style.opacity = 0.2
+          }
+        }
+      }
+
+      paragraphLooper()
+      window.memorialShoahParagraphLoop = setInterval(() => paragraphLooper(), 1800)
+      window.memorialShoahInititalTime = new Date()
+    </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+
     <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>
