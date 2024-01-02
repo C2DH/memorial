@@ -206,9 +206,21 @@ const SingleInstance = ({ pebble, filteredPebbles, i }) => {
         >
           <div ref={labelRef} className="Pebble__Overlay-label">
             <div ref={textRef} className="Pebble__Overlay-text">
-              {isMyPebble && <p className="Pebble__Overlay-mine">This is your pebble</p>}
-              <div>by {pebble.createdBy}</div>
-              <div className="Pebble__Overlay-dateText">
+              {pebble.message ? (
+                <p
+                  className="Pebble__message"
+                  dangerouslySetInnerHTML={{
+                    __html: t('pebbleMessage', { message: pebble.message || '' }),
+                  }}
+                />
+              ) : null}
+              <div
+                className="Pebble__createdBy"
+                dangerouslySetInnerHTML={{
+                  __html: t('pebbleCreatedBy', { createdBy: pebble.createdBy || '' }),
+                }}
+              />
+              <div className="Pebble__createdAt">
                 on {t('dateShort', { date: new Date(pebble.createdAt) })}
               </div>
             </div>
