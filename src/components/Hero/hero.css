@@ -1,15 +1,3 @@
-@font-face {
-  font-family: 'ClashDisplay';
-  src: local('ClashDisplay'), url('/fonts/ClashDisplay-Variable.woff') format('woff');
-  src: local('ClashDisplay'), url('/fonts/ClashDisplay-Variable.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: local('ClashGrotesk'), url('/fonts/ClashGrotesk-Variable.woff') format('woff');
-  src: local('ClashGrotesk'), url('/fonts/ClashGrotesk-Variable.woff2') format('woff2');
-}
-
 * {
   box-sizing: border-box;
 }
@@ -27,13 +15,6 @@
   --green-500-a25: hsla(166, 29%, 26%, 0.25);
   --green-500-a05: hsla(166, 29%, 26%, 0.05);
   --linen-500: hsl(25, 81%, 94%);
-
-  /* Fonts */
-  --text-l: 400 16px ClashGrotesk, sans-serif;
-  --text-m: 400 18px ClashGrotesk, sans-serif;
-  --text-s: 400 italic 12px ClashGrotesk, sans-serif;
-  --heading-l: 400 48px ClashDisplay, sans-serif;
-  --heading-m: 500 24px ClashDisplay, sans-serif;
 }
 
 .hero__canvas-wrapper {
