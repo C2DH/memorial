@@ -3,7 +3,6 @@
   padding: 0.75rem 2rem;
   border-radius: 1rem;
   color: var(--bs-primary-text);
-  font: var(--heading-m);
   box-shadow: 0 1rem 2rem -0.5rem rgba(0, 0, 0, 0.35);
   opacity: 0;
 }
@@ -16,12 +15,12 @@
   opacity: 0;
 }
 
-.Pebble__Overlay-dateText {
-  font: var(--text-m);
+.Pebble__message {
+  font-size: inherit;
 }
-
-.Pebble__Overlay-mine {
-  font: var(--text-m);
+.Pebble__createdBy,
+.Pebble__createdAt {
+  font-size: 0.8em;
 }
 
 .Pebble__Overlay-opacityVisible {
