@@ -59,13 +59,18 @@ export const ModalCreate = () => {
     },
   )
 
-  const handleSubmit = (retry = false, suggested_position = 0) => {
+  const handleSubmit = (retry = false, suggested_position) => {
     let { positionX, positionZ } = usePebblesStore.getState().lastPebbleData
 
-    if (retry) {
-      positionZ = parseInt(suggested_position, 10) + 10
+    // If the prev postion was rejected, use the suggested position:
+    if (retry && suggested_position) {
+      console.log('-------------------------retrying-------------------------')
+      console.log(suggested_position)
+      positionX = parseFloat(suggested_position[0])
+      positionZ = parseFloat(suggested_position[2])
     }
 
+    // Recalculate the correct y position:
     const newPebbleData = createNewPebble(
       createdBy,
       message,
