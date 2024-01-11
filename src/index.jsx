@@ -14,6 +14,27 @@ if (
   console.debug = () => {}
 }
 
+const now = new Date()
+const loadingTime = now - window.memorialShoahInititalTime
+console.debug(
+  '[index] loading time:',
+  loadingTime,
+  'ms',
+  'delay:',
+  Math.max(3600 - loadingTime, 1000),
+)
+
+// ensure at least 5000 ms passed since
+// the beginning of the loading
+// to avoid flickering
+// on slow devices
+// (e.g. iPhone 6)
+
+setTimeout(() => {
+  clearInterval(window.memorialShoahParagraphLoop)
+  document.getElementById('loading').classList.add('hide')
+}, Math.max(3600 - loadingTime, 1000))
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>

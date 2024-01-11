@@ -1,85 +1,3 @@
-@font-face {
-  font-family: 'ClashDisplay-Variable';
-  src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2'),
-    url('/fonts/ClashDisplay-Variable.woff') format('woff'),
-    url('/fonts/ClashDisplay-Variable.ttf') format('truetype');
-  font-weight: 200 700;
-  font-display: swap;
-  font-style: normal;
-}
-/**
-* This is a variable font
-* You can controll variable axes as shown below:
-* font-variation-settings: 'wght' 900.0;
-*
-* available axes:
-
-* 'wght' (range from 300.0 to 900.0)
-
-*/
-
-@font-face {
-  font-family: 'Satoshi-Variable';
-  src: url('/fonts/Satoshi-Variable.woff2') format('woff2'),
-    url('/fonts/Satoshi-Variable.woff') format('woff'),
-    url('/fonts/Satoshi-Variable.ttf') format('truetype');
-  font-weight: 300 900;
-  font-display: swap;
-  font-style: normal;
-}
-
-/**
-* This is a variable font
-* You can controll variable axes as shown below:
-* font-variation-settings: 'wght' 900.0;
-*
-* available axes:
-
-* 'wght' (range from 300.0 to 900.0)
-
-*/
-
-@font-face {
-  font-family: 'Satoshi-VariableItalic';
-  src: url('/fonts/Satoshi-VariableItalic.woff2') format('woff2'),
-    url('/fonts/Satoshi-VariableItalic.woff') format('woff'),
-    url('/fonts/Satoshi-VariableItalic.ttf') format('truetype');
-  font-weight: 300 900;
-  font-display: swap;
-  font-style: italic;
-}
-
-:root {
-  --bs-primary: #3caf9a;
-  --bs-dark: #212529;
-  --bs-primary-text: #3d776c;
-  --bs-primary-alpha: #61bfaebc;
-  --bs-link-color: #3d776c;
-  --bs-link-hover-color: #212529;
-  --bs-secondary: #ffefe5;
-  --bs-btn-focus-shadow-rgb: #61bfad;
-  --small-font-size: 0.8rem;
-  --white: white;
-  --size-1: 0.25rem;
-  --size-2: 0.5rem;
-  --size-3: 1rem;
-  --size-4: 1.5rem;
-  --size-5: 3rem;
-  --pebble-color-1: #87dcdc;
-  --pebble-color-2: #4e97da;
-  --pebble-color-3: #66b5a9;
-  --pebble-color-4: #b392e9;
-  --pebble-color-5: #dd71c5;
-  --pebble-color-6: #dcbf87;
-  --bs-font-sans-serif: 'Satoshi-Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  --bs-font-serif: 'ClashDisplay-Variable', 'Georgia', 'Times New Roman', serif;
-  --bs-body-color-transparent: #21252999;
-  --bs-font-sans-serif-italic: 'Satoshi-VariableItalic', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-    'Helvetica Neue', sans-serif;
-}
-
 i,
 em {
   font-family: 'Satoshi-VariableItalic', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
@@ -94,6 +12,13 @@ body {
   background-color: var(--bs-secondary);
   font-size: 1.15rem;
   overflow-x: hidden; /* Removing scrollbar from the bottom of the page*/
+}
+
+body.navigationHome {
+  overflow-y: hidden;
+  /* no scroll */
+  height: 100vh;
+  width: 100vw;
 }
 
 code {
@@ -171,9 +96,24 @@ a {
   font-weight: bold;
   background: #ffffff25;
 }
+
 .btn-white:hover {
   background-color: var(--bs-secondary) !important;
   /* color: var(--white) !important; */
+}
+
+.btn-green {
+  font-weight: bold;
+  background: #ffffff25;
+  background-color: var(--green-500) !important;
+  color: var(--linen-500);
+}
+
+.btn-green:hover {
+  font-weight: bold;
+  background: #ffffff25;
+  background-color: var(--green-100) !important;
+  color: var(--linen-500) !important;
 }
 
 .btn-primary {
@@ -311,5 +251,29 @@ mark {
 
 blockquote {
   border-left: 1px solid var(--bs-primary);
-  paddingheader: var(--size-3);
+}
+
+.SignatureField {
+  border-radius: 0;
+
+  border: 0px transparent;
+  border-bottom: 2px solid;
+  text-align: center;
+  background-color: var(--linen-500);
+  color: var(--green-500);
+  text-align: center;
+  font: var(--heading-m);
+}
+.SignatureField:focus {
+  color: #212529;
+  background-color: var(--linen-500);
+  border-color: var(--bs-primary-text);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem var(--bs-primary-alpha);
+}
+
+.SignatureField_inputSubmit:focus {
+  border-color: var(--bs-primary-text);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem var(--bs-primary-alpha);
 }

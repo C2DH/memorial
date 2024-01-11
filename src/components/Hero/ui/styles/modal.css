@@ -1,0 +1,285 @@
+.hero__modal {
+  position: absolute;
+  bottom: 6rem;
+  right: 6rem;
+  background: var(--linen-500, #fcede2);
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  width: 24rem;
+  height: auto;
+  box-shadow: 0rem 1.5rem 4rem -1rem rgba(47, 86, 77, 0.32);
+  pointer-events: all;
+  overflow: hidden;
+  z-index: 120;
+}
+
+.hero__modal p {
+  padding: 0;
+  line-height: 1rem;
+}
+
+.hero__modal__top {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-end;
+  align-self: stretch;
+  position: relative;
+}
+
+.hero__modal__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  position: relative;
+}
+
+.hero__modal__header p:nth-last-of-type(1) {
+  margin-top: -0.5rem;
+}
+
+.hero__modal__overline {
+  color: var(--green-500);
+  font: var(--text-xl);
+  font-family: var(--bs-body-font-family);
+  font-weight: 500;
+  opacity: 0.6;
+  text-align: center;
+}
+
+.hero__modal__carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  align-self: stretch;
+  position: relative;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+}
+
+.hero__modal__wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  position: relative;
+}
+
+.hero__modal__carousel-content {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.hero__modal__carousel-img {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__modal__carousel-img img {
+  width: 75%;
+  pointer-events: none;
+}
+
+.hero__modal__name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero__modal__title {
+  color: var(--green-500);
+  text-align: center;
+  font-family: var(--bs-font-serif);
+  position: relative;
+}
+
+.hero__modal__subtitle {
+  color: var(--green-500);
+  text-align: center;
+  font: var(--text-s);
+  opacity: 0.6;
+  position: relative;
+}
+
+.hero__modal__body {
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  position: relative;
+}
+
+.hero__modal__body-text {
+  color: var(--green-500);
+  text-align: center;
+  font: var(--text-l);
+  opacity: 0.8;
+  position: relative;
+  align-self: stretch;
+}
+
+.hero__modal__body-text-l {
+  color: var(--green-500);
+  text-align: center;
+  font: var(--text-xl);
+  opacity: 0.8;
+  position: relative;
+  align-self: stretch;
+  margin-bottom: 2rem;
+}
+
+.hero__modal__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  position: relative;
+}
+
+.hero__modal__names {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  position: relative;
+}
+
+.hero__modal__biography-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  position: relative;
+}
+
+.hero__modal__accent {
+  font-weight: 500;
+  opacity: 1;
+}
+
+.hero__modal__in-memory-of {
+  color: var(--green-500);
+  text-align: justified;
+  font: var(--text-s);
+  opacity: 0.6;
+  position: relative;
+}
+
+.hero__modal__textline {
+  display: inline-flex;
+}
+
+.hero__modal__selector {
+  border-radius: 0.5rem;
+  border-style: dashed;
+  border-color: var(--green-500);
+  border-width: 0.0625rem;
+  padding: 0.5rem 0rem 0.5rem 0rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  position: relative;
+}
+
+.hero__modal__select-biography {
+  color: var(--green-500);
+  font: var(--text-l);
+  position: relative;
+}
+
+.hero__modal__carousel-ticker {
+  position: absolute;
+  height: 4px;
+  background: var(--green-500);
+  width: calc(100% - 8px);
+  transform-origin: left center;
+  opacity: 0.5;
+  bottom: 0;
+  left: 4px;
+  border-radius: 8px;
+}
+
+.hero__modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.hero__modal__inline-link {
+  color: var(--green-500);
+  font: var(--text-s);
+  opacity: 0.6;
+  position: relative;
+  cursor: pointer;
+}
+
+.hero__modal__inline-link:hover {
+  color: var(--green-100);
+  text-decoration: underline;
+}
+
+.hero__modal__nickname {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.hero__modal__nickname-input {
+  border-radius: 5rem;
+  border: dashed 1px var(--green-500);
+  border-width: 0.0625rem;
+  padding: 0.5rem 0.5rem;
+  color: var(--green-500);
+  font: var(--text-s);
+  background: var(--green-500-a05);
+  width: 100%;
+}
+
+.hero__modal__nickname-input .hero__modal__error {
+  outline: 2px solid red;
+}
+
+.hero__modal__nickname-input:hover {
+  outline: 2px solid var(--green-500-a25);
+}
+
+.hero__modal__nickname-input:focus {
+  outline: 2px solid var(--green-500-a25);
+}

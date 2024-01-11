@@ -1,0 +1,31 @@
+.button {
+  border-radius: 0.35rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 0;
+  font: var(--text-m);
+  font-family: var(--bs-btn-font-family);
+  font-size: 1.25rem;
+  font-weight: 500;
+  position: relative;
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 0.75rem 1rem -0.25rem hsla(165, 100%, 7%, 0.2);
+}
+
+.button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.button--variant-dark {
+  background: var(--green-100, #00241b);
+  color: var(--linen-500, #fcede2);
+}
+
+.button--variant-light {
+  background: var(--linen-500, #00241b);
+  color: var(--green-500, #fcede2);
+}

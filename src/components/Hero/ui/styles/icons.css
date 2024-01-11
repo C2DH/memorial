@@ -1,0 +1,25 @@
+.button__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100rem;
+  padding: 0.25rem;
+  z-index: 2;
+  transition: all 0.2s ease-in-out;
+  background: var(--green-500);
+}
+
+.button__icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.button__icon:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.button__icon svg path {
+  fill: white;
+}

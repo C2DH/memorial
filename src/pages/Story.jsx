@@ -14,6 +14,8 @@ import TopDocuments from '../components/TopDocuments'
 import GetInTouch from '../components/GetInTouch'
 import { Helmet } from 'react-helmet'
 import StoryHelmet from '../components/StoryHelmet'
+import LangLink from '../components/LangLink'
+import { usePebblesStore } from '../components/Hero/store'
 
 const Story = () => {
   const { t } = useTranslation()
@@ -71,6 +73,15 @@ const Story = () => {
     return null
   }
 
+  const handleCreate = () => {
+    usePebblesStore.getState().setCurrentStory(story)
+    usePebblesStore.getState().moveCameraToLastPebble()
+    usePebblesStore.getState().resetSelected()
+    usePebblesStore.getState().setHasDetails(false)
+    usePebblesStore.getState().setHasStarted(true)
+    usePebblesStore.getState().setHasCreate(true)
+  }
+
   return (
     <div
       className={`Story page ${
@@ -93,7 +104,6 @@ const Story = () => {
                     {i === 0 && (
                       <>
                         <StoryAuthors authors={story.authors}></StoryAuthors>
-
                         <TopDocuments
                           className="Story_TopDocuments mt-3"
                           params={{
@@ -133,12 +143,16 @@ const Story = () => {
               <b>{t('pagesStoryAdditionalInfo')}</b>
             </div>
 
-            <div className="mb-5" style={{ textAlign: 'left' }}>
+            <div className="mb-4" style={{ textAlign: 'left' }}>
               <GetInTouch />
             </div>
-            {/* <div className="mb-3" style={{ textAlign: 'right' }}>
-              <Button>{t('actionAddAPebble')}</Button>
-            </div> */}
+            <div className="mb-5">
+              <LangLink to={`/`} onClick={handleCreate}>
+                <button className="btn btn-white btn-lg" onClick={handleCreate}>
+                  {t('actionAddAPebble')}
+                </button>
+              </LangLink>
+            </div>
             <StoryTimeline storyId={safeStoryId} />
             <div className="position-sticky top-page"></div>
           </Col>

@@ -23,7 +23,6 @@ console.info('%cacceptCookies', 'font-weight: bold', AcceptCookies)
 const { languageCode } = initializeI18next()
 console.info('initial languageCode', languageCode)
 
-const Biographies = lazy(() => import('./pages/Biographies'))
 const Document = lazy(() => import('./pages/Document'))
 const Home = lazy(() => import('./pages/Home'))
 const NotFound = lazy(() => import('./pages/NotFound'))
@@ -33,8 +32,8 @@ const People = lazy(() => import('./pages/People'))
 const Search = lazy(() => import('./pages/Search'))
 const Story = lazy(() => import('./pages/Story'))
 const Convoy = lazy(() => import('./pages/Convoy'))
-
 const Header = lazy(() => import('./components/Header'))
+// const HeaderTemp = lazy(() => import('./components/HeaderTemp'))
 const MobileHeader = lazy(() => import('./components/MobileHeader'))
 const Slides = lazy(() => import('./pages/Slides'))
 
@@ -62,7 +61,7 @@ const App = () => {
       <BrowserRouter>
         {isMobile ? (
           <React.Suspense fallback={null}>
-            <MobileHeader />{' '}
+            <MobileHeader />
           </React.Suspense>
         ) : (
           <React.Suspense fallback={null}>
@@ -81,7 +80,7 @@ const App = () => {
                 <Route
                   path=""
                   element={
-                    <React.Suspense fallback={<div className="h-75" />}>
+                    <React.Suspense fallback={<LandscapeLoader />}>
                       <Home isMobile={isMobile} />
                     </React.Suspense>
                   }
@@ -197,6 +196,10 @@ const App = () => {
       </BrowserRouter>
     </MatomoProvider>
   )
+}
+
+const LandscapeLoader = () => {
+  return <div style={{ height: 'calc(100vh - 4rem)' }}></div>
 }
 
 export default App

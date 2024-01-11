@@ -4,7 +4,7 @@ import { Form, InputGroup } from 'react-bootstrap'
 import { StatusIdle, StatusFetching } from '../hooks/data'
 import '../styles/components/SearchField.css'
 
-const SearchField = ({ defaultValue, onSubmit, status = StatusIdle }) => {
+const SearchField = ({ defaultValue, onSubmit, className = 'mt-5', status = StatusIdle }) => {
   const searchQueryRef = useRef()
   const { t } = useTranslation()
 
@@ -16,7 +16,7 @@ const SearchField = ({ defaultValue, onSubmit, status = StatusIdle }) => {
 
   return (
     <Form
-      className="mt-5"
+      className={className}
       onSubmit={(e) => {
         e.preventDefault()
         if (typeof onSubmit !== 'function') {

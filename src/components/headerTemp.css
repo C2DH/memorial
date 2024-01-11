@@ -1,0 +1,36 @@
+.header-temp {
+  display: flex;
+  flex-direction: row;
+  padding: 0 3rem;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+}
+
+.header-temp nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.header-temp nav ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  gap: 1rem;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.header-temp a {
+  text-decoration: none;
+}
+.header-temp nav a {
+  text-decoration: none;
+  font: 400 18px ClashGrotesk, sans-serif;
+  font-weight: 500;
+}

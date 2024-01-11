@@ -1,0 +1,10 @@
+.SelectStory__results {
+  max-height: 100px;
+  overflow: auto;
+  font-style: normal;
+  border-bottom: 1px solid;
+}
+
+.SelectStory__results h4 {
+  font-size: var(--small-font-size);
+}
