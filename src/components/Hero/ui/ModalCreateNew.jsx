@@ -45,6 +45,7 @@ export const ModalCreate = () => {
 
   const { status, mutate } = useMutation(
     (payload) => {
+      console.debug('[ModalCreate] useMutation', payload)
       return axios.post('/api/pebbles/', payload, {
         headers: { 'X-CSRFToken': csrftoken },
       })
@@ -86,7 +87,7 @@ export const ModalCreate = () => {
       createdBy,
       linkedBioId: currentStory.slug,
       message,
-      shape: 'shape_value',
+      shape: '',
       token,
       position: newPebbleData.position,
       rotation: newPebbleData.rotation,
