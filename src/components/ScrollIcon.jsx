@@ -5,8 +5,9 @@ const ScrollIcon = ({ size = '40px', color = '' }) => {
   return (
     <>
       <style>
-        {`.experience-start .ScrollIcon {
-              opacity: 1;
+        {`
+          .experience-start .ScrollIcon {
+            opacity: 1;
           }
           .ScrollIcon {
             position: absolute;
@@ -14,35 +15,38 @@ const ScrollIcon = ({ size = '40px', color = '' }) => {
             transform: translateX(calc(50vw - 20px));
             z-index: 1;
             opacity: 0;
+            transform-origin: center top;
           }
-          .circle-1, .circle-2 {
+          .circle-1,
+          .circle-2 {
             animation: scroll 2s infinite linear;
             opacity: 0;
           }
 
-          .circle-2{
+          .circle-2 {
             animation-delay: 1s;
           }
 
           @keyframes scroll {
             0% {
-              cy: 4;
+              transform: translateY(4px);
               opacity: 0;
             }
-            45%, 55% {
+            45%,
+            55% {
               opacity: 1;
-              cy: 9;
+              transform: translateY(9px);
             }
             100% {
-              cy: 14;
+              transform: translateY(14px);
               opacity: 0;
             }
           }`}
       </style>
       <div className="ScrollIcon" style={{ width: size, height: height }}>
         <svg viewBox="0 0 14.334 24.75">
-          <circle class="circle-1" fill={color} cx="7.167" cy="6" r="1.2" />
-          <circle class="circle-2" fill={color} cx="7.167" cy="6" r="1.2" />
+          <circle class="circle-1" fill={color} cx="7.167" cy="0" r="1.2" />
+          <circle class="circle-2" fill={color} cx="7.167" cy="0" r="1.2" />
           <path
             stroke={color}
             fill="transparent"
