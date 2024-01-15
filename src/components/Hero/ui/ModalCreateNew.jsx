@@ -30,7 +30,7 @@ const readCookie = (name) => {
   return null
 }
 
-export const ModalCreate = ({ withCarousel = true }) => {
+export const ModalCreate = ({ withCarousel = false }) => {
   const { t } = useTranslation()
   const hasCreate = usePebblesStore((state) => state.hasCreate)
   const currentStory = usePebblesStore((state) => state.currentStory)
@@ -96,7 +96,7 @@ export const ModalCreate = ({ withCarousel = true }) => {
       position: newPebbleData.position,
       rotation: newPebbleData.rotation,
       scale: [1, 1, 1],
-      color: c.ghibliPalette[selectedColor],
+      color: PebbleColors[selectedColor],
     })
   }
 
@@ -128,6 +128,7 @@ export const ModalCreate = ({ withCarousel = true }) => {
           animate={{ opacity: 1, translateY: '0rem', scale: 1 }}
           exit={{ opacity: 0, translateY: '8rem', scale: 0.85 }}
         >
+          <h3>{t('actionCreatePebble')}</h3>
           <div className="hero__modal__carousel">
             <StoryItemSmall story={currentStory} />
           </div>
@@ -135,7 +136,13 @@ export const ModalCreate = ({ withCarousel = true }) => {
             className="Form border-top border-dark mt-3"
             style={{ textAlign: 'start', maxWidth: 500 }}
           >
-            <ColorPicker className="my-4" onChange={(c, i) => setSelectedColor(i)} />
+            <ColorPicker
+              className="my-4"
+              onChange={(c, i) => {
+                console.debug('[ModalCreateNew] change color: ', i)
+                setSelectedColor(i)
+              }}
+            />
             {withCarousel && (
               <div className="hero__modal__carousel mt-4">
                 <ModalCarousel options={[0, 1, 2, 3, 4]} setOption={setSelectedColor}>
