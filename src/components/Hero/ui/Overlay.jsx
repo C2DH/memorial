@@ -11,6 +11,7 @@ import LogoFondLuxShoah from '../../../assets/images/fondluxshoah-logo.png'
 import { useTranslation } from 'react-i18next'
 import LangLink from '../../LangLink'
 import { BiographiesRoute } from '../../../constants'
+import ScrollIcon from '../../ScrollIcon'
 
 export const Overlay = ({ isMobile }) => {
   const { t } = useTranslation()
@@ -34,6 +35,7 @@ export const Overlay = ({ isMobile }) => {
 
   return (
     <div className={`overlay ${hasStarted && 'experience-start'}`}>
+      <ScrollIcon />
       <AnimatePresence>
         {!hasStarted && (
           <motion.div
