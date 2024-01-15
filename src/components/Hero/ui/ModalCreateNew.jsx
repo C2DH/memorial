@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { useMutation } from 'react-query'
@@ -12,6 +12,9 @@ import Turnstile from 'react-turnstile'
 import { usePebblesStore, createNewPebble } from '../store'
 
 import * as c from '../sceneConfig'
+import { useTranslation } from 'react-i18next'
+import ColorPicker from './ColorPicker'
+import { PebbleColors } from '../../../constants'
 
 const SITE_KEY = import.meta.env.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY
 
@@ -27,7 +30,8 @@ const readCookie = (name) => {
   return null
 }
 
-export const ModalCreate = () => {
+export const ModalCreate = ({ withCarousel = true }) => {
+  const { t } = useTranslation()
   const hasCreate = usePebblesStore((state) => state.hasCreate)
   const currentStory = usePebblesStore((state) => state.currentStory)
   const createPebble = usePebblesStore((state) => state.createPebble)
@@ -60,7 +64,7 @@ export const ModalCreate = () => {
     },
   )
 
-  const handleSubmit = (retry = false, suggested_position) => {
+  const handleSubmit = (suggested_position, retry = false) => {
     let { positionX, positionZ } = usePebblesStore.getState().lastPebbleData
 
     // If the prev postion was rejected, use the suggested position:
@@ -75,7 +79,7 @@ export const ModalCreate = () => {
     const newPebbleData = createNewPebble(
       createdBy,
       message,
-      c.ghibliPalette[selectedColor],
+      PebbleColors[selectedColor],
       currentStory.slug,
       positionX,
       positionZ,
@@ -124,25 +128,38 @@ export const ModalCreate = () => {
           animate={{ opacity: 1, translateY: '0rem', scale: 1 }}
           exit={{ opacity: 0, translateY: '8rem', scale: 0.85 }}
         >
-          <div className="Form" style={{ textAlign: 'start', maxWidth: 500 }}>
-            <div className="hero__modal__carousel">
-              <StoryItemSmall story={currentStory} />
-            </div>
-            <div className="hero__modal__carousel mt-4">
-              <ModalCarousel options={[0, 1, 2, 3, 4]} setOption={setSelectedColor}>
-                <div className="hero__modal__carousel-img">
-                  <img src={`/pebbles/pebbleImage${[selectedColor + 1]}.png`} alt="decoration" />
-                </div>
-              </ModalCarousel>
-            </div>
+          <div className="hero__modal__carousel">
+            <StoryItemSmall story={currentStory} />
+          </div>
+          <div
+            className="Form border-top border-dark mt-3"
+            style={{ textAlign: 'start', maxWidth: 500 }}
+          >
+            <ColorPicker className="my-4" onChange={(c, i) => setSelectedColor(i)} />
+            {withCarousel && (
+              <div className="hero__modal__carousel mt-4">
+                <ModalCarousel options={[0, 1, 2, 3, 4]} setOption={setSelectedColor}>
+                  <div className="hero__modal__carousel-img">
+                    <img src={`/pebbles/pebbleImage${[selectedColor + 1]}.png`} alt="decoration" />
+                  </div>
+                </ModalCarousel>
+              </div>
+            )}
+
+            <TextareaField
+              label={t('pebbleMessageLabel')}
+              placeholder={t('pebbleMessagePlaceholder')}
+              id="message"
+              value={message}
+              onChange={setMessage}
+            />
             <InputField
               label="Created By"
               id="createdBy"
-              placeholder="Anonymous"
+              placeholder={t('pebbleCreatedByPlaceholder')}
               value={createdBy}
               onChange={setCreatedBy}
             />
-            <TextareaField label="Message" id="message" value={message} onChange={setMessage} />
             <div className="flex flex-row">
               <Turnstile className="mb-3" sitekey={SITE_KEY} theme="light" onVerify={setToken} />
               <button
@@ -176,7 +193,7 @@ const InputField = ({ label, id, value, placeholder, onChange }) => (
   </div>
 )
 
-const TextareaField = ({ label, id, value, onChange }) => (
+const TextareaField = ({ label, id, value, placeholder = 'your message here...', onChange }) => (
   <div className="mb-3">
     <label htmlFor={id} className="form-label">
       {label}
@@ -186,6 +203,7 @@ const TextareaField = ({ label, id, value, onChange }) => (
       id={id}
       rows="3"
       value={value}
+      placeholder={placeholder}
       onChange={(e) => onChange(e.target.value)}
     ></textarea>
   </div>

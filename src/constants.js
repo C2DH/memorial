@@ -87,8 +87,14 @@ export const BootstrapEndExtendedColumnLayout = Object.freeze({
   md: { span: 6, offset: 0 },
 })
 
-export const PebbleColors = ['#7dc0ff', '#ae96ff', '#e592e9', '#d6dd71', '#dcbf87', '#dcdec3']
-
+// export const PebbleColors = ['#7dc0ff', '#ae96ff', '#e592e9', '#d6dd71', '#dcbf87', '#dcdec3']
+export const PebbleColors = [
+  'hsl(350, 92%, 66%)',
+  'hsl(249, 100%, 84%)',
+  'hsl(191, 74%, 76%)',
+  'hsl(68, 67%, 65%)',
+  'hsl(29, 100%, 66%)',
+]
 export const OrderByLatestModifiedFirst = '-date_last_modified'
 export const OrderByOldestModifiedFirst = 'date_last_modified'
 export const OrderByLatestCreatedFirst = '-date_created'
