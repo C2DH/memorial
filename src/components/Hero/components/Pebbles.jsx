@@ -97,7 +97,7 @@ const SingleInstance = ({ pebble, filteredPebbles, i }) => {
     (event) => {
       const data = filteredPebbles[i]
       usePebblesStore.getState().setSelected(data)
-      usePebblesStore.getState().setHasCreate(false)
+      // usePebblesStore.getState().setHasCreate(false)
       usePebblesStore.getState().setHasDetails(true)
       usePebblesStore.getState().setHasStarted(true)
       event.stopPropagation()
@@ -106,7 +106,7 @@ const SingleInstance = ({ pebble, filteredPebbles, i }) => {
   )
 
   const handlePointerMiss = useCallback(() => {
-    usePebblesStore.getState().setHasCreate(false)
+    // usePebblesStore.getState().setHasCreate(false)
     usePebblesStore.getState().resetSelected()
     usePebblesStore.getState().setHasDetails(false)
   }, [])

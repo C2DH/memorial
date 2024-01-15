@@ -104,7 +104,8 @@ export const ModalCreate = ({ withCarousel = false }) => {
     if (status === 'success') {
       createPebble(newPebbleData)
       setUserInteracted(true)
-      setHasCreate(false)
+      // only direct interaction can set it to false
+      // setHasCreate(false)
       setHasDetails(true)
     }
     console.log(status)
@@ -132,10 +133,8 @@ export const ModalCreate = ({ withCarousel = false }) => {
           <div className="hero__modal__carousel">
             <StoryItemSmall story={currentStory} />
           </div>
-          <div
-            className="Form border-top border-dark mt-3"
-            style={{ textAlign: 'start', maxWidth: 500 }}
-          >
+          <div className="Form w-100 mt-3" style={{ textAlign: 'start', maxWidth: 500 }}>
+            <label>Pick a color</label>
             <ColorPicker
               className="my-4"
               onChange={(c, i) => {
@@ -161,22 +160,35 @@ export const ModalCreate = ({ withCarousel = false }) => {
               onChange={setMessage}
             />
             <InputField
-              label="Created By"
               id="createdBy"
               placeholder={t('pebbleCreatedByPlaceholder')}
               value={createdBy}
               onChange={setCreatedBy}
             />
-            <div className="flex flex-row">
-              <Turnstile className="mb-3" sitekey={SITE_KEY} theme="light" onVerify={setToken} />
-              <button
-                className="btn btn-green btn-lg SearchField_inputSubmit"
-                disabled={!token}
-                onClick={handleSubmit}
-              >
-                Create Pebble
-              </button>
-            </div>
+            <Turnstile
+              className="mb-3 w-100"
+              sitekey={SITE_KEY}
+              theme="light"
+              onVerify={setToken}
+            />
+          </div>
+          <div className="w-100 d-flex flex-row justify-content-between">
+            <button
+              className="btn btn-green btn-lg SearchField_inputSubmit"
+              disabled={!token}
+              onClick={handleSubmit}
+            >
+              Create Pebble
+            </button>
+            <button
+              className="btn btn-secondary btn-lg SearchField_inputSubmit"
+              disabled={!token}
+              onClick={() => {
+                setHasCreate(false)
+              }}
+            >
+              Discard
+            </button>
           </div>
         </motion.div>
       )}
@@ -186,9 +198,11 @@ export const ModalCreate = ({ withCarousel = false }) => {
 
 const InputField = ({ label, id, value, placeholder, onChange }) => (
   <div className="mb-3">
-    <label htmlFor={id} className="form-label">
-      {label}
-    </label>
+    {label ? (
+      <label htmlFor={id} className="form-label">
+        {label}
+      </label>
+    ) : null}
     <input
       type="text"
       placeholder={placeholder}
