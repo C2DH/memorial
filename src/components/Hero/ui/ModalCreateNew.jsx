@@ -134,22 +134,25 @@ export const ModalCreate = ({ withCarousel = false }) => {
             <StoryItemSmall story={currentStory} />
           </div>
           <div className="Form w-100 mt-3" style={{ textAlign: 'start', maxWidth: 500 }}>
-            <label>Pick a color</label>
-            <ColorPicker
-              className="my-4"
-              onChange={(c, i) => {
-                console.debug('[ModalCreateNew] change color: ', i)
-                setSelectedColor(i)
-              }}
-            />
-            {withCarousel && (
-              <div className="hero__modal__carousel mt-4">
+            {withCarousel ? (
+              <div className="hero__modal__carousel mx-3 ">
                 <ModalCarousel options={[0, 1, 2, 3, 4]} setOption={setSelectedColor}>
                   <div className="hero__modal__carousel-img">
                     <img src={`/pebbles/pebbleImage${[selectedColor + 1]}.png`} alt="decoration" />
                   </div>
                 </ModalCarousel>
               </div>
+            ) : (
+              <>
+                <label>Pick a color</label>
+                <ColorPicker
+                  className="my-4"
+                  onChange={(c, i) => {
+                    console.debug('[ModalCreateNew] change color: ', i)
+                    setSelectedColor(i)
+                  }}
+                />
+              </>
             )}
 
             <TextareaField

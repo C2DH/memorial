@@ -60,7 +60,7 @@ const Hero = ({ isMobile }) => {
         <Overlay isMobile={isMobile} />
         <div className="hero__modals">
           <ModalDetails stories={data?.results} />
-          <ModalCreate stories={data?.results} />
+          <ModalCreate withCarousel stories={data?.results} />
         </div>
       </div>
     </QueryClientProvider>
