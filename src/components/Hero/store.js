@@ -206,6 +206,7 @@ export const usePebblesStore = create((set, get) => ({
           position: apiPebble.position,
           rotation: apiPebble.rotation,
           scale: apiPebble.scale,
+          status: apiPebble.status,
           uid: apiPebble.shortUrl,
           createdAt: new Date(apiPebble.createdAt),
           createdBy: apiPebble.createdBy,
