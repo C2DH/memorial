@@ -1,14 +1,14 @@
 import './ScrollIcon.css'
 
-const ScrollIcon = ({ size = '40px', color = '' }) => {
+const ScrollIcon = ({ size = 40, color = '' }) => {
   const ratio = 14.334 / 24.75
   const height = size / ratio
   color = 'var(--bs-white)'
   return (
     <div className="ScrollIcon" style={{ width: size, height: height }}>
       <svg viewBox="0 0 14.334 24.75">
-        <circle class="circle-1" fill={color} cx="7.167" cy="0" r="1.2" />
-        <circle class="circle-2" fill={color} cx="7.167" cy="0" r="1.2" />
+        <circle className="circle-1" fill={color} cx="7.167" cy="0" r="1.2" />
+        <circle className="circle-2" fill={color} cx="7.167" cy="0" r="1.2" />
         <path
           stroke={color}
           fill="transparent"
