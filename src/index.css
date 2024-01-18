@@ -99,6 +99,8 @@ a {
 
 .btn-white:hover {
   background-color: var(--bs-secondary) !important;
+  border-color: var(--bs-dark) !important;
+  background-color: rgba(var(--bs-primary-code), 0.15) !important;
   /* color: var(--white) !important; */
 }
 
@@ -119,17 +121,16 @@ a {
 .btn-primary {
   position: relative;
   color: var(--bs-dark);
-  border: 2px solid;
-  background: var(--bs-secondary);
+  border: 2px solid var(--bs-primary);
+  background: var(--bs-primary);
+  color: var(--bs-white);
 }
 .btn-primary:hover {
-  background-color: var(--bs-primary);
-  border-color: var(--bs-primary);
+  background-color: var(--bs-primary-text) !important;
+  border-color: var(--bs-primary-text) !important;
 }
-.btn-primary:hover::after {
-  transform: translate(-10px, -10px);
-}
-.btn-primary::after {
+
+/* .btn-primary::after {
   position: absolute;
   content: '';
   bottom: -8px;
@@ -141,7 +142,7 @@ a {
   transition: all 0.25s ease-in-out;
 
   z-index: -1;
-}
+} */
 
 .btn-check:active + .btn-primary,
 .btn-check:checked + .btn-primary,
