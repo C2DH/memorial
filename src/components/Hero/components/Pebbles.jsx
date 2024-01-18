@@ -15,9 +15,9 @@ import './Pebbles.css'
 
 export const Pebbles = memo(({ skyColor, groundColor, renderedTexture }) => {
   const { nodes } = useGLTF('/models/models.glb')
-
   const diffuseMap = useTexture('/texture/pebbleColor.png')
   const normalMap = useTexture('/texture/pebbleBakedNormalsOBJ.png')
+
   diffuseMap.flipY = false
   normalMap.flipY = false
 
@@ -209,23 +209,36 @@ const SingleInstance = ({ pebble, filteredPebbles, i }) => {
         >
           <div ref={labelRef} className="Pebble__Overlay-label">
             <div ref={textRef} className="Pebble__Overlay-text">
-              {pebble.message ? (
+              {pebble.status !== 'public' ? (
                 <p
-                  className="Pebble__message"
+                  className="Pebble__message m-0"
                   dangerouslySetInnerHTML={{
-                    __html: t('pebbleMessage', { message: pebble.message || '' }),
+                    __html: t('pebbleDraftMessage', {
+                      d: t('dateShort', { date: new Date(pebble.createdAt) }),
+                    }),
                   }}
                 />
-              ) : null}
-              <div
-                className="Pebble__createdBy"
-                dangerouslySetInnerHTML={{
-                  __html: t('pebbleCreatedBy', { createdBy: pebble.createdBy || '' }),
-                }}
-              />
-              <div className="Pebble__createdAt">
-                on {t('dateShort', { date: new Date(pebble.createdAt) })}
-              </div>
+              ) : (
+                <>
+                  {pebble.message ? (
+                    <p
+                      className="Pebble__message"
+                      dangerouslySetInnerHTML={{
+                        __html: t('pebbleMessage', { message: pebble.message || '' }),
+                      }}
+                    />
+                  ) : null}
+                  <div
+                    className="Pebble__createdBy"
+                    dangerouslySetInnerHTML={{
+                      __html: t('pebbleCreatedBy', { createdBy: pebble.createdBy || '' }),
+                    }}
+                  />
+                  <div className="Pebble__createdAt">
+                    on {t('dateShort', { date: new Date(pebble.createdAt) })}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </Html>
