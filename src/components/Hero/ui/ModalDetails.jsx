@@ -59,7 +59,7 @@ export const ModalDetails = ({ stories = [] }) => {
                 <div className="hero__modal__carousel-content">
                   <div className="hero__modal__name">
                     <AnimatePresence mode="wait">
-                      <motion.h4
+                      <motion.div
                         className="hero__modal__title"
                         variants={variants}
                         initial="hidden"
@@ -67,8 +67,10 @@ export const ModalDetails = ({ stories = [] }) => {
                         exit="hidden"
                         key={selectedPebble.createdBy}
                       >
-                        {selectedStory ? <StoryItem story={selectedStory} reduced /> : null}
-                      </motion.h4>
+                        {selectedStory ? (
+                          <StoryItem story={selectedStory} showLanguages={false} reduced />
+                        ) : null}
+                      </motion.div>
                     </AnimatePresence>
                   </div>
                 </div>
@@ -96,11 +98,13 @@ export const ModalDetails = ({ stories = [] }) => {
             <Divider />
           </div>
           {selectedStory ? (
-            <div className="d-flex justify-content-center align-items-center">
-              <LangLink to={`/story/${selectedStory.slug}`}>{t('actionReadBiography')}</LangLink>
-              <button className="btn btn-link" onClick={() => setShowInfoModal(true)}>
+            <div className="d-flex justify-content-between w-100">
+              <button className="btn btn-link p-0 m-0 ms-1" onClick={() => setShowInfoModal(true)}>
                 {t('actionShowModalInfo')}
               </button>
+              <LangLink to={`/story/${selectedStory.slug}`} className="me-1">
+                {t('actionReadBiography')}
+              </LangLink>
             </div>
           ) : null}
         </motion.div>
