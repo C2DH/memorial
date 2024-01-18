@@ -1,0 +1,22 @@
+[[redirects]]
+  force = true
+  from = "/api/*"
+  to = "https://memorialshoah.lu/api/:splat"
+  status = 200
+
+[[redirects]]
+  force = true
+  from = "/media/*"
+  to = "https://memorialshoah.lu/media/:splat"
+  status = 200
+
+[[redirects]]
+  force = true
+  from = "/pagefind/*"
+  to = "https://memorialshoah.lu/pagefind/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
