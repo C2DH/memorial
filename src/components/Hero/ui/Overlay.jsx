@@ -12,32 +12,28 @@ import { useTranslation } from 'react-i18next'
 import LangLink from '../../LangLink'
 import { BiographiesRoute } from '../../../constants'
 import ScrollIcon from '../../ScrollIcon'
+import { useEffect, useRef } from 'react'
 
-export const Overlay = ({ isMobile }) => {
+export const Overlay = ({ isMobile, delay = 1000 }) => {
   const { t } = useTranslation()
-  const [
-    setHasCreate,
-    setHasStarted,
-    selectAdjacentPebble,
-    setHasDetails,
-    setUserInteracted,
-    setShowInfoModal,
-  ] = usePebblesStore((state) => [
-    state.setHasCreate,
-    state.setHasStarted,
-    state.selectAdjacentPebble,
-    state.setHasDetails,
-    state.setUserInteracted,
-    state.setShowInfoModal,
-  ])
+  const timerRef = useRef(null)
+  const [setHasCreate, setHasStarted, selectAdjacentPebble, setHasDetails, setUserInteracted] =
+    usePebblesStore((state) => [
+      state.setHasCreate,
+      state.setHasStarted,
+      state.selectAdjacentPebble,
+      state.setHasDetails,
+      state.setUserInteracted,
+    ])
+
+  const selectedPebble = usePebblesStore((state) => state.selectedPebble)
 
   const handleStart = () => {
     setHasStarted(true)
-    selectAdjacentPebble(0)
-    if (usePebblesStore.getState().selectedPebble) {
-      setHasDetails(true)
-      setUserInteracted(false)
-    }
+
+    timerRef.current = setTimeout(() => {
+      selectAdjacentPebble(0)
+    }, delay)
   }
 
   const handleEnd = () => {
@@ -47,6 +43,19 @@ export const Overlay = ({ isMobile }) => {
   }
 
   const hasStarted = usePebblesStore((state) => state.hasStarted)
+
+  useEffect(() => {
+    // selectAdjacentPebble(0)
+    if (selectedPebble) {
+      setHasDetails(true)
+      setUserInteracted(false)
+    }
+  }, [selectedPebble])
+  useEffect(() => {
+    return () => {
+      clearTimeout(timerRef.current)
+    }
+  }, [])
 
   return (
     <div className={`overlay ${hasStarted && 'experience-start'}`}>
@@ -90,19 +99,10 @@ export const Overlay = ({ isMobile }) => {
             transition={{ type: 'spring', duration: 0.8 }}
           >
             <div className="overlay__intro_exp pointer-events-auto">
-              <p>
-                {t('pagesHomeSubheading')}
-                <button
-                  className="btn btn-link p-0 m-0"
-                  style={{ fontSize: 'inherit', lineHeight: 'inherit' }}
-                  onClick={() => setShowInfoModal(true)}
-                >
-                  {t('actionShowModalInfo')}
-                </button>
-              </p>
+              <p>{t('pagesHomeSubheading')}</p>
             </div>
             <div className="overlay__actions">
-              <Button text="Read more" variant="light" onClick={handleEnd} />
+              <Button text={t('backToIntroduction')} variant="light" onClick={handleEnd} />
             </div>
           </motion.div>
         )}
