@@ -45,6 +45,12 @@ export const usePebblesStore = create((set, get) => ({
     positionX: 0,
     positionZ: 0,
   },
+  // confirmation modal hide/show
+  showConfirmationModal: false,
+  setShowConfirmationModal: (value) => set({ showConfirmationModal: value }),
+  // info modal hide/show
+  showInfoModal: false,
+  setShowInfoModal: (value) => set({ showInfoModal: value }),
   // CAMERA STATES:
   cameraPosition: new THREE.Vector3(0, 8, 0),
   cameraLookAt: new THREE.Vector3(0, 8, 48),
