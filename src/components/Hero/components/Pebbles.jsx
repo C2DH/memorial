@@ -136,6 +136,9 @@ const SingleInstance = ({ pebble, filteredPebbles, i }) => {
   const color = new THREE.Color()
 
   useFrame((_, delta) => {
+    if (!labelRef.current) {
+      return
+    }
     const hasSelected = usePebblesStore.getState().selectedPebble
     if (hasSelected) {
       const isSelected = pebble.uid === usePebblesStore.getState().selectedPebble.uid
