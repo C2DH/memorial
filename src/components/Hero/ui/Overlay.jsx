@@ -14,20 +14,35 @@ import { BiographiesRoute } from '../../../constants'
 
 export const Overlay = ({ isMobile }) => {
   const { t } = useTranslation()
+  const [
+    setHasCreate,
+    setHasStarted,
+    selectAdjacentPebble,
+    setHasDetails,
+    setUserInteracted,
+    setShowInfoModal,
+  ] = usePebblesStore((state) => [
+    state.setHasCreate,
+    state.setHasStarted,
+    state.selectAdjacentPebble,
+    state.setHasDetails,
+    state.setUserInteracted,
+    state.setShowInfoModal,
+  ])
 
   const handleStart = () => {
-    usePebblesStore.getState().setHasStarted(true)
-    usePebblesStore.getState().selectAdjacentPebble(0)
+    setHasStarted(true)
+    selectAdjacentPebble(0)
     if (usePebblesStore.getState().selectedPebble) {
-      usePebblesStore.getState().setHasDetails(true)
-      usePebblesStore.getState().setUserInteracted(false)
+      setHasDetails(true)
+      setUserInteracted(false)
     }
   }
 
   const handleEnd = () => {
-    usePebblesStore.getState().setHasStarted(false)
-    usePebblesStore.getState().setHasDetails(false)
-    usePebblesStore.getState().setHasCreate(false)
+    setHasStarted(false)
+    setHasDetails(false)
+    setHasCreate(false)
   }
 
   const hasStarted = usePebblesStore((state) => state.hasStarted)
@@ -54,7 +69,7 @@ export const Overlay = ({ isMobile }) => {
                 variant="dark"
                 onClick={handleStart}
               >
-                {t('Explore the Landscape')}
+                {t('actionExploreLandscape')}
               </button>
               <LangLink className="GetInTouch btn btn-white btn-lg" to={BiographiesRoute.to}>
                 {t('allAvailableStories')}
@@ -72,7 +87,18 @@ export const Overlay = ({ isMobile }) => {
             exit={{ opacity: 0, x: '-50%', y: '2rem', scale: 0.85 }}
             transition={{ type: 'spring', duration: 0.8 }}
           >
-            <div className="overlay__intro_exp">{t('pagesHomeSubheading')}</div>
+            <div className="overlay__intro_exp pointer-events-auto">
+              <p>
+                {t('pagesHomeSubheading')}
+                <button
+                  className="btn btn-link p-0 m-0"
+                  style={{ fontSize: 'inherit', lineHeight: 'inherit' }}
+                  onClick={() => setShowInfoModal(true)}
+                >
+                  {t('actionShowModalInfo')}
+                </button>
+              </p>
+            </div>
             <div className="overlay__actions">
               <Button text="Read more" variant="light" onClick={handleEnd} />
             </div>
