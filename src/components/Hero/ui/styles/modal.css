@@ -1,6 +1,6 @@
 .hero__modal {
   position: absolute;
-  bottom: 6rem;
+  bottom: 5.5rem;
   width: 50%;
   left: 25%;
 
@@ -41,6 +41,11 @@
   justify-content: flex-start;
   align-self: stretch;
   position: relative;
+}
+
+.hero__modal__header .StoryAuthors label {
+  font-weight: 500 !important;
+  font-size: 0.7em;
 }
 
 .hero__modal__header p:nth-last-of-type(1) {
