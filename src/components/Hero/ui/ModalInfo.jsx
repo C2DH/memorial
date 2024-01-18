@@ -21,11 +21,6 @@ const ModalInfo = () => {
           }}
         ></p>
       </Modal.Body>
-      <Modal.Footer>
-        <button className="btn btn-secondary" onClick={handleClose}>
-          Close
-        </button>
-      </Modal.Footer>
     </Modal>
   )
 }
