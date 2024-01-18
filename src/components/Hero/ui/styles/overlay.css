@@ -80,7 +80,7 @@
 
 .overlay__copy {
   position: absolute;
-  left: 3rem;
+  left: 2rem;
   right: 0;
   bottom: 0.25rem;
   display: flex;
@@ -89,8 +89,8 @@
 }
 
 .overlay__copy p {
-  font: var(--text-m);
-  opacity: 0.5;
+  font-size: 12px;
+  line-height: 1.75rem;
 }
 
 .overlay__logo {
