@@ -1,17 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { useMutation } from 'react-query'
 import axios from 'axios'
 
 import { ModalCarousel } from './ModalCarousel'
-import StoryItemSmall from '../../StoryItemSmall'
+import StoryItem from '../../StoryItem'
 
 import Turnstile from 'react-turnstile'
 
 import { usePebblesStore, createNewPebble } from '../store'
-
-import * as c from '../sceneConfig'
 import { useTranslation } from 'react-i18next'
 import ColorPicker from './ColorPicker'
 import { PebbleColors } from '../../../constants'
@@ -131,7 +129,7 @@ export const ModalCreate = ({ withCarousel = false }) => {
         >
           <h3>{t('actionCreatePebble')}</h3>
           <div className="hero__modal__carousel">
-            <StoryItemSmall story={currentStory} />
+            <StoryItem story={currentStory} />
           </div>
           <div className="Form w-100 mt-3" style={{ textAlign: 'start', maxWidth: 500 }}>
             {withCarousel ? (
@@ -181,7 +179,7 @@ export const ModalCreate = ({ withCarousel = false }) => {
               disabled={!token}
               onClick={handleSubmit}
             >
-              Create Pebble
+              {t('actionModalCreatePebble')}
             </button>
             <button
               className="btn btn-secondary btn-lg SearchField_inputSubmit"
@@ -190,7 +188,7 @@ export const ModalCreate = ({ withCarousel = false }) => {
                 setHasCreate(false)
               }}
             >
-              Discard
+              {t('actionModalDiscard')}
             </button>
           </div>
         </motion.div>

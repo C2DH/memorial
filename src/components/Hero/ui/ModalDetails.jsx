@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import downsize from 'downsize'
 import LangLink from '../../LangLink'
+import StoryItem from '../../StoryItem.jsx'
 
 export const ModalDetails = ({ stories = [] }) => {
   const { t } = useTranslation()
@@ -66,17 +67,7 @@ export const ModalDetails = ({ stories = [] }) => {
                         exit="hidden"
                         key={selectedPebble.createdBy}
                       >
-                        {selectedStory ? (
-                          <b
-                            className="small"
-                            dangerouslySetInnerHTML={{
-                              __html: downsize(selectedStory.data.title.en_GB, {
-                                characters: 80,
-                                append: '&hellip;',
-                              }),
-                            }}
-                          />
-                        ) : null}
+                        {selectedStory ? <StoryItem story={selectedStory} reduced /> : null}
                       </motion.h4>
                     </AnimatePresence>
                   </div>
