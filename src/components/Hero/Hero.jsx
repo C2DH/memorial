@@ -16,6 +16,8 @@ import { usePebblesStore } from './store'
 import { StatusSuccess, useGetJSON } from '../../hooks/data'
 
 import { QueryClient, QueryClientProvider } from 'react-query'
+import ModalConfirmation from './ui/ModalConfirmation'
+import ModalInfo from './ui/ModalInfo'
 
 const Hero = ({ isMobile }) => {
   const { data, status, error } = useGetJSON({
@@ -59,6 +61,8 @@ const Hero = ({ isMobile }) => {
         </div>
         <Overlay isMobile={isMobile} />
         <div className="hero__modals">
+          <ModalInfo />
+          <ModalConfirmation disableEmail />
           <ModalDetails stories={data?.results} />
           <ModalCreate withCarousel stories={data?.results} />
         </div>
