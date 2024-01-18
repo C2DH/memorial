@@ -142,7 +142,7 @@ const Story = () => {
             </div>
             <div className="mb-5">
               <LangLink to={`/`} onClick={handleCreate}>
-                <button className="btn btn-white btn-lg" onClick={handleCreate}>
+                <button className="btn btn-primary btn-white btn-lg" onClick={handleCreate}>
                   {t('actionAddAPebble')}
                 </button>
               </LangLink>
