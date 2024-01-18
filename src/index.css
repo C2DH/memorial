@@ -91,6 +91,13 @@ a {
   color: var(--bs-primary-text);
 }
 
+.btn-link {
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  color: inherit;
+}
+
 .btn-white {
   border: 2px solid;
   font-weight: bold;
@@ -184,6 +191,16 @@ a {
 .bg-primary {
   background-color: var(--bs-primary) !important;
 }
+
+.modal-content {
+  background-color: var(--bs-secondary);
+  border-radius: 0.5rem;
+}
+
+.modal-header {
+  border-bottom-width: 0px;
+}
+
 .text-primary {
   color: var(--bs-primary-text) !important;
 }
