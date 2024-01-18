@@ -5,13 +5,14 @@ import { useMutation } from 'react-query'
 import axios from 'axios'
 
 import { ModalCarousel } from './ModalCarousel'
-import StoryItemSmall from '../../StoryItemSmall'
+import StoryItem from '../../StoryItem'
 
 import Turnstile from 'react-turnstile'
 
 import { usePebblesStore, createNewPebble } from '../store'
-
-import * as c from '../sceneConfig'
+import { useTranslation } from 'react-i18next'
+import ColorPicker from './ColorPicker'
+import { PebbleColors } from '../../../constants'
 
 const SITE_KEY = import.meta.env.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY
 
@@ -27,7 +28,8 @@ const readCookie = (name) => {
   return null
 }
 
-export const ModalCreate = () => {
+export const ModalCreate = ({ withCarousel = false }) => {
+  const { t } = useTranslation()
   const hasCreate = usePebblesStore((state) => state.hasCreate)
   const currentStory = usePebblesStore((state) => state.currentStory)
   const createPebble = usePebblesStore((state) => state.createPebble)
@@ -60,7 +62,7 @@ export const ModalCreate = () => {
     },
   )
 
-  const handleSubmit = (retry = false, suggested_position) => {
+  const handleSubmit = (suggested_position, retry = false) => {
     let { positionX, positionZ } = usePebblesStore.getState().lastPebbleData
 
     // If the prev postion was rejected, use the suggested position:
@@ -75,7 +77,7 @@ export const ModalCreate = () => {
     const newPebbleData = createNewPebble(
       createdBy,
       message,
-      c.ghibliPalette[selectedColor],
+      PebbleColors[selectedColor],
       currentStory.slug,
       positionX,
       positionZ,
@@ -92,7 +94,7 @@ export const ModalCreate = () => {
       position: newPebbleData.position,
       rotation: newPebbleData.rotation,
       scale: [1, 1, 1],
-      color: c.ghibliPalette[selectedColor],
+      color: PebbleColors[selectedColor],
     })
   }
 
@@ -100,7 +102,8 @@ export const ModalCreate = () => {
     if (status === 'success') {
       createPebble(newPebbleData)
       setUserInteracted(true)
-      setHasCreate(false)
+      // only direct interaction can set it to false
+      // setHasCreate(false)
       setHasDetails(true)
     }
     console.log(status)
@@ -124,35 +127,69 @@ export const ModalCreate = () => {
           animate={{ opacity: 1, translateY: '0rem', scale: 1 }}
           exit={{ opacity: 0, translateY: '8rem', scale: 0.85 }}
         >
-          <div className="Form" style={{ textAlign: 'start', maxWidth: 500 }}>
-            <div className="hero__modal__carousel">
-              <StoryItemSmall story={currentStory} />
-            </div>
-            <div className="hero__modal__carousel mt-4">
-              <ModalCarousel options={[0, 1, 2, 3, 4]} setOption={setSelectedColor}>
-                <div className="hero__modal__carousel-img">
-                  <img src={`/pebbles/pebbleImage${[selectedColor + 1]}.png`} alt="decoration" />
-                </div>
-              </ModalCarousel>
-            </div>
+          <h3>{t('actionCreatePebble')}</h3>
+          <div className="hero__modal__carousel">
+            <StoryItem story={currentStory} reduced />
+          </div>
+          <div className="Form w-100 mt-3" style={{ textAlign: 'start', maxWidth: 500 }}>
+            {withCarousel ? (
+              <div className="hero__modal__carousel mx-3 ">
+                <ModalCarousel options={[0, 1, 2, 3, 4]} setOption={setSelectedColor}>
+                  <div className="hero__modal__carousel-img">
+                    <img src={`/pebbles/pebbleImage${[selectedColor + 1]}.png`} alt="decoration" />
+                  </div>
+                </ModalCarousel>
+              </div>
+            ) : (
+              <>
+                <label>Pick a color</label>
+                <ColorPicker
+                  className="my-4"
+                  onChange={(c, i) => {
+                    console.debug('[ModalCreateNew] change color: ', i)
+                    setSelectedColor(i)
+                  }}
+                />
+              </>
+            )}
+
+            <TextareaField
+              label={t('pebbleMessageLabel')}
+              placeholder={t('pebbleMessagePlaceholder')}
+              id="message"
+              value={message}
+              onChange={setMessage}
+            />
             <InputField
-              label="Created By"
               id="createdBy"
-              placeholder="Anonymous"
+              placeholder={t('pebbleCreatedByPlaceholder')}
               value={createdBy}
               onChange={setCreatedBy}
             />
-            <TextareaField label="Message" id="message" value={message} onChange={setMessage} />
-            <div className="flex flex-row">
-              <Turnstile className="mb-3" sitekey={SITE_KEY} theme="light" onVerify={setToken} />
-              <button
-                className="btn btn-green btn-lg SearchField_inputSubmit"
-                disabled={!token}
-                onClick={handleSubmit}
-              >
-                Create Pebble
-              </button>
-            </div>
+            <Turnstile
+              className="mb-3 w-100"
+              sitekey={SITE_KEY}
+              theme="light"
+              onVerify={setToken}
+            />
+          </div>
+          <div className="w-100 d-flex flex-row justify-content-between">
+            <button
+              className="btn btn-green btn-lg SearchField_inputSubmit"
+              disabled={!token}
+              onClick={handleSubmit}
+            >
+              {t('actionModalCreatePebble')}
+            </button>
+            <button
+              className="btn btn-secondary btn-lg SearchField_inputSubmit"
+              disabled={!token}
+              onClick={() => {
+                setHasCreate(false)
+              }}
+            >
+              {t('actionModalDiscard')}
+            </button>
           </div>
         </motion.div>
       )}
@@ -162,9 +199,11 @@ export const ModalCreate = () => {
 
 const InputField = ({ label, id, value, placeholder, onChange }) => (
   <div className="mb-3">
-    <label htmlFor={id} className="form-label">
-      {label}
-    </label>
+    {label ? (
+      <label htmlFor={id} className="form-label">
+        {label}
+      </label>
+    ) : null}
     <input
       type="text"
       placeholder={placeholder}
@@ -176,7 +215,7 @@ const InputField = ({ label, id, value, placeholder, onChange }) => (
   </div>
 )
 
-const TextareaField = ({ label, id, value, onChange }) => (
+const TextareaField = ({ label, id, value, placeholder = 'your message here...', onChange }) => (
   <div className="mb-3">
     <label htmlFor={id} className="form-label">
       {label}
@@ -186,6 +225,7 @@ const TextareaField = ({ label, id, value, onChange }) => (
       id={id}
       rows="3"
       value={value}
+      placeholder={placeholder}
       onChange={(e) => onChange(e.target.value)}
     ></textarea>
   </div>

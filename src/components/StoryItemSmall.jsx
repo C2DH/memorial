@@ -49,16 +49,8 @@ const StoryItemSmall = ({ story }) => {
           }}
         />
       </LangLink>
-      <p className="hero__modal__overline">{t('writtenBy')}</p>
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'baseline',
-          gap: '0.25rem',
-          justifyContent: 'center',
-        }}
-      >
+      <div className="hero__modal__overline">
+        {t('writtenBy')} &nbsp;
         {story.authors.map((author) => (
           <AuthorItem key={author.id} author={author} />
         ))}

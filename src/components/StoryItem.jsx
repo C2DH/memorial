@@ -7,7 +7,7 @@ import { useAvailableLanguage } from '../hooks/language'
 import '../styles/components/StoryItem.css'
 import downsize from 'downsize'
 
-const StoryItem = ({ story, reduced = false, className = '' }) => {
+const StoryItem = ({ story, reduced = false, showLanguages = true, className = '' }) => {
   const { availableLanguage, availableLanguages } = useAvailableLanguage({
     translatable: story.data.title,
   })
@@ -36,11 +36,13 @@ const StoryItem = ({ story, reduced = false, className = '' }) => {
           />
         </LangLink>
         <StoryAuthors className="StoryItem_authors" authors={story.authors} />
-        <AvailableLanguages
-          className="StoryItem_languages"
-          languages={availableLanguages}
-          language={availableLanguage}
-        />
+        {showLanguages ? (
+          <AvailableLanguages
+            className="StoryItem_languages"
+            languages={availableLanguages}
+            language={availableLanguage}
+          />
+        ) : null}
       </div>
     </div>
   )

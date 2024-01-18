@@ -12,26 +12,50 @@ import { useTranslation } from 'react-i18next'
 import LangLink from '../../LangLink'
 import { BiographiesRoute } from '../../../constants'
 import ScrollIcon from '../../ScrollIcon'
+import { useEffect, useRef } from 'react'
 
-export const Overlay = ({ isMobile }) => {
+export const Overlay = ({ isMobile, delay = 1000 }) => {
   const { t } = useTranslation()
+  const timerRef = useRef(null)
+  const [setHasCreate, setHasStarted, selectAdjacentPebble, setHasDetails, setUserInteracted] =
+    usePebblesStore((state) => [
+      state.setHasCreate,
+      state.setHasStarted,
+      state.selectAdjacentPebble,
+      state.setHasDetails,
+      state.setUserInteracted,
+    ])
+
+  const selectedPebble = usePebblesStore((state) => state.selectedPebble)
 
   const handleStart = () => {
-    usePebblesStore.getState().setHasStarted(true)
-    usePebblesStore.getState().selectAdjacentPebble(0)
-    if (usePebblesStore.getState().selectedPebble) {
-      usePebblesStore.getState().setHasDetails(true)
-      usePebblesStore.getState().setUserInteracted(false)
-    }
+    setHasStarted(true)
+
+    timerRef.current = setTimeout(() => {
+      selectAdjacentPebble(0)
+    }, delay)
   }
 
   const handleEnd = () => {
-    usePebblesStore.getState().setHasStarted(false)
-    usePebblesStore.getState().setHasDetails(false)
-    usePebblesStore.getState().setHasCreate(false)
+    setHasStarted(false)
+    setHasDetails(false)
+    setHasCreate(false)
   }
 
   const hasStarted = usePebblesStore((state) => state.hasStarted)
+
+  useEffect(() => {
+    // selectAdjacentPebble(0)
+    if (selectedPebble) {
+      setHasDetails(true)
+      setUserInteracted(false)
+    }
+  }, [selectedPebble])
+  useEffect(() => {
+    return () => {
+      clearTimeout(timerRef.current)
+    }
+  }, [])
 
   return (
     <div className={`overlay ${hasStarted && 'experience-start'}`}>
@@ -56,7 +80,7 @@ export const Overlay = ({ isMobile }) => {
                 variant="dark"
                 onClick={handleStart}
               >
-                {t('Explore the Landscape')}
+                {t('actionExploreLandscape')}
               </button>
               <LangLink className="GetInTouch btn btn-white btn-lg" to={BiographiesRoute.to}>
                 {t('allAvailableStories')}
@@ -74,9 +98,11 @@ export const Overlay = ({ isMobile }) => {
             exit={{ opacity: 0, x: '-50%', y: '2rem', scale: 0.85 }}
             transition={{ type: 'spring', duration: 0.8 }}
           >
-            <div className="overlay__intro_exp">{t('pagesHomeSubheading')}</div>
+            <div className="overlay__intro_exp pointer-events-auto">
+              <p>{t('pagesHomeSubheading')}</p>
+            </div>
             <div className="overlay__actions">
-              <Button text="Read more" variant="light" onClick={handleEnd} />
+              <Button text={t('backToIntroduction')} variant="light" onClick={handleEnd} />
             </div>
           </motion.div>
         )}

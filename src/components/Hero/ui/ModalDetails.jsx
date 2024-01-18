@@ -6,11 +6,12 @@ import { usePebblesStore } from '../store'
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
-import downsize from 'downsize'
 import LangLink from '../../LangLink'
+import StoryItem from '../../StoryItem.jsx'
 
 export const ModalDetails = ({ stories = [] }) => {
   const { t } = useTranslation()
+  const setShowInfoModal = usePebblesStore((state) => state.setShowInfoModal)
   const selectedPebble = usePebblesStore((state) => state.selectedPebble)
   const hasDetails = usePebblesStore((state) => state.hasDetails)
 
@@ -58,7 +59,7 @@ export const ModalDetails = ({ stories = [] }) => {
                 <div className="hero__modal__carousel-content">
                   <div className="hero__modal__name">
                     <AnimatePresence mode="wait">
-                      <motion.h4
+                      <motion.div
                         className="hero__modal__title"
                         variants={variants}
                         initial="hidden"
@@ -67,17 +68,9 @@ export const ModalDetails = ({ stories = [] }) => {
                         key={selectedPebble.createdBy}
                       >
                         {selectedStory ? (
-                          <b
-                            className="small"
-                            dangerouslySetInnerHTML={{
-                              __html: downsize(selectedStory.data.title.en_GB, {
-                                characters: 80,
-                                append: '&hellip;',
-                              }),
-                            }}
-                          />
+                          <StoryItem story={selectedStory} showLanguages={false} reduced />
                         ) : null}
-                      </motion.h4>
+                      </motion.div>
                     </AnimatePresence>
                   </div>
                 </div>
@@ -105,7 +98,14 @@ export const ModalDetails = ({ stories = [] }) => {
             <Divider />
           </div>
           {selectedStory ? (
-            <LangLink to={`/story/${selectedStory.slug}`}>{t('actionReadBiography')}</LangLink>
+            <div className="d-flex justify-content-between w-100">
+              <button className="btn btn-link p-0 m-0 ms-1" onClick={() => setShowInfoModal(true)}>
+                {t('actionShowModalInfo')}
+              </button>
+              <LangLink to={`/story/${selectedStory.slug}`} className="me-1">
+                {t('actionReadBiography')}
+              </LangLink>
+            </div>
           ) : null}
         </motion.div>
       )}

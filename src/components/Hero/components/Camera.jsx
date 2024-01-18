@@ -27,6 +27,7 @@ export const Camera = () => {
 
   const selectedTarget = usePebblesStore((state) => state.selectedPebble)
   const hasStarted = usePebblesStore((state) => state.hasStarted)
+  const hasCreate = usePebblesStore((state) => state.hasCreate)
 
   const [signedPosition, setSignedPosition] = useState(1)
 
@@ -163,8 +164,9 @@ export const Camera = () => {
 
   useSafeFrame((_, delta) => {
     if (!cameraRef.current) return
-
-    if (hasStarted) {
+    if (hasCreate) {
+      cameraForward()
+    } else if (hasStarted) {
       if (selectedTarget) {
         cameraToTarget()
       } else {

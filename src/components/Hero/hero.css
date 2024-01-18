@@ -20,9 +20,9 @@
 .hero__canvas-wrapper {
   position: absolute;
   top: 0;
-  left: 3rem;
-  right: 3rem;
-  bottom: 3rem;
+  left: 1rem;
+  right: 1rem;
+  bottom: 50px;
   border-radius: 32px;
   overflow: hidden;
 }

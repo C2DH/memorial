@@ -1,0 +1,19 @@
+.ColorPicker {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+.ColorPicker .btn {
+  height: 40px;
+  width: 40px;
+  border-radius: 40px;
+}
+
+.ColorPicker .btn:hover {
+  box-shadow: 0 0 0 3px rgba(7, 58, 49, 0.5);
+}
+
+.ColorPicker .btn.active {
+  box-shadow: 0 0 0 3px rgba(7, 58, 49, 0.5);
+}

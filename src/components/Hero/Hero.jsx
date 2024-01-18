@@ -16,6 +16,8 @@ import { usePebblesStore } from './store'
 import { StatusSuccess, useGetJSON } from '../../hooks/data'
 
 import { QueryClient, QueryClientProvider } from 'react-query'
+import ModalConfirmation from './ui/ModalConfirmation'
+import ModalInfo from './ui/ModalInfo'
 
 const Hero = ({ isMobile }) => {
   const { data, status, error } = useGetJSON({
@@ -39,6 +41,10 @@ const Hero = ({ isMobile }) => {
   }
 
   const queryClient = new QueryClient()
+  const cameraLeapHandle = (e, z1, z2) => {
+    console.debug('[Hero] Camera@LeapHandle placeholder Z range:', z1, z2)
+    // @todo this should update the list of the pebbles based on their Z value
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -53,14 +59,16 @@ const Hero = ({ isMobile }) => {
           <Canvas gl={{ alpha: true, antialias: false, shadows: false }} dpr={2}>
             {/* <StatsGl /> */}
             {/* <Stats showPanel={0} /> */}
-            <Camera />
+            <Camera onLeap={cameraLeapHandle} />
             <Scene />
           </Canvas>
         </div>
         <Overlay isMobile={isMobile} />
         <div className="hero__modals">
+          <ModalInfo />
+          <ModalConfirmation disableEmail />
           <ModalDetails stories={data?.results} />
-          <ModalCreate stories={data?.results} />
+          <ModalCreate withCarousel stories={data?.results} />
         </div>
       </div>
     </QueryClientProvider>
