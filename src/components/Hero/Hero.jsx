@@ -41,6 +41,10 @@ const Hero = ({ isMobile }) => {
   }
 
   const queryClient = new QueryClient()
+  const cameraLeapHandle = (e, z1, z2) => {
+    console.debug('[Hero] Camera@LeapHandle placeholder Z range:', z1, z2)
+    // @todo this should update the list of the pebbles based on their Z value
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -55,7 +59,7 @@ const Hero = ({ isMobile }) => {
           <Canvas gl={{ alpha: true, antialias: false, shadows: false }} dpr={2}>
             {/* <StatsGl /> */}
             {/* <Stats showPanel={0} /> */}
-            <Camera />
+            <Camera onLeap={cameraLeapHandle} />
             <Scene />
           </Canvas>
         </div>
