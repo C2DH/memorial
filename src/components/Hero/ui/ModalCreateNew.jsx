@@ -129,7 +129,7 @@ export const ModalCreate = ({ withCarousel = false }) => {
         >
           <h3>{t('actionCreatePebble')}</h3>
           <div className="hero__modal__carousel">
-            <StoryItem story={currentStory} />
+            <StoryItem story={currentStory} reduced />
           </div>
           <div className="Form w-100 mt-3" style={{ textAlign: 'start', maxWidth: 500 }}>
             {withCarousel ? (
