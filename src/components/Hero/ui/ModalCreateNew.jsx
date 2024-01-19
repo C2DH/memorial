@@ -131,7 +131,7 @@ export const ModalCreate = ({ withCarousel = false }) => {
           <div className="hero__modal__carousel">
             <StoryItem story={currentStory} reduced />
           </div>
-          <div className="Form w-100 mt-3" style={{ textAlign: 'start', maxWidth: 500 }}>
+          <div className="Form w-100 mt-3" style={{ textAlign: 'start' }}>
             {withCarousel ? (
               <div className="hero__modal__carousel mx-3 ">
                 <ModalCarousel options={[0, 1, 2, 3, 4]} setOption={setSelectedColor}>

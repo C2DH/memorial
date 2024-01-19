@@ -1,9 +1,6 @@
 .hero__modal {
   position: absolute;
   bottom: 5.5rem;
-  width: 50%;
-  left: 25%;
-
   background: var(--linen-500, #fcede2);
   border-radius: 1rem;
   padding: 1rem;
@@ -16,6 +13,14 @@
   pointer-events: all;
   overflow: hidden;
   z-index: 120;
+}
+
+@media (min-width: 992px) {
+  .hero__modal {
+    width: 600px;
+    left: 50%;
+    margin-left: -300px;
+  }
 }
 
 .hero__modal p {
