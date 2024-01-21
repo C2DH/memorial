@@ -7,7 +7,7 @@ import { Scene } from './Scene'
 import { Camera } from './components/Camera'
 import { Overlay } from './ui/Overlay'
 import { ModalDetails } from './ui/ModalDetails'
-import { ModalCreate } from './ui/ModalCreateNew'
+import ModalCreate from './ui/ModalCreateNew'
 // eslint-disable-next-line no-unused-vars
 import { StatsGl, Stats } from '@react-three/drei'
 
@@ -68,7 +68,7 @@ const Hero = ({ isMobile }) => {
           <ModalInfo />
           <ModalConfirmation disableEmail />
           <ModalDetails stories={data?.results} />
-          <ModalCreate withCarousel stories={data?.results} />
+          <ModalCreate withCarousel />
         </div>
       </div>
     </QueryClientProvider>
