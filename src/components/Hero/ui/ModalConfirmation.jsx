@@ -52,10 +52,10 @@ const ModalConfirmation = ({ disableEmail = false }) => {
   return (
     <Modal show={showConfirmationModal} onHide={handleClose} backdrop="static" centered>
       <Modal.Header closeButton>
-        <Modal.Title>{t('Thank you for your pebble!')}</Modal.Title>
+        <Modal.Title>{t('modalConfirmationTitle')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Thank you for your pebble! Your pebble has been created and is pending validation.</p>
+        <p dangerouslySetInnerHTML={{ __html: t('modalConfirmationParagraph') }} />
         {disableEmail ? null : (
           <Form onSubmit={sendEmail}>
             To receive a link to your pebble, please enter your email address below.
@@ -80,14 +80,16 @@ const ModalConfirmation = ({ disableEmail = false }) => {
           </Form>
         )}
       </Modal.Body>
-      <Modal.Footer>
-        <button className="btn btn-secondary" onClick={handleClose}>
-          Close
-        </button>
-        <button className="btn bt-primary" variant="primary" onClick={sendEmail}>
-          {t('modalConfirmationSendEmail')}
-        </button>
-      </Modal.Footer>
+      {disableEmail ? null : (
+        <Modal.Footer>
+          <button className="btn btn-secondary" onClick={handleClose}>
+            Close
+          </button>
+          <button className="btn bt-primary" variant="primary" onClick={sendEmail}>
+            {t('modalConfirmationSendEmail')}
+          </button>
+        </Modal.Footer>
+      )}
     </Modal>
   )
 }

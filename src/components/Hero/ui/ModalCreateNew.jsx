@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-
-import { useMutation } from 'react-query'
 import axios from 'axios'
-
-import { ModalCarousel } from './ModalCarousel'
-import StoryItem from '../../StoryItem'
-
 import Turnstile from 'react-turnstile'
-
+import StoryItem from '../../StoryItem'
+import ColorPicker from './ColorPicker'
+import InputField from '../../InputField'
+import TextareaField from '../../TextareaField'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useMutation } from 'react-query'
+import { ModalCarousel } from './ModalCarousel'
 import { usePebblesStore, createNewPebble } from '../store'
 import { useTranslation } from 'react-i18next'
-import ColorPicker from './ColorPicker'
 import { PebbleColors } from '../../../constants'
 
 const SITE_KEY = import.meta.env.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY
@@ -28,7 +26,7 @@ const readCookie = (name) => {
   return null
 }
 
-export const ModalCreate = ({ withCarousel = false }) => {
+const ModalCreate = ({ withCarousel = false }) => {
   const { t } = useTranslation()
   const hasCreate = usePebblesStore((state) => state.hasCreate)
   const currentStory = usePebblesStore((state) => state.currentStory)
@@ -36,6 +34,7 @@ export const ModalCreate = ({ withCarousel = false }) => {
   const setUserInteracted = usePebblesStore((state) => state.setUserInteracted)
   const setHasCreate = usePebblesStore((state) => state.setHasCreate)
   const setHasDetails = usePebblesStore((state) => state.setHasDetails)
+  const setShowConfirmationModal = usePebblesStore((state) => state.setShowConfirmationModal)
 
   const [token, setToken] = useState(null)
   const [createdBy, setCreatedBy] = useState('')
@@ -53,6 +52,10 @@ export const ModalCreate = ({ withCarousel = false }) => {
       })
     },
     {
+      onSuccess: () => {
+        console.debug('[ModalCreate] useMutation onSuccess')
+        setShowConfirmationModal(true)
+      },
       onError: (err) => {
         console.error(err.response)
         if (err.response?.data?.position?.code === 'WrongPosition') {
@@ -117,6 +120,14 @@ export const ModalCreate = ({ withCarousel = false }) => {
     setHasDetails,
     newPebbleData,
   ])
+
+  console.debug(
+    '[ModalCreate] render',
+    '\n - hasCreate:',
+    hasCreate,
+    '\n - currentStory:',
+    currentStory?.slug,
+  )
 
   return (
     <AnimatePresence>
@@ -197,36 +208,4 @@ export const ModalCreate = ({ withCarousel = false }) => {
   )
 }
 
-const InputField = ({ label, id, value, placeholder, onChange }) => (
-  <div className="mb-3">
-    {label ? (
-      <label htmlFor={id} className="form-label">
-        {label}
-      </label>
-    ) : null}
-    <input
-      type="text"
-      placeholder={placeholder}
-      className="form-control"
-      id={id}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    />
-  </div>
-)
-
-const TextareaField = ({ label, id, value, placeholder = 'your message here...', onChange }) => (
-  <div className="mb-3">
-    <label htmlFor={id} className="form-label">
-      {label}
-    </label>
-    <textarea
-      className="form-control"
-      id={id}
-      rows="3"
-      value={value}
-      placeholder={placeholder}
-      onChange={(e) => onChange(e.target.value)}
-    ></textarea>
-  </div>
-)
+export default ModalCreate
