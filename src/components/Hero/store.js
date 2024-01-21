@@ -32,6 +32,8 @@ export const createNewPebble = (userName, message, color, bioId, lastPositionX, 
 
 export const usePebblesStore = create((set, get) => ({
   pebblesData: [],
+  pebblesExtent: [],
+  setPebblesEstent: (value) => set({ pebblesExtent: value }),
   // UI STATES:
   hasStarted: false,
   hasCreate: false,

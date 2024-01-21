@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import axios from 'axios'
+import { usePebblesStore } from './components/Hero/store'
 
 // replace console.* for disable log debug on production
 if (
@@ -30,18 +32,22 @@ console.debug(
 // on slow devices
 // (e.g. iPhone 6)
 
-setTimeout(() => {
-  clearInterval(window.memorialShoahParagraphLoop)
-  document.getElementById('loading').classList.add('hide')
-}, Math.max(3600 - loadingTime, 1000))
+axios.get('/api/pebbles/extent').then((response) => {
+  console.debug('[index] extent', response.data)
+  const root = ReactDOM.createRoot(document.getElementById('root'))
+  usePebblesStore.setState({ pebblesExtent: response.data })
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+  setTimeout(() => {
+    clearInterval(window.memorialShoahParagraphLoop)
+    document.getElementById('loading').classList.add('hide')
+  }, Math.max(3600 - loadingTime, 1000))
 
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+  )
+})
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

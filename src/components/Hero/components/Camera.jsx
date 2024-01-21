@@ -10,6 +10,7 @@ const CAMERA_OFFSET = [-12, 10, -12]
 const TARGET_OFFSET = [-2, 6, 4]
 
 export const Camera = () => {
+  const pebblesExtent = usePebblesStore((state) => state.pebblesExtent)
   const cameraRef = useRef()
 
   const targetPositionRef = useRef(new THREE.Vector3(0, 8, 0))
@@ -98,7 +99,13 @@ export const Camera = () => {
 
   const cameraScroll = (delta) => {
     targetPositionRef.current.z += scrollSpeedRef.current * delta * -50
+    if (targetPositionRef.current.z > pebblesExtent[1].z) {
+      targetPositionRef.current.z = pebblesExtent[1].z
+    } else if (targetPositionRef.current.z < pebblesExtent[0].z) {
+      targetPositionRef.current.z = pebblesExtent[0].z
+    }
     targetLookAtRef.current.z += scrollSpeedRef.current * delta * -50
+
     scrollSpeedRef.current *= 1 - delta * 5
     if (Math.abs(scrollSpeedRef.current) < 0.01) {
       scrollSpeedRef.current = 0
