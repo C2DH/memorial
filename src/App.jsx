@@ -13,7 +13,9 @@ import MatomoTracker from './components/MatomoTracker'
 import Cookies from './components/Cookies'
 import TermsOfUseCookies from './components/TermsOfuseCookies'
 import PrefetchAuthors from './components/PrefetchAuthors'
+import Home from './pages/Home'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
 console.info('\n ◊ \n\n')
 
 // console.info('initial saved state', persistentState)
@@ -24,7 +26,6 @@ const { languageCode } = initializeI18next()
 console.info('initial languageCode', languageCode)
 
 const Document = lazy(() => import('./pages/Document'))
-const Home = lazy(() => import('./pages/Home'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 const Page = lazy(() => import('./pages/Page'))
 const Person = lazy(() => import('./pages/Person'))
@@ -77,14 +78,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Navigate to={languageCode} replace />} />
               <Route path={languageCode}>
-                <Route
-                  path=""
-                  element={
-                    <React.Suspense fallback={<LandscapeLoader />}>
-                      <Home isMobile={isMobile} />
-                    </React.Suspense>
-                  }
-                />
+                <Route path="" element={<Home isMobile={isMobile} />} />
                 <Route
                   path="slides/:pageId"
                   element={
@@ -196,10 +190,6 @@ const App = () => {
       </BrowserRouter>
     </MatomoProvider>
   )
-}
-
-const LandscapeLoader = () => {
-  return <div style={{ height: 'calc(100vh - 4rem)' }}></div>
 }
 
 export default App
