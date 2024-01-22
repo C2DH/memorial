@@ -1,23 +1,33 @@
-.Header_ariaSearch ul,
-.Header_ariaLanguageAbout ul {
+.Header_Nav {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.Header_ariaSearch > ul,
-.Header_ariaLanguageAbout > ul {
-  /* border-top: 1px solid var(--bs-primary); */
+.Header_Nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Header_Nav > ul {
   padding: 1.5rem 0;
 }
-.Header_ariaSearch ul li,
-.Header_ariaLanguageAbout ul li {
+
+.Header_Nav ul li {
   line-height: 2rem;
+  padding: 0 1rem;
+}
+
+.Header_Nav ul li li {
+  padding: 0 0.3rem;
 }
 
 .Header {
+  display: flex;
   position: relative;
   z-index: 1;
+  justify-content: space-between;
 }
 
 .Header nav li a,
@@ -31,4 +41,9 @@ body.navigationSlides .Header {
 
 body.navigationSlides .Footer {
   display: none;
+}
+
+.home-nav-wrapper {
+  display: flex;
+  align-items: center;
 }
