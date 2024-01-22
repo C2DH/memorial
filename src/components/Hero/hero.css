@@ -35,3 +35,67 @@
   pointer-events: none;
   overflow: hidden;
 }
+
+@media (max-width: 576px) {
+  .hero {
+    height: 100vh;
+  }
+
+  .hero__canvas-wrapper {
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+  }
+  .overlay__copy {
+    left: 0 !important;
+    padding: 0 3rem;
+  }
+  .overlay__copy p {
+    line-height: 1rem !important;
+    text-align: center;
+    color: var(--bs-white);
+    margin-bottom: 1.5rem;
+  }
+  .overlay__logos {
+    right: 1.5rem !important;
+    bottom: 4.5rem !important;
+  }
+  .overlay__logo_soah {
+    left: 1.5rem !important;
+    bottom: 4rem !important;
+  }
+  .overlay__logo_soah .Logo {
+    width: 110px;
+    height: 100%;
+  }
+  .overlay__actions {
+    margin-top: 1rem;
+    flex-direction: column !important;
+  }
+  .overlay__actions button,
+  .overlay__actions a {
+    width: 100% !important;
+  }
+  .overlay__intro-wrapper {
+    top: 20% !important;
+    width: 100%;
+    gap: 1rem !important;
+  }
+  .overlay__intro-wrapper .overlay__text,
+  .overlay__intro {
+    width: 100% !important;
+    padding: 0 2rem;
+  }
+  .overlay__text p {
+    margin-bottom: 0 !important;
+  }
+  .overlay__intro_exp {
+    width: 100% !important;
+    top: 8rem;
+  }
+  .overlay__experience-wrapper {
+    width: 100% !important;
+    padding: 0 2rem;
+  }
+}
