@@ -8,6 +8,7 @@ import LogoLePremierConvoi from '../components/LogoLePremierConvoi'
 import { Container, Row, Col } from 'react-bootstrap'
 import './Slides.css'
 import GalleryOfStories from '../components/GalleryOfStories'
+import { LogoMemorial } from '../components/Hero/ui/Logo'
 
 const Slides = () => {
   const { pageId } = useParams()
@@ -39,13 +40,7 @@ const Slides = () => {
   return (
     <div className="Slides">
       <div className="Slides__header">
-        <Logo
-          className="position-absolute"
-          width={150}
-          height={150}
-          color="var(--bs-primary)"
-          style={{ top: '14px', left: '-19px', marginLeft: 0 }}
-        />
+        <LogoMemorial className="position-absolute" width={150} color="var(--bs-primary)" />
         <div className="Slides__title">
           <LogoLePremierConvoi size={'600'} />
           <h2>{subtitle}</h2>
