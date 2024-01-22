@@ -78,6 +78,10 @@
   pointer-events: all;
 }
 
+.overlay.experience-start p {
+  display: none;
+}
+
 .overlay__copy {
   position: absolute;
   left: 2rem;
@@ -96,7 +100,7 @@
 .overlay__logo {
   position: absolute;
   left: -4px;
-  top: 2rem;
+  top: 1.5rem;
   transform-origin: left center;
   transition: transform 0.2s ease-in-out;
 }
