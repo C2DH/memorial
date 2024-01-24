@@ -32,7 +32,7 @@ console.debug(
 // on slow devices
 // (e.g. iPhone 6)
 
-axios.get('/api/pebbles/extent').then((response) => {
+axios.get('/api/pebbles/extent-z').then((response) => {
   console.debug('[index] extent', response.data)
   const root = ReactDOM.createRoot(document.getElementById('root'))
   usePebblesStore.setState({ pebblesExtent: response.data })
