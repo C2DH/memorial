@@ -102,7 +102,7 @@ const ModalCreate = ({ withCarousel = false }) => {
 
   useEffect(() => {
     let { positionX, positionZ } = usePebblesStore.getState().lastPebbleData
-
+    if(!currentStory) return
     const previewPebble = createNewPebble(
       createdBy,
       message,
@@ -127,7 +127,7 @@ const ModalCreate = ({ withCarousel = false }) => {
     status,
     createPebble,
     createdBy,
-    currentStory.slug,
+    currentStory?.slug,
     message,
     newPebbleData,
     selectedColor,
