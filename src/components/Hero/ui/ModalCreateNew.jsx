@@ -33,6 +33,7 @@ const ModalCreate = ({ withCarousel = false }) => {
   const createPebble = usePebblesStore((state) => state.createPebble)
   const setUserInteracted = usePebblesStore((state) => state.setUserInteracted)
   const setHasCreate = usePebblesStore((state) => state.setHasCreate)
+  const setSelected = usePebblesStore((state) => state.setSelected)
   const setHasDetails = usePebblesStore((state) => state.setHasDetails)
   const setShowConfirmationModal = usePebblesStore((state) => state.setShowConfirmationModal)
 
@@ -70,8 +71,6 @@ const ModalCreate = ({ withCarousel = false }) => {
 
     // If the prev postion was rejected, use the suggested position:
     if (retry && suggested_position) {
-      console.log('-------------------------retrying-------------------------')
-      console.log(suggested_position)
       positionX = parseFloat(suggested_position[0])
       positionZ = parseFloat(suggested_position[2])
     }
@@ -96,15 +95,29 @@ const ModalCreate = ({ withCarousel = false }) => {
       token,
       position: newPebbleData.position,
       rotation: newPebbleData.rotation,
-      scale: [1, 1, 1],
+      scale: newPebbleData.scale,
       color: PebbleColors[selectedColor],
     })
   }
 
   useEffect(() => {
+    let { positionX, positionZ } = usePebblesStore.getState().lastPebbleData
+
+    const previewPebble = createNewPebble(
+      createdBy,
+      message,
+      PebbleColors[selectedColor],
+      currentStory.slug,
+      positionX,
+      positionZ,
+    )
+
+    setSelected(previewPebble)
+
     if (status === 'success') {
       createPebble(newPebbleData)
       setUserInteracted(true)
+      setSelected(newPebbleData)
       // only direct interaction can set it to false
       // setHasCreate(false)
       setHasDetails(true)
@@ -112,13 +125,15 @@ const ModalCreate = ({ withCarousel = false }) => {
     console.log(status)
   }, [
     status,
-    createdBy,
-    currentStory,
     createPebble,
-    setUserInteracted,
-    setHasCreate,
-    setHasDetails,
+    createdBy,
+    currentStory.slug,
+    message,
     newPebbleData,
+    selectedColor,
+    setHasDetails,
+    setSelected,
+    setUserInteracted,
   ])
 
   console.debug(
@@ -194,7 +209,6 @@ const ModalCreate = ({ withCarousel = false }) => {
             </button>
             <button
               className="btn btn-secondary btn-lg SearchField_inputSubmit"
-              disabled={!token}
               onClick={() => {
                 setHasCreate(false)
               }}

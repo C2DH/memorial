@@ -10,7 +10,6 @@ const CAMERA_OFFSET = [-12, 10, -12]
 const TARGET_OFFSET = [-2, 6, 4]
 
 export const Camera = () => {
-  const pebblesExtent = usePebblesStore((state) => state.pebblesExtent)
   const cameraRef = useRef()
 
   const targetPositionRef = useRef(new THREE.Vector3(0, 8, 0))
@@ -28,7 +27,6 @@ export const Camera = () => {
 
   const selectedTarget = usePebblesStore((state) => state.selectedPebble)
   const hasStarted = usePebblesStore((state) => state.hasStarted)
-  const hasCreate = usePebblesStore((state) => state.hasCreate)
 
   const [signedPosition, setSignedPosition] = useState(1)
 
@@ -98,15 +96,23 @@ export const Camera = () => {
   }
 
   const cameraScroll = (delta) => {
-    targetPositionRef.current.z += scrollSpeedRef.current * delta * -50
-    if (targetPositionRef.current.z > pebblesExtent[1].z) {
-      targetPositionRef.current.z = pebblesExtent[1].z
-    } else if (targetPositionRef.current.z < pebblesExtent[0].z) {
-      targetPositionRef.current.z = pebblesExtent[0].z
-    }
-    targetLookAtRef.current.z += scrollSpeedRef.current * delta * -50
+    // Calculate the potential new position
+    let potentialNewZ = targetPositionRef.current.z + scrollSpeedRef.current * delta * -50
 
+    // Get the minimum and maximum Z positions from the pebbles
+    const minZ = Math.min(...usePebblesStore.getState().pebblesData.map((p) => p.position[2]))
+    const maxZ = Math.max(...usePebblesStore.getState().pebblesData.map((p) => p.position[2]))
+
+    // Clamp the new position to be within the min and max Z bounds
+    potentialNewZ = THREE.MathUtils.clamp(potentialNewZ, minZ - 48, maxZ - 48)
+
+    // Update the target position
+    targetPositionRef.current.z = potentialNewZ
+
+    targetPositionRef.current.z += scrollSpeedRef.current * delta * -50
+    targetLookAtRef.current.z += scrollSpeedRef.current * delta * -50
     scrollSpeedRef.current *= 1 - delta * 5
+
     if (Math.abs(scrollSpeedRef.current) < 0.01) {
       scrollSpeedRef.current = 0
     }
@@ -171,9 +177,8 @@ export const Camera = () => {
 
   useSafeFrame((_, delta) => {
     if (!cameraRef.current) return
-    if (hasCreate) {
-      cameraForward()
-    } else if (hasStarted) {
+
+    if (hasStarted) {
       if (selectedTarget) {
         cameraToTarget()
       } else {
