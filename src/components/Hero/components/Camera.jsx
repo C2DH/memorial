@@ -10,6 +10,8 @@ const CAMERA_OFFSET = [-12, 10, -12]
 const TARGET_OFFSET = [-2, 6, 4]
 
 export const Camera = () => {
+  // this is an array [min, max]
+  const [minZ, maxZ] = usePebblesStore((state) => state.pebblesExtent)
   const cameraRef = useRef()
 
   const targetPositionRef = useRef(new THREE.Vector3(0, 8, 0))
@@ -89,7 +91,7 @@ export const Camera = () => {
       window.removeEventListener('touchmove', handleTouchMove)
       window.removeEventListener('mousemove', handleMouseMove)
     }
-  })
+  }, [])
 
   const calculateSpeed = (delta, time) => {
     return THREE.MathUtils.clamp((delta / time) * 1000, -2, 2)
@@ -98,14 +100,8 @@ export const Camera = () => {
   const cameraScroll = (delta) => {
     // Calculate the potential new position
     let potentialNewZ = targetPositionRef.current.z + scrollSpeedRef.current * delta * -50
-
-    // Get the minimum and maximum Z positions from the pebbles
-    const minZ = Math.min(...usePebblesStore.getState().pebblesData.map((p) => p.position[2]))
-    const maxZ = Math.max(...usePebblesStore.getState().pebblesData.map((p) => p.position[2]))
-
     // Clamp the new position to be within the min and max Z bounds
     potentialNewZ = THREE.MathUtils.clamp(potentialNewZ, minZ - 48, maxZ - 48)
-
     // Update the target position
     targetPositionRef.current.z = potentialNewZ
 
