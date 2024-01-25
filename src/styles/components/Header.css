@@ -24,6 +24,8 @@
 }
 
 .Header {
+  max-width: 1320px;
+  margin: 0px auto;
   display: flex;
   position: relative;
   z-index: 1;
@@ -31,8 +33,14 @@
 }
 
 .Header nav li a,
-.Header nav li.active a {
+.Header nav li.active a,
+.Header .home-nav-wrapper a {
   text-decoration: none;
+}
+
+.Header .home-nav-wrapper .active a {
+  font-weight: bold;
+  color: var(--bs-dark);
 }
 
 body.navigationSlides .Header {

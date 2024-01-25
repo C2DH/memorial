@@ -89,7 +89,7 @@
   bottom: 0.25rem;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: center;
 }
 
 .overlay__copy p {
@@ -99,10 +99,11 @@
 
 .overlay__logo {
   position: absolute;
-  left: -4px;
-  top: 1.5rem;
+  left: 0;
+  top: 7rem;
   transform-origin: left center;
   transition: transform 0.2s ease-in-out;
+  z-index: 1;
 }
 
 .overlay__logo_collapsed {
@@ -131,4 +132,16 @@
 
 .overlay__logo_soah_collapsed {
   opacity: 0;
+}
+
+@media (max-width: 576px) {
+  .overlay__intro {
+    font-size: 1rem;
+  }
+  .overlay__intro-wrapper {
+    font-size: 0.9rem;
+  }
+  .overlay__actions {
+    margin-top: 0.5rem;
+  }
 }
