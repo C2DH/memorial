@@ -1,13 +1,28 @@
 .Logo {
   cursor: pointer;
 }
-.Logo svg rect {
+.Logo svg path {
   /* fill: var(--bs-dark); */
   transition: fill 0.26s ease-in-out;
 }
-.Logo:hover svg rect {
+/* .Logo:hover svg path {
   fill: var(--bs-primary);
+} */
+
+.Logo:hover svg path.var-color {
+  fill: var(--bs-primary-text);
 }
+
+.overlay__logo,
+.overlay__logo_soah,
+.overlay__logos {
+  pointer-events: all;
+}
+
+.Logo {
+  cursor: pointer;
+}
+
 .Logo svg text {
   /* font-weight: bold; */
   line-height: 20px;

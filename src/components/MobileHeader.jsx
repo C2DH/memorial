@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { a, useSpring } from 'react-spring'
 import LanguageSwitch from './LanguageSwitch'
 import LangLink from './LangLink'
-import Logo from './Logo'
 import {
   HomeRoute,
   AboutRoute,
@@ -16,6 +15,7 @@ import { useStore } from '../store'
 import { useCurrentWindowDimensions } from '../hooks/viewport'
 import '../styles/components/MobileHeader.css'
 import { Menu } from 'react-feather'
+import LogoMemorialCompact from './LogoMemorialCompact'
 
 const MobileHeader = () => {
   const { width, height } = useCurrentWindowDimensions()
@@ -65,11 +65,9 @@ const MobileHeader = () => {
         </a.div>
       </header>
       <LangLink to={HomeRoute.to} onClick={routeOnClickHandler}>
-        <Logo
-          style={{ color: 'white', zIndex: 1001, top: -20, left: -15 }}
-          height={155}
-          width={155}
-          className="MobileHeader_Logo position-absolute mx-2 mt-1"
+        <LogoMemorialCompact
+          width={120}
+          rest={{ position: 'absolute', zIndex: '1', top: '1rem', left: '1rem' }}
         />
       </LangLink>
     </>

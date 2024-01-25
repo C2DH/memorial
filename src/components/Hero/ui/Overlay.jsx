@@ -1,5 +1,4 @@
 import './styles/overlay.css'
-import { Logo } from './Logo'
 import { usePebblesStore } from '../store'
 import { Button } from './Button'
 
@@ -7,12 +6,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 import { Logotypes } from './Logotypes'
 
-import LogoFondLuxShoah from '../../../assets/images/fondluxshoah-logo.png'
 import { useTranslation } from 'react-i18next'
 import LangLink from '../../LangLink'
 import { BiographiesRoute } from '../../../constants'
 import ScrollIcon from '../../ScrollIcon'
 import { useEffect, useRef } from 'react'
+import { FondationLogo } from './FondationLogo'
 
 export const Overlay = ({ isMobile, delay = 1000 }) => {
   const { t } = useTranslation()
@@ -59,7 +58,7 @@ export const Overlay = ({ isMobile, delay = 1000 }) => {
 
   return (
     <div className={`overlay ${hasStarted && 'experience-start'}`}>
-      <ScrollIcon />
+      {!isMobile ? <ScrollIcon /> : null}
       <AnimatePresence>
         {!hasStarted && (
           <motion.div
@@ -111,30 +110,11 @@ export const Overlay = ({ isMobile, delay = 1000 }) => {
       <div className="overlay__copy">
         <p>Copyright © Université du Luxembourg 2023. All rights reserved.</p>
       </div>
-      {!isMobile && (
-        <div className={`overlay__logo ${hasStarted && 'overlay__logo_collapsed'}`}>
-          <Logo />
-        </div>
-      )}
       <div className={`overlay__logos ${hasStarted && 'overlay__logos_collapsed'}`}>
         <Logotypes />
       </div>
       <div className={`overlay__logo_soah ${hasStarted && 'overlay__logo_soah_collapsed'}`}>
-        <div>
-          <a
-            href="https://fondluxshoah.lu/"
-            target="_blank"
-            title="Fondation luxembourgeoise pour la Mémoire de la Shoah"
-            rel="noreferrer"
-            className="ms-3"
-          >
-            <img
-              src={LogoFondLuxShoah}
-              style={{ height: 75 }}
-              alt="Logo Fondation luxembourgeoise pour la Mémoire de la Shoah"
-            />
-          </a>
-        </div>
+        <FondationLogo />
       </div>
     </div>
   )
