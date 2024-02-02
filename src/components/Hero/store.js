@@ -222,4 +222,6 @@ export const usePebblesStore = create((set, get) => ({
       console.error('Error fetching pebbles data:', error)
     }
   },
+  playDemo: false,
+  setPlayDemo: (value) => set({ playDemo: value }),
 }))

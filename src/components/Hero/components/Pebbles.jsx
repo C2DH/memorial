@@ -92,10 +92,12 @@ const InstancedPebbles = () => {
 
 const SingleInstance = ({ pebble, filteredPebbles, i }) => {
   const { t } = useTranslation()
+  const setPlayDemo = usePebblesStore((state) => state.setPlayDemo)
 
   const handleOnClick = useCallback(
     (event) => {
       const data = filteredPebbles[i]
+      setPlayDemo(false)
       usePebblesStore.getState().setSelected(data)
       // usePebblesStore.getState().setHasCreate(false)
       usePebblesStore.getState().setHasDetails(true)
@@ -114,11 +116,13 @@ const SingleInstance = ({ pebble, filteredPebbles, i }) => {
   const handleMouseOver = useCallback((event) => {
     mouseOver.current = true
     event.stopPropagation()
+    setPlayDemo(false)
   }, [])
 
   const handleMouseOut = useCallback((event) => {
     mouseOver.current = false
     event.stopPropagation()
+    setPlayDemo(false)
   }, [])
 
   const labelRef = useRef()
