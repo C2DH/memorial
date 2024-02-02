@@ -5,8 +5,9 @@ import vitePluginString from 'vite-plugin-string'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd())
+  console.log('Proxy', env.VITE_PROXY, 'mode:', mode, process.cwd())
+
   if (mode !== 'production') {
-    console.log('Proxy', env.VITE_PROXY, 'mode:', mode, process.cwd())
     return {
       optimizeDeps: {
         include: ['react', 'react-dom'],
