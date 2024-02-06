@@ -42,6 +42,7 @@ const StoryItemSmall = ({ story }) => {
           style={{ fontWeight: 700 }}
           dangerouslySetInnerHTML={{
             __html: title
+              .replace(/\\"/g, '"')
               .split(/[[\]]/)
               .join('')
               .split(/\{[^}]+\}/)

@@ -28,6 +28,7 @@ const StoryItem = ({ story, reduced = false, showLanguages = true, className = '
             className="m-0 "
             dangerouslySetInnerHTML={{
               __html: title
+                .replace(/\\"/g, '"')
                 .split(/[[\]]/)
                 .join('')
                 .split(/\{[^}]+\}/)
