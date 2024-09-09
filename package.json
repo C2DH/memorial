@@ -87,6 +87,6 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "http-proxy-middleware": "^2.0.6",
-    "prettier": "^2.7.1"
+    "prettier": "^3.3.3"
   }
 }
