@@ -31,7 +31,9 @@ const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = t
         return def === undefined
           ? `[${num}](${FootnoteReferencePrefix}/${num})`
           : `[${num}](${FootnoteDefinitionPrefix}/${num})`
-      }), // VERY IMPORTANT, we build FAKE footnotes! as we hve now sections.
+      }) // VERY IMPORTANT, we build FAKE footnotes! as we hve now sections.
+      // replace -- with &mdash;
+      .replace(/--/g, '&mdash;')
   ]
   // console.debug('[ModuleText]', chunks)
   const footnoteIndex = {}
