@@ -45,7 +45,7 @@ const ModuleTextAnchor = ({ node, children, href, ...props }) => {
   // check if href is the website one (internal links)
   if (href.indexOf(import.meta.env.VITE_ORIGIN) !== -1) {
     // remove origin, e.g. `https://` and language `/en/` from the href to make page specific
-    const to = href.replace(import.meta.env.VITE_ORIGIN, '').replace(LanguagePathRegExp, '')
+    const to = href.replace(import.meta.env.VITE_ORIGIN, '').replace(LanguagePathRegExp, '/')
     return (
       <LangLink className="ModuleTextAnchor" to={to} {...props}>
         {textNode}
