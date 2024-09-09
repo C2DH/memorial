@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import supersub from 'remark-supersub'
 import { all } from 'mdast-util-to-hast'
 import FootnoteReference from './FootnoteReference'
 import FootnoteDefinition from './FootnoteDefinition'
@@ -33,7 +34,7 @@ const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = t
           : `[${num}](${FootnoteDefinitionPrefix}/${num})`
       }) // VERY IMPORTANT, we build FAKE footnotes! as we hve now sections.
       // replace -- with &mdash;
-      .replace(/--/g, '&mdash;')
+      .replace(/--/g, '&mdash;'),
   ]
   // console.debug('[ModuleText]', chunks)
   const footnoteIndex = {}
@@ -81,7 +82,7 @@ const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = t
           },
         },
       }}
-      remarkPlugins={[remarkGfm]}
+      remarkPlugins={[remarkGfm, supersub]}
     >
       {chunks.join('\n\n')}
     </ReactMarkdown>

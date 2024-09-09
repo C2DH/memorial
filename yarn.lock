@@ -6674,11 +6674,6 @@ prelude-ls@^1.2.1:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
-prettier@^3.3.3:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.3.3.tgz#30c54fe0be0d8d12e6ae61dbb10109ea00d53105"
-  integrity sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==
-
 pretty-format@^27.0.2:
   version "27.5.1"
   resolved "https://registry.npmjs.org/pretty-format/-/pretty-format-27.5.1.tgz"
@@ -7184,6 +7179,13 @@ remark-rehype@^10.0.0:
     "@types/mdast" "^3.0.0"
     mdast-util-to-hast "^12.1.0"
     unified "^10.0.0"
+
+remark-supersub@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/remark-supersub/-/remark-supersub-1.0.0.tgz#b2009884781961a37990f5581360cbe0e1632ab1"
+  integrity sha512-3SYsphMqpAWbr8AZozdcypozinl/lly3e7BEwPG3YT5J9uZQaDcELBF6/sr/OZoAlFxy2nhNFWSrZBu/ZPRT3Q==
+  dependencies:
+    unist-util-visit "^4.0.0"
 
 remove-accents@0.4.2:
   version "0.4.2"

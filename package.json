@@ -48,6 +48,7 @@
     "react-turnstile": "^1.1.2",
     "remark-footnotes": "^4.0.1",
     "remark-gfm": "^3.0.1",
+    "remark-supersub": "^1.0.0",
     "simplex-noise": "^3.0.1",
     "three": "0.151.3",
     "three.modifiers": "^2.5.7",
@@ -86,7 +87,6 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "http-proxy-middleware": "^2.0.6",
-    "prettier": "^3.3.3"
+    "http-proxy-middleware": "^2.0.6"
   }
 }
