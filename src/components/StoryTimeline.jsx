@@ -9,6 +9,7 @@ const StoryTimeline = ({ storyId }) => {
     params: {
       limit: 1000,
       filters: { slug__istartswith: storyId },
+      orderby: 'slug',
     },
     delay: 1000,
   })
