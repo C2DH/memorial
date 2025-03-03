@@ -7,7 +7,14 @@ const LanguageSwitch = ({ isRootPath, className = '', linkClassName = '', ...res
   const { t, i18n } = useTranslation()
   const { pathname, search = '' } = useLocation()
   const activeLanguageCode = i18n.language.split('-').shift().toLowerCase()
-  console.debug('[LanguageSwitch] activeLanguageCode:', activeLanguageCode, pathname, search)
+  console.debug(
+    '[LanguageSwitch] activeLanguageCode:',
+    activeLanguageCode,
+    '\n - pathname:',
+    pathname,
+    '\n - URL search param:',
+    search,
+  )
   return (
     <ul className={className} {...rest}>
       {LanguageCodes.map((d, i) => {

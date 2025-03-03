@@ -80,6 +80,21 @@ function namespacePath(path, lang) {
   }
   return pathWithLang
 }
+const getTranslatedObject = (obj, lang, fallback = '') => {
+  if (typeof obj !== 'object') {
+    return typeof obj === 'string' ? obj : fallback
+  }
+
+  if (typeof obj[lang] === 'string') {
+    return obj[lang]
+  }
+
+  if (typeof obj[DefaultLanguageCode] === 'string') {
+    return obj[DefaultLanguageCode]
+  }
+
+  return fallback
+}
 
 const useToWithLang = (to, forceLanguage) => {
   const { i18n } = useTranslation()
@@ -101,4 +116,4 @@ const useToWithLang = (to, forceLanguage) => {
   }
 }
 
-export { initializeI18next, useToWithLang }
+export { initializeI18next, useToWithLang, getTranslatedObject }
