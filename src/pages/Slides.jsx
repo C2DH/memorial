@@ -49,7 +49,6 @@ const Slides = () => {
   if (!page) return null
 
   const title = getTranslatedObject(page.data.title, availableLanguage)
-  const subtitle = getTranslatedObject(page.data.subtitle, availableLanguage)
   const abstract = getTranslatedObject(page.data.abstract, availableLanguage)
   const location = getTranslatedObject(page.data.location, availableLanguage)
   const preciseLocation = getTranslatedObject(page.data.preciseLocation, availableLanguage)
