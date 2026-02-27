@@ -2,7 +2,7 @@ import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import supersub from 'remark-supersub'
-import { all } from 'mdast-util-to-hast'
+import { toHast } from 'mdast-util-to-hast'
 import FootnoteReference from './FootnoteReference'
 import FootnoteDefinition from './FootnoteDefinition'
 import ModuleTextAnchor, {
@@ -69,7 +69,7 @@ const ModuleText = ({ content = '', language, footnotes = [], printFootnotes = t
                 label: node.label,
                 footnote: footnoteIndex[node.identifier],
               },
-              all(h, node),
+              toHast(h, node),
             )
           },
           footnoteReference: (h, node) => {
