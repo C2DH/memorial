@@ -15,7 +15,6 @@ import '../styles/components/Header.css'
 import LanguageSwitch from './LanguageSwitch'
 import { isMobile } from 'react-device-detect'
 import LogoMemorial from './LogoMemorial'
-import LogoMemorialCompact from './LogoMemorialCompact'
 
 const Header = () => {
   const { t } = useTranslation()
@@ -28,7 +27,7 @@ const Header = () => {
     <>
       {!isMobile && routeLabel === HomeRoute.label ? (
         <div className="overlay__logo">
-          <LogoMemorial width={250} />
+          <LogoMemorial width={200} />
         </div>
       ) : null}
       <header className="Header">
@@ -38,7 +37,7 @@ const Header = () => {
               <>
                 <LogoMemorial
                   width={100}
-                  className="me-3 position-absolute"
+                  className="me-3 position-absolute top-0"
                   color="var(--bs-primary-text)"
                 />
               </>
