@@ -8,11 +8,12 @@ import {
   LanguageCodes,
   OrderByLatestCreatedFirst,
 } from '../constants'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import PagefindMatch from '../components/PagefindMatch'
 import { Col, Container, Row } from 'react-bootstrap'
 import SearchField from '../components/SearchField'
 import { StatusFetching, StatusIdle, StatusSuccess } from '../hooks/data'
+import { usePagefind } from '../hooks/usePagefind'
 import { useTranslation } from 'react-i18next'
 import OrderByDropdown from '../components/OrderByDropdown'
 import StoryAuthors from '../components/StoryAuthors'
@@ -29,8 +30,7 @@ const Search = ({ limit = 5 }) => {
   const { t, i18n } = useTranslation()
   const activeLanguageCode = i18n.language.split('-').shift().toLowerCase()
   const authorIndex = useStore((state) => state.authorsIndex)
-  const pagefindRef = useRef(null)
-  const [isSearchReady, setIsSearchReady] = useState(false)
+  const { pagefindRef, isSearchReady } = usePagefind()
   const [pagefindResult, setPagefindResult] = useState({ status: StatusIdle, matches: [] })
   const [{ q, lang, orderBy, author }, setQuery] = useQueryParams({
     q: withDefault(QParam, ''),
@@ -128,37 +128,7 @@ const Search = ({ limit = 5 }) => {
       setPagefindResult({ status: StatusSuccess, matches: response.results })
     }
     fetchData()
-  }, [orderBy, author, q, lang, isSearchEnabled])
-
-  // dinamically import pagefind script (only once)
-  useEffect(() => {
-    if (pagefindRef.current) {
-      console.info('[Search] Pagefind already loaded')
-      return
-    }
-    console.info('[Search] Pagefind loading')
-    pagefindRef.current = true
-    const script = document.createElement('script')
-    script.src = '/pagefind/pagefind.js'
-    script.async = true
-    // use as import module
-    script.type = 'module'
-    // get the exprtrs
-
-    script.onload = async () => {
-      console.info('[Search] Pagefind loaded successfully')
-      const pagefind = await import(
-        /* @vite-ignore */ `${window.location.origin}/pagefind/pagefind.js`
-      )
-      pagefindRef.current = pagefind
-      setIsSearchReady(true)
-    }
-    document.body.appendChild(script)
-
-    return () => {
-      document.body.removeChild(script)
-    }
-  }, [])
+  }, [orderBy, author, q, lang, isSearchReady, pagefindRef, isSearchEnabled])
 
   if (!isSearchReady) {
     return null

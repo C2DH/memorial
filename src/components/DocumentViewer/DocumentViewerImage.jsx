@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { Plus, Minus } from 'react-feather'
-import { TransformWrapper, TransformComponent } from '@kokarn/react-zoom-pan-pinch'
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
 
 const DocumentViewerImage = ({
   doc,

@@ -4,7 +4,7 @@ run-dev:
 	VITE_GIT_TAG=$(shell git describe --tags --abbrev=0 HEAD) \
 	VITE_GIT_BRANCH=$(shell git rev-parse --abbrev-ref HEAD) \
 	VITE_GIT_REVISION=$(shell git rev-parse --short HEAD) \
-	yarn start --host
+	npm run dev
 
 build-docker-image:
 	docker build --network host -t c2dhunilu/memorial:${BUILD_TAG} \
@@ -16,5 +16,5 @@ run-deploy-netlify:
 	VITE_GIT_TAG=$(shell git describe --tags --abbrev=0 HEAD) \
 	VITE_GIT_BRANCH=$(shell git rev-parse --abbrev-ref HEAD) \
 	VITE_GIT_REVISION=$(shell git rev-parse --short HEAD) \
-	yarn build && \
-	netlify deploy --prod --dir=build
+	npm run build && \
+	netlify deploy --prod --dir=dist
