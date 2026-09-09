@@ -99,8 +99,15 @@ export const OrderByLatestModifiedFirst = '-date_last_modified'
 export const OrderByOldestModifiedFirst = 'date_last_modified'
 export const OrderByLatestCreatedFirst = '-date_created'
 export const OrderByOldestCreatedFirst = 'date_created'
+export const OrderByRelevance = 'relevance'
 
 export const BiographiesAvailableOrderBy = [
+  {
+    // no sort payload: pagefind ranks by relevance when sort is omitted
+    value: OrderByRelevance,
+    label: 'orderByRelevance',
+    sort: null,
+  },
   {
     value: OrderByLatestModifiedFirst,
     label: 'orderByLatestModifiedFirst',

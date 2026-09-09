@@ -7,8 +7,9 @@ import {
   BootstrapStartColumnLayout,
   LanguageCodes,
   OrderByLatestCreatedFirst,
+  OrderByRelevance,
 } from '../constants'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import PagefindMatch from '../components/PagefindMatch'
 import { Col, Container, Row } from 'react-bootstrap'
 import SearchField from '../components/SearchField'
@@ -32,15 +33,20 @@ const Search = ({ limit = 5 }) => {
   const authorIndex = useStore((state) => state.authorsIndex)
   const { pagefindRef, isSearchReady } = usePagefind()
   const [pagefindResult, setPagefindResult] = useState({ status: StatusIdle, matches: [] })
+  // read raw URL once so a shared link with an explicit orderBy is never overridden
+  const initialUrlParams = useRef(new URLSearchParams(window.location.search)).current
+  const hasManuallySetOrderByRef = useRef(initialUrlParams.has('orderBy'))
+  const initialOrderByDefault =
+    !initialUrlParams.has('orderBy') && (initialUrlParams.get('q') ?? '').length > 0
+      ? OrderByRelevance
+      : OrderByLatestCreatedFirst
   const [{ q, lang, orderBy, author }, setQuery] = useQueryParams({
     q: withDefault(QParam, ''),
     lang: withDefault(createEnumParam(LanguageCodes), activeLanguageCode),
-    orderBy: withDefault(
-      createEnumParam(BiographiesAvailableOrderByValues),
-      OrderByLatestCreatedFirst,
-    ),
+    orderBy: withDefault(createEnumParam(BiographiesAvailableOrderByValues), initialOrderByDefault),
     author: withDefault(SlugParam, ''),
   })
+  const prevQRef = useRef(q)
   const isSearchEnabled = q.length > 1 && isSearchReady
   const queryParams = {}
   if (author.length) {
@@ -95,6 +101,18 @@ const Search = ({ limit = 5 }) => {
   })
   const count = isSearchEnabled ? pagefindResult.matches.length : data?.pages[0].count
 
+  // auto-switch orderBy to/from relevance when a search starts/ends, unless the user chose one explicitly
+  useEffect(() => {
+    if (!hasManuallySetOrderByRef.current) {
+      if (prevQRef.current.length === 0 && q.length > 0) {
+        setQuery({ orderBy: OrderByRelevance })
+      } else if (prevQRef.current.length > 0 && q.length === 0) {
+        setQuery({ orderBy: OrderByLatestCreatedFirst })
+      }
+    }
+    prevQRef.current = q
+  }, [q, setQuery])
+
   const onIntersectHandler = () => {
     console.debug('[Search] onIntersectHandler \n - hasNextPage:', hasNextPage)
     console.info('onIntersectHandler', hasNextPage)
@@ -114,9 +132,11 @@ const Search = ({ limit = 5 }) => {
       pagefindRef.current.init()
       const filters = await pagefindRef.current.filters()
       console.info('[Search] Pagefind search possible filters', filters)
-      const params = {
-        filters: {},
-        sort: BiographiesAvailableOrderBy.find(({ value }) => value === orderBy).sort,
+      const orderByEntry = BiographiesAvailableOrderBy.find(({ value }) => value === orderBy)
+      const params = { filters: {} }
+      // omit sort for relevance so pagefind uses its native score ranking
+      if (orderByEntry.sort) {
+        params.sort = orderByEntry.sort
       }
       if (author.length) {
         params.filters.author = author
@@ -152,6 +172,7 @@ const Search = ({ limit = 5 }) => {
               values={BiographiesAvailableOrderBy}
               selectedValue={orderBy}
               onChange={(item) => {
+                hasManuallySetOrderByRef.current = true
                 setQuery({ orderBy: item.value })
               }}
             />
