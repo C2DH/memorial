@@ -54,6 +54,8 @@ const Search = ({ limit = 5 }) => {
       authors__slug: author,
     }
   }
+  // relevance only has meaning to pagefind; the CMS needs a real sort field
+  const restOrderBy = orderBy === OrderByRelevance ? OrderByLatestCreatedFirst : orderBy
   const {
     fetchNextPage,
     // fetchPreviousPage,
@@ -65,7 +67,7 @@ const Search = ({ limit = 5 }) => {
     status: queryStatus,
     // ...result
   } = useInfiniteQuery({
-    queryKey: ['biographies', author, activeLanguageCode, orderBy],
+    queryKey: ['biographies', author, activeLanguageCode, restOrderBy],
     queryFn: ({ pageParam = 1 }) =>
       axios
         .get('/api/story', {
@@ -73,7 +75,7 @@ const Search = ({ limit = 5 }) => {
           // onDownloadProgress,
           params: {
             limit,
-            orderby: orderBy,
+            orderby: restOrderBy,
             exclude: {
               tags__slug__in: ['static', 'convoy'],
             },
@@ -100,6 +102,10 @@ const Search = ({ limit = 5 }) => {
     enabled: q.length === 0,
   })
   const count = isSearchEnabled ? pagefindResult.matches.length : data?.pages[0].count
+  // relevance is meaningless while browsing without a query, so hide it from the dropdown
+  const orderByOptions = isSearchEnabled
+    ? BiographiesAvailableOrderBy
+    : BiographiesAvailableOrderBy.filter((d) => d.value !== OrderByRelevance)
 
   // auto-switch orderBy to/from relevance when a search starts/ends, unless the user chose one explicitly
   useEffect(() => {
@@ -169,7 +175,7 @@ const Search = ({ limit = 5 }) => {
             />
 
             <OrderByDropdown
-              values={BiographiesAvailableOrderBy}
+              values={orderByOptions}
               selectedValue={orderBy}
               onChange={(item) => {
                 hasManuallySetOrderByRef.current = true
